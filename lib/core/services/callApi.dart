@@ -7,8 +7,8 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-const String DOMAIN = "http://AppMobile.ungdungtructuyen.vn";
-//const String DOMAIN = "http://apimobile.hoabinh.gov.vn";
+//const String DOMAIN = "http://AppMobile.ungdungtructuyen.vn";
+const String DOMAIN = "http://apimobile.hoabinh.gov.vn";
  Timer _timer;
  String tokenDevice="";
 SharedPreferences sharedStorage;
@@ -17,6 +17,7 @@ String ten;
 var datavb = "";
 var vanbandenCapNhat = null;
 int trangThaiVB =0;
+int vbdiTrangThaiVB =0;
 int vbdiCurrentNguoiTrinhID =0;
 String vbdiNguoiSoan= "";
 List lstPhongBanLaVanThuVBDI= [];
