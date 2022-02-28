@@ -1,0 +1,84 @@
+{
+  "project_info": {
+    "project_number": "97574180778",
+    "project_id": "vbdh-hoa-binh",
+    "storage_bucket": "vbdh-hoa-binh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97574180778:android:ef5e94e363d731bb86fdd3",
+        "android_client_info": {
+          "package_name": "com.example.hb_mobile2021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97574180778-s0s05a13dgpj8clivtv42pukhlkokcee.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.hb_mobile2021",
+            "certificate_hash": "8299abada759685f2ccbdfadd25628520f8470e4"
+          }
+        },
+        {
+          "client_id": "97574180778-5n1v8e0hmie64ufnjsigt122lu6tt7ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIWDrhMKbkJc3GkDeet_fhu14goJHusC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97574180778-5n1v8e0hmie64ufnjsigt122lu6tt7ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:97574180778:android:29f230a5351b2c4286fdd3",
+        "android_client_info": {
+          "package_name": "com.hoabinh.gov.hb_mobile2021"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "97574180778-dms50h400eckeclge2bj11rnimddun9b.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.hoabinh.gov.hb_mobile2021",
+            "certificate_hash": "8299abada759685f2ccbdfadd25628520f8470e4"
+          }
+        },
+        {
+          "client_id": "97574180778-5n1v8e0hmie64ufnjsigt122lu6tt7ea.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCIWDrhMKbkJc3GkDeet_fhu14goJHusC0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "97574180778-5n1v8e0hmie64ufnjsigt122lu6tt7ea.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
