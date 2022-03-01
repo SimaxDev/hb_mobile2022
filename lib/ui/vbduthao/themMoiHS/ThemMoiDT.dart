@@ -12,7 +12,7 @@ import 'ThemDT.dart';
 
 
 class ThemMoiDT extends StatefulWidget {
-    ThemMoiDT({Key key}) : super(key: key);
+  ThemMoiDT({Key key}) : super(key: key);
 
   @override
   _ThemMoiDTState createState() => _ThemMoiDTState();
@@ -29,11 +29,6 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
       _timer.cancel();
     });
 
-  }
-  @override
-  void dispose(){
-    super.dispose();
-    _timer.cancel();
   }
 
   void _handleUserInteraction([_]) {
@@ -83,7 +78,7 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
               ? TabBarView(
             physics: NeverScrollableScrollPhysics(),
             children: [
-            ThemDT(),
+              ThemDT(),
               ThemPT(),
             ],
           )
@@ -91,6 +86,6 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
             child: CircularProgressIndicator(),
           ),
         ),
-    ),);
+      ),);
   }
 }

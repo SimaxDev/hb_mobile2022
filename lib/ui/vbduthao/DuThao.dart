@@ -20,7 +20,8 @@ class DuThaoWidget extends StatefulWidget {
   final int val;
    final String username;
    String nam;
-  DuThaoWidget({Key key, this.urlLoaiVB,this.val,this.username, this.pageindex,this.nam}) : super(key: key);
+
+  DuThaoWidget({Key key, this.urlLoaiVB,this.val,this.username, this.pageindex,this.nam }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {

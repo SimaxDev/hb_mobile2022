@@ -61,7 +61,7 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
      _initializeTimer();
     super.initState();
     duThao =  widget.duThaoPT;
-
+     isLoading = true;
   }
    @override
    void dispose(){
@@ -241,7 +241,7 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     padding: EdgeInsets.fromLTRB(22.0,15, 0, 15),
-                    child: Text(nguoiDuyet!= null ? nguoiDuyet:"",
+                    child: Text(nguoiDuyet!= null ? nguoiDuyet : "",
                       style: TextStyle(
                           fontSize: 14,
                           fontWeight: FontWeight.normal

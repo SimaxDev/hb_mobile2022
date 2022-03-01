@@ -38,6 +38,7 @@ class _ThemDTState extends State<ThemDT> {
   bool daKy = false;
   bool daDuyet = false;
   bool hoaToc = false;
+  bool IdDocument = false;
 
   List<ListData> vanbanListLoai = [];
   TextEditingController textEditingController =  new TextEditingController();
@@ -49,6 +50,7 @@ class _ThemDTState extends State<ThemDT> {
   String cbKy =  "";
   String cbDuyet =  "";
   String cbHoaToc =  "";
+  String DuThaoBo =  "";
   Timer _timer;
 
 
@@ -60,11 +62,6 @@ class _ThemDTState extends State<ThemDT> {
 
   }
 
-  @override
-  void dispose(){
-    super.dispose();
-    _timer.cancel();
-  }
   void _handleUserInteraction([_]) {
     if (!_timer.isActive) {
       // This means the user has been logged out
@@ -135,437 +132,455 @@ class _ThemDTState extends State<ThemDT> {
       onPanDown: _handleUserInteraction,
       onScaleStart: _handleUserInteraction,
       child:Scaffold(
-      body: isLoading
-          ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue)))
-          : ListView(
-        children: [
-          Column(
-            children: [
-              Container(
+        body: isLoading
+            ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue)))
+            : ListView(
+          children: [
+            Column(
+              children: [
+                Container(
 
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black38 ,
-                    width: 1 ,
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black38 ,
+                      width: 1 ,
+                    ),
+                    borderRadius: BorderRadius.circular(7),
                   ),
-                  borderRadius: BorderRadius.circular(7),
-                ),
 
-                // width: MediaQuery
-                //     .of(context)
-                //     .size
-                //     .width * 0.67,
-                child: Column(children: [
-                  userHasQuyenKyVB.length >0 ? Padding(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Radio(
-                          value: 1,
-                          groupValue: id,
-                          onChanged: (val) {
-                            setState(() {
-                              clickChon = false;
-                              radioButtonItem = 'ONE';
-                              id = 1;
-                            });
-                          },
-                        ),
-                        Text(
-                          'Dự thảo đơn vị',
-                          style: new TextStyle(fontSize: 14.0),
-                        ),
-                        Radio(
-                          value: 2,
-                          groupValue: id,
-                          onChanged: (val) {
-
-                            setState(() {
-                              clickChon  = true;
-                              radioButtonItem = 'TWO';
-                              id = 2;
-                            });
-                          },
-                        ),
-                        Text(
-                          'Dự thảo PB',
-                          style: new TextStyle(
-                            fontSize: 14.0,
+                  // width: MediaQuery
+                  //     .of(context)
+                  //     .size
+                  //     .width * 0.67,
+                  child: Column(children: [
+                    userHasQuyenKyVB.length >0 ? Padding(
+                      padding: EdgeInsets.all(10),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Radio(
+                            value: 1,
+                            groupValue: id,
+                            onChanged: (val) {
+                              setState(() {
+                                clickChon = false;
+                                radioButtonItem = 'ONE';
+                                id = 1;
+                              });
+                            },
                           ),
+                          Text(
+                            'Dự thảo đơn vị',
+                            style: new TextStyle(fontSize: 14.0),
+                          ),
+                          Radio(
+                            value: 2,
+                            groupValue: id,
+                            onChanged: (val) {
+
+                              setState(() {
+                                clickChon  = true;
+                                radioButtonItem = 'TWO';
+                                id = 2;
+                              });
+                            },
+                          ),
+                          Text(
+                            'Dự thảo PB',
+                            style: new TextStyle(
+                              fontSize: 14.0,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ): SizedBox(),
+                    clickChon  ? Container(
+
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          color: Colors.black38 ,
+                          width: 1 ,
+                        ),
+                        borderRadius: BorderRadius.circular(7),
+                      ),
+
+                      width: MediaQuery
+                          .of(context)
+                          .size
+                          .width * 0.67,
+
+                      margin: EdgeInsets.only(right: 12),
+                      padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+
+
+                      child:  Text(
+                        tenLoaiChon,
+
+                        style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                        textAlign: TextAlign.justify,
+                        maxLines: 100,
+
+
+                      ),
+
+                    ):SizedBox(),
+                    SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.28,
+                          padding: EdgeInsets.only(left: 15.0),
+                          child: Text(
+                            "Người soạn thảo",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                        ),
+                        Container(
+
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              color: Colors.black38 ,
+                              width: 1 ,
+                            ),
+                            borderRadius: BorderRadius.circular(7),
+                          ),
+
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.67,
+
+                          margin: EdgeInsets.only(right: 12),
+                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+
+
+                          child:  Text(
+                            "Văn thư: "+ hoVaTen + " - " + tenPhongBan,
+
+                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                            textAlign: TextAlign.justify,
+                            maxLines: 100,
+
+
+                          ),
+
+                        )
+                      ],
+                    ),  SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.28,
+                          padding: EdgeInsets.only(left: 15.0),
+                          child: Text(
+                            'Loại văn bản(*)',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                        ),
+                        Container(
+                            width: MediaQuery.of(context).size.width * 0.7,
+                            ///height: MediaQuery.of(context).size.height * 0.07,
+                            //width: MediaQuery.of(context).size.width * 0.605,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            padding: EdgeInsets.only(left: 0.0,right: 10),
+
+                            child:   TreeLoaiVanBan(
+                              listData: vanbanListLoai,
+                              title: 'Chọn loại văn bản',
+                              onSaved: (value) {
+                                setState(() {
+                                  idLoaiVB= value[0] ;
+                                });
+                              },
+                            )
+
                         ),
                       ],
-                    ),
-                  ): SizedBox(),
-                  clickChon  ? Container(
-
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                        color: Colors.black38 ,
-                        width: 1 ,
-                      ),
-                      borderRadius: BorderRadius.circular(7),
-                    ),
-
-                    width: MediaQuery
-                        .of(context)
-                        .size
-                        .width * 0.67,
-
-                    margin: EdgeInsets.only(right: 12),
-                    padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-
-
-                    child:  Text(
-                      tenLoaiChon,
-
-                      style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                      textAlign: TextAlign.justify,
-                      maxLines: 100,
-
-
-                    ),
-
-                  ):SizedBox(),
-                  SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.28,
-                        padding: EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          "Người soạn thảo",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                      ),
-                      Container(
-
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black38 ,
-                            width: 1 ,
+                    ),  SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.28,
+                          padding: EdgeInsets.only(left: 15.0),
+                          child: Text(
+                            'Trích yếu*',
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                           ),
-                          borderRadius: BorderRadius.circular(7),
                         ),
 
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.67,
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.675,
 
-                        margin: EdgeInsets.only(right: 12),
-                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          margin: EdgeInsets.only(right: 10),
+                          // padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
 
+                          child: TextFormField(
+                            controller: textEditingController,
 
-                        child:  Text(
-                          "Văn thư: "+ hoVaTen + " - " + tenPhongBan,
-
-                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                          textAlign: TextAlign.justify,
-                          maxLines: 100,
-
-
-                        ),
-
-                      )
-                    ],
-                  ),  SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.28,
-                        padding: EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          'Loại văn bản(*)',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                      ),
-                      Container(
-                        width: MediaQuery.of(context).size.width * 0.7,
-                        ///height: MediaQuery.of(context).size.height * 0.07,
-                          //width: MediaQuery.of(context).size.width * 0.605,
-                        height: MediaQuery.of(context).size.height * 0.05,
-                        padding: EdgeInsets.only(left: 0.0,right: 10),
-
-                        child:   TreeLoaiVanBan(
-                          listData: vanbanListLoai,
-                          title: 'Chọn loại văn bản',
-                          onSaved: (value) {
-                            setState(() {
-                              idLoaiVB= value[0] ;
-                            });
-                          },
-                        )
-
-                      ),
-                    ],
-                  ),  SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.28,
-                        padding: EdgeInsets.only(left: 15.0),
-                        child: Text(
-                          'Trích yếu*',
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                      ),
-
-                      Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.675,
-
-                        margin: EdgeInsets.only(right: 10),
-                        // padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-
-                        child: TextFormField(
-                          controller: textEditingController,
-
-                          //onChanged: (newValue) => textEditingController =  newValue as TextEditingController,
-                          autovalidateMode: AutovalidateMode.onUserInteraction,
-                          decoration: InputDecoration(
-                            border: OutlineInputBorder(
-                                borderSide: new BorderSide(color: Colors.lightBlue)),
-                            contentPadding:
-                            EdgeInsets.symmetric(vertical: 0,horizontal: 10),
-                          ),
-
-                        ),
-                      ),
-
-                    ],
-                  ),  SizedBox(height: 5,),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.28,
-                        padding: EdgeInsets.only(left: 15.0,bottom: 20),
-                        child: Text(
-                          "Chọn văn bản dự thảo",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                        ),
-                      ),
-                      Container(
-
-                        margin: EdgeInsets.only(right: 12),
-                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-
-
-                        child: Column(children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-
-                            child: FlatButton(
-                              child: Text('Đính kèm file...'),
-                              color: Colors.blueAccent,
-                              textColor: Colors.white,
-                              onPressed: () {
-                                selectFile();
-                              },
+                            //onChanged: (newValue) => textEditingController =  newValue as TextEditingController,
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            decoration: InputDecoration(
+                              border: OutlineInputBorder(
+                                  borderSide: new BorderSide(color: Colors.lightBlue)),
+                              contentPadding:
+                              EdgeInsets.symmetric(vertical: 0,horizontal: 10),
                             ),
+
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            margin: EdgeInsets.all(10),
-                            //show file name here
-                            child:selectedfile != null?
-                            Text(basename(selectedfile.path)):
-                            Text("Nên sử dụng file pdf",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
-                                  color: Colors.blue),),
-                            //basename is from path package, to get filename from path
-                            //check if file is selected, if yes then show file name
-                          ),
-
-                        ],),
-
-
-                      )
-                    ],
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 10),
-                    child:Row(children: [
-                      Row(children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 5),
-                          child: Text("DT đã ký",
-                          style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
-                        Checkbox( value: daKy, onChanged: (val){
-                          setState(() {
-                            daKy= val;
-                            cbKy =  "1";
-                          });
-
-                        }),
-                      ],),
-                      Row(children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 5),
-                          child: Text("DT đã duyệt",
-                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
-                        Checkbox( value: daDuyet, onChanged: (val){
-                          setState(() {
-                            daDuyet= val;
-                            cbDuyet = "2";
-                          });
-
-                        }),
-                      ],),
-                      Row(children: [
-                        Container(
-                          margin: EdgeInsets.only(left: 5),child: Text("Hỏa "
-                            "tốc",
-                          style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
-                        Checkbox( value: hoaToc, onChanged: (val){
-                          setState(() {
-                            hoaToc= val;
-                            cbHoaToc = "3";
-                          });
-
-                        }),
-                      ],)
-
-                    ],) ,),
-                  Container(margin: EdgeInsets.only(left: 15,right: 10),
-                    child: Text("Lưu ý: Chỉ tích DT đã duyệt khi dự thảo VB quy trình LĐ Ủy ban ký và DT đã được "
-                        "lãnh đạo duyệt",style: TextStyle(fontSize: 14,color: Colors.red),),),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Container(
-                        width: MediaQuery
-                            .of(context)
-                            .size
-                            .width * 0.28,
-                        padding: EdgeInsets.only(left: 15.0,bottom: 20),
-                        child: Text(
-                          "Tài liệu đính kèm",
-                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                         ),
-                      ),
-                      Container(
 
-                        // decoration: BoxDecoration(
-                        //   border: Border.all(
-                        //     color: Colors.black38 ,
-                        //     width: 1 ,
-                        //   ),
-                        //   borderRadius: BorderRadius.circular(7),
-                        // ),
-
-                        // width: MediaQuery
-                        //     .of(context)
-                        //     .size
-                        //     .width * 0.67,
-
-                        margin: EdgeInsets.only(right: 12),
-                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-                  child: Column(children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            child: FlatButton(
-                              child: Text('Đính kèm file...'),
-                              color: Colors.blueAccent,
-                              textColor: Colors.white,
-                              onPressed: () {
-                                selectFile1();
-                              },
-                            ),
+                      ],
+                    ),  SizedBox(height: 5,),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.28,
+                          padding: EdgeInsets.only(left: 15.0,bottom: 20),
+                          child: Text(
+                            "Chọn văn bản dự thảo",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                           ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.5,
-                            margin: EdgeInsets.all(10),
-                            //show file name here
-                            child:selectedfile1 != null?
-                            Text(basename(selectedfile1.path)):
-                            Text("",
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
-                                  color: Colors.blue),),
-                            //basename is from path package, to get filename from path
-                            //check if file is selected, if yes then show file name
-                          ),
-                        ],),
+                        ),
+                        Container(
 
-                      )
-                    ],
-                  )
-                ],),
-              ),
-              Container( alignment: Alignment.topLeft,
-                margin: EdgeInsets.all(10),child: Text("Chọn cán bộ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),),
-              Container(
-                decoration: BoxDecoration(
-                  border: Border.all(
-                    color: Colors.black38 ,
-                    width: 1 ,
-                  ),
-                  borderRadius: BorderRadius.circular(7),
-                ),
-                child: groupID == 198? TreeThemDT(tenLoaiChon:tenLoaiChon, clickChon:clickChon): TreeThemDTVPUB(tenLoaiChon:tenLoaiChon, clickChon:clickChon),
+                          margin: EdgeInsets.only(right: 12),
+                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
 
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
 
-                  Padding(padding: EdgeInsets.only(left: 10,right: 10),
-                    child:   TextButton.icon (
-                        icon: Icon(Icons.send_and_archive),
-                        label: Text("Trình ký",style: TextStyle(fontWeight: FontWeight.bold),),
-                        onPressed:
-                            ()  async {
-
-                          var thanhcong = null;
-                          bool isAllSpaces(String input) {
-                            String output = input.replaceAll(' ', '');
-                            if(output == '') {
-                              return true;
-                            }
-                            return false;
-                          }
-                          var tendangnhap = sharedStorage.getString("username");
-                          String iaa =  textEditingController.text.trim();
-                          if(isAllSpaces(iaa))
-                          {showAlertDialog(context,"Nhập trích yếu");
-                          }
-                          else
-                          {
+                          child: Column(children: [
                             Container(
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(top: 10),
-                              child: CircularProgressIndicator(
-                                valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                              width: MediaQuery.of(context).size.width * 0.5,
+
+                              child: FlatButton(
+                                child: Text('Đính kèm file...'),
+                                color: Colors.blueAccent,
+                                textColor: Colors.white,
+                                onPressed: () {
+                                  selectFile();
+                                },
                               ),
-                            )
-                            ;
-                            //setState(() async {
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              margin: EdgeInsets.all(10),
+                              //show file name here
+                              child:selectedfile != null?
+                              Text(basename(selectedfile.path)):
+                              Text("Nên sử dụng file pdf",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
+                                    color: Colors.blue),),
+                              //basename is from path package, to get filename from path
+                              //check if file is selected, if yes then show file name
+                            ),
+
+                          ],),
+
+
+                        )
+                      ],
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 10),
+                      child:Row(children: [
+                        Row(children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 5),
+                            child: Text("DT đã ký",
+                              style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
+                          Checkbox( value: daKy, onChanged: (val){
+                            setState(() {
+                              daKy= val;
+                              cbKy =  "1";
+                            });
+
+                          }),
+                        ],),
+                        Row(children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 5),
+                            child: Text("DT đã duyệt",
+                              style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
+                          Checkbox( value: daDuyet, onChanged: (val){
+                            setState(() {
+                              daDuyet= val;
+                              cbDuyet = "2";
+                            });
+
+                          }),
+                        ],),
+                      ],) ,),
+                    Container(margin: EdgeInsets.only(left: 15,right: 10),
+                      child: Text("Lưu ý: Chỉ tích DT đã duyệt khi dự thảo VB quy trình LĐ Ủy ban ký và DT đã được "
+                          "lãnh đạo duyệt",style: TextStyle(fontSize: 14,color: Colors.red),),),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.28,
+                          padding: EdgeInsets.only(left: 15.0,bottom: 20),
+                          child: Text(
+                            "Tài liệu đính kèm",
+                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                          ),
+                        ),
+                        Container(
+
+                          // decoration: BoxDecoration(
+                          //   border: Border.all(
+                          //     color: Colors.black38 ,
+                          //     width: 1 ,
+                          //   ),
+                          //   borderRadius: BorderRadius.circular(7),
+                          // ),
+
+                          // width: MediaQuery
+                          //     .of(context)
+                          //     .size
+                          //     .width * 0.67,
+
+                          margin: EdgeInsets.only(right: 12),
+                          padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                          child: Column(children: [
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              child: FlatButton(
+                                child: Text('Đính kèm file...'),
+                                color: Colors.blueAccent,
+                                textColor: Colors.white,
+                                onPressed: () {
+                                  selectFile1();
+                                },
+                              ),
+                            ),
+                            Container(
+                              width: MediaQuery.of(context).size.width * 0.5,
+                              margin: EdgeInsets.all(10),
+                              //show file name here
+                              child:selectedfile1 != null?
+                              Text(basename(selectedfile1.path)):
+                              Text("Nên sử dụng file pdf",
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
+                                    color: Colors.blue),),
+                              //basename is from path package, to get filename from path
+                              //check if file is selected, if yes then show file name
+                            ),
+                          ],),
+
+                        )
+                      ],
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 10),
+                      child:Row(children: [
+
+
+                        Row(children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 5),child: Text("Hỏa "
+                              "tốc",
+                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
+                          Checkbox( value: hoaToc, onChanged: (val){
+                            setState(() {
+                              hoaToc= val;
+                              cbHoaToc = "3";
+                            });
+
+                          }),
+                        ],),
+                        Row(children: [
+                          Container(
+                            margin: EdgeInsets.only(left: 5),child: Text("DT xin ý kiến",
+                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
+                          Checkbox( value: IdDocument, onChanged: (val){
+                            setState(() {
+                              IdDocument= val;
+                              DuThaoBo = "1";
+                            });
+
+                          }),
+                        ],),
+                      ],) ,),
+                    Container(margin: EdgeInsets.only(left: 15,right: 10 ,bottom: 10),
+                      child: Text("Lưu ý: Chỉ tích DT xin ý kiến khi dự thảo VB chỉ cần xin ý kiến LĐ không cần phát hành văn bản đi",style: TextStyle(fontSize: 14,color: Colors.red),),),
+                  ],),
+                ),
+                Container( alignment: Alignment.topLeft,
+                  margin: EdgeInsets.all(10),child: Text("Chọn cán bộ",style: TextStyle(fontSize: 18,fontWeight: FontWeight.bold),),),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(
+                      color: Colors.black38 ,
+                      width: 1 ,
+                    ),
+                    borderRadius: BorderRadius.circular(7),
+                  ),
+                  child: groupID == 198? TreeThemDT(tenLoaiChon:tenLoaiChon, clickChon:clickChon): TreeThemDTVPUB(tenLoaiChon:tenLoaiChon, clickChon:clickChon),
+
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+
+                    Padding(padding: EdgeInsets.only(left: 10,right: 10),
+                      child:   TextButton.icon (
+                          icon: Icon(Icons.send_and_archive),
+                          label: Text("Trình ký",style: TextStyle(fontWeight: FontWeight.bold),),
+                          onPressed:
+                              ()  async {
+
+                            var thanhcong = null;
+                            bool isAllSpaces(String input) {
+                              String output = input.replaceAll(' ', '');
+                              if(output == '') {
+                                return true;
+                              }
+                              return false;
+                            }
+                            var tendangnhap = sharedStorage.getString("username");
+                            String iaa =  textEditingController.text.trim();
+                            if(isAllSpaces(iaa))
+                            {showAlertDialog(context,"Nhập trích yếu");
+                            }
+                            else
+                            {
+                              Container(
+                                alignment: Alignment.center,
+                                padding: const EdgeInsets.only(top: 10),
+                                child: CircularProgressIndicator(
+                                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                                ),
+                              )
+                              ;
+                              //setState(() async {
                               String base64PDF = "";
                               String base64PDF1 = "";
-                            var ch ;
+                              var ch ;
                               if (selectedfile != null) {
                                 // var bytes1 = await rootBundle.load(selectedfile.path);
                                 List<int> Bytes = await  selectedfile.readAsBytesSync();
 
-                                 base64PDF =await  base64Encode(Bytes);
+                                base64PDF =await  base64Encode(Bytes);
 
                               }
                               if (selectedfile1 != null) {
@@ -573,7 +588,7 @@ class _ThemDTState extends State<ThemDT> {
 
                                 base64PDF1 = await base64Encode(Bytes);
 
-                              ch =  await MultipartFile.fromFile(selectedfile1?.path,
+                                ch =  await MultipartFile.fromFile(selectedfile1?.path,
                                     filename: selectedfile1.path.split('/').last ?? 'image.jpeg');
                               }
                               var userDuocCHon = "";
@@ -585,101 +600,101 @@ class _ThemDTState extends State<ThemDT> {
                               for( var item in ls2.split("^"))
                                 if(!userDuocCHon.contains(item))
                                   userDuocCHon += item + "^";
-                                if(userDuocCHon != null && userDuocCHon != "")
-                              userDuocCHon =  userDuocCHon.substring(0,userDuocCHon.length-1);
+                              if(userDuocCHon != null && userDuocCHon != "")
+                                userDuocCHon =  userDuocCHon.substring(0,userDuocCHon.length-1);
 
-                            EasyLoading.show();
+                              EasyLoading.show();
                               thanhcong=  await postThemDT(  textEditingController
                                   .text, idLoaiVB.toString(),cbKy,cbDuyet,cbHoaToc,vNguoiKy.toString(),vNguoiTrinh.toString(),toTrinh.toString()
                                   ,userDuocCHon,base64PDF1,base64PDF);
-                            EasyLoading.dismiss();
-                            Navigator.of(context).pop();
-                            textEditingController.text = "";
+                              EasyLoading.dismiss();
+                              Navigator.of(context).pop();
+                              textEditingController.text = "";
                               showAlertDialog(context, json.decode(thanhcong)['Message']);
 
-                            //
-                            //  Navigator.pop(context);
-                          }
+                              //
+                              //  Navigator.pop(context);
+                            }
 
 
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                        )
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                            foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                          )
+                      ),
+
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 10,right: 10),
+                      child:   TextButton.icon (
+                          icon: Icon(Icons.refresh_outlined),
+                          label: Text('Nhập lại',style: TextStyle(fontWeight: FontWeight.bold),),
+                          onPressed: () {
+                            setState(() {
+                              textEditingController.text = "";
+                              daKy = false;
+                              daDuyet =  false;
+                              hoaToc =  false;
+                              selectedfile = null;
+                              selectedfile1 = null;
+
+                            });
+
+
+
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.black12),
+                            foregroundColor: MaterialStateProperty.all<Color>(Colors.black45),
+                          )
+                      ),
+                    ),
+                    Padding(padding: EdgeInsets.only(left: 10,right: 10),
+                      child:   TextButton.icon (
+                        // child: Text("Đóng lại",style: TextStyle(fontWeight: FontWeight.bold),),
+                          icon: Icon(Icons.delete_forever),
+                          label: Text('Đóng lại',style: TextStyle(fontWeight: FontWeight.bold)),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                            foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                          )
+                      ),
                     ),
 
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 10,right: 10),
-                    child:   TextButton.icon (
-                        icon: Icon(Icons.refresh_outlined),
-                        label: Text('Nhập lại',style: TextStyle(fontWeight: FontWeight.bold),),
-                        onPressed: () {
-                          setState(() {
-                            textEditingController.text = "";
-                            daKy = false;
-                            daDuyet =  false;
-                            hoaToc =  false;
-                            selectedfile = null;
-                            selectedfile1 = null;
+                  ],),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
 
-                          });
+                    Padding(padding: EdgeInsets.only(bottom: 10),
+                      child:
+                      TextButton.icon (
+                          icon: Icon(Icons.check),
+                          label: Text("Cập nhật/Xin ý kiến dự thảo",style: TextStyle(fontWeight: FontWeight.bold),),
+                          onPressed: () {
 
-
-
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.black12),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.black45),
-                        )
+                          },
+                          style: ButtonStyle(
+                            // backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent),
+                            // foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                            foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                          )
+                      ),
                     ),
-                  ),
-                  Padding(padding: EdgeInsets.only(left: 10,right: 10),
-                    child:   TextButton.icon (
-                      // child: Text("Đóng lại",style: TextStyle(fontWeight: FontWeight.bold),),
-                        icon: Icon(Icons.delete_forever),
-                        label: Text('Đóng lại',style: TextStyle(fontWeight: FontWeight.bold)),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                        )
-                    ),
-                  ),
-
-                ],),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-
-                  Padding(padding: EdgeInsets.only(bottom: 10),
-                    child:
-                    TextButton.icon (
-                        icon: Icon(Icons.check),
-                        label: Text("Cập nhật/Xin ý kiến dự thảo",style: TextStyle(fontWeight: FontWeight.bold),),
-                        onPressed: () {
-
-                        },
-                        style: ButtonStyle(
-                          // backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent),
-                          // foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
-                          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                        )
-                    ),
-                  ),
-                ],)
+                  ],)
 
 
 
 
-            ],
-          ),
-        ],
-      ),
-    ),);
+              ],
+            ),
+          ],
+        ),
+      ),);
   }
 
 

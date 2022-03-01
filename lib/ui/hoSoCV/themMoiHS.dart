@@ -1000,6 +1000,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                                  }
                                  return false;
                                }
+
                                var tendangnhap = sharedStorage.getString("username");
                                String iaa =  _maHoSo.text;
                                // .trim();
@@ -1041,9 +1042,11 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                                     _soLuongTo.text,_soLuongTrang.text,dropdownValueTT.toString(),_ngonNgu.text,
                                     _tuKhoa.text,base64PDF,mucDo);
                                  EasyLoading.dismiss();
+                                // reloadContacts();
 
-                                 Navigator.of(context).pop();
+                                 Navigator.of(context).pop(true);
                                  showAlertDialog(context, json.decode(thanhcong)['Message']);
+
 
                                  //
                                  //  Navigator.of(context).pop();
@@ -1086,6 +1089,8 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
       ),
     ),);
   }
+
+
 
 
 }
