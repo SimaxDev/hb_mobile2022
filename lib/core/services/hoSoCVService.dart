@@ -102,7 +102,7 @@ import 'callApi.dart';
     }
   }
   Future<String>getDataByKeyTrangThai1(String ActionXL,String
-  trangthai,int skip, int pageSize,int skipquey) async {
+  trangthai,int skip, int pageSize,int skipquey , String Yearvb) async {
     if(trangthai == "6"){
 
       trangthai = "-1";
@@ -117,6 +117,7 @@ import 'callApi.dart';
     parts.add('pagesize=' + pageSize.toString());
     parts.add('ActionXL=' + ActionXL.toString());
     parts.add('hscvTrangThaiXuLy=' + trangthai);
+    parts.add('SYear=' + Yearvb);
   //  parts.add('SYear=' + nam);
     var formData = parts.join('&');
     var response = await responseDataPost(url, formData);
