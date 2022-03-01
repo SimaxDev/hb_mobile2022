@@ -292,7 +292,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
                                   onChanged: (val) {
                                     setState(() {
                                       testthuhomerxoa = val;
-                                      testthuhomerxoa = text1;
+                                     // testthuhomerxoa = text1;
 
                                     generateProductList(testthuhomerxoa);
                                     setState(() {

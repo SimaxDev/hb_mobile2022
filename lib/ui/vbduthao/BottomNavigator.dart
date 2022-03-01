@@ -203,6 +203,7 @@ class _BottomNav extends State<BottomNav> {
                       vbdiTrangThaiVB != 5 &&
                       vbdiTrangThaiVB != 8 &&
                       vbdiTrangThaiVB != 3 &&
+                      vbdiTrangThaiVB != 1 &&
                       vbdiTrangThaiVB != 6
                       ? Container(
                     child: InkWell(
