@@ -1,8 +1,11 @@
 import 'dart:async';
 import 'dart:io';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
+import 'package:hb_mobile2021/core/services/HomePageService.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/restart.dart';
@@ -69,16 +72,27 @@ class BottomNavigatorState extends State<BottomNavigator> {
     _timer.cancel();
     _initializeTimer();
   }
+  getTTVBDen() async {
+    DateTime now = DateTime.now();
+    String Yearvb = DateFormat('yyyy').format(now);
 
+    var vbden = await getthongbao(Yearvb);
+    var vbdi = await getthongbaoDi(Yearvb);
+    var vbdt = await getthongbaoDT(Yearvb);
+
+
+  }
   @override
   void initState() {
     super.initState();
+
+
+    EasyLoading.dismiss();
     //getUserInfor();
     _currentIndex = 0;
-if(widget.IDDonVi != null && widget.IDDonVi != ""){
-
-  GetInfoUser(widget.username);
-}
+// if(widget.IDDonVi != null && widget.IDDonVi != ""){
+//   GetInfoUser(widget.username);
+// }
     if (mounted) {setState(() {
       if(widget.page == null ){
 
@@ -104,58 +118,7 @@ if(widget.IDDonVi != null && widget.IDDonVi != ""){
 
 
   }
-  GetInfoUser(String TenDangNhap) async {
-    sharedStorage = await SharedPreferences.getInstance();
-    if (sharedStorage != null){
-      // isLoading = false;
-      var item = await GetInfoUserServicedoNVi(TenDangNhap,widget.IDDonVi);
 
-      tenPhongBan =  item['CurrentTenPhongBan']!=
-          null?item['CurrentTenPhongBan']:"";
-      OrganName =  item['OrganName']!=
-          null?item['OrganName']:"";
-      notIsQuanTriNew =  item['notIsQuanTriNew']!=
-          null?item['notIsQuanTriNew']:false;
-      isQTNew =  item['isQTNew']!=
-          null?item['isQTNew']:false;
-      lstThongTinGroup =  item['lstThongTinGroup']!= null?item['lstThongTinGroup']:[];
-      EmailHT =  item['userEmail']!= null?item['userEmail']:"";
-      Telephone =  item['userDienThoaiDD']!= null?item['userDienThoaiDD']:"";
-      userGroups =  item['userGroups']!= null?item['userGroups']:[];
-      // tenPhongBan =  item['CurrentTenPhongBan'];
-      butPheVBD =  item['ListPermissions']['ButPheVanBan'];
-      groupID =  item['groupID'];
-      SiteAction =  item['SiteAction'];
-      ThemMoiVanBanDi =  item['ListPermissions']['ThemMoiVanBanDi'];
-      lstPhongBanLaVanThuVBDI =  item['lstPhongBanLaVanThuVBDI'];
-      lstPhongBanLaVanThuVBDEN =  item['lstPhongBanLaVanThuVBDEN'];
-      ThemVanBanDen =  item['ListPermissions']['ThemVanBanDen'];
-      ThietLapHoiBao =  item['ListPermissions']['ThietLapHoiBao'];
-      CapSoVanBanDi =  item['ListPermissions']['CapSoVanBanDi'];
-      userTenTruyCap =  item['userTenTruyCap'];
-      CurrentDonViID = item['CurrentDonVi'] ==
-          null ?  0 :item['CurrentDonVi']['LookupId'];
-      DonViInSiteID = item['DonViInSite'] ==
-          null ?  0 :item['DonViInSite']['LookupId'];
-
-      ID = item['ID'];
-      currentUserID = ID;
-      userHasQuyenKyVB =  item['lstPBHasVanBan'];
-      hanXLVBD = item['ListPermissions']['GuiVanBanD'];
-      GuiVanBanDi = item['ListPermissions']['GuiVanBanDi'];
-      SuaVanBanDen = item['ListPermissions']['SuaVanBanDen'];
-      GuiVanBan = item['ListPermissions']['GuiVanBan'];
-
-      userChucVu = item['userChucVu'].length >0 && item['userChucVu'][0]['LookupValue'] != null  ?
-      item['userChucVu'][0]['LookupValue']:"";
-      user = UserJson.fromJson(item);
-      // user = jsonToUserJson(item);
-
-
-      sharedStorage.setString("hoten", user.Title);
-      sharedStorage.setString("chucvu", user.ChucVu);
-    }
-  }
 
   // getUserInfor() async {
   //   //String url = "http://apimobile.hoabinh.gov.vn/api/Home/GetUser";
