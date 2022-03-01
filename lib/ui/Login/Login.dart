@@ -97,48 +97,63 @@ class LoginState extends State<LoginWidget> {
 
       FirebaseMessaging.instance.subscribeToTopic("truyenthong_all");
 
-      tenPhongBan =  item['CurrentTenPhongBan']!=
-          null?item['CurrentTenPhongBan']:"";
-      notIsQuanTriNew =  item['notIsQuanTriNew']!=
-          null?item['notIsQuanTriNew']:false;
-      isQTNew =  item['isQTNew']!=
-          null?item['isQTNew']:false;
-      EmailHT =  item['userEmail']!= null?item['userEmail']:"";
-      Telephone =  item['userDienThoaiDD']!= null?item['userDienThoaiDD']:"";
-      userGroups =  item['userGroups']!= null?item['userGroups']:[];
-      OrganName =  item['OrganName']!=
-          null?item['OrganName']:"";
-      CurrentTenDonVi =  item['CurrentTenDonVi']!=
-          null?item['CurrentTenDonVi']:"";
-      lstThongTinGroup =  item['lstThongTinGroup']!= null?item['lstThongTinGroup']:[];
-      // tenPhongBan =  item['CurrentTenPhongBan'];
-      butPheVBD =  item['ListPermissions']['ButPheVanBan'];
-      groupID =  item['groupID'];
-      SiteAction =  item['SiteAction'];
-      ThemMoiVanBanDi =  item['ListPermissions']['ThemMoiVanBanDi'];
-      lstPhongBanLaVanThuVBDI =  item['lstPhongBanLaVanThuVBDI'];
-      lstPhongBanLaVanThuVBDEN =  item['lstPhongBanLaVanThuVBDEN'];
-      ThemVanBanDen =  item['ListPermissions']['ThemVanBanDen'];
-      ThietLapHoiBao =  item['ListPermissions']['ThietLapHoiBao'];
-      CapSoVanBanDi =  item['ListPermissions']['CapSoVanBanDi'];
-      userTenTruyCap =  item['userTenTruyCap'];
-      CurrentDonViID = item['CurrentDonVi'] ==
-          null ?  0 :item['CurrentDonVi']['LookupId'];
-      DonViInSiteID = item['DonViInSite'] ==
-          null ?  0 :item['DonViInSite']['LookupId'];
+      tenPhongBan = item['CurrentTenPhongBan'] != null
+          ? item['CurrentTenPhongBan']
+          : "";
+      OrganName = item['OrganName'] != null ? item['OrganName'] : "";
+      notIsQuanTriNew =
+      item['notIsQuanTriNew'] != null ? item['notIsQuanTriNew'] : false;
+      isQTNew = item['isQTNew'] != null ? item['isQTNew'] : false;
+      lstThongTinGroup =
+      item['lstThongTinGroup'] != null ? item['lstThongTinGroup'] : [];
+      EmailHT = item['userEmail'] != null ? item['userEmail'] : "";
+      Telephone =
+      item['userDienThoaiDD'] != null ? item['userDienThoaiDD'] : "";
+      userGroups = item['userGroups'] != null ? item['userGroups'] : [];
+      butPheVBD = item['ListPermissions'] != null &&
+          item['ListPermissions']['ButPheVanBan'] != null
+          ? item['ListPermissions']['ButPheVanBan']
+          : false;
+      groupID = item['groupID'] != null ? item['groupID']:0;
+      lstPhongBanLaVanThuVBDI = item['lstPhongBanLaVanThuVBDI'];
+      lstPhongBanLaVanThuVBDEN = item['lstPhongBanLaVanThuVBDEN'];
+      SiteAction = item['SiteAction']!= null ?item['SiteAction'] :"";
+
+      if(item['ListPermissions'] != null && item['ListPermissions'].length
+          >0){
+        ThemMoiVanBanDi = item['ListPermissions']['ThemMoiVanBanDi'] !=
+            null ?item['ListPermissions']['ThemMoiVanBanDi'] :false;
+        ThemVanBanDen = item['ListPermissions']['ThemVanBanDen']!=
+            null?item['ListPermissions']['ThemVanBanDen']:false;
+        ThietLapHoiBao = item['ListPermissions']['ThietLapHoiBao']!=
+            null?item['ListPermissions']['ThietLapHoiBao']:false;
+        CapSoVanBanDi = item['ListPermissions']['CapSoVanBanDi'] !=
+            null?item['ListPermissions']['CapSoVanBanDi']:false;
+        hanXLVBD = item['ListPermissions']['GuiVanBanD']!=
+            null?item['ListPermissions']['GuiVanBanD']:false;
+        GuiVanBanDi = item['ListPermissions']['GuiVanBanDi']!=
+            null?item['ListPermissions']['GuiVanBanDi']:false;
+        SuaVanBanDen = item['ListPermissions']['SuaVanBanDen']!= null?item['ListPermissions']['SuaVanBanDen']:false;
+        GuiVanBan = item['ListPermissions']['GuiVanBan'] !=
+            null?item['ListPermissions']['GuiVanBan']:false;
+      }
+
+      userTenTruyCap = item['userTenTruyCap'] != null?item['userTenTruyCap']:"";
+      CurrentDonViID =
+      item['CurrentDonVi'] == null ? 0 : item['CurrentDonVi']['LookupId'];
+      DonViInSiteID =
+      item['DonViInSite'] == null ? 0 : item['DonViInSite']['LookupId'];
 
       ID = item['ID'];
       currentUserID = ID;
-      userHasQuyenKyVB =  item['lstPBHasVanBan'];
-      hanXLVBD = item['ListPermissions']['GuiVanBanD'];
-      GuiVanBanDi = item['ListPermissions']['GuiVanBanDi'];
-      SuaVanBanDen = item['ListPermissions']['SuaVanBanDen'];
-      GuiVanBan = item['ListPermissions']['GuiVanBan'];
+      userHasQuyenKyVB = item['lstPBHasVanBan'];
 
-      userChucVu = item['userChucVu'].length >0 && item['userChucVu'][0]['LookupValue'] != null  ?
-      item['userChucVu'][0]['LookupValue']:"";
+
+      userChucVu = item['userChucVu'].length > 0 &&
+          item['userChucVu'][0]['LookupValue'] != null
+          ? item['userChucVu'][0]['LookupValue']
+          : "";
       user = UserJson.fromJson(item);
-
 
       sharedStorage.setString("hoten", user.Title);
       sharedStorage.setString("chucvu", user.ChucVu);
@@ -416,7 +431,7 @@ class LoginState extends State<LoginWidget> {
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
     var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
-     // var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
+     //var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,
         'password': password,

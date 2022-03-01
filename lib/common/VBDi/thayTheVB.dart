@@ -57,7 +57,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
   @override
   void initState() {
     super.initState();
-    var ddd = generateProductList(text1);
+   /// var ddd = generateProductList(text1);
     //dropdownValue =   widget.nam;
     setState(() {
     });

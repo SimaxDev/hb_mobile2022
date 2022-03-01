@@ -23,6 +23,9 @@ GetInfoUserService(String username) async {
 
 }
 GetInfoUserServicedoNVi(String username,int id) async {
+  if(username == "" || username == null){
+    username = sharedStorage.getString("username");
+  }
   var url = "/api/Home/GetUser?TenDangNhap=$username&ChangeDV=1&donviid=$id&&&TokenFireBase=$tokenDevice";
 
   var response =await responseUser(url);

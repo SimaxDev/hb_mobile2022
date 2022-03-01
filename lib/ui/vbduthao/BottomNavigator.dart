@@ -47,7 +47,7 @@ class _BottomNav extends State<BottomNav> {
   bool isLoading = false;
   bool check = false;
   var IDuser = "";
-  int vbdiTrangThaiVB = 0;
+  //int vbdiTrangThaiVB = 0;
   String NguoiSoan = "";
   String NguoiKy = "";
   String NguoiTrinhTiep = "";
@@ -108,7 +108,7 @@ class _BottomNav extends State<BottomNav> {
     duThao = widget.ttDuThao;
     if (mounted) {  setState(() {
       // GetIdUser(widget.username);
-      vbdiTrangThaiVB = trangThaiVB;
+     // vbdiTrangThaiVB = trangThaiVB;
       NguoiSoan = vbdiNguoiSoan;
       NguoiTrinhTiep = vbdiNguoiTrinhTiep;
       NguoiKy = vbdiNguoiKy;

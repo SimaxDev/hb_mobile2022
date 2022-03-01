@@ -50,7 +50,9 @@ class PageState extends State<trangChu> {
   List HoSoList = [];
   List HoSoList1 = [];
   List HoSoList2 = [];
-
+  int ThongbaoD = 0;
+  int ThongbaoDi = 0;
+  int ThongbaoDT = 0;
   // lấy năm hiện tại
   String tenDN = "";
   String queryDXL = "";
@@ -59,9 +61,7 @@ class PageState extends State<trangChu> {
   int indexTT = 4;
   int tong = 0;
   int tong1 = 0;
-  int ThongbaoD = 0;
-  int ThongbaoDi = 0;
-  int ThongbaoDT = 0;
+
   int tong2 = 0;
   DateTime now = DateTime.now();
 
@@ -103,6 +103,15 @@ class PageState extends State<trangChu> {
     getTTVBDT();
     String formattedDate = DateFormat('yyyy').format(now);
     yeara = int.parse(formattedDate);
+  }
+
+
+  @override
+  void dispose(){
+    super.dispose();
+      ThongbaoD = 0;
+      ThongbaoDi= 0;
+      ThongbaoDT= 0;
   }
 
   GetDataByKeyYearVBDi() async {
@@ -193,6 +202,7 @@ class PageState extends State<trangChu> {
   }
 
   //lấy thông tin user
+  //lấy thông tin user
   UserJson user = new UserJson();
 
   GetInfoUserNew() async {
@@ -223,11 +233,6 @@ class PageState extends State<trangChu> {
     }
   }
 
-  @override
-  void dispose() {
-    super.dispose();
-
-  }
 
   //body
   @override
