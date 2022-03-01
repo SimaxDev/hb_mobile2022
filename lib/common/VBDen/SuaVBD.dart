@@ -356,7 +356,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                             width: MediaQuery
                                                 .of(context)
                                                 .size
-                                                .width * 0.55,
+                                                .width * 0.6,
                                             child: Text(item['Title'],maxLines: 1,),
                                           ),
                                           value: item['ID'].toString(),
