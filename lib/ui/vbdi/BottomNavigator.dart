@@ -1130,21 +1130,12 @@ bool isLoading = false;
                                                   if(idLoaiVBN != null){
                                                     idLoaiVBN += (item.toString()) +"," ;
                                                   }
-
-
-
                                                 }
-
                                                 if(idLoaiVBN != null && idLoaiVBN.length>0)
                                                   idLoaiVBN =  idLoaiVBN.substring(0,idLoaiVBN.length-1);
-
-
                                               });}
-
                                             },
-
                                           ),
-
                                         ),
                                       ],
                                     ),

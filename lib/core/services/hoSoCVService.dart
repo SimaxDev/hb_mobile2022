@@ -11,6 +11,21 @@ import 'callApi.dart';
     var parts = [];
     parts.add('ItemID=' + idHS.toString());
     parts.add('ActionXL=' + ActionXL);
+    parts.add('SYear=2022' );
+    var formData = parts.join('&');
+    String url = "/api/ServicesHSCV/GetData";
+    var response = await responseDataPost(url, formData);
+    if (response.statusCode == 200) {
+      var items = (response.body);
+      return items;
+    }
+  }
+  Future<String> getDataDetailHSCV2(int idHS,String ActionXL,String nam)
+  async {
+    var parts = [];
+    parts.add('ItemID=' + idHS.toString());
+    parts.add('ActionXL=' + ActionXL);
+    parts.add('SYear='+nam );
     var formData = parts.join('&');
     String url = "/api/ServicesHSCV/GetData";
     var response = await responseDataPost(url, formData);

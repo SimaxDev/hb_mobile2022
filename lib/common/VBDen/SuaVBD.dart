@@ -19,6 +19,7 @@ import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'dart:convert';
 
 import 'package:path/path.dart';
+import 'SearchDropdownCQBH.dart';
 
 
 
@@ -79,7 +80,8 @@ class _ThemMoiHSState extends State<SuaVBD> {
   String idDoKhan;
   String idCQBH;
   Timer _timer;
-
+  List<ListData> coquanBHlist = [];
+  String idCQBHlist = "";
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes: 35), (_) {
       rester().logOutALL();
@@ -173,15 +175,21 @@ class _ThemMoiHSState extends State<SuaVBD> {
   }
   GetDataCQBH() async {
     VanBanDenJson vbDen = vanbanDen;
-    String detailVBDen =  await APICQBH("GetCoQuanBanHanh",widget.Yearvb );
+    String detailVBDen =  await APICQBH("GetCoQuanBanHanh",widget.Yearvb,"");
     if (mounted) { setState(() {
       var data4 =  json.decode(detailVBDen)['OData'];
       dataCQBH =  data4;
       // ttduthao =  VanBanDenJson.fromJson(data);
-
+      var lstData = (data4).map((e) => ListData.fromJson(e)).toList();
+      List<ListData> lstDataSearch = List<ListData>();
+      lstData.forEach((element) {
+        lstDataSearch.add(element);
+        coquanBHlist = lstDataSearch;
+      });
     }); }
 
   }
+
   GetDataDoKhan() async {
     String detailVBDen =  await APIDoKhan("GetTinhChatVanBan"
         ,DOnVI.toString(),widget.Yearvb);
@@ -356,7 +364,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                             width: MediaQuery
                                                 .of(context)
                                                 .size
-                                                .width * 0.6,
+                                                .width * 0.55,
                                             child: Text(item['Title'],maxLines: 1,),
                                           ),
                                           value: item['ID'].toString(),
@@ -446,7 +454,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                       underline:Container(),
                                       style: const TextStyle(color: Colors.black,
                                           fontWeight: FontWeight.normal,fontSize: 14),
-                                      value: vbDen.LoaiVanBanID != null &&  idLVB == null ? vbDen.LoaiVanBanID.toString() : idLVB,
+                                     value: vbDen.LoaiVanBanID != null &&  idLVB == null ? vbDen.LoaiVanBanID.toString() : idLVB,
 
                                     ):Text(
                                       "Chọn loại văn bản",style: const TextStyle
@@ -731,7 +739,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                       style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                     ),
                                   ),
-                                  Container(
+                                  /*Container(
                                     margin: EdgeInsets.only(right: 20),
                                     decoration: BoxDecoration(
                                       border: Border.all(
@@ -776,6 +784,26 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                       "Chọn cơ quan BH",style: const TextStyle (color:
                                     Colors.black54,
                                         fontWeight: FontWeight.normal,fontSize: 14),
+                                    ),
+                                  ),*/
+                                  Container(
+                                    width: MediaQuery.of(context).size.width * 0.64,
+                                    ///height: MediaQuery.of(context).size.height * 0.07,
+                                   // padding: EdgeInsets.only(left: 15.0),
+                                    margin: EdgeInsets.only(right: 20),
+                                    child: SearchServerCQBH(
+                                      listData: coquanBHlist,
+                                      multipleSelection: false,
+                                      // text: Text("Hya"),
+                                      title: vbDen.CoQuanBanHanhID != null &&  idCQBH == null ? vbDen.CoQuanBanHanh: "Chọn cơ quan BH ",
+                                      // searchHintText: 'Tìm kiếm',
+                                      onSaved: (value) {
+                                        if (mounted) {setState(() {
+                                              idCQBH = (value.toString()) ;
+                                              print(value);
+
+                                        });}
+                                      },
                                     ),
                                   ),
                                 ],
@@ -1084,14 +1112,12 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                           }
                                           var tendangnhap = sharedStorage.getString("username");
 
-                                          if(idSCV!= null&& idSCV!= ""&&idLVB!=
-                                              null&& idLVB!= ""&&SoDen!= null && SoDen!= ""
-                                              && _dateController.text != null&& _dateController.text!= ""
+                                          if(_dateController.text != null&& _dateController.text!= ""
                                               &&vbDen.SoKyHieu!= null&& vbDen.SoKyHieu!= ""
                                               && _dateControllerBD.text!= null &&
                                               _dateControllerBD.text!= ""
                                               &&vbDen.TrichYeu!= null && vbDen.TrichYeu!= ""
-                                              &&idCQBH!= null&& idCQBH!= ""
+
                                               &&vbDen.NguoiKy!= null&& vbDen
                                               .NguoiKy!= "")
                                             // String iaa =  _maHoSo.text;
@@ -1120,15 +1146,19 @@ class _ThemMoiHSState extends State<SuaVBD> {
 
                                             if(idSCV == null)
                                             {
-                                              idSCV = "";
+                                              idSCV = vbDen.soCongVanID.toString();
                                             }
                                             if(idLVB == null)
                                             {
-                                              idLVB = "";
+                                              idLVB = vbDen.LoaiVanBanID.toString();
                                             }
-                                            if(idCQBH == null)
+                                            if(idCQBH == null )
                                             {
-                                              idCQBH = "";
+                                              idCQBH = vbDen.CoQuanBanHanhID.toString() ;
+                                            }
+                                            if(SoDen == null)
+                                            {
+                                              SoDen = vbDen.SoDen;
                                             }
                                             if(idDoMat == null)
                                             {

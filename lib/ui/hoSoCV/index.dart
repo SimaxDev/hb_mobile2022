@@ -890,7 +890,7 @@ class HSCVState extends State<HSCVWidget> {
               MaterialPageRoute(
                 builder: (context) => thongTinHSCV(
                   idHS: sMIDField,
-                  nam: widget.nam,
+                  nam: dropdownValueYear,
                 ),
               ),
             );
@@ -1037,8 +1037,8 @@ class HSCVState extends State<HSCVWidget> {
       case 2:
 
         list.sort((a, b) => isSort
-            ? Comparable.compare(b["hscvHanXuLy"], a["hscvHanXuLy"])
-            : Comparable.compare(a["hscvHanXuLy"], b["hscvHanXuLy"]));
+            ? Comparable.compare(b["hscvHanXuLy"]== null ?"":b["hscvHanXuLy"], a["hscvHanXuLy"]== null ?"":a["hscvHanXuLy"])
+            : Comparable.compare(a["hscvHanXuLy"]== null ?"":a["hscvHanXuLy"], b["hscvHanXuLy"]== null ?"":b["hscvHanXuLy"]));
         break;
     }
     // list.sort((a,b) => isSort ? Comparable.compare(b[type], a[type]) : Comparable.compare(a[type], b[type])) ;

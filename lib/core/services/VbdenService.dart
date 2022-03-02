@@ -466,7 +466,8 @@ Future<String> LVB(String ActionXL, String DonVi,int  Yearvb) async {
     Yearvb =   int. parse(DateFormat('yyyy').format(now));
   };
   var parts = [];
-  parts.add('LoaiVB=vbden&pageSize=40');
+  parts.add('LoaiVB=vbden');
+  //parts.add('LoaiVB=vbden&pageSize=40');
   parts.add('ActionXL=' + ActionXL);
   parts.add('SYear=' + Yearvb.toString());
   //parts.add('ListName=' + ListName);
@@ -498,7 +499,7 @@ Future<String> APIDoMat(String ActionXL, String DonVi,int  Yearvb) async {
     return items;
   }
 }
-Future<String> APICQBH(String ActionXL, int  Yearvb) async {
+Future<String> APICQBH(String ActionXL, int  Yearvb, String key) async {
   if(Yearvb == null){
     DateTime now = DateTime.now();
     Yearvb =   int. parse(DateFormat('yyyy').format(now));
@@ -506,8 +507,8 @@ Future<String> APICQBH(String ActionXL, int  Yearvb) async {
   var parts = [];
   parts.add('ActionXL=' + ActionXL);
   parts.add('SYear=' + Yearvb.toString());
-  //parts.add('pageSize=50');
-  //parts.add('ListName=' + ListName);
+ // parts.add('pageSize=50');
+  parts.add('Keyword=' + key);
 
   var formData = parts.join('&');
   String url = "/api/ServicesVBD/GetData";
