@@ -73,7 +73,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
   }
   //lấy danh sách chi tiết hồ sơ công việc
   GetDataDetailHSCV(int idHS) async {
-    String detailVBDT =  await getDataDetailHSCV( idHS, ActionXL);
+    String detailVBDT =  await getDataDetailHSCV2( idHS, ActionXL,widget.nam);
     if(mounted){
       setState(() {
         var  hoSoCV1 =  json.decode(detailVBDT)['OData'];
@@ -837,6 +837,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
     );
   }
 }
+
 
 String ttDuthao(id){
   String tt ;

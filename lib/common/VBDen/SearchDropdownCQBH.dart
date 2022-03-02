@@ -4,7 +4,7 @@ import 'package:flutter_slidable/flutter_slidable.dart';
 
 var styleDropDownItem = TextStyle(fontSize: 15);
 
-class SearchServer extends StatefulWidget {
+class SearchServerCQBH extends StatefulWidget {
   final String title;
   final String searchHintText;
   List<ListData> listData;
@@ -13,7 +13,7 @@ class SearchServer extends StatefulWidget {
   List<int> selectedValueServer;
   bool multipleSelection;
 
-  SearchServer({
+  SearchServerCQBH({
     this.title,
     this.searchHintText,
     this.listSelect,
@@ -23,10 +23,10 @@ class SearchServer extends StatefulWidget {
     this.multipleSelection});
 
   @override
-  SearchServerState createState() => SearchServerState();
+  SearchServerCQBHState createState() => SearchServerCQBHState();
 }
 
-class SearchServerState extends State<SearchServer> {
+class SearchServerCQBHState extends State<SearchServerCQBH> {
   List<int> selectedItem = [];
 
   @override
@@ -41,7 +41,7 @@ class SearchServerState extends State<SearchServer> {
   void dispose(){
     super.dispose();
     selectedItem;
-  widget.listData;
+    widget.listData;
     widget.listSelect;
     widget.onSaved;
     widget.selectedValueServer;
@@ -67,7 +67,7 @@ class SearchServerState extends State<SearchServer> {
           return DropDownListItem(
               customFunction: parentChange,
               searchHintText: widget.searchHintText,
-             listData: widget.listData,
+              listData: widget.listData,
               selectedValue: selectedItem,
               multipleSelection : widget.multipleSelection
           );
@@ -108,21 +108,21 @@ class SearchServerState extends State<SearchServer> {
                     child:  (selectedItem.isEmpty
                         ? Text(widget.title != null ? widget.title : "Chọn ",style: TextStyle(color:
                     Colors
-                            .black),) :
+                        .black),) :
                     ListView.builder(
                         scrollDirection: Axis.horizontal,
                         itemCount: checkExist(selectedItem).length, itemBuilder: (context, index) {
                       return Card(
-                        color: Colors.blue,
-                        margin: EdgeInsets.all(4),
-                        shape:  RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(45)),
-                        ),
+                        color: Colors.white,
+                        margin: EdgeInsets.all(0),
+                        /*shape:  RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(0)),
+                        ),*/
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
+                          padding: EdgeInsets.fromLTRB(0,0,0,0),
                           child: MaterialButton(
                             child: Center(
-                              child: Text(checkExist(selectedItem)[index].text, style: TextStyle(color: Colors.white),
+                              child: Text(checkExist(selectedItem)[index].text, style: TextStyle(color: Color(0xff3c4043)),
                               ),
                             ),
                           ),
@@ -131,33 +131,33 @@ class SearchServerState extends State<SearchServer> {
                     }))
                 ),
                 Transform.translate(offset: Offset(6, 0.0),
-                child:Container(
-                  // width: MediaQuery.of(context).size.width *0.0999,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: <Widget>[
-                      InkWell(
-                        child: Icon(Icons.arrow_drop_down),
-                        onTap: () {
-                          _showDialog(context);
-                        },
-                      ),
-                      InkWell(
-                        child: Icon(
-                          Icons.clear,
-                          color: selectedItem.isNotEmpty
-                              ? Colors.black87
-                              : Colors.grey,
+                  child:Container(
+                    // width: MediaQuery.of(context).size.width *0.0999,
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.end,
+                      children: <Widget>[
+                        InkWell(
+                          child: Icon(Icons.arrow_drop_down),
+                          onTap: () {
+                            _showDialog(context);
+                          },
                         ),
-                        onTap: () {
-                          setState(() {
-                            selectedItem = [];
-                          });
-                        },
-                      )
-                    ],
-                  ),
-                ) ,),
+                        InkWell(
+                          child: Icon(
+                            Icons.clear,
+                            color: selectedItem.isNotEmpty
+                                ? Colors.black87
+                                : Colors.grey,
+                          ),
+                          onTap: () {
+                            setState(() {
+                              selectedItem = [];
+                            });
+                          },
+                        )
+                      ],
+                    ),
+                  ) ,),
 
               ],
             )
@@ -381,7 +381,7 @@ class DropDownListItemState extends State<DropDownListItem> {
               children: <Widget>[
                 Icon(existingItem != null
                     ?
-                  Icons.check_box
+                Icons.check_box
                     : Icons.check_box_outline_blank,
                   color: Colors.blue,
                 ),
