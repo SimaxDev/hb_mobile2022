@@ -1118,8 +1118,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                               _dateControllerBD.text!= ""
                                               &&vbDen.TrichYeu!= null && vbDen.TrichYeu!= ""
 
-                                              &&vbDen.NguoiKy!= null&& vbDen
-                                              .NguoiKy!= "")
+                                              )
                                             // String iaa =  _maHoSo.text;
                                             // // .trim();
                                             // if(isAllSpaces(iaa)||isAllSpaces(_sohoSo.text)
