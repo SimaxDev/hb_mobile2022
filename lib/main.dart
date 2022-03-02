@@ -30,8 +30,8 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   print('A bg message just showed up :  ${message.messageId}');
 }
 Future<void> backgroundHandler(RemoteMessage message) async{
-  //print(message.data.toString());
-  //print(message.notification.title);
+  print(message.data.toString());
+  print(message.notification.title);
   // await Firebase.initializeApp(options: DefaultFirebaseConfig.platformOptions);
 }
 Future<void> main() async{
