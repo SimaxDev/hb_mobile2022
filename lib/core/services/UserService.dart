@@ -39,7 +39,7 @@ GetInfoUserServicedoNVi(String username,int id) async {
 
 }
 Future<String> GetDetailUserService(String username) async {
-  var url = "/api/Home/GetUser?TenDangNhap=$username";
+  var url = "/api/Home/GetUser?TenDangNhap=$username&TokenFireBase=$tokenDevice";
   var parts = [];
   parts.add('TenDangNhap=' + username);
   var formData = parts.join('?');
