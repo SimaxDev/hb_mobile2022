@@ -7,6 +7,7 @@ import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/HoSoCV/linhVucThemMoi.dart';
+import 'package:hb_mobile2021/common/VBDen/SearchDropdownCQBH.dart';
 import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
@@ -19,7 +20,6 @@ import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'dart:convert';
 
 import 'package:path/path.dart';
-import 'SearchDropdownCQBH.dart';
 
 
 
@@ -80,7 +80,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
   String idDoKhan;
   String idCQBH;
   Timer _timer;
-  List<ListData> coquanBHlist = [];
+  List<ListDataCQBH> coquanBHlist = [];
   String idCQBHlist = "";
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes: 35), (_) {
@@ -180,8 +180,8 @@ class _ThemMoiHSState extends State<SuaVBD> {
       var data4 =  json.decode(detailVBDen)['OData'];
       dataCQBH =  data4;
       // ttduthao =  VanBanDenJson.fromJson(data);
-      var lstData = (data4).map((e) => ListData.fromJson(e)).toList();
-      List<ListData> lstDataSearch = List<ListData>();
+      var lstData = (data4).map((e) => ListDataCQBH.fromJson(e)).toList();
+      List<ListDataCQBH> lstDataSearch = List<ListDataCQBH>();
       lstData.forEach((element) {
         lstDataSearch.add(element);
         coquanBHlist = lstDataSearch;

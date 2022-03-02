@@ -7,8 +7,8 @@ var styleDropDownItem = TextStyle(fontSize: 15);
 class SearchServerCQBH extends StatefulWidget {
   final String title;
   final String searchHintText;
-  List<ListData> listData;
-  ListData listSelect;
+  List<ListDataCQBH> listData;
+  ListDataCQBH listSelect;
   ValueChanged<List<int>> onSaved;
   List<int> selectedValueServer;
   bool multipleSelection;
@@ -77,7 +77,7 @@ class SearchServerCQBHState extends State<SearchServerCQBH> {
 
 
   checkExist(List<int> select){
-    List<ListData> selectedItem = [];
+    List<ListDataCQBH> selectedItem = [];
     for(int i = 0; i < select.length ; i ++ ){
       var getItem = widget.listData.firstWhere((itemToCheck) => itemToCheck.ID == select[i], orElse: () => null);
       getItem != null ? selectedItem.add(getItem) : selectedItem.add(null);
@@ -170,7 +170,7 @@ class SearchServerCQBHState extends State<SearchServerCQBH> {
 class DropDownListItem extends StatefulWidget {
   final customFunction;
   final String searchHintText;
-  final List<ListData> listData;
+  final List<ListDataCQBH> listData;
   List<int> selectedValue;
   bool multipleSelection;
 
@@ -187,8 +187,8 @@ class DropDownListItem extends StatefulWidget {
 }
 
 class DropDownListItemState extends State<DropDownListItem> {
-  List<ListData> dataList = [];
-  List<ListData> dataListAll = [];
+  List<ListDataCQBH> dataList = [];
+  List<ListDataCQBH> dataListAll = [];
   @override
   void initState() {
     super.initState();
@@ -203,9 +203,9 @@ class DropDownListItemState extends State<DropDownListItem> {
 
   void filterSearch(String query) {
     if (query.isNotEmpty) {
-      List<ListData> lstVanBanSearch = [];
+      List<ListDataCQBH> lstVanBanSearch = [];
       dataListAll.forEach((element) {
-        ListData d = element;
+        ListDataCQBH d = element;
         if (d.text.toString().contains(query)) {
           lstVanBanSearch.add(d);
         }
@@ -218,9 +218,9 @@ class DropDownListItemState extends State<DropDownListItem> {
     } else {
       setState(() {
         dataList.clear();
-        List<ListData> lstVanBanSearchAll = [];
+        List<ListDataCQBH> lstVanBanSearchAll = [];
         dataListAll.forEach((element) {
-          ListData d = element;
+          ListDataCQBH d = element;
           lstVanBanSearchAll.add(d);
         });
         dataList.addAll(lstVanBanSearchAll);
@@ -411,13 +411,13 @@ class DropDownListItemState extends State<DropDownListItem> {
   }
 }
 
-class ListData {
+class ListDataCQBH {
   String text;
   int ID;
 
-  ListData({@required this.text, @required this.ID});
+  ListDataCQBH({@required this.text, @required this.ID});
 
-  factory ListData.fromJson(Map<String, dynamic> json) {
-    return ListData(ID: (json['ID']), text: json['Title']);
+  factory ListDataCQBH.fromJson(Map<String, dynamic> json) {
+    return ListDataCQBH(ID: (json['ID']), text: json['Title']);
   }
 }
