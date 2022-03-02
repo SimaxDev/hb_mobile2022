@@ -227,8 +227,12 @@ class _hoTroState extends State<hoTro> {
             //
 
             SizedBox(height: 20,),
+            // Center(
+            //   child:Text("(Click vào mã QR tham gia nhóm hỗ trợ)",
+            //     style: TextStyle(fontWeight: FontWeight.normal, fontSize:
+            //     13,fontStyle: FontStyle.italic),) ,),
             Center(
-              child:Text("Quét mã QR tham gia nhóm hỗ trợ",
+              child:Text("Click hoặc quét mã QR tham gia nhóm hỗ trợ",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize:
                 18),) ,),
             SizedBox(height: 20,),

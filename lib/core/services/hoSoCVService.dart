@@ -19,7 +19,7 @@ import 'callApi.dart';
       return items;
     }
   }
-
+  
   Future<String> getDataDetailHSCV1(String ActionXL,String query,int idHS)
   async {
     var parts = [];
