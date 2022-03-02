@@ -799,8 +799,8 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                       // searchHintText: 'Tìm kiếm',
                                       onSaved: (value) {
                                         if (mounted) {setState(() {
-                                              idCQBH = (value.toString()) ;
-                                              print(value);
+                                              idCQBH =    (value[0]).toString() ;
+                                              print(idCQBH);
 
                                         });}
                                       },
