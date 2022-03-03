@@ -141,6 +141,8 @@ class LoginState extends State<LoginWidget> {
       userTenTruyCap = item['userTenTruyCap'] != null?item['userTenTruyCap']:"";
       CurrentDonViID =
       item['CurrentDonVi'] == null ? 0 : item['CurrentDonVi']['LookupId'];
+      ThongTinLConfig =
+      item['lstThongTinLConfig'] != null  ?  item['lstThongTinLConfig'] :[];
       DonViInSiteID =
       item['DonViInSite'] == null ? 0 : item['DonViInSite']['LookupId'];
 
@@ -430,8 +432,8 @@ class LoginState extends State<LoginWidget> {
   Future<void> login(String username, String password) async {
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
-    //var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
-     var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
+    var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
+     //var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,
         'password': password,
