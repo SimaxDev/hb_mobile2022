@@ -73,29 +73,31 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
     EasyLoading.dismiss();
   }
 
-  GetDataHSCV1() async {EasyLoading.show();
-  hscv = await getDataHomeHSCV1(ActionXL, "intType=0&hscvTrangThaiXuLy=-1&isH"
-      "oSocongviec=true");
+  GetDataHSCV1() async {
+    //EasyLoading.show();
+  var tendangnhap = sharedStorage.getString("username");
+  hscv = await getDataByKeyWordHSCV(tendangnhap, ActionXL, "");
 
   setState(() {
     jsonL = jsonDecode(hscv)['OData'];
-    EasyLoading.dismiss();
+    //EasyLoading.dismiss();
   });
   }
 
   GetDataByKeyWordHSCV(String text) async {
     var tendangnhap = sharedStorage.getString("username");
-    EasyLoading.show();
+    //EasyLoading.show();
     hscv = await getDataByKeyWordHSCV(tendangnhap, ActionXL, text);
     setState(() {
       jsonL = jsonDecode(hscv)['OData'];
-      EasyLoading.dismiss();
+     // EasyLoading.dismiss();
     });
   }
 
 
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(title: Text("Gửi công việc vào hồ sơ"),
           automaticallyImplyLeading:
@@ -105,6 +107,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
   }
 
   Widget buildTree() {
+
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
 
@@ -207,7 +210,10 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
                           //   height: 400,
                           //   child: SimpleTable(),),
                           jsonL == null || jsonL.length == 0
-                              ? SizedBox()
+                              ? Center(
+                              child: CircularProgressIndicator(
+                                valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                              ))
                               : Container(
                             //height: MediaQuery.of(context).size.height *1,
                               padding: EdgeInsets.only(left: 16,right: 16,bottom: 16),

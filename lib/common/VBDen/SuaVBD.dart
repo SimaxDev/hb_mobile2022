@@ -83,7 +83,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
   List<ListDataCQBH> coquanBHlist = [];
   String idCQBHlist = "";
   void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 35), (_) {
+    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
       rester().logOutALL();
       _timer.cancel();
       print('ket thuc');
@@ -542,7 +542,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                           .of(context)
                                           .size
                                           .width * 0.64,
-                                      padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                                       child:  InkWell(
                                         onTap: () {
                                           _selectDate(context);
@@ -648,7 +648,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                           .of(context)
                                           .size
                                           .width * 0.64,
-                                      padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                                      padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                                       child:  InkWell(
                                         onTap: () {
                                           _selectDateBD(context);

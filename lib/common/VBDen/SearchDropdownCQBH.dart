@@ -95,11 +95,11 @@ class SearchServerCQBHState extends State<SearchServerCQBH> {
             padding: EdgeInsets.fromLTRB(10, 3, 10, 3),
             margin: EdgeInsets.only(top: 5, bottom: 5),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.blue),
+              border: Border.all(color: Colors.black45),
               borderRadius: BorderRadius.all(Radius.circular(5.0)),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+             mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
 
                 Container(
@@ -113,13 +113,14 @@ class SearchServerCQBHState extends State<SearchServerCQBH> {
                         scrollDirection: Axis.horizontal,
                         itemCount: checkExist(selectedItem).length, itemBuilder: (context, index) {
                       return Card(
+
                         color: Colors.white,
-                        margin: EdgeInsets.all(0),
-                        /*shape:  RoundedRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(0)),
+
+                       /* shape:  RoundedRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(45)),
                         ),*/
                         child: Container(
-                          padding: EdgeInsets.fromLTRB(0,0,0,0),
+                         // padding: EdgeInsets.fromLTRB(0,0,0,0),
                           child: MaterialButton(
                             child: Center(
                               child: Text(checkExist(selectedItem)[index].text, style: TextStyle(color: Color(0xff3c4043)),
