@@ -150,11 +150,11 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
     String PT = await getDataDetailVBPT(
         widget.idDuThao, ActionXLPT, widget.nam);
     if(mounted){
-      setState(() {
+      //setState(() {
         duThaoPT = json.decode(PT)['OData'];
         print("ấd"+duThaoPT.toString());
 
-      });
+     // });
     }
 
   }

@@ -69,15 +69,14 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     duThao =  widget.ttDuThao;
 
     print("duthao  "+duThao.toString());
-
-    GetYkienDataVBDT();
+      GetallYKien();
   }
 
   //lấy danh sách chi tiết văn bản dự thảo
 
 
 //lấy danh sách ý kiến văn bản đến
-  GetYkienDataVBDT() async {
+  GetallYKien()async{
     setState(() {
       isLoading = true;
     });
@@ -90,6 +89,10 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
         widget.idDuThao, ActionXLYKien, widget.nam);
     isLoading = false;
     yKienitems = json.decode(data)['OData'];
+      GetYkienDataVBDT();
+  }
+  GetYkienDataVBDT() {
+
     for (var it in yKienitems) {
       lstYKien.add(new Row(
         children: [
@@ -260,14 +263,6 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
 
 
     }
-
-
-
-
-
-
-
-
 
     mesDuThao = mesDT;
     return vbDT == null || vbDT == ""
