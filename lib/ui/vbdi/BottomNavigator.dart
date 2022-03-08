@@ -91,11 +91,8 @@ bool isLoading = false;
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Container(
+
+    return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blueGrey[100]),
         color: Colors.white,
@@ -177,8 +174,8 @@ bool isLoading = false;
                   ),
                 ),
 
-              //Ý kiến bút phê
-              Container(
+                //Ý kiến bút phê
+                Container(
                   child: InkWell(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -198,33 +195,33 @@ bool isLoading = false;
 
                 //Thay thế văn bản
                 (checkThuHoi == true
-            //&&(ThemMoiVanBanDi == true
+                    //&&(ThemMoiVanBanDi == true
                     // ||(userTenTruyCap.contains("thuyvn") && SiteAction.contains("vpubhb"))
-                   // || lstPhongBanLaVanThuVBDI.length == 0)
+                    // || lstPhongBanLaVanThuVBDI.length == 0)
                 ) && vbdiTrangThaiVB != 13
                     ? Container(
                   child: InkWell(
                     child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Column(
-                          children: <Widget>[
-                            TextButton.icon(
-                              icon: Icon(Icons.ad_units_outlined
-                              ),
-                              label: Text('Thay thế VB'),
-                              onPressed: () {
-                                // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                                // JsonDataGrid()));
-                                Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                                    JsonDataGrid(id: id,nam:widget.nam.toString())));
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: <Widget>[
+                          Column(
+                            children: <Widget>[
+                              TextButton.icon(
+                                icon: Icon(Icons.ad_units_outlined
+                                ),
+                                label: Text('Thay thế VB'),
+                                onPressed: () {
+                                  // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                                  // JsonDataGrid()));
+                                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                                      JsonDataGrid(id: id,nam:widget.nam.toString())));
 
 
-                              },
-                            )
-                          ],
-                        )
-                      ]
+                                },
+                              )
+                            ],
+                          )
+                        ]
                     ),
                   ),
                 ):SizedBox(),
@@ -285,8 +282,8 @@ bool isLoading = false;
                                         EasyLoading.dismiss();
                                         Navigator.of(context).pop();
 
-                                      showAlertDialog(context, json.decode
-                                        (thanhcong)['Message']);
+                                        showAlertDialog(context, json.decode
+                                          (thanhcong)['Message']);
                                       },
                                       child: const Text('Tiếp tục '),
                                     ),
@@ -308,9 +305,9 @@ bool isLoading = false;
 
                 // đã chuỷen văn bản
                 (vbdiIsSentVanBan == false
-            && CapSoVanBanDi == true)
-            && vbdiTrangThaiVB != 13
-                ? Container(
+                    && CapSoVanBanDi == true)
+                    && vbdiTrangThaiVB != 13
+                    ? Container(
                   child: InkWell(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -364,7 +361,7 @@ bool isLoading = false;
                         && SiteAction.contains("vpubhb"))
                     || lstPhongBanLaVanThuVBDI.length > 0))
                     && vbdiTrangThaiVB != 13
-                     ?Container(
+                    ?Container(
                   child: InkWell(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -390,7 +387,7 @@ bool isLoading = false;
                     && vbdiSoKyHieu.isEmpty
                     && vbdiSoKyHieu != null
                     &&(CapSoVanBanDi == true
-                        || lstPhongBanLaVanThuVBDI.length > 0)
+                    || lstPhongBanLaVanThuVBDI.length > 0)
                     && vbdiTrangThaiVB != 13
                     ?Container(
                   child: InkWell(
@@ -412,9 +409,334 @@ bool isLoading = false;
               ],
             );
           }) : Center(
-        child: CircularProgressIndicator()
+          child: CircularProgressIndicator()
       ),
-    ),);
+    );
+
+//     return GestureDetector(
+//       onTap: _handleUserInteraction,
+//       onPanDown: _handleUserInteraction,
+//       onScaleStart: _handleUserInteraction,
+//       child:Container(
+//       decoration: BoxDecoration(
+//         border: Border.all(color: Colors.blueGrey[100]),
+//         color: Colors.white,
+//       ),
+//       height: 56.0,
+//       child: vanbanList.length > 0 ?
+//       ListView.builder(
+//           scrollDirection: Axis.horizontal,
+//           itemCount: 1,
+//           itemBuilder: (context, index) {
+//             return Row(
+//               children: <Widget>[
+//                 GuiVanBanDi == true ?Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Column(
+//                           children: <Widget>[
+//                             FlatButton.icon(
+//                               icon: Icon(Icons.next_plan_outlined),
+//                               label: Text('Chuyển VB ngoài đơn vị'),
+//                               onPressed: () {
+//                                 // onPressButton(context, 0);
+//                                 onPressButton(context, 3);
+//                               },
+//                               textTheme: ButtonTextTheme.primary,
+//                             )
+//                           ],
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ): SizedBox(),
+//                 GuiVanBanDi == true ?Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Column(
+//                           children: <Widget>[
+//                             FlatButton.icon(
+//                               icon: Icon(Icons.next_plan_outlined),
+//                               label: Text('Chuyển VB nội bộ đơn vị'),
+//                               onPressed: () {
+//                                 // onPressButton(context, 0);
+//                                 onPressButton(context, 6);
+//                               },
+//                               textTheme: ButtonTextTheme.primary,
+//                             )
+//                           ],
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ):SizedBox(),
+//
+//                 //Chuyển trục liên thông
+//                 Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Column(
+//                           children: <Widget>[
+//                             FlatButton.icon(
+//                               icon: Icon(Icons.next_plan_outlined),
+//                               label: Text('Chuyển trục liên thông'),
+//                               onPressed: () {
+//                                 // onPressButton(context, 0);
+//                                 onPressButton(context, 0);
+//                               },
+//                               textTheme: ButtonTextTheme.primary,
+//                             )
+//                           ],
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//
+//               //Ý kiến bút phê
+//               Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         FlatButton.icon(
+//                           icon: Icon(Icons.comment),
+//                           label: Text('Ý kiến/bút phê'),
+//                           onPressed: () {
+//                             onPressButton(context, 1);
+//                           },
+//                           textTheme: ButtonTextTheme.primary,
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//
+//                 //Thay thế văn bản
+//                 (checkThuHoi == true
+//             //&&(ThemMoiVanBanDi == true
+//                     // ||(userTenTruyCap.contains("thuyvn") && SiteAction.contains("vpubhb"))
+//                    // || lstPhongBanLaVanThuVBDI.length == 0)
+//                 ) && vbdiTrangThaiVB != 13
+//                     ? Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Column(
+//                           children: <Widget>[
+//                             TextButton.icon(
+//                               icon: Icon(Icons.ad_units_outlined
+//                               ),
+//                               label: Text('Thay thế VB'),
+//                               onPressed: () {
+//                                 // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+//                                 // JsonDataGrid()));
+//                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+//                                     JsonDataGrid(id: id,nam:widget.nam.toString())));
+//
+//
+//                               },
+//                             )
+//                           ],
+//                         )
+//                       ]
+//                     ),
+//                   ),
+//                 ):SizedBox(),
+//
+//                 // thiết lập hồi báo
+//                 vbdiCanTDHB == false && ThietLapHoiBao == true
+//                     && vbdiTrangThaiVB !=13
+//                     ? Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Column(
+//                           children: <Widget>[
+//                             TextButton.icon(
+//                               icon: Icon(Icons.assistant
+//                               ),
+//                               label: Text('Thiết lập hồi báo'),
+//                               onPressed: () {
+//                                 onPressButton(context, 7);
+//                               },
+//                             )
+//                           ],
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ):SizedBox(),
+//
+//                 // Cập nhật
+//                 (checkThuHoi == true &&(ThemMoiVanBanDi == true
+//                     || (userTenTruyCap.contains("thuyvn") && SiteAction.contains("vpubhb"))) ||
+//                     lstPhongBanLaVanThuVBDI.length > 0)
+//                     && vbdiTrangThaiVB !=13
+//                     ? Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Column(
+//                           children: <Widget>[
+//                             TextButton.icon(
+//                               icon: Icon(Icons.arrow_forward
+//                               ),
+//                               label: Text('Cập nhật VB '),
+//                               onPressed: () => showDialog<String>(
+//                                 context: context,
+//                                 builder: (BuildContext context) => AlertDialog(
+//                                   title: const Text('Xác nhận'),
+//                                   content: const Text('Bạn có chắc chắn muốn cập nhật văn bản'),
+//                                   actions: <Widget>[
+//                                     TextButton(
+//                                       onPressed: () async {
+//                                         var tendangnhap = sharedStorage.getString("username");
+//                                         EasyLoading.show();
+//                                         var thanhcong =  await postCapNhatVB
+//                                           (tendangnhap, widget.id, "CapNhatVB",widget.nam);
+//                                         EasyLoading.dismiss();
+//                                         Navigator.of(context).pop();
+//
+//                                       showAlertDialog(context, json.decode
+//                                         (thanhcong)['Message']);
+//                                       },
+//                                       child: const Text('Tiếp tục '),
+//                                     ),
+//                                     TextButton(
+//                                       onPressed: () => Navigator.pop(context),
+//                                       child: const Text('Huỷ'),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             )
+//                           ],
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ):SizedBox(),
+//
+//
+//                 // đã chuỷen văn bản
+//                 (vbdiIsSentVanBan == false
+//             && CapSoVanBanDi == true)
+//             && vbdiTrangThaiVB != 13
+//                 ? Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         Column(
+//                           children: <Widget>[
+//                             TextButton.icon(
+//                               icon: Icon(Icons.arrow_forward
+//                               ),
+//                               label: Text('Đã chuyển VB '),
+//                               onPressed: () => showDialog<String>(
+//                                 context: context,
+//                                 builder: (BuildContext context) => AlertDialog(
+//                                   title: const Text('Xác nhận'),
+//                                   content: const Text('Bạn có chắc chắn muốn văn bản đi đã chuyển'),
+//                                   actions: <Widget>[
+//                                     TextButton(
+//                                       onPressed: () async {
+//                                         var tendangnhap = sharedStorage.getString("username");
+//                                         EasyLoading.show();
+//                                         var thanhcong =  await postDaChuyenVB
+//                                           (tendangnhap, widget.id, "DaChuyenVB","true");
+//                                         EasyLoading.dismiss();
+//                                         Navigator.of(context).pop();
+//
+//                                         !isLoading
+//                                             ? showAlertDialog(context, json.decode(thanhcong)['Message'])
+//                                             : Center(child: CircularProgressIndicator());
+//                                       },
+//                                       child: const Text('Tiếp tục '),
+//                                     ),
+//                                     TextButton(
+//                                       onPressed: () => Navigator.pop(context),
+//                                       child: const Text('Huỷ'),
+//                                     ),
+//                                   ],
+//                                 ),
+//                               ),
+//                             )
+//                           ],
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ):SizedBox(),
+//
+//
+//                 //Thu hồi
+//                 (checkThuHoi == true&&(ThemMoiVanBanDi == true
+//                     || (userTenTruyCap.contains("thuyvn")
+//                         && SiteAction.contains("vpubhb"))
+//                     || lstPhongBanLaVanThuVBDI.length > 0))
+//                     && vbdiTrangThaiVB != 13
+//                      ?Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         FlatButton.icon(
+//                           icon: Icon(Icons.keyboard_return),
+//                           label: Text('Thu hồi'),
+//                           onPressed: () {
+//                             Navigator.of(context).push(MaterialPageRoute
+//                               (builder: (context) =>ThuHoiVbDi(id:widget.id, nam:widget.nam)
+//                             ));
+//                           },
+//
+//                           textTheme: ButtonTextTheme.primary,
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ):SizedBox(),
+//
+// //Trả về
+//                 vbdiIsSentVanBan == false
+//                     && vbdiSoKyHieu.isEmpty
+//                     && vbdiSoKyHieu != null
+//                     &&(CapSoVanBanDi == true
+//                         || lstPhongBanLaVanThuVBDI.length > 0)
+//                     && vbdiTrangThaiVB != 13
+//                     ?Container(
+//                   child: InkWell(
+//                     child: Column(
+//                       mainAxisAlignment: MainAxisAlignment.center,
+//                       children: <Widget>[
+//                         FlatButton.icon(
+//                           icon: Icon(Icons.keyboard_return),
+//                           label: Text('Trả về'),
+//                           onPressed: () {
+//                             onPressButton(context, 5);
+//                           },
+//                           textTheme: ButtonTextTheme.primary,
+//                         )
+//                       ],
+//                     ),
+//                   ),
+//                 ):SizedBox(),
+//               ],
+//             );
+//           }) : Center(
+//         child: CircularProgressIndicator()
+//       ),
+//     ),);
   }
 
   void _tapSign() {

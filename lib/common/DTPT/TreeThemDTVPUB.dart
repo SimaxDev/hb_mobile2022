@@ -429,6 +429,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                         setState(() {
                           radioItemHolder = element['title'] ;
                           tti = element['key'];
+                          vNguoiKy = tti;
                           textXLC =  radioItemHolder;
                         });
                         print(radioItemHolder);

@@ -584,6 +584,9 @@ class DuThaoState extends State<DuThaoWidget> {
         backgroundColor: Colors.blue,
         child: Icon(Icons.add),
         onPressed: () {
+          if(_timer != null){
+            _timer.cancel();
+          }
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (BuildContext context) => ThemMoiDT()),

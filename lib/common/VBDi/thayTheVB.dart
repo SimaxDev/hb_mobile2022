@@ -49,7 +49,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
   String dropdownValue ="2022";
   String testthuhomerxoa;
   String ActionXL = "GetListVBDi";
-  String text1 = "";
+  String  text1 = "";
   RxList productlist1 = [].obs;
   bool showLoadingIndicator = true;
 
@@ -57,7 +57,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
   @override
   void initState() {
     super.initState();
-   /// var ddd = generateProductList(text1);
+    generateProductList(text1);
     //dropdownValue =   widget.nam;
     setState(() {
     });

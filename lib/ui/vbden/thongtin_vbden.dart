@@ -274,8 +274,10 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     String vbChuaXL = vbDen.CBChuaXuLy;
 
     Listpdf = vbDen.pdf1;
+    ListpdfDK = vbDen.pdfDK;
 
     List chuaPDF = [];
+    List chuaPDFDK = [];
     for (var i in vbDen.pdf1) {
       if (i['ExtenFile'].contains("pdf") &&i['Name'].contains("signed")) {
 
@@ -293,6 +295,27 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
       }
       else{
         pdf = (i['Url']);
+      }
+
+    }
+
+    for (var i in vbDen.pdfDK) {
+      if (i['ExtenFile'].contains("pdf") ) {
+
+        chuaPDFDK.add(i);
+        // pdf2 = i['Url'];
+        if(chuaPDFDK != null && chuaPDFDK !=[]&& chuaPDFDK.length >0){
+          dynamic max = chuaPDFDK.first;
+          // print(max);
+          chuaPDFDK.forEach((e) {
+            if (e['Name'].length > max['Name'].length) max = e;
+          });
+          pdfDK = (max['Url']);
+          namepdf = (max['Name']);
+        }
+      }
+      else{
+        pdfDK = (i['Url']);
       }
 
     }

@@ -29,8 +29,6 @@ class HSCVWidget extends StatefulWidget {
   final String username;
   String nam = "2022";
 
-
-
   HSCVWidget(
       {Key key,
       this.urlLoaiVB,
@@ -84,8 +82,8 @@ class HSCVState extends State<HSCVWidget> {
   String dropdownValue = "";
   String nam1 = "2021";
 
-  List<String> Years = ["2022","2021", "2020", "2019", "2018", "2017"];
-  String dropdownValueYear  = "";
+  List<String> Years = ["2022", "2021", "2020", "2019", "2018", "2017"];
+  String dropdownValueYear = "";
   int _user = 6;
   final DataController product = Get.put(DataController());
 
@@ -129,15 +127,12 @@ class HSCVState extends State<HSCVWidget> {
     //   }
     // });
     setState(() {
-      if(widget.nam == null || widget.nam ==  ""){
+      if (widget.nam == null || widget.nam == "") {
         DateTime now = DateTime.now();
-        nam1 =  DateFormat('yyyy').format(now) ;
+        nam1 = DateFormat('yyyy').format(now);
         dropdownValueYear = nam1;
-      }
-      else
-      {
+      } else {
         dropdownValueYear = widget.nam;
-
       }
       if (widget.urlLoaiVB == "") {
         widget.urlLoaiVB = "intType=-4&hscvTrangThaiXuLy=-1&isHoSocongviec"
@@ -214,9 +209,9 @@ class HSCVState extends State<HSCVWidget> {
     ten = tendangnhap;
   }
 
-  GetDataByKeyYearVBDi(String trangthai , String nam) async {
+  GetDataByKeyYearVBDi(String trangthai, String nam) async {
     String yeartimkiem = await getDataByKeyTrangThai1(
-        ActionXL, trangthai, skip, pageSize, skippage,nam );
+        ActionXL, trangthai, skip, pageSize, skippage, nam);
     setState(() {
       HoSoList = json.decode(yeartimkiem)['OData'];
       skip++;
@@ -224,7 +219,6 @@ class HSCVState extends State<HSCVWidget> {
       tongso = json.decode(yeartimkiem)['TotalCount'];
       isLoading = false;
     });
-
   }
 
   //lay data vbhs
@@ -421,7 +415,7 @@ class HSCVState extends State<HSCVWidget> {
                     setState(() {
                       _user = Year.indexOf(newValue);
                       dropdownValue = ttHoSo(_user);
-                      GetDataByKeyYearVBDi(_user.toString() , dropdownValueYear);
+                      GetDataByKeyYearVBDi(_user.toString(), dropdownValueYear);
                     });
                   },
                   items: Year.map<DropdownMenuItem<String>>((String value) {
@@ -442,25 +436,27 @@ class HSCVState extends State<HSCVWidget> {
                 width: MediaQuery.of(context).size.width * 0.03,
               ),
               Container(
-                width: MediaQuery.of(context).size.width *
-                    0.15,
-                child:   DropdownButton<String>(
+                width: MediaQuery.of(context).size.width * 0.15,
+                child: DropdownButton<String>(
                   value: dropdownValueYear,
                   // icon: const Icon(Icons.arrow_downward),
                   // iconSize: 24,
                   //elevation: 16,
-                  style: const TextStyle(color: Colors.black, fontWeight:
-                  FontWeight.normal,fontSize: 13),
+                  style: const TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.normal,
+                      fontSize: 13),
                   underline: Container(
                     height: 2,
                     color: Colors.white70,
                     width: 50,
                   ),
                   onChanged: (String newValue) {
-                    if(mounted){
+                    if (mounted) {
                       setState(() {
                         dropdownValueYear = newValue;
-                        GetDataByKeyYearVBDi(_user.toString() , dropdownValueYear);
+                        GetDataByKeyYearVBDi(
+                            _user.toString(), dropdownValueYear);
                       });
                     }
                   },
@@ -472,8 +468,8 @@ class HSCVState extends State<HSCVWidget> {
                           child: Text(value),
                         ));
                   }).toList(),
-                ),),
-
+                ),
+              ),
             ],
           ),
           // title: Transform.translate(
@@ -870,10 +866,10 @@ class HSCVState extends State<HSCVWidget> {
 
     var temp1 = item['hscvHanXuLy'] != null
         ? DateFormat("yyyy-MM-dd").parse(item['hscvHanXuLy'])
-        :"";
+        : "";
     var hscvHanXuLy;
-    if(temp1 != null && temp1 != ""){
-       hscvHanXuLy = DateFormat("dd-MM-yyyy").format(temp1);
+    if (temp1 != null && temp1 != "") {
+      hscvHanXuLy = DateFormat("dd-MM-yyyy").format(temp1);
     }
 
     return Card(
@@ -1035,10 +1031,13 @@ class HSCVState extends State<HSCVWidget> {
                 a["hscvNguoiLap"]["Title"], b["hscvNguoiLap"]["Title"]));
         break;
       case 2:
-
         list.sort((a, b) => isSort
-            ? Comparable.compare(b["hscvHanXuLy"]== null ?"":b["hscvHanXuLy"], a["hscvHanXuLy"]== null ?"":a["hscvHanXuLy"])
-            : Comparable.compare(a["hscvHanXuLy"]== null ?"":a["hscvHanXuLy"], b["hscvHanXuLy"]== null ?"":b["hscvHanXuLy"]));
+            ? Comparable.compare(
+                b["hscvHanXuLy"] == null ? "" : b["hscvHanXuLy"],
+                a["hscvHanXuLy"] == null ? "" : a["hscvHanXuLy"])
+            : Comparable.compare(
+                a["hscvHanXuLy"] == null ? "" : a["hscvHanXuLy"],
+                b["hscvHanXuLy"] == null ? "" : b["hscvHanXuLy"]));
         break;
     }
     // list.sort((a,b) => isSort ? Comparable.compare(b[type], a[type]) : Comparable.compare(a[type], b[type])) ;

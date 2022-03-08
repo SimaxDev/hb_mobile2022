@@ -85,6 +85,7 @@ class ThuHoiVbState extends State<ThuHoiVb> {
           title: Text(widget.title),
         ),
         body:Column(children: [
+
           Expanded(
             flex:8,
             child:getBody(),

@@ -20,12 +20,12 @@ import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
-class ViewPDFVB extends StatefulWidget {
+class ViewPDFDK extends StatefulWidget {
   @override
   _ViewPDF createState() => _ViewPDF();
 }
 
-class _ViewPDF extends State<ViewPDFVB> {
+class _ViewPDF extends State<ViewPDFDK> {
   bool isLoading = false;
   String localPath = "";
   int i = 0;
@@ -33,7 +33,7 @@ class _ViewPDF extends State<ViewPDFVB> {
   File files;
   double percentage = 0;
   var url;
-  List<ListDataP> ListDataPDF = [];
+  List<ListDataDK> ListDataPDF = [];
   SharedPreferences sharedStorage;
   String remotePDFpath = "";
   int pages = 0;
@@ -94,7 +94,7 @@ class _ViewPDF extends State<ViewPDFVB> {
     // TODO: implement initState
     super.initState();
     //_initializeTimer();
-    PDF_URL = pdf;
+    PDF_URL = pdfDK;
 
     // createFileOfPdfUrl().then((f) {
     //   setState(() {
@@ -107,9 +107,9 @@ class _ViewPDF extends State<ViewPDFVB> {
     //this.fetchData();
     if (mounted) {
       setState(() {
-        var vanban = Listpdf;
+        var vanban = ListpdfDK;
         var lstData =
-            (vanban as List).map((e) => ListDataP.fromJson(e)).toList();
+            (vanban as List).map((e) => ListDataDK.fromJson(e)).toList();
         lstData.forEach((element) {
           ListDataPDF.add(element);
           // print("sdf" +ListDataPDF.toString());
@@ -546,15 +546,15 @@ class _ViewPDF extends State<ViewPDFVB> {
   }
 }
 
-class ListDataP {
+class ListDataDK {
   String Name;
   String Url;
   String UrlDoc;
 
-  ListDataP({this.Name, this.Url, this.UrlDoc});
+  ListDataDK({this.Name, this.Url, this.UrlDoc});
 
-  factory ListDataP.fromJson(Map<String, dynamic> json) {
-    return ListDataP(
+  factory ListDataDK.fromJson(Map<String, dynamic> json) {
+    return ListDataDK(
         Name: json['Name'] != null ? json['Name'] : "",
         Url: json['Url'] != null ? json['Url'] : "",
         UrlDoc: json['Url1'] != null ? json['Url1'] : "");

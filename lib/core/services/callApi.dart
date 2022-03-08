@@ -112,7 +112,9 @@ var vanbanDen = null ;
 var vanbanDT = null ;
 String userChucVu = "";
 String pdf = "";
+String pdfDK = "";
 List Listpdf = [];
+List ListpdfDK = [];
 List ListpdfPT = [];
 String namepdf = "";
 String pdfPT = "";
@@ -122,6 +124,8 @@ String idPhoiHop = "";
 String idTheoDoi = "";
 String idNTD = "";
 int IDTT ;
+List chuaPDF = [];
+String tenPDFTruyen ="";
 
 
 

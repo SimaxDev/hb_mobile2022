@@ -54,6 +54,7 @@ class VanBanDenJson {
   String NhanVB;
   String HanXL;
   List pdf1;
+  List pdfDK;
   var vanbandenCapNhat;
   int vbdPhongBanPT;
   int vbdNguoiDungPT;
@@ -109,6 +110,7 @@ class VanBanDenJson {
         this.ChucVuNK,
         this.ChucVuNKID,
         this.pdf1,
+        this.pdfDK,
         this.vbdPhongBanPT,
         this.vbdNguoiDungPT,
         this.vbdUserXuLyC,
@@ -202,6 +204,9 @@ class VanBanDenJson {
       pdf1: json['vanBanDen']['ListFileAttach']==null||json['vanBanDen']['ListFileAttach'].length <=0
           ?[]:
       json['vanBanDen']['ListFileAttach'],
+      pdfDK: json['vanBanDen']['lstFileTaiLieuDinhKem']==null||json['vanBanDen']['lstFileTaiLieuDinhKem'].length <=0
+          ?[]:
+      json['vanBanDen']['lstFileTaiLieuDinhKem'],
       vbdPhongBanPT: json['vanBanDen']['vbdPhongBanPT']!= null &&
           json['vanBanDen']['vbdPhongBanPT'].length >0 ?
       json['vanBanDen']['vbdPhongBanPT']['LookupId']:0,

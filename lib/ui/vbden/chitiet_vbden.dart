@@ -6,6 +6,7 @@ import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
+import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
 import 'package:hb_mobile2021/ui/vbdi/view_pdf.dart';
 import 'nhatky_vbden.dart';
 import 'thongtin_vbden.dart';
@@ -43,6 +44,7 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
    var  ttduthao = null ;
    String ActionXL = "GetVBDByIDMobile";
   int year = 0;
+  List FileTaiLieu =[];
    Timer _timer;
 
 
@@ -93,8 +95,12 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
          ,widget.MaDonVi,widget.Yearvb);
      if (mounted) { setState(() {
        var data =  json.decode(detailVBDen)['OData'];
+
        // ttduthao =  VanBanDenJson.fromJson(data);
        ttduthao = VanBanDenJson.fromJson(data);
+       FileTaiLieu = json.decode(detailVBDen)
+       ['OData']['vanBanDen']['lstFileTaiLieuDinhKem'] != null ?json.decode
+         (detailVBDen)['OData']['vanBanDen']['lstFileTaiLieuDinhKem']:[];
        vanbanDen = ttduthao;
        isLoading = true;
      }); }
@@ -120,7 +126,87 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
   @override
   Widget build(BuildContext context) {
 
-     return DefaultTabController(
+     return FileTaiLieu != null && FileTaiLieu.length >0
+         ?DefaultTabController(
+         length: 4,
+         child: Scaffold(
+           appBar: AppBar(
+             leading: IconButton(
+               icon: Icon(Icons.arrow_back),
+               onPressed: () => Navigator.pop(context, false),
+             ),
+             bottom: TabBar(
+               tabs: [
+                 Tab(
+                     child: Align(
+                       alignment: Alignment.center,
+
+                       child: Text(
+                         'Thông tin',
+                         textAlign: TextAlign.center,
+                         style: TextStyle(fontSize: 13),
+                       ),
+                     )
+                 ), Tab(
+                     child: Align(
+                       alignment: Alignment.center,
+
+                       child: Text(
+                         'Toàn văn',
+                         textAlign: TextAlign.center,
+                         style: TextStyle(fontSize: 13),
+                       ),
+                     )
+                 ),
+                 Tab(
+                     child: Align(
+                       alignment: Alignment.center,
+
+                       child: Text(
+                         'Tài liệu kèm theo',
+                         textAlign: TextAlign.center,
+                         style: TextStyle(fontSize: 13),
+                       ),
+                     )
+                 ),
+                 Tab(
+                     child: Align(
+                       alignment: Alignment.center,
+
+                       child: Text(
+                         'Gửi nhận',
+                         textAlign: TextAlign.center,
+                         style: TextStyle(fontSize: 13),
+                       ),
+                     )
+                 ),
+
+
+               ],
+             ),
+             title: Text('Chi tiết văn bản đến'),
+           ),
+           body:  isLoading == true?TabBarView(
+             physics: NeverScrollableScrollPhysics(),
+             children: [
+               //ThongTinVBDen(id:widget.id,username:widget.username),
+               ThongTinVBDen(ttvbDen:ttduthao,id:widget.id, Yearvb: year),
+               ViewPDFVB(),
+               // Container(
+               //   child: PdfViewPage(
+               //     path: assetPDFPath,
+               //   ),
+               // ),
+               ViewPDFDK(),
+               NhatKyVBDen(id: widget.id,nam: year,),
+             ],
+           ):Center(
+             child: CircularProgressIndicator(),
+           ),
+           bottomNavigationBar:isLoading == true? BottomNav(id  : ItemId,nam: year,
+               MaDonVi:widget.MaDonVi,ttvbDen:ttduthao):SizedBox(),
+         )
+     ):DefaultTabController(
          length: 3,
          child: Scaffold(
            appBar: AppBar(
@@ -163,6 +249,10 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
                MaDonVi:widget.MaDonVi,ttvbDen:ttduthao):SizedBox(),
          )
      );
+
+
+
+
     // return GestureDetector(
     //   onTap: _handleUserInteraction,
     //   onPanDown: _handleUserInteraction,

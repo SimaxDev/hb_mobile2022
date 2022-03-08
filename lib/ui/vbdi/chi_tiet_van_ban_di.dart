@@ -41,7 +41,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   String ActionXL = "GetVBDiByID";
   ValueNotifier<String> assetPDFPath = ValueNotifier<String>('');
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
-
+  String FileTaiLieu ="";
 
   Future<File> createFileOfPdfUrl(String filePath) async {
     Completer<File> completer = Completer();
@@ -155,6 +155,9 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
         var data =  json.decode(detailVBDi)['OData'];
 
         duthao = VanBanDiJson.fromJson(data);
+        FileTaiLieu = json.decode(detailVBDi)
+        ['OData']['vanBanDi']['FileTaiLieu'] != null ?json.decode
+          (detailVBDi)['OData']['vanBanDi']['FileTaiLieu']:"";
         isLoading = true;
 
       });
@@ -166,7 +169,102 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   Widget build(BuildContext context) {
     // TODO: implement build
 
-    return DefaultTabController(
+    return FileTaiLieu != null && FileTaiLieu != "" ? DefaultTabController(
+      length: 4,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                  child: Align(
+                    alignment: Alignment.center,
+
+                    child: Text(
+                      'Thông tin',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  )
+              ), Tab(
+                  child: Align(
+                    alignment: Alignment.center,
+
+                    child: Text(
+                      'Toàn văn',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  )
+              ),
+              Tab(
+                  child: Align(
+                    alignment: Alignment.center,
+
+                    child: Text(
+                      'Tài liệu kèm theo',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  )
+              ),
+              Tab(
+                  child: Align(
+                    alignment: Alignment.center,
+
+                    child: Text(
+                      'Gửi nhận',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 13),
+                    ),
+                  )
+              ),
+            ],
+          ),
+          title: Text('Chi tiết văn bản đi'),
+        ),
+        body: isLoading == true
+            ? TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            ThongTinVBDi(id: widget.id,nam: year,MaDonVi:widget
+                .MaDonVi,ttVbanDi:duthao),
+            //!isLoadingPDF?
+            //      (remotePDFpath.value != '' &&
+            //     remotePDFpath.value
+            //         .toLowerCase()
+            //         .contains(".pdf")) ?
+            // Container(
+            //   child: PdfViewPage(
+            //     path: assetPDFPath,
+            //   ),
+            // )
+            //     : Container(
+            //   child: Center(
+            //     child: Text('Không có file PDF đính kèm'),
+            //   ),
+            // )
+            //     : Center(
+            //   child: CircularProgressIndicator(),
+            // )
+
+            // ViewPDF(idDuThao:widget.id,nam:year.toString()),
+            ViewPDFVB(),
+            ViewPDFVB(),
+            NhatKyVBDi(id: widget.id,username:widget.username,
+                nam:year),
+          ],
+        )
+            : Center(
+          child: CircularProgressIndicator(),
+        ),
+        bottomNavigationBar: BottomNav(id : widget.id,nam:year,
+            MaDonVi:widget.MaDonVi),
+      ),
+    ):DefaultTabController(
       length: 3,
       child: Scaffold(
         appBar: AppBar(
@@ -227,6 +325,9 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
             MaDonVi:widget.MaDonVi),
       ),
     );
+
+
+
     // return GestureDetector(
     //   onTap: _handleUserInteraction,
     //   onPanDown: _handleUserInteraction,

@@ -77,9 +77,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
 
 //lấy danh sách ý kiến văn bản đến
   GetallYKien()async{
-    setState(() {
-      isLoading = true;
-    });
+
     if (widget.nam == null) {
       DateTime now = DateTime.now();
       String  nam1 =  DateFormat('yyyy').format(now) ;
@@ -87,8 +85,12 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     }
     String data = await getYkienDataVBDT(
         widget.idDuThao, ActionXLYKien, widget.nam);
+    setState(() {
+      isLoading = true;
+      yKienitems = json.decode(data)['OData'];
+    });
     isLoading = false;
-    yKienitems = json.decode(data)['OData'];
+
       GetYkienDataVBDT();
   }
   GetYkienDataVBDT() {
@@ -238,7 +240,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
        pdf1 =  vbDT.pdfDT;
        Listpdf = pdf1;
 
-       List chuaPDF = [];
+
        for (var i in vbDT.pdfDT) {
          if (i['ExtenFile'].contains("pdf")&&i['Name'].contains("signed")) {
 
@@ -252,12 +254,15 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
              });
              pdf = max['Url'];
              namepdf=max['Name'];
+             tenPDFTruyen=max['Name'];
 
            }
          }
          else{
 
          } pdf = i['Url'];
+         tenPDFTruyen=i['Name'];
+         // tenPDFTruyen=i['Name'];
 
        }
 
