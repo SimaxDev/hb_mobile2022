@@ -112,6 +112,9 @@ class PageState extends State<trangChu> {
       ThongbaoD = 0;
       ThongbaoDi= 0;
       ThongbaoDT= 0;
+    if(_timer != null){
+      _timer.cancel();
+    }
   }
 
   GetDataByKeyYearVBDi() async {

@@ -67,6 +67,7 @@ class _TreeLoaiVanBan extends State<TreeLoaiVanBan> {
   @override
   void dispose() {
     super.dispose();
+
     EasyLoading.dismiss();
   }
 

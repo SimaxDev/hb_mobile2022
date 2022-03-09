@@ -66,6 +66,9 @@ class _ChucVuUser extends State<ChucVuUser> {
   @override
   void dispose() {
     super.dispose();
+    // if(_timer != null){
+    //   _timer.cancel();
+    // }
   }
 
   checkExist(List<int> select){

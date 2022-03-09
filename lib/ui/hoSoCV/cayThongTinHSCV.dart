@@ -94,7 +94,9 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   @override
   void dispose(){
     super.dispose();
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
     strListId;
     strListVanBanLienQuanID;
     strListVanBanDiLienQuan;

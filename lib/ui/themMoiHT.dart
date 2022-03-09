@@ -57,7 +57,9 @@ class _themMoiHTState extends State<themMoiHT> {
   @override
   void dispose(){
     super.dispose();
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
     NoiDung.text = "";
   }
 

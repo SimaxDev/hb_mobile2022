@@ -68,6 +68,7 @@ class _loaiVB extends State<loaiVB> {
   void dispose() {
     super.dispose();
     EasyLoading.dismiss();
+
   }
 
   checkExist(List<int> select) {

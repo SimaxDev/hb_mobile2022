@@ -131,7 +131,9 @@ class ListVBDen1 extends State<ListVBDen> {
 
   @override
   void dispose() {
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
     super.dispose();
   }
 

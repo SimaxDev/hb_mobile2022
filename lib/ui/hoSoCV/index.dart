@@ -149,7 +149,9 @@ class HSCVState extends State<HSCVWidget> {
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
     // HoSoList.clear();
     GetDataHSCV();
   }
@@ -752,6 +754,12 @@ class HSCVState extends State<HSCVWidget> {
           backgroundColor: Colors.blue,
           child: Icon(Icons.add),
           onPressed: () {
+            setState(() {
+              if(_timer != null){
+                _timer.cancel();
+              }
+            });
+
             Navigator.of(context).pushAndRemoveUntil(
                 MaterialPageRoute(
                     builder: (BuildContext context) => ThemMoiHS()),

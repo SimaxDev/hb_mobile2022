@@ -104,7 +104,9 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
   @override
   void dispose(){
     super.dispose();
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
   }
 
 

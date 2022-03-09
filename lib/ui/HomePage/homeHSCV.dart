@@ -154,7 +154,9 @@ class PageState extends State<HomeHSCV> {
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
   }
 
   //body

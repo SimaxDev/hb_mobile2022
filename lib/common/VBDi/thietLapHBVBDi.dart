@@ -66,6 +66,7 @@ class _thietLapHBVBDiState extends State<thietLapHBVBDi> {
     _dateController;
     _dateController.text;
     EasyLoading.dismiss();
+
   }
   Future<Null> _selectDate(BuildContext context) async {
     final DateTime picked = await showDatePicker(

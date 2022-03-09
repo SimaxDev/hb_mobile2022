@@ -150,6 +150,9 @@ class PageState extends State<HomePage> {
   @override
   void dispose() {
     super.dispose();
+    if(_timer != null){
+      _timer.cancel();
+    }
   }
 
   //body

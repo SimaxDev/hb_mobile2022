@@ -106,7 +106,9 @@ class PageState extends State<HomeVBDT> {
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
   }
 
   //body

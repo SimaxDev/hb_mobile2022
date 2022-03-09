@@ -67,6 +67,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
   @override
   void dispose() {
     super.dispose();
+
     EasyLoading.dismiss();
   }
   Future<Null> _selectDate(BuildContext context) async {

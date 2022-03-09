@@ -41,7 +41,9 @@ String ActionXLGuiNhan = "GetThongTinGuiNhan";
   @override
   void dispose() {
 
-    _timer?.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
     super.dispose();
   }
   void _handleUserInteraction([_]) {

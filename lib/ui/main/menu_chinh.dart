@@ -67,7 +67,9 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
 
   @override
   void dispose(){
-
+    if(_timer != null){
+      _timer.cancel();
+    }
     super.dispose();
   }
   getHomeVBDT() async {

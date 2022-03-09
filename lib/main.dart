@@ -62,6 +62,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Notification(),
       // builder: (BuildContext context, Widget child) {
       //   final MediaQueryData data = MediaQuery.of(context);
@@ -224,6 +225,7 @@ class _NotificationState extends State<Notification> {
   Widget build(BuildContext context) {
 
     return GetMaterialApp(
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
         key: _keymain,
         body: SplashWidget() ,

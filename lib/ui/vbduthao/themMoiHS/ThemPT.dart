@@ -90,7 +90,9 @@ class _ThemPTState extends State<ThemPT> {
   @override
   void dispose(){
     super.dispose();
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
   }
   @override
   Widget build(BuildContext context) {

@@ -53,8 +53,12 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
   bool XemTT =  false;
   String mucDo = "";
   Timer _timer;
-
-
+  List chua = [];
+  String base64PDF = "";
+  _onDeleteItemPressed(item) {
+    chua.removeAt(item);
+    setState(() {});
+  }
 
 
   @override
@@ -85,20 +89,42 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
     _initializeTimer();
   }
 // lấy file từ điện thoại
+//   selectFile() async {
+//     FilePickerResult result = await FilePicker.platform.pickFiles(
+//       type: FileType.custom,
+//       allowedExtensions: ['jpg', 'pdf', 'mp4','doc'],
+//       //allowed extension to choose
+//     );
+//
+//     if (result != null) {
+//       //if there is selected file
+//       setState(() {
+//         selectedfile = File(result.files.single.path);
+//       });
+//
+//     }
+//   }
   selectFile() async {
     FilePickerResult result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'mp4','doc'],
+      allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
     );
 
     if (result != null) {
       //if there is selected file
-      setState(() {
-        selectedfile = File(result.files.single.path);
-      });
+      selectedfile = File(result.files.single.path);
 
+      if (selectedfile != null) {
+        // var bytes1 = await rootBundle.load(selectedfile.path);
+        List<int> Bytes = await selectedfile.readAsBytesSync();
+        print(Bytes);
+        base64PDF = await base64Encode(Bytes);
+        print("hdaf  " + base64PDF);
+        chua.add(basename(selectedfile.path));
+      }
     }
+    setState(() {});
   }
 
   // thời gian bắt đầu
@@ -958,26 +984,97 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                                },
                              ),
                            ),
-                           Container(
-                             width: MediaQuery.of(context).size.width * 0.5,
-                             margin: EdgeInsets.all(10),
-                             //show file name here
-                             child:selectedfile != null?
-                             Text(basename(selectedfile.path)):
-                             Text("",
-                               maxLines: 2,
-                               overflow: TextOverflow.ellipsis,
-                               style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
-                                   color: Colors.blue),),
-                             //basename is from path package, to get filename from path
-                             //check if file is selected, if yes then show file name
-                           ),
+                           // Container(
+                           //   width: MediaQuery.of(context).size.width * 0.5,
+                           //   margin: EdgeInsets.all(10),
+                           //   //show file name here
+                           //   child:selectedfile != null?
+                           //   Text(basename(selectedfile.path)):
+                           //   Text("",
+                           //     maxLines: 2,
+                           //     overflow: TextOverflow.ellipsis,
+                           //     style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
+                           //         color: Colors.blue),),
+                           //   //basename is from path package, to get filename from path
+                           //   //check if file is selected, if yes then show file name
+                           // ),
 
                          ],),
 
                        )
                      ],
                    ),
+                   Container(child: ListView.builder(
+                     shrinkWrap: true,
+                     itemCount: chua.length,
+                     itemBuilder: (context, index) {
+                       return ListTile(
+                         title: Text(chua[index],style: TextStyle(
+                             fontStyle: FontStyle.normal,
+                             fontWeight: FontWeight.w400,
+                             fontSize: 13),
+                           maxLines:2,),
+                         trailing: IconButton(
+                           icon: Icon(
+                             Icons.delete,
+                             size: 18.0,
+                             color: Color(0xffDE3E43),
+                           ),
+                           onPressed: () {
+                             _onDeleteItemPressed(index);
+                           },
+                         ),
+                       );
+                     },
+                   ),),
+                   // Container(
+                   //   padding: EdgeInsets.only(top: 8, left: 16),
+                   //   height: MediaQuery
+                   //       .of(context)
+                   //       .size.height*0.1,
+                   //   child: Row(
+                   //     mainAxisAlignment: MainAxisAlignment.start,
+                   //     crossAxisAlignment: CrossAxisAlignment.start,
+                   //     children: <Widget>[
+                   //       Flexible(
+                   //         flex: 5,
+                   //         child: Column(
+                   //           mainAxisAlignment: MainAxisAlignment.start,
+                   //           crossAxisAlignment: CrossAxisAlignment.start,
+                   //           children: [
+                   //             Container(
+                   //               child: Text(
+                   //                 "File đính kèm",textAlign: TextAlign.start,
+                   //                 style: TextStyle(
+                   //                     color: Color(0xff021029),
+                   //                     fontStyle: FontStyle.normal,
+                   //                     fontWeight: FontWeight.w400,
+                   //                     fontSize: 14),
+                   //               ),
+                   //             ),
+                   //             Container(
+                   //               padding: EdgeInsets.only(top: 8,  right: 16),
+                   //               child: FlatButton(
+                   //                 child: Text('Đính kèm file...'),
+                   //                 color: Colors.blueAccent,
+                   //                 textColor: Colors.white,
+                   //                 onPressed: () async {
+                   //                   selectFile();
+                   //                 },
+                   //               ),
+                   //             ),
+                   //           ],),),
+                   //       Flexible(
+                   //         flex:5,
+                   //         child:
+                   //       )
+                   //
+                   //
+                   //
+                   //     ],
+                   //   ),),
+
+
                    SizedBox(height:15,),
                    Row(
                      mainAxisAlignment: MainAxisAlignment.center,
@@ -1089,6 +1186,8 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
       ),
     ),);
   }
+
+
 
 
 
