@@ -34,6 +34,7 @@ class VanBanDiJson {
   final List pdf1;
   final String LogxulyText;
   final String name;
+  List pdfDK;
 
 
   //Constructor
@@ -67,6 +68,7 @@ class VanBanDiJson {
         this.pdf1,
         this.LogxulyText,
         this.name,
+        this.pdfDK,
       });
 //factory convert json to model
   factory VanBanDiJson.fromJson(Map<String, dynamic> json) {
@@ -113,6 +115,8 @@ class VanBanDiJson {
       name: json['ListFileAttach'].length <0||json['ListFileAttach'].length ==0
           ? "":
       json['ListFileAttach'][0]['Name'],
+        pdfDK: json['lstFileTaiLieuDinhKemvbdi']==null||json['lstFileTaiLieuDinhKemvbdi'].length <=0
+            ?[]:json['lstFileTaiLieuDinhKemvbdi'],
 
 
 

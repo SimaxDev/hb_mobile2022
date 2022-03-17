@@ -254,6 +254,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     thuHoiVBD = vbDen.ThuHoi;
 
     checkThuHoi = vbDen.checkThuHoi1;
+    isTraCuu = vbDen.isTraCuu;
     XemDB = vbDen.UserChuaXL;
     vbdTTXuLyVanBanLT = vbDen.vbdTTXuLyVBLT;
     vbdPhuongThuc = vbDen.vbdPT;
@@ -456,655 +457,195 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   )
                 : SizedBox(),
 
-            //          (LogxulyText != null || LogxulyText.isNotEmpty
-            //              && ! LogxulyText.contains("#DYCapNhap#")
-            //              && ! LogxulyText.contains("#TCCapNhap#")
-            //              && ! LogxulyText.contains("#TCThayThe#")
-            //              && ! LogxulyText.contains("#DYThayThe#")
-            //              && ! LogxulyText.contains("#DYThuHoi#")
-            //              && ! LogxulyText.contains("#TCThuHoi#")
-            //              && ! LogxulyText.contains("#DYLayLai#"))
-            //              || LogxulyText.isEmpty
-            //              ?Container(
-            // child: Column(
-            //  children: [
-            //    vbDen.ID>0 &&  vbdPhuongThuc!=2
-            //        && ((vbdTTXuLyVanBanLT==26
-            //        // && vanbandenCapNhatID > 0
-            //    )
-            //        ||vbdTTXuLyVanBanLT == 22
-            //        || vbdTTXuLyVanBanLT==17
-            //        ||vbdTTXuLyVanBanLT==24
-            //        || vbdTTXuLyVanBanLT== 28
-            //        || vbdTTXuLyVanBanLT == 20)?
-            //    Column(children: [
-            //      vbdTTXuLyVanBanLT==17 || vbdTTXuLyVanBanLT==24
-            //          || vbdTTXuLyVanBanLT==28 ||
-            //          vbdTTXuLyVanBanLT==17 ?
-            //      Column(children: [
-            //        Row(
-            //          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //          children: [
-            //            Container(
-            //              width: MediaQuery.of(context).size.width * 0.4,
-            //              padding: EdgeInsets.only(left: 20.0),
-            //              child: Text(
-            //                'Văn bản đến qua mạng',
-            //                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            //              ),
-            //            ),
-            //            vbDen.ID>0 && vbdTTXuLyVanBanLT==26 &&
-            //                vbdPhuongThuc != 2
-            //                //&& vanbandenCapNhat.ID > 0
-            //                ? Container(
-            //                width: MediaQuery.of(context).size.width * 0.6,
-            //                padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                child:Row(
-            //                  children: [
-            //                    Expanded(
-            //                      child: Text(
-            //                        "Trạng thái: Cập nhật văn bản; Chờ cập nhật cho văn bản",
-            //                        style: TextStyle(fontWeight: FontWeight.normal,
-            //                            fontSize: 14,color: Colors.red),
-            //                        // overflow: TextOverflow.ellipsis,
-            //                        textAlign: TextAlign.start,
-            //
-            //                      ),
-            //                    ),
-            //                    Text(
-            //                      vbDen.SoKyHieu,
-            //                      style: TextStyle(fontWeight: FontWeight.normal,
-            //                          fontSize: 14,color: Colors.blue),
-            //                      // overflow: TextOverflow.ellipsis,
-            //                      textAlign: TextAlign.start,
-            //
-            //                    )
-            //
-            //
-            //                  ],)
-            //            ):SizedBox(),
-            //
-            //            vbDen.ID>0 && (vbdTTXuLyVanBanLT==28)
-            //                && vbdPhuongThuc != 2
-            //            ? Container(
-            //                width: MediaQuery.of(context).size.width * 0.6,
-            //                padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //
-            //
-            //                child:Row(
-            //                  children: [
-            //                    Expanded(
-            //                      child: Text(
-            //                        "Trạng thái: Thu hồi văn bản; Đang chờ thu hồi văn bản",
-            //                        style: TextStyle(fontWeight: FontWeight.normal,
-            //                            fontSize: 14,color: Colors.red),
-            //                        // overflow: TextOverflow.ellipsis,
-            //                        textAlign: TextAlign.start,
-            //
-            //                      ),
-            //                    ),
-            //                    Text(
-            //                      vbDen.SoKyHieu,
-            //                      style: TextStyle(fontWeight: FontWeight.normal,
-            //                          fontSize: 14,color: Colors.blue),
-            //                      // overflow: TextOverflow.ellipsis,
-            //                      textAlign: TextAlign.start,
-            //
-            //                    )
-            //
-            //
-            //                  ],)
-            //            ):SizedBox(),
-            //
-            //
-            //            vbDen.ID>0 && (vbdTTXuLyVanBanLT==22) && vbdPhuongThuc != 2
-            //                ? Container(
-            //                width: MediaQuery.of(context).size.width * 0.6,
-            //                padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //
-            //
-            //                child:Row(
-            //                  children: [
-            //                    Expanded(
-            //                      child: Text(
-            //                        "Trạng thái: Thu hồi văn bản; Văn bản thu hồi",
-            //                        style: TextStyle(fontWeight: FontWeight.normal,
-            //                            fontSize: 14,color: Colors.red),
-            //                        // overflow: TextOverflow.ellipsis,
-            //                        textAlign: TextAlign.start,
-            //
-            //                      ),
-            //                    ),
-            //                    Text(
-            //                      vbDen.SoKyHieu,
-            //                      style: TextStyle(fontWeight: FontWeight.normal,
-            //                          fontSize: 14,color: Colors.blue),
-            //                      // overflow: TextOverflow.ellipsis,
-            //                      textAlign: TextAlign.start,
-            //
-            //                    )
-            //
-            //
-            //                  ],)
-            //            ):SizedBox(),
-            //
-            //            vbDen.ID>0 &&  vbdTTXuLyVanBanLT==17 && vbdPhuongThuc != 2
-            //                ? Container(
-            //                width: MediaQuery.of(context).size.width * 0.6,
-            //                padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //
-            //
-            //                child:Row(
-            //                  children: [
-            //                    Expanded(
-            //                      child: Text(
-            //                        "Trạng thái:Thay thế văn bản; Chờ thay thế văn bản",
-            //                        style: TextStyle(fontWeight: FontWeight.normal,
-            //                            fontSize: 14,color: Colors.red),
-            //                        // overflow: TextOverflow.ellipsis,
-            //                        textAlign: TextAlign.start,
-            //
-            //                      ),
-            //                    ),
-            //                    Text(
-            //                      vbDen.SoKyHieu,
-            //                      style: TextStyle(fontWeight: FontWeight.normal,
-            //                          fontSize: 14,color: Colors.blue),
-            //                      // overflow: TextOverflow.ellipsis,
-            //                      textAlign: TextAlign.start,
-            //
-            //                    )
-            //
-            //
-            //                  ],)
-            //            ):SizedBox(),
-            //
-            //            vbDen.ID>0  && vbdTTXuLyVanBanLT==20 && vbdPhuongThuc != 2
-            //                ? Container(
-            //                width: MediaQuery.of(context).size.width * 0.6,
-            //                padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                child:Row(
-            //                  children: [
-            //                    Expanded(
-            //                      child: Text(
-            //                        "Trạng thái: Thay thế văn bản; Văn bản thay thế",
-            //                        style: TextStyle(fontWeight: FontWeight.normal,
-            //                            fontSize: 14,color: Colors.red),
-            //                        // overflow: TextOverflow.ellipsis,
-            //                        textAlign: TextAlign.start,
-            //
-            //                      ),
-            //                    ),
-            //                    Text(
-            //                      vbDen.SoKyHieu,
-            //                      style: TextStyle(fontWeight: FontWeight.normal,
-            //                          fontSize: 14,color: Colors.blue),
-            //                      // overflow: TextOverflow.ellipsis,
-            //                      textAlign: TextAlign.start,
-            //
-            //                    )
-            //
-            //
-            //                  ],)
-            //            ):SizedBox(),
-            //
-            //            vbDen.ID>0  && vbdTTXuLyVanBanLT==24 && vbdPhuongThuc !=2
-            //                ? Container(
-            //                width: MediaQuery.of(context).size.width * 0.6,
-            //                padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                child:Row(
-            //                  children: [
-            //                    Expanded(
-            //                      child: Text(
-            //                        "Trạng thái: Chờ lấy lại",
-            //                        style: TextStyle(fontWeight: FontWeight.normal,
-            //                            fontSize: 14,color: Colors.red),
-            //                        // overflow: TextOverflow.ellipsis,
-            //                        textAlign: TextAlign.start,
-            //
-            //                      ),
-            //                    ),
-            //                    Text(
-            //                      vbDen.SoKyHieu,
-            //                      style: TextStyle(fontWeight: FontWeight.normal,
-            //                          fontSize: 14,color: Colors.blue),
-            //                      // overflow: TextOverflow.ellipsis,
-            //                      textAlign: TextAlign.start,
-            //
-            //                    )
-            //
-            //
-            //                  ],)
-            //            ):SizedBox(),
-            //
-            //
-            //
-            //
-            //          ],
-            //        ),
-            //
-            //        Divider(),
-            //      ],): SizedBox(),
-            //
-            //    ], ):SizedBox(),
-            //  ],
-            //  )
-            //
-            //          ):SizedBox(),
 
-            // ((LogxulyText.isNotEmpty||  LogxulyText != null)
-            //     && (LogxulyText.contains("#DYCapNhap#")|| LogxulyText.contains
-            //       ("#DYThayThe#")
-            //         ||( LogxulyText.contains("#DYThuHoi#") && vbdTTXuLyVanBanLT==28)
-            //         || LogxulyText.contains("#DYLayLai#"))) ?
-            //
-            //           Column(children: [
-            //             Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 Container(
-            //                   width: MediaQuery.of(context).size.width * 0.4,
-            //                   padding: EdgeInsets.only(left: 20.0),
-            //                   child: Text(
-            //                     'Văn bản đến qua mạng',
-            //                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            //                   ),
-            //                 ),
-            //                 (LogxulyText.isNotEmpty || LogxulyText != null &&
-            // LogxulyText.contains("#DYCapNhap#"))
-            //                     || (ID>0 && vbdTTXuLyVanBanLT==26 && vbdPhuongThuc != 2
-            //                     //&& vanbandenCapNhat.ID > 0
-            //                 ) ? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //
-            //
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Đồng ý cập nhật văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //                 vbDen.ID>0 && (vbdTTXuLyVanBanLT==28) && vbdPhuongThuc !=
-            //                     2? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //
-            //
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Đồng ý thu hồi văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //
-            //                 vbDen.ID>0&& vbdTTXuLyVanBanLT==17 && vbdPhuongThuc != 2
-            //                     ? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //
-            //
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Đồng ý thay thế văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //                 vbDen.ID>0 && vbdTTXuLyVanBanLT==20 && vbdPhuongThuc != 2
-            //                     ? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Đồng ý thay thế văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //                 vbDen.ID>0 && vbdTTXuLyVanBanLT==24 && vbdPhuongThuc !=2 ? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Đồng ý lấy lại văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //               ],
-            //             ),
-            //
-            //             Divider(),
-            //           ],):SizedBox()
-            //         ,
-            //
-            //   (LogxulyText != null || LogxulyText.isNotEmpty
-            //       && ( LogxulyText.contains("#TCCapNhap#")
-            //       || LogxulyText.contains("#TCThayThe#") || LogxulyText.contains
-            //         ("#TCThuHoi#")))
-            //               ?Column(children: [
-            //             Row(
-            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            //               children: [
-            //                 Container(
-            //                   width: MediaQuery.of(context).size.width * 0.4,
-            //                   padding: EdgeInsets.only(left: 20.0),
-            //                   child: Text(
-            //                     'Văn bản đến qua mạng',
-            //                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-            //                   ),
-            //                 ),
-            //                 (LogxulyText != null || LogxulyText.isNotEmpty&&
-            //                     LogxulyText.contains("#TCCapNhap#")) || (ID>0 &&
-            //                     vbdTTXuLyVanBanLT==29 && vbdPhuongThuc != 2
-            //                     //&& vanbandenCapNhat.ID > 0
-            //                 )? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //
-            //
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Từ chối cập nhật văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //                 vbDen.ID>0 && (vbdTTXuLyVanBanLT==15) && vbdPhuongThuc !=
-            //                     2? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Từ chối thu hồi văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //                 vbDen.ID>0  && vbdTTXuLyVanBanLT==16 && vbdPhuongThuc != 2? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Từ chối thay thế văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //                 vbDen.ID>0  && vbdTTXuLyVanBanLT==14 && vbdPhuongThuc !=2? Container(
-            //                     width: MediaQuery.of(context).size.width * 0.6,
-            //                     padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-            //                     child:Row(
-            //                       children: [
-            //                         Expanded(
-            //                           child: Text(
-            //                             "Trạng thái: Từ chối lấy lại văn bản",
-            //                             style: TextStyle(fontWeight: FontWeight.normal,
-            //                                 fontSize: 14,color: Colors.red),
-            //                             // overflow: TextOverflow.ellipsis,
-            //                             textAlign: TextAlign.start,
-            //
-            //                           ),
-            //                         ),
-            //                         Text(
-            //                           vbDen.SoKyHieu,
-            //                           style: TextStyle(fontWeight: FontWeight.normal,
-            //                               fontSize: 14,color: Colors.blue),
-            //                           // overflow: TextOverflow.ellipsis,
-            //                           textAlign: TextAlign.start,
-            //
-            //                         )
-            //
-            //
-            //                       ],)
-            //                 ):SizedBox(),
-            //
-            //
-            //               ],
-            //             ),
-            //
-            //
-            //             Divider(),
-            //           ],): SizedBox(),
+            vbDen.ID>0  &&( (vbdTTXuLyVanBanLT==26 && vanbandenCapNhat != null) 
+                || vbdTTXuLyVanBanLT==17
+                || vbdTTXuLyVanBanLT==24 || vbdTTXuLyVanBanLT==28)
+                && vbdPhuongThuc != 2 ?
 
-            vbDen.ID > 0 &&
-                        ((vbdTTXuLyVanBanLT == 26 &&
-                                vanbandenCapNhat != null) ||
-                            vbdTTXuLyVanBanLT == 17 ||
-                            vbdTTXuLyVanBanLT == 24 ||
-                            vbdTTXuLyVanBanLT ==
-                                28 /*|| vbdTTXuLyVanBanLT==20*/) &&
-                        (LogxulyText.isNotEmpty ||
-                            LogxulyText != null &&
-                                !LogxulyText.contains("#DYCapNhap#") &&
-                                !LogxulyText.contains("#TCCapNhap#") &&
-                                !LogxulyText.contains("#TCThayThe#") &&
-                                !LogxulyText.contains("#DYThuHoi#") &&
-                                !LogxulyText.contains("#TCThuHoi#") &&
-                                !LogxulyText.contains("#DYLayLai#")) ||
-                    LogxulyText.isEmpty ||
-                    LogxulyText == null
+            (
+                (LogxulyText.isNotEmpty ||
+                LogxulyText != null
+                    && !LogxulyText.contains("#DYCapNhap#")
+                    && !LogxulyText.contains("#TCCapNhap#")
+                    && !LogxulyText.contains("#TCThayThe#")
+                    && !LogxulyText.contains("#DYThuHoi#")
+                    && !LogxulyText.contains("#TCThuHoi#")
+                    && !LogxulyText.contains("#DYLayLai#"))
+                || LogxulyText.isEmpty ||
+                LogxulyText == null
+
+
                 ? Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 20),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
-                            borderRadius: BorderRadius.circular(15),
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(
+                  padding: EdgeInsets.only(top: 10, left: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.lightBlue[50], width: 2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    child: TextButton.icon(
+                        icon: Icon(Icons.delete_forever_outlined),
+                        label: Text(
+                          "Từ chối",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          child: TextButton.icon(
-                              icon: Icon(Icons.delete_forever_outlined),
-                              label: Text(
-                                "Từ chối",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.orangeAccent),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.white),
-                              )),
+                          textAlign: TextAlign.center,
                         ),
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(top: 10, left: 10),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
-                            borderRadius: BorderRadius.circular(10),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all<Color>(
+                              Colors.orangeAccent),
+                          foregroundColor:
+                          MaterialStateProperty.all<Color>(
+                              Colors.white),
+                        )),
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsets.only(top: 10, left: 10),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(
+                          color: Colors.lightBlue[50], width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: MediaQuery.of(context).size.width * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.06,
+                    child: TextButton.icon(
+                        icon: Icon(Icons.send_and_archive),
+                        label: Text(
+                          "Đồng ý",
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 16,
                           ),
-                          width: MediaQuery.of(context).size.width * 0.3,
-                          height: MediaQuery.of(context).size.height * 0.06,
-                          child: TextButton.icon(
-                              icon: Icon(Icons.send_and_archive),
-                              label: Text(
-                                "Đồng ý",
-                                style: TextStyle(
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16,
-                                ),
-                                textAlign: TextAlign.center,
-                              ),
-                              onPressed: () async {
-                                EasyLoading.show();
-                                Navigator.of(context).pop();
-                                EasyLoading.dismiss();
-                              },
-                              style: ButtonStyle(
-                                backgroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
-                                foregroundColor:
-                                    MaterialStateProperty.all<Color>(
-                                        Colors.blue),
-                              )),
+                          textAlign: TextAlign.center,
                         ),
+                        onPressed: () async {
+                          EasyLoading.show();
+                          Navigator.of(context).pop();
+                          EasyLoading.dismiss();
+                        },
+                        style: ButtonStyle(
+                          backgroundColor:
+                          MaterialStateProperty.all<Color>(
+                              Colors.lightBlue[50]),
+                          foregroundColor:
+                          MaterialStateProperty.all<Color>(
+                              Colors.blue),
+                        )),
+                  ),
+                ),
+              ],
+            )
+                : SizedBox()): SizedBox(),
+
+
+            vbDen.ID>0  && ((vbdTTXuLyVanBanLT==26 && vanbandenCapNhat != null)
+                || vbdTTXuLyVanBanLT==17 || vbdTTXuLyVanBanLT==24
+                || vbdTTXuLyVanBanLT==28) && vbdPhuongThuc == 2
+                //&& CheckVBNoiBo > 0
+
+           ? (
+                      (LogxulyText.isNotEmpty ||
+                        LogxulyText != null && !LogxulyText.contains("#DYCapNhap#")
+                        && !LogxulyText.contains("#TCCapNhap#") && !LogxulyText.contains("#TCThayThe#")
+                        && !LogxulyText.contains("#DYThuHoi_" + currentUserID.toString()+"#")
+                        && !LogxulyText.contains("#TCThuHoi_" + currentUserID.toString()+"#")
+                        && !LogxulyText.contains("#DYLayLai_" + currentUserID.toString()+"#"))
+                    ||LogxulyText.isEmpty ||
+                    LogxulyText == null
+
+
+                    ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10, left: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.lightBlue[50], width: 2),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: TextButton.icon(
+                            icon: Icon(Icons.delete_forever_outlined),
+                            label: Text(
+                              "Từ chối",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.orangeAccent),
+                              foregroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                            )),
                       ),
-                    ],
-                  )
-                : SizedBox(),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10, left: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.lightBlue[50], width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: TextButton.icon(
+                            icon: Icon(Icons.send_and_archive),
+                            label: Text(
+                              "Đồng ý",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            onPressed: () async {
+                              EasyLoading.show();
+                              Navigator.of(context).pop();
+                              EasyLoading.dismiss();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.lightBlue[50]),
+                              foregroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.blue),
+                            )),
+                      ),
+                    ),
+                  ],
+                )
+                    : SizedBox()): SizedBox(),
+
+
+          
+            
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

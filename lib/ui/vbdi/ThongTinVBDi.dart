@@ -191,6 +191,7 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
       }
       Listpdf = vbdi.pdf1;
       List chuaPDF = [];
+      List chuaPDFDK = [];
       for (var i in vbdi.pdf1) {
         if (i['ExtenFile'].contains("pdf")&&i['Name'].contains("signed")) {
 
@@ -212,7 +213,27 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
         }
 
       }
+      ListpdfDK = vbdi.pdfDK;
+      for (var i in vbdi.pdfDK) {
+        if (i['ExtenFile'].contains("pdf") ) {
 
+          chuaPDFDK.add(i);
+          // pdf2 = i['Url'];
+          if(chuaPDFDK != null && chuaPDFDK !=[]&& chuaPDFDK.length >0){
+            dynamic max = chuaPDFDK.first;
+            // print(max);
+            chuaPDFDK.forEach((e) {
+              if (e['Name'].length > max['Name'].length) max = e;
+            });
+            pdfDK = (max['Url']);
+            namepdf = (max['Name']);
+          }
+        }
+        else{
+          pdfDK = (i['Url']);
+        }
+
+      }
 
       // pdf =  vbdi.pdf1;
       // namepdf =  vbdi.name;

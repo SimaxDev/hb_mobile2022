@@ -1,24 +1,30 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:isolate';
+import 'dart:ui';
 import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+
 ///import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF_con.dart';
+
 // import 'package:hb_mobile2021/ui/main/view_Docx.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:flutter_downloader/flutter_downloader.dart';
 
 // import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class ViewPDFVB extends StatefulWidget {
   @override
@@ -47,6 +53,15 @@ class _ViewPDF extends State<ViewPDFVB> {
   String pathPDF = "";
   String tenPDF = "";
   String urlPDF = "";
+  int progress = 0;
+
+  static downloadingCallback(id, status, progress) {
+    ///Looking up for a send port
+    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+
+    ///ssending the data
+    sendPort.send([id, status, progress]);
+  }
 
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes: 5), (_) {
@@ -93,6 +108,7 @@ class _ViewPDF extends State<ViewPDFVB> {
   void initState() {
     // TODO: implement initState
     super.initState();
+
     //_initializeTimer();
     PDF_URL = pdf;
 
@@ -116,9 +132,10 @@ class _ViewPDF extends State<ViewPDFVB> {
         });
       });
     }
+    FlutterDownloader.registerCallback(downloadingCallback);
   }
 
-  Future<File> createFileOfPdfUrl( String url,filename) async {
+  Future<File> createFileOfPdfUrl(String url, filename) async {
     Completer<File> completer = Completer();
     print("Start download file from internet!");
     try {
@@ -286,81 +303,98 @@ class _ViewPDF extends State<ViewPDFVB> {
                     iconSize: 17,
                     icon: Icon(Icons.download_sharp),
                     onPressed: () async {
-                      setState(() {
-                        _isDownloading = !_isDownloading;
-                      });
-                      var dir = await getExternalStorageDirectory();
+                      final status = await Permission.storage.request();
 
-                      Dio dio = Dio();
-                      String url = "";
-                      print(ListDataPDF);
+                      if (status.isGranted) {
+                        setState(() {
+                          _isDownloading = !_isDownloading;
+                        });
+                        final dir = await getExternalStorageDirectory();
+                        Dio dio = Dio();
+                        String url = "";
 
-                    for( var item in ListDataPDF){
-                      if( item.Url == PDF_URL)
-                        {
-                          urlPDF = item.UrlDoc;
-                          tenPDF = item.Name;
-                          print(urlPDF);
+                        for (var item in ListDataPDF) {
+                          if (item.Url == PDF_URL) {
+                            urlPDF = item.UrlDoc;
+                            tenPDF = item.Name;
+                            print(urlPDF);
+                          }
                         }
-                    }
-                      if (PDF_URL.contains("doc") ) {
-                        url = urlPDF;
-                        createFileOfPdfUrl(url,tenPDF);
-                      }
-                      else
-                        if(PDF_URL.contains("xlsx"))
-                        {
-                         String ten =  PDF_URL.split('/').last;
+                        if (PDF_URL.contains("doc")) {
+                          url = urlPDF;
+                          await FlutterDownloader.enqueue(
+                            url: url,
+                            savedDir: dir.path,
+                            fileName: tenPDF,
+                            showNotification: true,
+                            openFileFromNotification: true,
+                          );
+                          // createFileOfPdfUrl(url,tenPDF);
+                        } else if (PDF_URL.contains("xlsx")) {
+                          String ten = PDF_URL.split('/').last;
                           url = PDF_URL;
 
+                          url = PDF_URL;
+                          await FlutterDownloader.enqueue(
+                            url: url,
+                            savedDir: dir.path,
+                            fileName: tenPDF,
+                            showNotification: true,
+                            openFileFromNotification: true,
+                          );
+                          // dio.download(url, '${dir.path}/$ten',
+                          //     onReceiveProgress: (actualbytes, totalbytes) {
+                          //       percentage = actualbytes / totalbytes * 100;
+                          //
+                          //       setState(() {
+                          //         percentageBool = true;
+                          //         downloadMessage =
+                          //         'Downloading... ${percentage.floor()}'
+                          //             ' %';
+                          //         if (percentage < 100) {
+                          //         } else {
+                          //           setState(() {
+                          //             percentageBool = false;
+                          //           });
+                          //         }
+                          //       });
+                          //     });
+                          // print(dir.path ?? '');
+                          // print('dio  ' + dio.toString());
+                        } else {
+                          url = PDF_URL;
+                          final id = await FlutterDownloader.enqueue(
+                            url: url,
+                            fileName: tenPDF,
+                            savedDir: dir.path,
+                            showNotification: true,
+                            openFileFromNotification: true,
+                          );
 
-                          dio.download(url, '${dir.path}/$ten',
-                              onReceiveProgress: (actualbytes, totalbytes) {
-                                percentage = actualbytes / totalbytes * 100;
-
-                                setState(() {
-                                  percentageBool = true;
-                                  downloadMessage =
-                                  'Downloading... ${percentage.floor()}'
-                                      ' %';
-                                  if (percentage < 100) {
-                                  } else {
-                                    setState(() {
-                                      percentageBool = false;
-                                    });
-                                  }
-                                });
-                              });
-                          print(dir.path ?? '');
-                          print('dio  ' + dio.toString());
+                          // String ten =  PDF_URL.split('/').last;
+                          // dio.download(url, '${dir.path}/$ten',
+                          //     onReceiveProgress: (actualbytes, totalbytes) {
+                          //       percentage = actualbytes / totalbytes * 100;
+                          //
+                          //       setState(() {
+                          //         percentageBool = true;
+                          //         downloadMessage =
+                          //         'Downloading... ${percentage.floor()}'
+                          //             ' %';
+                          //         if (percentage < 100) {
+                          //         } else {
+                          //           setState(() {
+                          //             percentageBool = false;
+                          //           });
+                          //         }
+                          //       });
+                          //     });
+                          // print(dir.path ?? '');
+                          // print('dio  ' + dio.toString());
                         }
-                        else
-                        {
-                        url = PDF_URL;
-
-                        String ten =  PDF_URL.split('/').last;
-                        dio.download(url, '${dir.path}/$ten',
-                            onReceiveProgress: (actualbytes, totalbytes) {
-                              percentage = actualbytes / totalbytes * 100;
-
-                              setState(() {
-                                percentageBool = true;
-                                downloadMessage =
-                                'Downloading... ${percentage.floor()}'
-                                    ' %';
-                                if (percentage < 100) {
-                                } else {
-                                  setState(() {
-                                    percentageBool = false;
-                                  });
-                                }
-                              });
-                            });
-                        print(dir.path ?? '');
-                        print('dio  ' + dio.toString());
+                      } else {
+                        print("Permission deined");
                       }
-
-
                     },
                   ),
                 ))

@@ -45,6 +45,7 @@ class VanBanDenJson {
   int vbdPT;
   bool vbdIsSentVB;
   bool checkbtnXDB1;
+  bool isTraCuu;
   int vbdSVB;
   int ChucVuNKID;
   int NguoiKyID;
@@ -117,6 +118,7 @@ class VanBanDenJson {
         this.strUserPH,
         this.soCongVan,
         this.soCongVanID,
+        this.isTraCuu,
 
       });
   //factory convert json['vanBanDen'] to model
@@ -167,6 +169,7 @@ class VanBanDenJson {
       CBXemDeBiet: json['vanBanDen']['userXDB']!=null? json['vanBanDen']['userXDB']: "",
       yKienThuHoi: json['vanBanDen']['yKienThuHoi'] != null ? json['vanBanDen']['yKienThuHoi'] : "",
       ThuHoi: json['vanBanDen']['vbdIsSentVanBan'] != null ? json['vanBanDen']['vbdIsSentVanBan'] : false,
+      isTraCuu: json['vanBanDen']['isTraCuu'] != null ? json['vanBanDen']['isTraCuu'] : false,
       CBChuaXuLy: json['vanBanDen']['strUserChuaXl'] != null ?
       json['vanBanDen']['strUserChuaXl'] :"",
       CBPhuTrach:json['vanBanDen']['vbdUserXuLyC']!=null&&json['vanBanDen']['vbdUserXuLyC']['LookupValu'

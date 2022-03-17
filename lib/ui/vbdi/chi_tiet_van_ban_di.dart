@@ -7,6 +7,7 @@ import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
+import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
 import 'package:hb_mobile2021/ui/vbduthao/phieu_trinh/view_pdf.dart';
 import 'ThongTinVBDi.dart';
 import 'nhatky_vbdi.dart';
@@ -156,8 +157,8 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
 
         duthao = VanBanDiJson.fromJson(data);
         FileTaiLieu = json.decode(detailVBDi)
-        ['OData']['vanBanDi']['FileTaiLieu'] != null ?json.decode
-          (detailVBDi)['OData']['vanBanDi']['FileTaiLieu']:"";
+        ['OData']['FileTaiLieu'] != null ?json.decode
+          (detailVBDi)['OData']['FileTaiLieu']:"";
         isLoading = true;
 
       });
@@ -253,7 +254,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
 
             // ViewPDF(idDuThao:widget.id,nam:year.toString()),
             ViewPDFVB(),
-            ViewPDFVB(),
+            ViewPDFDK(),
             NhatKyVBDi(id: widget.id,username:widget.username,
                 nam:year),
           ],

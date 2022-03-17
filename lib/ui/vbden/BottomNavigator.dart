@@ -19,6 +19,7 @@ import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
+import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemMoiDT.dart';
 import 'dart:developer' as Dev;
 import 'package:multi_select_item/multi_select_item.dart';
 import 'package:hb_mobile2021/common/VBDen/TreeChuyenVBDen.dart';
@@ -621,6 +622,34 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                               ],
                             ),
                           ),
+
+                          //textTheme: ButtonTextTheme.primary,
+                        )
+                      ],
+                    ),
+                  ),
+                ):SizedBox(),
+
+
+
+                  isTraCuu && vbdTrangThaiXuLyVanBan != 3
+                     && XemDB.contains("",currentUserID)&&
+             (vbdTTXuLyVanBanLT != 17
+            && vbdTTXuLyVanBanLT != 28
+            && vbdTTXuLyVanBanLT != 24
+            && vbdTTXuLyVanBanLT != 26)
+                    ?  Container(
+                  child: InkWell(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        TextButton.icon(
+                          icon: Icon(Icons.file_copy_sharp),
+                          label: Text('Dự thảo VB'),
+                          onPressed: () =>Navigator.of(context).pushAndRemoveUntil(
+                              MaterialPageRoute(
+                                  builder: (BuildContext context) => ThemMoiDT()),
+                                  (Route<dynamic> route) => true) ,
 
                           //textTheme: ButtonTextTheme.primary,
                         )

@@ -38,8 +38,8 @@ android {
 
         exclude "META-INF/DEPENDENCIES"
     }
-    compileSdkVersion 30
-    buildToolsVersion '30.0.2'
+    compileSdkVersion 31
+//    buildToolsVersion '30.0.2'
 
     sourceSets {
         main.java.srcDirs += 'src/main/kotlin'
@@ -49,7 +49,7 @@ android {
         // TODO: Specify your own unique Applicatio n ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.hoabinh.gov.hb_mobile2021"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 31
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 

@@ -100,6 +100,8 @@ dependencies:
   flutter_full_pdf_viewer: ^1.0.6
   flutter_cached_pdfview: ^0.4.1
   transparent_image: ^2.0.0
+  flutter_downloader: ^1.7.2
+  permission_handler: ^8.3.0
 
 
 

@@ -55,6 +55,15 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
   }
 
   @override
+  void dispose(){
+    super.dispose();
+    if(_timer != null){
+      _timer.cancel();
+    }
+
+  }
+
+  @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: _handleUserInteraction,

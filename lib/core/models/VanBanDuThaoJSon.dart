@@ -37,7 +37,7 @@ class VanBanDuThaoJson {
   final  int vbdiNguoiKyIDDT;
   final int vbdiCurrentNguoiTrinhIDDT;
     final List pdfDT;
-
+  List pdfDK;
   //Constructor
   VanBanDuThaoJson(
       {
@@ -68,6 +68,7 @@ class VanBanDuThaoJson {
         this.vbdiNguoiKyIDDT,
         this.vbdiCurrentNguoiTrinhIDDT,
         this.pdfDT,
+        this.pdfDK,
 
 
       });
@@ -149,6 +150,9 @@ class VanBanDuThaoJson {
             <=0||json['ListFileAttach'] == null
             ?[]:
        json['ListFileAttach'],
+      pdfDK: json['lstFileTaiLieuDinhKemvbdi']==null||json['lstFileTaiLieuDinhKemvbdi'].length <=0
+          ?[]:
+      json['lstFileTaiLieuDinhKemvbdi'],
 
       //TrangThaiVB: json['vbdiTrangThaiVB'] !=  null ? json['vbdiTrangThaiVB'] : "",
     );

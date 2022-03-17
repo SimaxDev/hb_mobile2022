@@ -37,6 +37,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
       _timer.cancel();
     });
 
+
   }
 
   void _handleUserInteraction([_]) {
@@ -48,7 +49,14 @@ class _ThongtinUserState extends State<ThongtinUser> {
     _timer.cancel();
     _initializeTimer();
   }
+  @override
+  void dispose(){
+    super.dispose();
+    if(_timer != null){
+      _timer.cancel();
+    }
 
+  }
 
   void initState() {
     _initializeTimer();
@@ -519,38 +527,38 @@ class _ThongtinUserState extends State<ThongtinUser> {
               ],
             ),
             SizedBox(height: 0,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.3,
-                  padding: EdgeInsets.only(left: 15.0),
-                  child: Text(
-                    'Thông báo',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                  ),
-                ),
-                Container(
-                  // decoration: BoxDecoration(
-                  //     border: Border.all(color: Colors.black12)
-                  // ),
-                  width: MediaQuery
-                      .of(context)
-                      .size
-                      .width * 0.6,
-                  padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
-                  margin: EdgeInsets.only(right: 10),
-                  child: Text(
-                    users.ThongBao,
-                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                    textAlign: TextAlign.center,
-                  ),
-                )
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Container(
+            //       width: MediaQuery
+            //           .of(context)
+            //           .size
+            //           .width * 0.3,
+            //       padding: EdgeInsets.only(left: 15.0),
+            //       child: Text(
+            //         'Thông báo',
+            //         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+            //       ),
+            //     ),
+            //     Container(
+            //       // decoration: BoxDecoration(
+            //       //     border: Border.all(color: Colors.black12)
+            //       // ),
+            //       width: MediaQuery
+            //           .of(context)
+            //           .size
+            //           .width * 0.6,
+            //       padding: EdgeInsets.fromLTRB(10, 15, 0, 0),
+            //       margin: EdgeInsets.only(right: 10),
+            //       child: Text(
+            //         users.ThongBao,
+            //         style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+            //         textAlign: TextAlign.center,
+            //       ),
+            //     )
+            //   ],
+            // ),
             SizedBox(height: 20,),
 
             Container(

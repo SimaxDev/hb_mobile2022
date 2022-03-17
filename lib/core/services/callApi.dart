@@ -80,6 +80,7 @@ List vbdiCurrentUserReceived = [];
 bool vbdUserChuaXuLy = false;
 String vbdHanXuLy ="";
 bool vbdiIsSentVanBan = false;
+bool isTraCuu = false;
 bool checkbtnXDB = false;
 bool CapSoVanBanDi = false;
 bool vbdIsSentVanBan = false;
