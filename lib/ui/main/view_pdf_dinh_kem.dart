@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-///import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
@@ -21,6 +20,7 @@ import 'package:path_provider/path_provider.dart';
 // import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
+// import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
