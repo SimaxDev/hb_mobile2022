@@ -9,6 +9,7 @@ import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/main.dart';
+import 'package:hb_mobile2021/ui/Login/singUp.dart';
 //import 'package:hb_mobile2021/notification_local_api.dart';
 import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
@@ -170,6 +171,43 @@ class LoginState extends State<LoginWidget> {
       var mess = json.decode(response.body)['Message'];
 
     }
+  }
+  Widget _buildSignupBtn() {
+    return GestureDetector(
+      onTap: () => Get.to(singUp()),
+      child: RichText(
+        text: TextSpan(
+          children: [
+            TextSpan(
+              text: 'Bạn chưa có tài khoản? ',
+              style: TextStyle(
+                fontSize: 18,
+                color: Color(0xff021029),
+                fontStyle: FontStyle.normal,
+                fontWeight: FontWeight.w400,
+                // color: Colors.white,
+              ),
+            ),
+            TextSpan(
+                text: 'Đăng ký',
+                style: TextStyle(
+                  decoration: TextDecoration.underline,
+                  fontSize: 18,
+                  color: Color(0xff021029),
+                  fontStyle: FontStyle.normal,
+                  fontWeight: FontWeight.w400,
+                  // color: Colors.white,
+                )
+              // style: TextStyle(
+              //   color: Colors.white,
+              //   fontSize: 18.0,
+              //   fontWeight: FontWeight.bold,
+              // ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 
   @override
@@ -391,6 +429,10 @@ class LoginState extends State<LoginWidget> {
                     SizedBox(
                       height: 10,
                     ),
+                    // _buildSignupBtn(),
+                    // SizedBox(
+                    //   height: 10,
+                    // ),
                   ],
                 ),
                 decoration: BoxDecoration(
