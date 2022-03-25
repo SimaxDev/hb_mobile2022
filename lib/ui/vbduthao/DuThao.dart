@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
@@ -126,7 +126,6 @@ class DuThaoState extends State<DuThaoWidget> {
       _timer.cancel();
     }
 
-    print("l464364");
     super.dispose();
   }
 

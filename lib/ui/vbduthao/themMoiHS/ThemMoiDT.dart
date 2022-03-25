@@ -31,6 +31,14 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
 
   }
 
+  @override
+  void dipose(){
+    if(_timer != null){
+      _timer.cancel();
+    }
+    super.dispose();
+  }
+
   void _handleUserInteraction([_]) {
     if (!_timer.isActive) {
       // This means the user has been logged out

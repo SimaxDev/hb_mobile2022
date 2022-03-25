@@ -7,12 +7,13 @@ import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbdi/view_pdf_con.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 class ViewPDFPT_con extends StatefulWidget {
   final int idDuThao;

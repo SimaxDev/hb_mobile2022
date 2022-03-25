@@ -1,5 +1,5 @@
 import 'dart:convert';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
@@ -166,6 +166,20 @@ postResset(String username,String passs) async {
   parts.add('txtMatKhau=' + passs);
   var formData = parts.join('&');
   String url = "/api/Home/ResetPass";
+  var response = await responseMK(url, formData);
+  if (response.statusCode == 200) {
+    var items = (response.body);
+    return items;
+  }
+}
+postCreate(String username,String passs,String eamil) async {
+  var parts = [];
+  parts.add('userTenTruyCap=' + username.toString());
+  parts.add('ActionXL=CreateUser');
+  parts.add('strMatKhau=' + passs);
+  parts.add('userEmail=' + eamil);
+  var formData = parts.join('&');
+  String url = "/api/ServiceUser/ActionXuLy";
   var response = await responseMK(url, formData);
   if (response.statusCode == 200) {
     var items = (response.body);

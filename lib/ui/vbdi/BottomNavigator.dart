@@ -19,7 +19,7 @@ import 'package:hb_mobile2021/core/models/VanBanDiJson.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:developer' as Dev;
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/common/VBDi/TreeFromJson.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
@@ -151,7 +151,12 @@ bool isLoading = false;
                 ):SizedBox(),
 
                 //Chuyển trục liên thông
-                Container(
+                ((!CurrentTenDonVi.toUpperCase().startsWith("XÃ")
+                    && !CurrentTenDonVi.toUpperCase().startsWith("PHƯỜNG"))
+                    || SiteAction.contains("xalongson"))
+                    && GuiVanBanDi == true
+
+               ? Container(
                   child: InkWell(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -172,7 +177,7 @@ bool isLoading = false;
                       ],
                     ),
                   ),
-                ),
+                ):SizedBox(),
 
                 //Ý kiến bút phê
                 Container(

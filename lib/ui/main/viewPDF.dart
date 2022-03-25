@@ -11,9 +11,7 @@ import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/main/viewPDF_con.dart';
-
-// import 'package:hb_mobile2021/ui/main/view_Docx.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';

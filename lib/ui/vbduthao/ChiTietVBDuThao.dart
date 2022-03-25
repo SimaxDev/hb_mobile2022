@@ -10,6 +10,7 @@ import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
 import 'package:hb_mobile2021/ui/vbdi/view_pdf.dart';
 import 'package:hb_mobile2021/ui/vbduthao/BottomNavigator.dart';
 import 'package:hb_mobile2021/ui/vbduthao/phieu_trinh/view_pdf.dart';
+import 'package:hb_mobile2021/ui/vbduthao/view_pdfDT.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ThongTinVBDT.dart';
 import 'NhatKyDuThao.dart';
@@ -299,7 +300,9 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
             ),
             ViewPDFDK(),
             // ViewPDFDK(),
-            ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
+            // ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
+            //     top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
+            ViewPDFDT(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
                 top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
             ViewPDFPT(idDuThao: widget.idDuThao,nam: widget.nam,
                 ),

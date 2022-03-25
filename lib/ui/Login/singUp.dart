@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 
 
@@ -19,6 +20,8 @@ class LoginState extends State<singUp> {
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordCuController = TextEditingController();
+  TextEditingController HoTenController = TextEditingController();
+  TextEditingController EmailController = TextEditingController();
   bool rememberMe = false;
   bool isLoading = false;
   bool _showPass = true;
@@ -116,7 +119,7 @@ class LoginState extends State<singUp> {
                               primaryColor: Colors.black45,
                             ),
                             child: new TextField(
-                              controller: usernameController,
+                              controller: HoTenController,
                               cursorColor: Colors.black45,
                               style: TextStyle(
                                   color: Colors.black,
@@ -130,7 +133,81 @@ class LoginState extends State<singUp> {
                                 border: new OutlineInputBorder(
                                     borderSide:
                                         new BorderSide(color: Colors.black45)),
-                                labelText: 'Email',
+                                labelText: 'Họ và tên',
+                                labelStyle: TextStyle(
+                                  color: Color(0xffC0C0C0),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                                // prefixIcon: const Icon(
+                                //   Icons.person,
+                                //   color: Colors.black,
+                                // ),
+                                prefixText: ' ',
+                              ),
+                            ),
+                          )),
+
+
+                      Container(
+                          padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                          child: new Theme(
+                            data: new ThemeData(
+                              primaryColor: Colors.black45,
+                            ),
+                            child: new TextField(
+                              controller: EmailController,
+                              cursorColor: Colors.black45,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                              decoration: new InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffC0C0C0), width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                border: new OutlineInputBorder(
+                                    borderSide:
+                                    new BorderSide(color: Colors.black45)),
+                                labelText: 'Địa chỉ Email',
+                                labelStyle: TextStyle(
+                                  color: Color(0xffC0C0C0),
+                                  fontSize: 15,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.normal,
+                                ),
+                                // prefixIcon: const Icon(
+                                //   Icons.person,
+                                //   color: Colors.black,
+                                // ),
+                                prefixText: ' ',
+                              ),
+                            ),
+                          )),
+                      Container(
+                          padding: EdgeInsets.fromLTRB(16, 0, 16, 16),
+                          child: new Theme(
+                            data: new ThemeData(
+                              primaryColor: Colors.black45,
+                            ),
+                            child: new TextField(
+                              controller: usernameController,
+                              cursorColor: Colors.black45,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.bold),
+                              decoration: new InputDecoration(
+                                enabledBorder: OutlineInputBorder(
+                                  borderSide: const BorderSide(
+                                      color: Color(0xffC0C0C0), width: 1),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                border: new OutlineInputBorder(
+                                    borderSide:
+                                    new BorderSide(color: Colors.black45)),
+                                labelText: 'Tên truy cập',
                                 labelStyle: TextStyle(
                                   color: Color(0xffC0C0C0),
                                   fontSize: 15,
@@ -170,7 +247,7 @@ class LoginState extends State<singUp> {
                                     border: new OutlineInputBorder(
                                         borderSide: new BorderSide(
                                             color: Colors.white)),
-                                    labelText: 'Password',
+                                    labelText: 'Mật khẩu',
                                     labelStyle: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontStyle: FontStyle.normal,
@@ -222,7 +299,7 @@ class LoginState extends State<singUp> {
                                     border: new OutlineInputBorder(
                                         borderSide: new BorderSide(
                                             color: Colors.white)),
-                                    labelText: 'Nhập lại Password',
+                                    labelText: 'Nhập lại mật khẩu',
                                     labelStyle: TextStyle(
                                         fontWeight: FontWeight.w400,
                                         fontStyle: FontStyle.normal,
@@ -275,40 +352,58 @@ class LoginState extends State<singUp> {
                                     // color: Colors.white,
                                   )),
                               onPressed: () async {
+                                if(
+                                usernameController.text==""||usernameController.text== null&&
+                                    HoTenController
+                                        .text==""||HoTenController.text== null&&
+                                    EmailController
+                                        .text==""||EmailController.text== null&&
+                                    passwordController
+                                        .text==""||passwordController.text==
+                                        null&&
+                                    passwordCuController.text==""||passwordCuController.text== null
+                                ){
+                                  showAlertDialog(context, "Nhập đầy "
+                                      "đủ thông tin đăng ký!");
+                                }else{
+
                                 if(usernameController
                                     .text==""||usernameController.text== null){
                                   showAlertDialog(context, "Tài khoản đăng ký"
                                       " không được để trống?");
                                 }
-                                else{
-                                  if(passwordController.text ==
-                                      null||passwordController.text
-                                      ==""||passwordCuController
-                                      .text==null||passwordCuController
-                                      .text==""){
+                                else {
+                                  if (passwordController.text ==
+                                      null || passwordController.text
+                                      == "" || passwordCuController
+                                      .text == null || passwordCuController
+                                      .text == "") {
                                     showAlertDialog(context, "Mật khẩu đăng ký"
                                         " không được để trống?");
                                   }
-                                  else{
-                                    if(passwordController.text !=
-                                    passwordCuController.text){
-                                      showAlertDialog(context, "Nhập lại mật khẩu "
+                                  else {
+                                    if (passwordController.text !=
+                                        passwordCuController.text) {
+                                      showAlertDialog(
+                                          context, "Nhập lại mật khẩu "
                                           "đăng ký!");
                                       passwordController.text = "";
                                       passwordCuController.text = "";
                                     }
-                                    else{
+                                    else {
                                       EasyLoading.show();
-                                      var thanhcong ;
-                                      // = await CongAPI.PostDangKy
-                                      //   (usernameController.text,passwordController.text);
+                                      var thanhcong
+                                      = await postCreate
+                                        (usernameController.text,
+                                        passwordController.text,
+                                          EmailController.text);
                                       EasyLoading.dismiss();
                                       Navigator.of(context).pop();
-                                      showAlertDialog(context, json.decode(thanhcong)['Message']);
+                                      showAlertDialog(context,
+                                          json.decode(thanhcong)['Message']);
                                     }
                                   }
-
-
+                                }
 
                                 }
 

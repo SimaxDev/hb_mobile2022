@@ -146,6 +146,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
     return Scaffold(
       key: _scaffoldKey,
       body: body(),
+
       // bottomNavigationBar: FFNavigationBar(
       //   theme: FFNavigationBarTheme(
       //     barBackgroundColor: Colors.white,
@@ -189,51 +190,111 @@ class BottomNavigatorState extends State<BottomNavigator> {
         onTap: onTabTapped,
         currentIndex: _currentIndex,
         items: [
-          new BottomNavigationBarItem(
-            icon:    new Image.asset("assets/icon/trangtruApp.png",
+          BottomNavigationBarItem(
+            icon:  new Image.asset("assets/icon/trangtruApp.png",
                 color: Colors.black,
                 width: MediaQuery.of(context).size
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            label: 'Trang chủ',
+            title: Text(
+             "Trang chủ",
+              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            ),
           ),
-          new BottomNavigationBarItem(
-            icon: new Image.asset("assets/icon/vbden.png",
+          BottomNavigationBarItem(
+            icon:  new Image.asset("assets/icon/vbden.png",
                 color: Colors.black,
                 width: MediaQuery.of(context).size
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            label: 'Văn bản đến',
+            title: Text(
+             "TB Văn bản đến",
+              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            ),
           ),
-          new BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: new Image.asset("assets/icon/vbdiApp.png",
                 color: Colors.black,
                 width: MediaQuery.of(context).size
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            label: 'Văn bản đi',
+            title: Text(
+              "TB Văn bản đi",
+              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            ),
           ),
-          new BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: new Image.asset("assets/icon/duthaoApp.png",
                 color: Colors.black,
                 width: MediaQuery.of(context).size
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            label:'Dự thảo/PT',
+            title: Text(
+              "TB Dự thảo/PT",
+              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            ),
           ),
-          new BottomNavigationBarItem(
+          BottomNavigationBarItem(
             icon: new Image.asset("assets/icon/hscvApp.png",
                 color: Colors.black,
                 width: MediaQuery.of(context).size
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            label: 'Hồ sơ CV',
-          ),
+            title: Text(
+              "TB Hồ sơ CV",
+              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            ),
+          )
+          // new BottomNavigationBarItem(
+          //   icon:    new Image.asset("assets/icon/trangtruApp.png",
+          //       color: Colors.black,
+          //       width: MediaQuery.of(context).size
+          //           .width * 0.045,
+          //       height: MediaQuery.of(context).size.height *
+          //           0.025, fit: BoxFit.fill),
+          //   label: 'Trang chủ',
+          // ),
+          // new BottomNavigationBarItem(
+          //   icon: new Image.asset("assets/icon/vbden.png",
+          //       color: Colors.black,
+          //       width: MediaQuery.of(context).size
+          //           .width * 0.045,
+          //       height: MediaQuery.of(context).size.height *
+          //           0.025, fit: BoxFit.fill),
+          //   label: 'TB Văn bản đến',
+          // ),
+          // new BottomNavigationBarItem(
+          //   icon: new Image.asset("assets/icon/vbdiApp.png",
+          //       color: Colors.black,
+          //       width: MediaQuery.of(context).size
+          //           .width * 0.045,
+          //       height: MediaQuery.of(context).size.height *
+          //           0.025, fit: BoxFit.fill),
+          //   label: 'TB Văn bản đi',
+          // ),
+          // new BottomNavigationBarItem(
+          //   icon: new Image.asset("assets/icon/duthaoApp.png",
+          //       color: Colors.black,
+          //       width: MediaQuery.of(context).size
+          //           .width * 0.045,
+          //       height: MediaQuery.of(context).size.height *
+          //           0.025, fit: BoxFit.fill),
+          //   label:'TB Dự thảo/PT',
+          // ),
+          // new BottomNavigationBarItem(
+          //   icon: new Image.asset("assets/icon/hscvApp.png",
+          //       color: Colors.black,
+          //       width: MediaQuery.of(context).size
+          //           .width * 0.045,
+          //       height: MediaQuery.of(context).size.height *
+          //           0.025, fit: BoxFit.fill),
+          //   label: 'TB Hồ sơ CV',
+          // ),
           // new BottomNavigationBarItem(
           //   icon: new Icon(Icons.support_agent_outlined,color: Colors.red,),
           //   title: new Text('Hỗ trợ',style: TextStyle(color: Colors.red),),

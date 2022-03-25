@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:math';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -252,9 +252,22 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     VanBanDenJson vbDen = ttduthao;
 
     thuHoiVBD = vbDen.ThuHoi;
-
+    String LogxulyText = vbDen.LogxulyText;
     checkThuHoi = vbDen.checkThuHoi1;
-    isTraCuu = vbDen.isTraCuu;
+   if ((!(LogxulyText == null || LogxulyText.isEmpty)
+        && !LogxulyText.contains("#DYCapNhap#") 
+        && !LogxulyText.contains("#TCCapNhap#")
+        && !LogxulyText.contains("#TCThayThe#") 
+        && !LogxulyText.contains("#DYThayThe#") 
+        && !LogxulyText.contains("#DYThuHoi#") 
+        && !LogxulyText.contains("#TCThuHoi#") 
+        && !LogxulyText.contains("#DYLayLai#")
+        && !LogxulyText.contains("#vbdaduocthaythe;")
+        && !LogxulyText.contains("#tuchoi_2#")) 
+        || (LogxulyText == null || LogxulyText.isEmpty)){
+      isTraCuu = true;
+    };
+    // isTraCuu = vbDen.isTraCuu;
     XemDB = vbDen.UserChuaXL;
     vbdTTXuLyVanBanLT = vbDen.vbdTTXuLyVBLT;
     vbdPhuongThuc = vbDen.vbdPT;
@@ -263,9 +276,8 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     vbdIsSentVanBan = vbDen.vbdIsSentVB;
     lstvbdUserChuaXuLy = vbDen.UserChuaXLID;
     for (var item in lstvbdUserChuaXuLy) {
-      if (item['LookupId'] == currentUserID) {
+      if (item['LookupId'] == currentUserID >0) {
         vbdUserChuaXuLy = true;
-        break;
       } else {
         vbdUserChuaXuLy = false;
       }
@@ -273,7 +285,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
 
     vbdHanXuLy = vbDen.HanXL;
     checkbtnXDB = vbDen.checkbtnXDB1;
-    String LogxulyText = vbDen.LogxulyText;
+
     String vbChuaXL = vbDen.CBChuaXuLy;
 
     Listpdf = vbDen.pdf1;

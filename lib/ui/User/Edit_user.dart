@@ -11,8 +11,7 @@ import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
-
-import 'ThongTinUser.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 
 

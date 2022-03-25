@@ -5,7 +5,7 @@ import 'package:hb_mobile2021/core/services/MenuLeftService.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:http/http.dart' as http;
 import 'package:provider/provider.dart';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
@@ -127,7 +127,9 @@ class _VanBanDi extends State<VanBanDi> {
 
   @override
   void dispose(){
-    _timer.cancel();
+    if(_timer != null){
+      _timer.cancel();
+    }
     super.dispose();
   }
 

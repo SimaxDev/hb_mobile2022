@@ -1,5 +1,5 @@
 import 'dart:async';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -32,6 +32,7 @@ class MenuRight extends StatefulWidget {
 class _MenuRightState extends State<MenuRight> {
   var tendangnhap;
   Timer _timer;
+  List lstThongTinLConfig = [];
 
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes: 5), (_) {
@@ -74,10 +75,15 @@ class _MenuRightState extends State<MenuRight> {
         tenPhongBan = item['CurrentTenPhongBan'] != null
             ? item['CurrentTenPhongBan']
             : "";
+        CurrentTenDonVi =
+            item['CurrentTenDonVi'] != null ? item['CurrentTenDonVi'] : "";
         OrganName = item['OrganName'] != null ? item['OrganName'] : "";
         notIsQuanTriNew =
             item['notIsQuanTriNew'] != null ? item['notIsQuanTriNew'] : false;
         isQTNew = item['isQTNew'] != null ? item['isQTNew'] : false;
+        ThemMoiVanBanDuThao = item['ListPermissions']['ThemMoiVanBanDuThao'] != null
+            ? item['ListPermissions']['ThemMoiVanBanDuThao']
+            : false;
         lstThongTinGroup =
             item['lstThongTinGroup'] != null ? item['lstThongTinGroup'] : [];
         EmailHT = item['userEmail'] != null ? item['userEmail'] : "";
@@ -89,31 +95,41 @@ class _MenuRightState extends State<MenuRight> {
                 item['ListPermissions']['ButPheVanBan'] != null
             ? item['ListPermissions']['ButPheVanBan']
             : false;
-        groupID = item['groupID'] != null ? item['groupID']:0;
+        groupID = item['groupID'] != null ? item['groupID'] : 0;
         lstPhongBanLaVanThuVBDI = item['lstPhongBanLaVanThuVBDI'];
         lstPhongBanLaVanThuVBDEN = item['lstPhongBanLaVanThuVBDEN'];
-        SiteAction = item['SiteAction']!= null ?item['SiteAction'] :"";
+        SiteAction = item['SiteAction'] != null ? item['SiteAction'] : "";
 
-        if(item['ListPermissions'] != null && item['ListPermissions'].length
-            >0){
-          ThemMoiVanBanDi = item['ListPermissions']['ThemMoiVanBanDi'] !=
-              null ?item['ListPermissions']['ThemMoiVanBanDi'] :false;
-          ThemVanBanDen = item['ListPermissions']['ThemVanBanDen']!=
-              null?item['ListPermissions']['ThemVanBanDen']:false;
-          ThietLapHoiBao = item['ListPermissions']['ThietLapHoiBao']!=
-              null?item['ListPermissions']['ThietLapHoiBao']:false;
-          CapSoVanBanDi = item['ListPermissions']['CapSoVanBanDi'] !=
-              null?item['ListPermissions']['CapSoVanBanDi']:false;
-          hanXLVBD = item['ListPermissions']['GuiVanBanD']!=
-              null?item['ListPermissions']['GuiVanBanD']:false;
-          GuiVanBanDi = item['ListPermissions']['GuiVanBanDi']!=
-              null?item['ListPermissions']['GuiVanBanDi']:false;
-          SuaVanBanDen = item['ListPermissions']['SuaVanBanDen']!= null?item['ListPermissions']['SuaVanBanDen']:false;
-          GuiVanBan = item['ListPermissions']['GuiVanBan'] !=
-              null?item['ListPermissions']['GuiVanBan']:false;
+        if (item['ListPermissions'] != null &&
+            item['ListPermissions'].length > 0) {
+          ThemMoiVanBanDi = item['ListPermissions']['ThemMoiVanBanDi'] != null
+              ? item['ListPermissions']['ThemMoiVanBanDi']
+              : false;
+          ThemVanBanDen = item['ListPermissions']['ThemVanBanDen'] != null
+              ? item['ListPermissions']['ThemVanBanDen']
+              : false;
+          ThietLapHoiBao = item['ListPermissions']['ThietLapHoiBao'] != null
+              ? item['ListPermissions']['ThietLapHoiBao']
+              : false;
+          CapSoVanBanDi = item['ListPermissions']['CapSoVanBanDi'] != null
+              ? item['ListPermissions']['CapSoVanBanDi']
+              : false;
+          hanXLVBD = item['ListPermissions']['GuiVanBanD'] != null
+              ? item['ListPermissions']['GuiVanBanD']
+              : false;
+          GuiVanBanDi = item['ListPermissions']['GuiVanBanDi'] != null
+              ? item['ListPermissions']['GuiVanBanDi']
+              : false;
+          SuaVanBanDen = item['ListPermissions']['SuaVanBanDen'] != null
+              ? item['ListPermissions']['SuaVanBanDen']
+              : false;
+          GuiVanBan = item['ListPermissions']['GuiVanBan'] != null
+              ? item['ListPermissions']['GuiVanBan']
+              : false;
         }
 
-        userTenTruyCap = item['userTenTruyCap'] != null?item['userTenTruyCap']:"";
+        userTenTruyCap =
+            item['userTenTruyCap'] != null ? item['userTenTruyCap'] : "";
         CurrentDonViID =
             item['CurrentDonVi'] == null ? 0 : item['CurrentDonVi']['LookupId'];
         DonViInSiteID =
@@ -122,7 +138,15 @@ class _MenuRightState extends State<MenuRight> {
         ID = item['ID'];
         currentUserID = ID;
         userHasQuyenKyVB = item['lstPBHasVanBan'];
-
+        lstThongTinLConfig = item['lstThongTinLConfig'] != null &&
+                item['lstThongTinLConfig'].length > 0
+            ? item['lstThongTinLConfig']
+            : [];
+        for (var i in lstThongTinLConfig) {
+          if (i['configType'] == 'pGuiXuLyChinh') {
+            ispGuiXuLyChinh = true;
+          }
+        }
 
         userChucVu = item['userChucVu'].length > 0 &&
                 item['userChucVu'][0]['LookupValue'] != null

@@ -71,6 +71,7 @@ class VanBanDenJson {
         this.LoaiVanBan,
         this.LoaiVanBanID,
         this.SoKyHieu,
+
         this.TrichYeu,
         this.SoDen,
         this.CoQuanBanHanh,
@@ -169,7 +170,8 @@ class VanBanDenJson {
       CBXemDeBiet: json['vanBanDen']['userXDB']!=null? json['vanBanDen']['userXDB']: "",
       yKienThuHoi: json['vanBanDen']['yKienThuHoi'] != null ? json['vanBanDen']['yKienThuHoi'] : "",
       ThuHoi: json['vanBanDen']['vbdIsSentVanBan'] != null ? json['vanBanDen']['vbdIsSentVanBan'] : false,
-      isTraCuu: json['vanBanDen']['isTraCuu'] != null ? json['vanBanDen']['isTraCuu'] : false,
+      isTraCuu: json['oLVanBanDenQuery'] != null  &&json['oLVanBanDenQuery']['isTraCuu'] != null ?
+    json['oLVanBanDenQuery']['isTraCuu'] : false,
       CBChuaXuLy: json['vanBanDen']['strUserChuaXl'] != null ?
       json['vanBanDen']['strUserChuaXl'] :"",
       CBPhuTrach:json['vanBanDen']['vbdUserXuLyC']!=null&&json['vanBanDen']['vbdUserXuLyC']['LookupValu'
@@ -219,6 +221,7 @@ class VanBanDenJson {
       vbdUserXuLyC: json['vbdUserXuLyC']!= null &&json['vanBanDen']['vbdUserXuLyC'].length > 0 ?
       json['vanBanDen']['vbdUserXuLyC']['LookupId']:0,
       strUserPH: json['vanBanDen']['strUserPH']!= null ? json['vanBanDen']['strUserPH']:"",
+
       // can xem lai chua lay dung
       // can xem lai chua lay dung
       // can xem lai chua lay dung

@@ -27,7 +27,7 @@ import 'package:progress_indicator_button/progress_button.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'TabbarChiTiet/ChonDS.dart';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 class BottomNav extends StatefulWidget {
   int id;
   final int nam;
@@ -344,8 +344,10 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                 ):SizedBox(),
 
 //Chuyển nahnh
+//
+
                 (vbdPhuongThuc != 3 && ThemVanBanDen == true &&
-                    GuiVanBan == true)
+                    !(GuiVanBan== true))
                     ? Container(
                   child: InkWell(
                     child: Column(
@@ -444,7 +446,12 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                 ):SizedBox(),
 
 //giao việc
-                Container(
+
+                isTraCuu == true && vbdUserChuaXuLy == true
+                    && currentDuThao.ID <= 0 && (vbdTTXuLyVanBanLT != 17 
+                    && vbdTTXuLyVanBanLT != 28 
+                    && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
+                ?Container(
                   child: InkWell(
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -464,7 +471,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                       ],
                     ),
                   ),
-                ),
+                ):SizedBox(),
 
 
 
@@ -516,12 +523,15 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                 ),
 
 //Xử lý xong
-                (vbdIsSentVanBan == true || vbdPhuongThuc == 2)
-                    && (vbdTTXuLyVanBanLT != 17
-                    && vbdTTXuLyVanBanLT != 28
-                    && vbdTTXuLyVanBanLT != 24
-                    && vbdTTXuLyVanBanLT != 26)
-                    && (vbdUserChuaXuLy == true)
+
+                (isTraCuu && (vbdIsSentVanBan || vbdPhuongThuc == 2)
+                    && (vbdTTXuLyVanBanLT != 17 && vbdTTXuLyVanBanLT != 28 
+                    && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
+                    && (vbdUserChuaXuLy == true))||
+                    (!ThemVanBanDen
+                    || (ThemMoiVanBanDuThao == true
+                    && !SiteAction.contains("vpubhb")))
+
                     ?  Container(
                   child: InkWell(
                     child: Column(
@@ -561,7 +571,9 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
 //hạn xử lý
-                vbdIsSentVanBan == true
+
+
+                isTraCuu == true && vbdIsSentVanBan == true
                     && vbdUserChuaXuLy == true
                     && (vbdHanXuLy != null || vbdHanXuLy != "")
                     && (vbdTTXuLyVanBanLT != 17

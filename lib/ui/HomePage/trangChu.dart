@@ -471,151 +471,151 @@ class PageState extends State<trangChu> {
                         ),
                       ],
                     )),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Row(
-                        children: <Widget>[
-                          Flexible(
-                              flex: 1,
-                              fit: FlexFit.loose,
-                              child: Text("Hệ thống dùng chung của tỉnh ",
-                                  textAlign: TextAlign.center,
-                                  style: TextStyle(
-                                      color: Color(0xff3064D0), fontSize: 11))
-                              //Container
-                              ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  String url =
-                                      'https://dichvucong.hoabinh.gov.vn/hoabinh-portal/';
-                                  _launchURL(url);
-                                });
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset('assets/icon/congtt.png',
-                                      width: MediaQuery.of(context).size.width *
-                                          0.04,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.02,
-                                      fit: BoxFit.fill),
-                                  Text("Dịch vụ công",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleBlackIT)
-                                ],
-                              ),
-                            ), //Container
-                          ), //Flexible
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  String url = 'http://hoabinh.gov.vn/';
-                                  _launchURL(url);
-                                });
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset('assets/icon/congttApp.png',
-                                      width: MediaQuery.of(context).size.width *
-                                          0.04,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.02,
-                                      fit: BoxFit.fill),
-                                  Text("Cổng thông tin",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleBlackIT)
-                                ],
-                              ),
-                            ), //Container
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ), //SizedBox
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  String url =
-                                      'http://thongtinbaocao.hoabinh.gov.vn/';
-                                  _launchURL(url);
-                                });
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset('assets/icon/baocaoApp.png',
-                                      color: Colors.black,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.04,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.02,
-                                      fit: BoxFit.fill),
-                                  Text("HT báo cáo",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleBlackIT)
-                                ],
-                              ),
-                            ), //Container
-                          ),
-                          SizedBox(
-                            width: 10,
-                          ), //SizedBox
-                          Flexible(
-                            flex: 1,
-                            fit: FlexFit.tight,
-                            child: InkWell(
-                              onTap: () {
-                                setState(() {
-                                  String url = 'http://vpubnd.hoabinh.gov.vn/';
-                                  _launchURL(url);
-                                });
-                              },
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: <Widget>[
-                                  Image.asset(
-                                      'assets/icon/duthaoApp'
-                                      '.png',
-                                      color: Colors.black,
-                                      width: MediaQuery.of(context).size.width *
-                                          0.04,
-                                      height:
-                                          MediaQuery.of(context).size.height *
-                                              0.02,
-                                      fit: BoxFit.fill),
-                                  Text("Thư điện tử ",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleBlackIT)
-                                ],
-                              ),
-                            ), //Container
-                          ),
-
-                          //Flexible
-                        ], //<Widget>[]
-                        mainAxisAlignment: MainAxisAlignment.center,
-                      ),
-                    )
+                    // Align(
+                    //   alignment: Alignment.bottomCenter,
+                    //   child: Row(
+                    //     children: <Widget>[
+                    //       Flexible(
+                    //           flex: 1,
+                    //           fit: FlexFit.loose,
+                    //           child: Text("Hệ thống dùng chung của tỉnh ",
+                    //               textAlign: TextAlign.center,
+                    //               style: TextStyle(
+                    //                   color: Color(0xff3064D0), fontSize: 11))
+                    //           //Container
+                    //           ),
+                    //       // SizedBox(
+                    //       //   width: 10,
+                    //       // ),
+                    //       // Flexible(
+                    //       //   flex: 1,
+                    //       //   fit: FlexFit.tight,
+                    //       //   child: InkWell(
+                    //       //     onTap: () {
+                    //       //       setState(() {
+                    //       //         String url =
+                    //       //             'https://dichvucong.hoabinh.gov.vn/hoabinh-portal/';
+                    //       //         _launchURL(url);
+                    //       //       });
+                    //       //     },
+                    //       //     child: Column(
+                    //       //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       //       children: <Widget>[
+                    //       //         Image.asset('assets/icon/congtt.png',
+                    //       //             width: MediaQuery.of(context).size.width *
+                    //       //                 0.04,
+                    //       //             height:
+                    //       //                 MediaQuery.of(context).size.height *
+                    //       //                     0.02,
+                    //       //             fit: BoxFit.fill),
+                    //       //         Text("Dịch vụ công",
+                    //       //             textAlign: TextAlign.center,
+                    //       //             style: tabStyleBlackIT)
+                    //       //       ],
+                    //       //     ),
+                    //       //   ), //Container
+                    //       // ), //Flexible
+                    //       SizedBox(
+                    //         width: 10,
+                    //       ),
+                    //       Flexible(
+                    //         flex: 1,
+                    //         fit: FlexFit.tight,
+                    //         child: InkWell(
+                    //           onTap: () {
+                    //             setState(() {
+                    //               String url = 'http://hoabinh.gov.vn/';
+                    //               _launchURL(url);
+                    //             });
+                    //           },
+                    //           child: Column(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: <Widget>[
+                    //               Image.asset('assets/icon/congttApp.png',
+                    //                   width: MediaQuery.of(context).size.width *
+                    //                       0.04,
+                    //                   height:
+                    //                       MediaQuery.of(context).size.height *
+                    //                           0.02,
+                    //                   fit: BoxFit.fill),
+                    //               Text("Cổng thông tin",
+                    //                   textAlign: TextAlign.center,
+                    //                   style: tabStyleBlackIT)
+                    //             ],
+                    //           ),
+                    //         ), //Container
+                    //       ),
+                    //       SizedBox(
+                    //         width: 10,
+                    //       ), //SizedBox
+                    //       Flexible(
+                    //         flex: 1,
+                    //         fit: FlexFit.tight,
+                    //         child: InkWell(
+                    //           onTap: () {
+                    //             setState(() {
+                    //               String url =
+                    //                   'http://thongtinbaocao.hoabinh.gov.vn/';
+                    //               _launchURL(url);
+                    //             });
+                    //           },
+                    //           child: Column(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: <Widget>[
+                    //               Image.asset('assets/icon/baocaoApp.png',
+                    //                   color: Colors.black,
+                    //                   width: MediaQuery.of(context).size.width *
+                    //                       0.04,
+                    //                   height:
+                    //                       MediaQuery.of(context).size.height *
+                    //                           0.02,
+                    //                   fit: BoxFit.fill),
+                    //               Text("HT báo cáo",
+                    //                   textAlign: TextAlign.center,
+                    //                   style: tabStyleBlackIT)
+                    //             ],
+                    //           ),
+                    //         ), //Container
+                    //       ),
+                    //       SizedBox(
+                    //         width: 10,
+                    //       ), //SizedBox
+                    //       Flexible(
+                    //         flex: 1,
+                    //         fit: FlexFit.tight,
+                    //         child: InkWell(
+                    //           onTap: () {
+                    //             setState(() {
+                    //               String url = 'http://vpubnd.hoabinh.gov.vn/';
+                    //               _launchURL(url);
+                    //             });
+                    //           },
+                    //           child: Column(
+                    //             mainAxisAlignment: MainAxisAlignment.center,
+                    //             children: <Widget>[
+                    //               Image.asset(
+                    //                   'assets/icon/duthaoApp'
+                    //                   '.png',
+                    //                   color: Colors.black,
+                    //                   width: MediaQuery.of(context).size.width *
+                    //                       0.04,
+                    //                   height:
+                    //                       MediaQuery.of(context).size.height *
+                    //                           0.02,
+                    //                   fit: BoxFit.fill),
+                    //               Text("Thư điện tử ",
+                    //                   textAlign: TextAlign.center,
+                    //                   style: tabStyleBlackIT)
+                    //             ],
+                    //           ),
+                    //         ), //Container
+                    //       ),
+                    //
+                    //       //Flexible
+                    //     ], //<Widget>[]
+                    //     mainAxisAlignment: MainAxisAlignment.center,
+                    //   ),
+                    // )
                   ],
                 )),
           )),

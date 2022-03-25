@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -5,6 +7,8 @@ import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
+
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 
 class TreeThemDT extends StatefulWidget {
@@ -51,6 +55,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
   String selcb = "";
   var parsedJson;
   var chuListDT;
+  Timer _timer;
 
 
   @override
@@ -63,6 +68,9 @@ class _TreeThemDTState extends State<TreeThemDT> {
   }
   @override
   void dispose() {
+    if(_timer != null){
+      _timer.cancel();
+    }
     super.dispose();
     EasyLoading.dismiss();
 
@@ -110,8 +118,6 @@ class _TreeThemDTState extends State<TreeThemDT> {
 
   Widget buildTreeCBC() {
     try {
-      if( widget.clickChon == true)
-      {
         if(chitiet.length>0){
           for(var item in chitiet)
           {
@@ -131,13 +137,9 @@ class _TreeThemDTState extends State<TreeThemDT> {
             Center(child:
             CircularProgressIndicator());
         }
-      }
-      else
-      {
 
-        parsedJson = chitiet;
 
-      }
+
       return TreeView(
         nodes: toTreeNodesRadio(parsedJson),
         treeController: _treeController,
@@ -148,8 +150,8 @@ class _TreeThemDTState extends State<TreeThemDT> {
   }
   Widget buildTreePD2() {
     try {
-      if( widget.clickChon == true)
-      {
+      // if( widget.clickChon == true)
+      // {
         if(chitiet.length>0){
           for(var item in chitiet)
           {
@@ -169,13 +171,13 @@ class _TreeThemDTState extends State<TreeThemDT> {
             Center(child:
             CircularProgressIndicator());
         }
-      }
-      else
-      {
-
-        parsedJson = chitiet;
-
-      }
+      // }
+      // else
+      // {
+      //
+      //   parsedJson = chitiet;
+      //
+      // }
       return TreeView(
         nodes: toTreeNodesRadio2(parsedJson),
         treeController: _treeController,
@@ -186,8 +188,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
   }
   Widget buildTreeNK() {
     try {
-      if( widget.clickChon == true)
-      {
+
         if(chitiet.length>0){
           for(var item in chitiet)
           {
@@ -207,13 +208,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
             Center(child:
             CircularProgressIndicator());
         }
-      }
-      else
-      {
 
-        parsedJson = chitiet;
-
-      }
       return TreeView(
         nodes: toTreeNodesRadioNK(parsedJson),
         treeController: _treeController,

@@ -7,7 +7,7 @@ import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 
@@ -105,6 +105,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
     lstUserPT ;
     lstUserPH ;
     selcb ;
+
+
     EasyLoading.dismiss();
   }
   Future<Null> _selectDate(BuildContext context) async {
@@ -255,12 +257,372 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   Widget buildTree() {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
-    try {
-      var parsedJson = chitiet;
-      return SingleChildScrollView(
-        child:notIsQuanTriNew? Column(
-         // mainAxisAlignment: MainAxisAlignment.end,
-         // crossAxisAlignment: CrossAxisAlignment.start,
+      // var parsedJson = chitiet;
+      return notIsQuanTriNew == true ?
+      ((!ispGuiXuLyChinh)
+          ?Column(
+        // mainAxisAlignment: MainAxisAlignment.end,
+        // crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          SizedBox(
+            height: 10,
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+
+                    margin: EdgeInsets.only(left: 10),
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    child: Text('Phụ trách:', style:
+                    TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      if (mounted) { setState(() {
+                        isClickPT = !isClickPT;
+                      }); }
+
+                    },
+                    child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.7,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Align(
+                            child: textPT == "" ? Text(
+                              "Chọn cán bộ phục trách",
+                              style: TextStyle(
+                                  color: Colors.black45
+                              ),
+
+
+                            ) :
+                            Text(textPT,
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.8)
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+
+                            )
+                        )
+                    ),),
+                  ),
+                ],
+              ),
+              isClickPT
+                  ? SizedBox()
+                  : Container(
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.9,
+                child: buildTreePT(),
+              ),
+
+              // Container()
+            ],
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    child: Text(
+                      'Phối hợp:',
+                      style: TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      if (mounted) {setState(() {
+                        isClick1 = !isClick1;
+                      }); }
+
+                    },
+                    child: Padding(padding: EdgeInsets.only(left: 3),
+                      child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.7,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.05,
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Align(
+                              child: textPH == "" ? Text(
+                                "Chọn cán bộ phối hợp",
+                                style: TextStyle(
+                                    color: Colors.black45
+                                ),
+
+
+                              ) :
+                              Text(textPH,
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8)
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+
+                              )
+                          )
+                      ),),
+                  ),
+                ],
+              ),
+
+              isClick1
+                  ? SizedBox()
+                  : Container(
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.9,
+                child: buildTreePhu(),
+              ),
+
+              // Container()
+            ],
+          ),
+          Column(
+            children: [
+              Row(
+                children: [
+                  Container(
+                    margin: EdgeInsets.only(left: 10),
+                    width: MediaQuery.of(context).size.width * 0.15,
+                    child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
+                  ),
+                  FlatButton(
+                    onPressed: () {
+                      if (mounted) { setState(() {
+                        isClick2 = !isClick2;
+                      }); }
+
+                    },
+                    child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.7,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.05,
+                        padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                        child: Align(
+                            child: textXDB == "" ? Text(
+                              "Chọn cán bộ xem để biết",
+                              style: TextStyle(
+                                  color: Colors.black45
+                              ),
+
+
+                            ) :
+                            Text(textXDB,
+                              style: TextStyle(
+                                  color: Colors.black.withOpacity(0.8)
+                              ),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+
+                            )
+                        )
+                    ),),
+                  ),
+                ],
+              ),
+
+              isClick2
+                  ? SizedBox()
+                  : Container(
+                width: MediaQuery
+                    .of(context)
+                    .size
+                    .width * 0.9,
+                child: buildTreePhuXDB(),
+              ),
+
+              // Container()
+            ],
+          ),
+          Container(
+            //   decoration: BoxDecoration(
+            //     border: Border.all(color: Colors.blueAccent)
+            // ),
+            child: Padding(
+                padding: const EdgeInsets.only( top: 5),
+                child: Row(
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Text('Ý kiến:', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(left: 15),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.black38, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.7,
+                        height: MediaQuery.of(context).size.height * 0.05,
+                        padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                        child: Theme(
+                          data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+                          child: TextField(
+                            autofocus: false,
+                            cursorColor: Colors.black,
+                            style: TextStyle(color: Colors.black),
+                            controller: _titleController,
+                            textAlign: TextAlign.center,
+                            decoration: InputDecoration(
+                              hintText: 'Nhập ý kiến',
+                              hintStyle: TextStyle(color: Colors.black45),
+                              // contentPadding: EdgeInsets.only(left: 10.0, top: 15.0),
+                            ),
+                            onChanged: null,
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
+                )),
+          ),
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.end,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Padding(padding: EdgeInsets.only(top: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.lightBlue[50], width: 2),
+                    borderRadius: BorderRadius.circular(10),
+                  ),
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.3,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.06,
+                  child:TextButton.icon (
+                      icon: Icon(Icons.send_rounded),
+                      label: Text("Chuyển",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),
+                        textAlign:
+                        TextAlign.center,),
+                      onPressed: () async {
+                        var tendangnhap = sharedStorage.getString("username");
+                        String userYKien = _titleController.text;
+                        var userDuocCHon = "";
+                        if(!userDuocCHon.contains(lstUserPT))
+                          userDuocCHon += lstUserPT+ "^";
+                        if(!userDuocCHon.contains(lstUserXLC))
+                          userDuocCHon += lstUserXLC+ "^";
+                        for( var item in lstUserXDB.split("^"))
+                          if(!userDuocCHon.contains(item))
+                            userDuocCHon += item+ "^";
+                        for( var item in lstUserPH.split("^"))
+                          if(!userDuocCHon.contains(item))
+                            userDuocCHon += item + "^";
+                        if( userDuocCHon != null && userDuocCHon.length >0)
+                        {
+                          userDuocCHon =  userDuocCHon.substring(0,userDuocCHon.length-1);
+                        }
+
+                        if(cayPH != null && cayPH.length>0)
+                        {
+                          for(var item in cayPH.split(","))
+                            if(cayXDB.contains(item) && item!= null && item
+                                .isNotEmpty)
+                              selcb += item + ",";
+                          if(selcb != null && selcb.length>0)
+                            selcb =  selcb.substring(0,selcb.length-1);
+                        }
+
+                        EasyLoading.show();
+                        var thanhcong =  await postChuyenVBD(tendangnhap, widget.id, "ChuyenVB",userDuocCHon,lstUserXDB,
+                            lstUserXLC,
+                            lstUserPH,selcb,userYKien,widget.nam,lstUserPT);
+                        userDuocCHon = "";
+                        lstUserXDB = "";
+                        lstUserXLC = "";
+                        lstUserPT = "";
+                        lstUserPH = "";
+                        selcb = "";
+                        userYKien = "";
+
+                        EasyLoading.dismiss();
+                        Navigator.of(context).pop();
+                        showAlertDialog(context, json.decode(thanhcong)['Message']);
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                      )
+                  ),),
+              ),
+              Padding(padding: EdgeInsets.only(top: 20,left: 20),
+                child: Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.lightBlue[50], width: 2),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.25,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.06,
+                  child:TextButton.icon (
+                      icon: Icon(Icons.delete_forever_outlined),
+                      label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
+                      TextAlign.center,),
+                      onPressed: ()  {
+                        Navigator.of(context).pop();
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                        foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                      )
+                  ),),
+              ),
+
+            ],),
+
+        ],
+      )
+          :Column(
+          // mainAxisAlignment: MainAxisAlignment.end,
+          // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 10,
@@ -338,6 +700,74 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Row(
                   children: [
                     Container(
+
+                      margin: EdgeInsets.only(left: 10),
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Text('Xử lý chính:', style:
+                      TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        if (mounted) { setState(() {
+                          isClick = !isClick;
+                        }); }
+
+                      },
+                      child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.7,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.05,
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Align(
+                              child: textXLC == "" ? Text(
+                                "Chọn cán bộ xử lý chính",
+                                style: TextStyle(
+                                    color: Colors.black45
+                                ),
+
+
+                              ) :
+                              Text(textXLC,
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8)
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+
+                              )
+                          )
+                      ),),
+                    ),
+                  ],
+                ),
+                isClick
+                    ? SizedBox()
+                    : Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9,
+                  child: buildTreeCBC(),
+                ),
+
+                // Container()
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
                       margin: EdgeInsets.only(left: 10),
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text(
@@ -354,38 +784,38 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       },
                       child: Padding(padding: EdgeInsets.only(left: 3),
                         child: Container(
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.black38, width: 2),
-                            borderRadius: BorderRadius.circular(10),
-                          ),
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.7,
-                          height: MediaQuery
-                              .of(context)
-                              .size
-                              .height * 0.05,
-                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-                          child: Align(
-                              child: textPH == "" ? Text(
-                                "Chọn cán bộ phối hợp",
-                                style: TextStyle(
-                                    color: Colors.black45
-                                ),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black38, width: 2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.7,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.05,
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Align(
+                                child: textPH == "" ? Text(
+                                  "Chọn cán bộ phối hợp",
+                                  style: TextStyle(
+                                      color: Colors.black45
+                                  ),
 
 
-                              ) :
-                              Text(textPH,
-                                style: TextStyle(
-                                    color: Colors.black.withOpacity(0.8)
-                                ),
-                                maxLines: 2,
-                                overflow: TextOverflow.ellipsis,
+                                ) :
+                                Text(textPH,
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.8)
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
 
-                              )
-                          )
-                      ),),
+                                )
+                            )
+                        ),),
                     ),
                   ],
                 ),
@@ -397,8 +827,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       .of(context)
                       .size
                       .width * 0.9,
-                        child: buildTreePhu(),
-                      ),
+                  child: buildTreePhu(),
+                ),
 
                 // Container()
               ],
@@ -463,8 +893,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       .of(context)
                       .size
                       .width * 0.9,
-                        child: buildTreePhuXDB(),
-                      ),
+                  child: buildTreePhuXDB(),
+                ),
 
                 // Container()
               ],
@@ -555,21 +985,21 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           }
 
                           if(cayPH != null && cayPH.length>0)
-                            {
-                              for(var item in cayPH.split(","))
+                          {
+                            for(var item in cayPH.split(","))
                               if(cayXDB.contains(item) && item!= null && item
                                   .isNotEmpty)
                                 selcb += item + ",";
-                              if(selcb != null && selcb.length>0)
-                            selcb =  selcb.substring(0,selcb.length-1);
-                            }
+                            if(selcb != null && selcb.length>0)
+                              selcb =  selcb.substring(0,selcb.length-1);
+                          }
 
                           EasyLoading.show();
                           var thanhcong =  await postChuyenVBD(tendangnhap, widget.id, "ChuyenVB",userDuocCHon,lstUserXDB,
                               lstUserXLC,
                               lstUserPH,selcb,userYKien,widget.nam,lstUserPT);
                           userDuocCHon = "";
-                         lstUserXDB = "";
+                          lstUserXDB = "";
                           lstUserXLC = "";
                           lstUserPT = "";
                           lstUserPH = "";
@@ -617,8 +1047,11 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
               ],),
 
           ],
-        )
-            :(isQTNew ?(groupID == 198 ?Column(
+        ))
+            :(isQTNew == true?(
+          (!ispGuiXuLyChinh)?(
+            (groupID == 198
+                ?Column(
           // mainAxisAlignment: MainAxisAlignment.end,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -1338,13 +1771,80 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
 
           ],
         ))
-        :
-        Column(
+        ):Column(
           // mainAxisAlignment: MainAxisAlignment.end,
           // crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             SizedBox(
               height: 10,
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+
+                      margin: EdgeInsets.only(left: 10),
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Text('Phụ trách:', style:
+                      TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        if (mounted) { setState(() {
+                          isClickPT = !isClickPT;
+                        }); }
+
+                      },
+                      child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.7,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.05,
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Align(
+                              child: textPT == "" ? Text(
+                                "Chọn cán bộ phục trách",
+                                style: TextStyle(
+                                    color: Colors.black45
+                                ),
+
+
+                              ) :
+                              Text(textPT,
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8)
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+
+                              )
+                          )
+                      ),),
+                    ),
+                  ],
+                ),
+                isClickPT
+                    ? SizedBox()
+                    : Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9,
+                  child: buildTreePT(),
+                ),
+
+                // Container()
+              ],
             ),
             Column(
               children: [
@@ -1699,11 +2199,797 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
 
           ],
         ))
-        ,
-      );
-    } on FormatException catch (e) {
-      return Text(e.message);
-    }
+            : Column(
+          // mainAxisAlignment: MainAxisAlignment.end,
+          // crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            SizedBox(
+              height: 10,
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+
+                      margin: EdgeInsets.only(left: 10),
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Text('Phụ trách:', style:
+                      TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        if (mounted) { setState(() {
+                          isClickPT = !isClickPT;
+                        }); }
+
+                      },
+                      child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.7,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.05,
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Align(
+                              child: textPT == "" ? Text(
+                                "Chọn cán bộ phục trách",
+                                style: TextStyle(
+                                    color: Colors.black45
+                                ),
+
+
+                              ) :
+                              Text(textPT,
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8)
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+
+                              )
+                          )
+                      ),),
+                    ),
+                  ],
+                ),
+                isClickPT
+                    ? SizedBox()
+                    : Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9,
+                  child: buildTreePT(),
+                ),
+
+                // Container()
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+
+                      margin: EdgeInsets.only(left: 10),
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Text('Xử lý chính:', style:
+                      TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        if (mounted) { setState(() {
+                          isClick = !isClick;
+                        }); }
+
+                      },
+                      child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.7,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.05,
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Align(
+                              child: textXLC == "" ? Text(
+                                "Chọn cán bộ xử lý chính",
+                                style: TextStyle(
+                                    color: Colors.black45
+                                ),
+
+
+                              ) :
+                              Text(textXLC,
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8)
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+
+                              )
+                          )
+                      ),),
+                    ),
+                  ],
+                ),
+                isClick
+                    ? SizedBox()
+                    : Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9,
+                  child: buildTreeCBC(),
+                ),
+
+                // Container()
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Text(
+                        'Phối hợp:',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        if (mounted) {setState(() {
+                          isClick1 = !isClick1;
+                        }); }
+
+                      },
+                      child: Padding(padding: EdgeInsets.only(left: 3),
+                        child: Container(
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.black38, width: 2),
+                              borderRadius: BorderRadius.circular(10),
+                            ),
+                            width: MediaQuery
+                                .of(context)
+                                .size
+                                .width * 0.7,
+                            height: MediaQuery
+                                .of(context)
+                                .size
+                                .height * 0.05,
+                            padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                            child: Align(
+                                child: textPH == "" ? Text(
+                                  "Chọn cán bộ phối hợp",
+                                  style: TextStyle(
+                                      color: Colors.black45
+                                  ),
+
+
+                                ) :
+                                Text(textPH,
+                                  style: TextStyle(
+                                      color: Colors.black.withOpacity(0.8)
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+
+                                )
+                            )
+                        ),),
+                    ),
+                  ],
+                ),
+
+                isClick1
+                    ? SizedBox()
+                    : Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9,
+                  child: buildTreePhu(),
+                ),
+
+                // Container()
+              ],
+            ),
+            Column(
+              children: [
+                Row(
+                  children: [
+                    Container(
+                      margin: EdgeInsets.only(left: 10),
+                      width: MediaQuery.of(context).size.width * 0.15,
+                      child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
+                    ),
+                    FlatButton(
+                      onPressed: () {
+                        if (mounted) { setState(() {
+                          isClick2 = !isClick2;
+                        }); }
+
+                      },
+                      child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: MediaQuery
+                              .of(context)
+                              .size
+                              .width * 0.7,
+                          height: MediaQuery
+                              .of(context)
+                              .size
+                              .height * 0.05,
+                          padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+                          child: Align(
+                              child: textXDB == "" ? Text(
+                                "Chọn cán bộ xem để biết",
+                                style: TextStyle(
+                                    color: Colors.black45
+                                ),
+
+
+                              ) :
+                              Text(textXDB,
+                                style: TextStyle(
+                                    color: Colors.black.withOpacity(0.8)
+                                ),
+                                maxLines: 2,
+                                overflow: TextOverflow.ellipsis,
+
+                              )
+                          )
+                      ),),
+                    ),
+                  ],
+                ),
+
+                isClick2
+                    ? SizedBox()
+                    : Container(
+                  width: MediaQuery
+                      .of(context)
+                      .size
+                      .width * 0.9,
+                  child: buildTreePhuXDB(),
+                ),
+
+                // Container()
+              ],
+            ),
+            Container(
+              //   decoration: BoxDecoration(
+              //     border: Border.all(color: Colors.blueAccent)
+              // ),
+              child: Padding(
+                  padding: const EdgeInsets.only( top: 5),
+                  child: Row(
+                    children: [
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.15,
+                        child: Text('Ý kiến:', style: TextStyle(fontWeight: FontWeight.bold)),
+                      ),
+                      Padding(
+                        padding: EdgeInsets.only(left: 15),
+                        child: Container(
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.black38, width: 2),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          width: MediaQuery.of(context).size.width * 0.7,
+                          height: MediaQuery.of(context).size.height * 0.05,
+                          padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+                          child: Theme(
+                            data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+                            child: TextField(
+                              autofocus: false,
+                              cursorColor: Colors.black,
+                              style: TextStyle(color: Colors.black),
+                              controller: _titleController,
+                              textAlign: TextAlign.center,
+                              decoration: InputDecoration(
+                                hintText: 'Nhập ý kiến',
+                                hintStyle: TextStyle(color: Colors.black45),
+                                // contentPadding: EdgeInsets.only(left: 10.0, top: 15.0),
+                              ),
+                              onChanged: null,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
+                  )),
+            ),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Padding(padding: EdgeInsets.only(top: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.3,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.06,
+                    child:TextButton.icon (
+                        icon: Icon(Icons.send_rounded),
+                        label: Text("Chuyển",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),
+                          textAlign:
+                          TextAlign.center,),
+                        onPressed: () async {
+                          var tendangnhap = sharedStorage.getString("username");
+                          String userYKien = _titleController.text;
+                          var userDuocCHon = "";
+                          if(!userDuocCHon.contains(lstUserPT))
+                            userDuocCHon += lstUserPT+ "^";
+                          if(!userDuocCHon.contains(lstUserXLC))
+                            userDuocCHon += lstUserXLC+ "^";
+                          for( var item in lstUserXDB.split("^"))
+                            if(!userDuocCHon.contains(item))
+                              userDuocCHon += item+ "^";
+                          for( var item in lstUserPH.split("^"))
+                            if(!userDuocCHon.contains(item))
+                              userDuocCHon += item + "^";
+                          if( userDuocCHon != null && userDuocCHon.length >0)
+                          {
+                            userDuocCHon =  userDuocCHon.substring(0,userDuocCHon.length-1);
+                          }
+
+                          if(cayPH != null && cayPH.length>0)
+                          {
+                            for(var item in cayPH.split(","))
+                              if(cayXDB.contains(item) && item!= null && item
+                                  .isNotEmpty)
+                                selcb += item + ",";
+                            if(selcb != null && selcb.length>0)
+                              selcb =  selcb.substring(0,selcb.length-1);
+                          }
+
+                          EasyLoading.show();
+                          var thanhcong =  await postChuyenVBD(tendangnhap, widget.id, "ChuyenVB",userDuocCHon,lstUserXDB,
+                              lstUserXLC,
+                              lstUserPH,selcb,userYKien,widget.nam,lstUserPT);
+                          userDuocCHon = "";
+                          lstUserXDB = "";
+                          lstUserXLC = "";
+                          lstUserPT = "";
+                          lstUserPH = "";
+                          selcb = "";
+                          userYKien = "";
+
+                          EasyLoading.dismiss();
+                          Navigator.of(context).pop();
+                          showAlertDialog(context, json.decode(thanhcong)['Message']);
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                        )
+                    ),),
+                ),
+                Padding(padding: EdgeInsets.only(top: 20,left: 20),
+                  child: Container(
+                    decoration: BoxDecoration(
+                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      borderRadius: BorderRadius.circular(15),
+                    ),
+                    width: MediaQuery
+                        .of(context)
+                        .size
+                        .width * 0.25,
+                    height: MediaQuery
+                        .of(context)
+                        .size
+                        .height * 0.06,
+                    child:TextButton.icon (
+                        icon: Icon(Icons.delete_forever_outlined),
+                        label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
+                        TextAlign.center,),
+                        onPressed: ()  {
+                          Navigator.of(context).pop();
+                        },
+                        style: ButtonStyle(
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                          foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                        )
+                    ),),
+                ),
+
+              ],),
+
+          ],
+        )
+        // Column(
+        //   // mainAxisAlignment: MainAxisAlignment.end,
+        //   // crossAxisAlignment: CrossAxisAlignment.start,
+        //   children: [
+        //     SizedBox(
+        //       height: 10,
+        //     ),
+        //     Column(
+        //       children: [
+        //         Row(
+        //           children: [
+        //             Container(
+        //
+        //               margin: EdgeInsets.only(left: 10),
+        //               width: MediaQuery.of(context).size.width * 0.15,
+        //               child: Text('Xử lý chính:', style:
+        //               TextStyle(fontWeight: FontWeight.bold)),
+        //             ),
+        //             FlatButton(
+        //               onPressed: () {
+        //                 if (mounted) { setState(() {
+        //                   isClick = !isClick;
+        //                 }); }
+        //
+        //               },
+        //               child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+        //
+        //                   decoration: BoxDecoration(
+        //                     border: Border.all(color: Colors.black38, width: 2),
+        //                     borderRadius: BorderRadius.circular(10),
+        //                   ),
+        //                   width: MediaQuery
+        //                       .of(context)
+        //                       .size
+        //                       .width * 0.7,
+        //                   height: MediaQuery
+        //                       .of(context)
+        //                       .size
+        //                       .height * 0.05,
+        //                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        //                   child: Align(
+        //                       child: textXLC == "" ? Text(
+        //                         "Chọn cán bộ xử lý chính",
+        //                         style: TextStyle(
+        //                             color: Colors.black45
+        //                         ),
+        //
+        //
+        //                       ) :
+        //                       Text(textXLC,
+        //                         style: TextStyle(
+        //                             color: Colors.black.withOpacity(0.8)
+        //                         ),
+        //                         maxLines: 2,
+        //                         overflow: TextOverflow.ellipsis,
+        //
+        //                       )
+        //                   )
+        //               ),),
+        //             ),
+        //           ],
+        //         ),
+        //         isClick
+        //             ? SizedBox()
+        //             : Container(
+        //           width: MediaQuery
+        //               .of(context)
+        //               .size
+        //               .width * 0.9,
+        //           child: buildTreeCBC(),
+        //         ),
+        //
+        //         // Container()
+        //       ],
+        //     ),
+        //     Column(
+        //       children: [
+        //         Row(
+        //           children: [
+        //             Container(
+        //               margin: EdgeInsets.only(left: 10),
+        //               width: MediaQuery.of(context).size.width * 0.15,
+        //               child: Text(
+        //                 'Phối hợp:',
+        //                 style: TextStyle(fontWeight: FontWeight.bold),
+        //               ),
+        //             ),
+        //             FlatButton(
+        //               onPressed: () {
+        //                 if (mounted) {setState(() {
+        //                   isClick1 = !isClick1;
+        //                 }); }
+        //
+        //               },
+        //               child: Padding(padding: EdgeInsets.only(left: 3),
+        //                 child: Container(
+        //                     decoration: BoxDecoration(
+        //                       border: Border.all(color: Colors.black38, width: 2),
+        //                       borderRadius: BorderRadius.circular(10),
+        //                     ),
+        //                     width: MediaQuery
+        //                         .of(context)
+        //                         .size
+        //                         .width * 0.7,
+        //                     height: MediaQuery
+        //                         .of(context)
+        //                         .size
+        //                         .height * 0.05,
+        //                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        //                     child: Align(
+        //                         child: textPH == "" ? Text(
+        //                           "Chọn cán bộ phối hợp",
+        //                           style: TextStyle(
+        //                               color: Colors.black45
+        //                           ),
+        //
+        //
+        //                         ) :
+        //                         Text(textPH,
+        //                           style: TextStyle(
+        //                               color: Colors.black.withOpacity(0.8)
+        //                           ),
+        //                           maxLines: 2,
+        //                           overflow: TextOverflow.ellipsis,
+        //
+        //                         )
+        //                     )
+        //                 ),),
+        //             ),
+        //           ],
+        //         ),
+        //
+        //         isClick1
+        //             ? SizedBox()
+        //             : Container(
+        //           width: MediaQuery
+        //               .of(context)
+        //               .size
+        //               .width * 0.9,
+        //           child: buildTreePhu(),
+        //         ),
+        //
+        //         // Container()
+        //       ],
+        //     ),
+        //     Column(
+        //       children: [
+        //         Row(
+        //           children: [
+        //             Container(
+        //               margin: EdgeInsets.only(left: 10),
+        //               width: MediaQuery.of(context).size.width * 0.15,
+        //               child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
+        //             ),
+        //             FlatButton(
+        //               onPressed: () {
+        //                 if (mounted) { setState(() {
+        //                   isClick2 = !isClick2;
+        //                 }); }
+        //
+        //               },
+        //               child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
+        //                   decoration: BoxDecoration(
+        //                     border: Border.all(color: Colors.black38, width: 2),
+        //                     borderRadius: BorderRadius.circular(10),
+        //                   ),
+        //                   width: MediaQuery
+        //                       .of(context)
+        //                       .size
+        //                       .width * 0.7,
+        //                   height: MediaQuery
+        //                       .of(context)
+        //                       .size
+        //                       .height * 0.05,
+        //                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
+        //                   child: Align(
+        //                       child: textXDB == "" ? Text(
+        //                         "Chọn cán bộ xem để biết",
+        //                         style: TextStyle(
+        //                             color: Colors.black45
+        //                         ),
+        //
+        //
+        //                       ) :
+        //                       Text(textXDB,
+        //                         style: TextStyle(
+        //                             color: Colors.black.withOpacity(0.8)
+        //                         ),
+        //                         maxLines: 2,
+        //                         overflow: TextOverflow.ellipsis,
+        //
+        //                       )
+        //                   )
+        //               ),),
+        //             ),
+        //           ],
+        //         ),
+        //
+        //         isClick2
+        //             ? SizedBox()
+        //             : Container(
+        //           width: MediaQuery
+        //               .of(context)
+        //               .size
+        //               .width * 0.9,
+        //           child: buildTreePhuXDB(),
+        //         ),
+        //
+        //         // Container()
+        //       ],
+        //     ),
+        //     Container(
+        //       //   decoration: BoxDecoration(
+        //       //     border: Border.all(color: Colors.blueAccent)
+        //       // ),
+        //       child: Padding(
+        //           padding: const EdgeInsets.only( top: 5),
+        //           child: Row(
+        //             children: [
+        //               Container(
+        //                 width: MediaQuery.of(context).size.width * 0.15,
+        //                 child: Text('Ý kiến:', style: TextStyle(fontWeight: FontWeight.bold)),
+        //               ),
+        //               Padding(
+        //                 padding: EdgeInsets.only(left: 15),
+        //                 child: Container(
+        //                   decoration: BoxDecoration(
+        //                     border: Border.all(color: Colors.black38, width: 2),
+        //                     borderRadius: BorderRadius.circular(10),
+        //                   ),
+        //                   width: MediaQuery.of(context).size.width * 0.7,
+        //                   height: MediaQuery.of(context).size.height * 0.05,
+        //                   padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
+        //                   child: Theme(
+        //                     data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+        //                     child: TextField(
+        //                       autofocus: false,
+        //                       cursorColor: Colors.black,
+        //                       style: TextStyle(color: Colors.black),
+        //                       controller: _titleController,
+        //                       textAlign: TextAlign.center,
+        //                       decoration: InputDecoration(
+        //                         hintText: 'Nhập ý kiến',
+        //                         hintStyle: TextStyle(color: Colors.black45),
+        //                         // contentPadding: EdgeInsets.only(left: 10.0, top: 15.0),
+        //                       ),
+        //                       onChanged: null,
+        //                     ),
+        //                   ),
+        //                 ),
+        //               ),
+        //             ],
+        //           )),
+        //     ),
+        //     Row(
+        //       crossAxisAlignment: CrossAxisAlignment.end,
+        //       mainAxisAlignment: MainAxisAlignment.center,
+        //       children: [
+        //         Padding(padding: EdgeInsets.only(top: 20),
+        //           child: Container(
+        //             decoration: BoxDecoration(
+        //               border: Border.all(color: Colors.lightBlue[50], width: 2),
+        //               borderRadius: BorderRadius.circular(10),
+        //             ),
+        //             width: MediaQuery
+        //                 .of(context)
+        //                 .size
+        //                 .width * 0.3,
+        //             height: MediaQuery
+        //                 .of(context)
+        //                 .size
+        //                 .height * 0.06,
+        //             child:TextButton.icon (
+        //                 icon: Icon(Icons.send_rounded),
+        //                 label: Text("Chuyển",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),
+        //                   textAlign:
+        //                   TextAlign.center,),
+        //                 onPressed: () async {
+        //                   var tendangnhap = sharedStorage.getString("username");
+        //                   String userYKien = _titleController.text;
+        //                   var userDuocCHon = "";
+        //                   if(!userDuocCHon.contains(lstUserPT))
+        //                     userDuocCHon += lstUserPT+ "^";
+        //                   if(!userDuocCHon.contains(lstUserXLC))
+        //                     userDuocCHon += lstUserXLC+ "^";
+        //                   for( var item in lstUserXDB.split("^"))
+        //                     if(!userDuocCHon.contains(item))
+        //                       userDuocCHon += item+ "^";
+        //                   for( var item in lstUserPH.split("^"))
+        //                     if(!userDuocCHon.contains(item))
+        //                       userDuocCHon += item + "^";
+        //                   if( userDuocCHon != null && userDuocCHon.length >0)
+        //                   {
+        //                     userDuocCHon =  userDuocCHon.substring(0,userDuocCHon.length-1);
+        //                   }
+        //
+        //                   if(cayPH != null && cayPH.length>0)
+        //                   {
+        //                     for(var item in cayPH.split(","))
+        //                       if(cayXDB.contains(item) && item!= null && item
+        //                           .isNotEmpty)
+        //                         selcb += item + ",";
+        //                     if(selcb != null && selcb.length>0)
+        //                       selcb =  selcb.substring(0,selcb.length-1);
+        //                   }
+        //
+        //                   EasyLoading.show();
+        //                   var thanhcong =  await postChuyenVBD(tendangnhap, widget.id, "ChuyenVB",userDuocCHon,lstUserXDB,
+        //                       lstUserXLC,
+        //                       lstUserPH,selcb,userYKien,widget.nam,lstUserPT);
+        //                   userDuocCHon = "";
+        //                   lstUserXDB = "";
+        //                   lstUserXLC = "";
+        //                   lstUserPT = "";
+        //                   lstUserPH = "";
+        //                   selcb = "";
+        //                   userYKien = "";
+        //
+        //                   EasyLoading.dismiss();
+        //                   Navigator.of(context).pop();
+        //                   showAlertDialog(context, json.decode(thanhcong)['Message']);
+        //                 },
+        //                 style: ButtonStyle(
+        //                   backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+        //                   foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+        //                 )
+        //             ),),
+        //         ),
+        //         Padding(padding: EdgeInsets.only(top: 20,left: 20),
+        //           child: Container(
+        //             decoration: BoxDecoration(
+        //               border: Border.all(color: Colors.lightBlue[50], width: 2),
+        //               borderRadius: BorderRadius.circular(15),
+        //             ),
+        //             width: MediaQuery
+        //                 .of(context)
+        //                 .size
+        //                 .width * 0.25,
+        //             height: MediaQuery
+        //                 .of(context)
+        //                 .size
+        //                 .height * 0.06,
+        //             child:TextButton.icon (
+        //                 icon: Icon(Icons.delete_forever_outlined),
+        //                 label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
+        //                 TextAlign.center,),
+        //                 onPressed: ()  {
+        //                   Navigator.of(context).pop();
+        //                 },
+        //                 style: ButtonStyle(
+        //                   backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+        //                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+        //                 )
+        //             ),),
+        //         ),
+        //
+        //       ],),
+        //
+        //   ],
+        // )
+        )
+       ;
+
   }
 
   String tti ;

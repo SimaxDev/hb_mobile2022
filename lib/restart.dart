@@ -1,40 +1,270 @@
-
-
 import 'dart:async';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/ui/Login/Login.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/callApi.dart';
 
-class rester{
-
+class rester {
   Timer _timer;
-
 
   void initializeTimer() {
     _timer = Timer.periodic(const Duration(seconds: 10), (_) {
       logOutALL();
       _timer.cancel();
     });
-
   }
-
 
   void logOutALL() async {
     sharedStorage = await SharedPreferences.getInstance();
-    if(!sharedStorage.getBool("rememberme")) {
+    if (!sharedStorage.getBool("rememberme")) {
       sharedStorage.remove("password");
-    }
-    else{
+      tendangnhapAll = "";
+      ten;
+      datavb = "";
+      vanbandenCapNhat = null;
+      trangThaiVB = 0;
+      vbdiTrangThaiVB = 0;
+      vbdiCurrentNguoiTrinhID = 0;
+      vbdiNguoiSoan = "";
+      lstPhongBanLaVanThuVBDI = [];
+      lstPhongBanLaVanThuVBDEN = [];
+      userGroups = [];
+      lstThongTinGroup = [];
+      ThemMoiVanBanDi = false;
+      isGuiVanban = false;
+      ThemVanBanDen = false;
+      checkThuHoi = false;
+      ThietLapHoiBao = false;
+      vbdiCanTDHB = false;
+      isTrinhKy = false;
+      trinhDaCoNgDuyet = false;
+      trinhLan2 = false;
+      ChuyenVT = false;
+      SiteAction = "";
+      userTenTruyCap = "";
+      vbdiNguoiSoanID = 0;
+      hscvNguoiLap = 0;
+      hscvNguoiPhuTrach = 0;
+      currentUserID = 0;
+      CurrentDonViID = 0;
+      ThongTinLConfig = [];
+      vbdiNguoiKyID = 0;
+      chukyso = 0;
+      vbdiNguoiTrinhTiep = "";
+      vbdiDSNguoiTrinhTiep = [];
+      vbdiNguoiKy = "";
+      hoVaTen = "";
+      tenPhongBan = "";
+      CurrentTenDonVi = "";
+      OrganName = "";
+      tick = 0;
+      EmailHT = "";
+      Telephone = "";
+      ngayTrinhDT = "";
+      butPheVBD = false;
+      thuHoiVBD = false;
+      isDuyetVaPhatHanh = false;
+      kyVaPhatHanh = false;
+      checkKetThucHSCV = false;
+      checkSoanVBDT = false;
+      checkChuyenVaoHS = false;
+      isDuyetTruongPhong = false;
+      isDuyet = false;
+      XemDB = "";
+      hanXLVBD = false;
+      vbdTTXuLyVanBanLT = 0;
+      isnguoiduyet = 0;
+      vbdPhuongThuc = 0;
+      vbdTrangThaiXuLyVanBan = 0;
+      vbdSoVanBan = 0;
+      hscvTrangThaiXuLy = 0;
+      currentDuThao;
+      lstvbdUserChuaXuLy = [];
+      // strId = [];
+      // strVanBanLienQuanID = [];
+      // strVanBanDiLienQuan = [];
+      vbdiCurrentUserReceived = [];
+      vbdUserChuaXuLy = false;
+      vbdHanXuLy = "";
+      vbdiIsSentVanBan = false;
+      isTraCuu = false;
+      checkbtnXDB = false;
+      CapSoVanBanDi = false;
+      vbdIsSentVanBan = false;
+      clickChon = false;
+      GuiVanBanDi = false;
+      GuiVanBan = false;
+      SuaVanBanDen = false;
+      isQTNew = false;
+      notIsQuanTriNew = false;
+      ispGuiXuLyChinh = false;
+      ID = 0;
+      DonViInSiteID = 0;
+      userHasQuyenKyVB = [];
+      groupID = 0;
+      //duthaoXoa = [];
+//thêm mới dự thảo
+      TrichYeuDT = "";
+      loaivbDT = "";
+      vbdiSoKyHieu = "";
+      vNguoiKy = "";
+      vNguoiTrinh = "";
+      toTrinh = "";
+      ls = "";
+      ls1 = "";
+      ls2 = "";
+      messingCN = "";
+      matKhauHT = "";
+      // dataTT = [];
+      vanbanDi;
+      vanbanDen = null;
+      vanbanDT = null;
+      userChucVu = "";
+      pdf = "";
+      pdfDK = "";
+      //  pdf = [];
+      // pdfDK = [];
+      // pdfPT = [];
+      namepdf = "";
+      pdfPT = "";
+      idCT = "";
+      idChuTri = "";
+      idPhoiHop = "";
+      idTheoDoi = "";
+      idNTD = "";
+      IDTT;
+      chuaPDF = [];
+      tenPDFTruyen = "";
+    } else {
       sharedStorage.remove("expires_in");
       sharedStorage.remove("token");
+
+      tendangnhapAll = "";
+      ten;
+      datavb = "";
+      vanbandenCapNhat = null;
+      trangThaiVB = 0;
+      vbdiTrangThaiVB = 0;
+      vbdiCurrentNguoiTrinhID = 0;
+      vbdiNguoiSoan = "";
+      lstPhongBanLaVanThuVBDI = [];
+      lstPhongBanLaVanThuVBDEN = [];
+      userGroups = [];
+      lstThongTinGroup = [];
+      ThemMoiVanBanDi = false;
+      ThemVanBanDen = false;
+      checkThuHoi = false;
+      ThietLapHoiBao = false;
+      vbdiCanTDHB = false;
+      isTrinhKy = false;
+      trinhDaCoNgDuyet = false;
+      isGuiVanban = false;
+      ThemMoiVanBanDuThao = false;
+      trinhLan2 = false;
+      ChuyenVT = false;
+      SiteAction = "";
+      userTenTruyCap = "";
+      vbdiNguoiSoanID = 0;
+      hscvNguoiLap = 0;
+      hscvNguoiPhuTrach = 0;
+      currentUserID = 0;
+      CurrentDonViID = 0;
+      ThongTinLConfig = [];
+      vbdiNguoiKyID = 0;
+      chukyso = 0;
+      vbdiNguoiTrinhTiep = "";
+      vbdiDSNguoiTrinhTiep = [];
+      vbdiNguoiKy = "";
+      hoVaTen = "";
+      tenPhongBan = "";
+      CurrentTenDonVi = "";
+      OrganName = "";
+      tick = 0;
+      EmailHT = "";
+      Telephone = "";
+      ngayTrinhDT = "";
+      butPheVBD = false;
+      thuHoiVBD = false;
+      isDuyetVaPhatHanh = false;
+      kyVaPhatHanh = false;
+      checkKetThucHSCV = false;
+      checkSoanVBDT = false;
+      checkChuyenVaoHS = false;
+      isDuyetTruongPhong = false;
+      isDuyet = false;
+      XemDB = "";
+      hanXLVBD = false;
+      vbdTTXuLyVanBanLT = 0;
+      isnguoiduyet = 0;
+      vbdPhuongThuc = 0;
+      vbdTrangThaiXuLyVanBan = 0;
+      vbdSoVanBan = 0;
+      hscvTrangThaiXuLy = 0;
+      currentDuThao;
+      lstvbdUserChuaXuLy = [];
+      // strId = [];
+      // strVanBanLienQuanID = [];
+      // strVanBanDiLienQuan = [];
+      vbdiCurrentUserReceived = [];
+      vbdUserChuaXuLy = false;
+      vbdHanXuLy = "";
+      vbdiIsSentVanBan = false;
+      isTraCuu = false;
+      checkbtnXDB = false;
+      CapSoVanBanDi = false;
+      vbdIsSentVanBan = false;
+      clickChon = false;
+      GuiVanBanDi = false;
+      GuiVanBan = false;
+      SuaVanBanDen = false;
+      isQTNew = false;
+      notIsQuanTriNew = false;
+      ispGuiXuLyChinh = false;
+      ID = 0;
+      DonViInSiteID = 0;
+      userHasQuyenKyVB = [];
+      groupID = 0;
+      //duthaoXoa = [];
+//thêm mới dự thảo
+      TrichYeuDT = "";
+      loaivbDT = "";
+      vbdiSoKyHieu = "";
+      vNguoiKy = "";
+      vNguoiTrinh = "";
+      toTrinh = "";
+      ls = "";
+      ls1 = "";
+      ls2 = "";
+      messingCN = "";
+      matKhauHT = "";
+      // dataTT = [];
+      vanbanDi;
+      vanbanDen = null;
+      vanbanDT = null;
+      userChucVu = "";
+      pdf = "";
+      pdfDK = "";
+      //  pdf = [];
+      // pdfDK = [];
+      // pdfPT = [];
+      namepdf = "";
+      pdfPT = "";
+      idCT = "";
+      idChuTri = "";
+      idPhoiHop = "";
+      idTheoDoi = "";
+      idNTD = "";
+      ThemMoiVanBanDuThao = false;
+      IDTT;
+      chuaPDF = [];
+      tenPDFTruyen = "";
     }
     // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
     //     builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);
     Get.off(LoginWidget());
-
   }
 }

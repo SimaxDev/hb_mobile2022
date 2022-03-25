@@ -15,7 +15,7 @@ import 'dart:convert';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 
 import '../BottomNavigator.dart';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 class thongTinHSCV extends StatefulWidget {
   thongTinHSCV({Key key, this.idHS,this.nam}) : super(key: key);
   final int idHS;

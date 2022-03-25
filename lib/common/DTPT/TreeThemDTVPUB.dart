@@ -5,7 +5,7 @@ import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 class TreeThemDTVPUB extends StatefulWidget {
   final int id;
   final String tenLoaiChon;

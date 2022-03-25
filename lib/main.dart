@@ -14,7 +14,7 @@ import 'package:hb_mobile2021/ui/Login/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
-
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
@@ -195,9 +195,10 @@ class _NotificationState extends State<Notification> {
       sound: true,
     );
     if(Platform.isIOS){
+
       FirebaseMessaging.instance.getAPNSToken().then((value){
         print("token key =" + value.toString());
-        tokenDevice = value.toString();
+      tokenDevice = value.toString();
       });
     }else{
       FirebaseMessaging.instance.getToken().then((value){
