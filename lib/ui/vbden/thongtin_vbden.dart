@@ -265,7 +265,10 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
         && !LogxulyText.contains("#vbdaduocthaythe;")
         && !LogxulyText.contains("#tuchoi_2#")) 
         || (LogxulyText == null || LogxulyText.isEmpty)){
-      isTraCuu = true;
+     setState(() {
+       isTraCuu = true;
+     });
+
     };
     // isTraCuu = vbDen.isTraCuu;
     XemDB = vbDen.UserChuaXL;
@@ -276,10 +279,16 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     vbdIsSentVanBan = vbDen.vbdIsSentVB;
     lstvbdUserChuaXuLy = vbDen.UserChuaXLID;
     for (var item in lstvbdUserChuaXuLy) {
-      if (item['LookupId'] == currentUserID >0) {
-        vbdUserChuaXuLy = true;
+      if ((item['LookupId'] == currentUserID ) ) {
+        setState(() {
+          vbdUserChuaXuLy = true;
+        });
+
       } else {
-        vbdUserChuaXuLy = false;
+        setState(() {
+          vbdUserChuaXuLy = false;
+        });
+
       }
     }
 

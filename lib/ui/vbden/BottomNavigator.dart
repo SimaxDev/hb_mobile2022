@@ -447,8 +447,11 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 //giao việc
 
-                isTraCuu == true && vbdUserChuaXuLy == true
-                    && currentDuThao.ID <= 0 && (vbdTTXuLyVanBanLT != 17 
+                isTraCuu == true
+                    // ( lstvbdUserChuaXuLy.where((o) => o['LookupId'] == currentUserID >0'))
+            && vbdUserChuaXuLy == true
+                    //&& currentDuThao.ID <= 0
+                    && (vbdTTXuLyVanBanLT != 17
                     && vbdTTXuLyVanBanLT != 28 
                     && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
                 ?Container(
