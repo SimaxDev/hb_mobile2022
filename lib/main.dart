@@ -34,11 +34,10 @@ Future<void> backgroundHandler(RemoteMessage message) async{
   print(message.notification.title);
   // await Firebase.initializeApp(options: DefaultFirebaseConfig.platformOptions);
 }
+const debug = true;
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(
-      debug: true // optional: set false to disable printing logs to console
-  );
+  await FlutterDownloader.initialize(debug: debug);
   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
   await Firebase.initializeApp();
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
