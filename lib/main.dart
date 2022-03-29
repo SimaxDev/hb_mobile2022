@@ -199,6 +199,12 @@ class _NotificationState extends State<Notification> {
         print("token key =" + value.toString());
       tokenDevice = value.toString();
       });
+
+      //
+      // FirebaseMessaging.instance.getAPNSToken().then((value){
+      //   print("token key =" + value.toString());
+      // tokenDevice = value.toString();
+      // });
     }else{
       FirebaseMessaging.instance.getToken().then((value){
         print("token key =" + value.toString());

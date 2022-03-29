@@ -53,6 +53,7 @@ class LoginState extends State<LoginWidget> {
   void _checkVersion() async {
     final newVersion = NewVersion(
       androidId: "com.hoabinh.gov.hb_mobile2021",
+        iOSId:"com.hoabinh.jsc.gov.vn"
     );
     final status = await newVersion.getVersionStatus();
     if (status.localVersion != status.storeVersion) {
