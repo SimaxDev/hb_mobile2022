@@ -306,7 +306,10 @@ class _ViewPDF extends State<ViewPDFVB> {
                         setState(() {
                           _isDownloading = !_isDownloading;
                         });
-                        final dir = await getExternalStorageDirectory();
+                        final dir = Platform.isAndroid
+                            ? await getExternalStorageDirectory() //FOR ANDROID
+                            :  await getApplicationDocumentsDirectory();
+
                         Dio dio = Dio();
                         String url = "";
 

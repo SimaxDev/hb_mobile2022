@@ -373,22 +373,22 @@ class _MenuRightState extends State<MenuRight> {
             //         ));
             //   },
             // ),
-            new ListTile(
-              title: new Text('Tạo chữ bằng hình ảnh'),
-              // trailing: new Icon(Icons.exit_to_app),
-              trailing: new IconButton(
-                icon: new Icon(Icons.analytics_outlined),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => SignaturePicker(
-                        title: 'Thêm chữ ký',
-                      ), /*   AddImage(title: "Ảnh chữ ký",),*/
-                    ));
-              },
-            ),
+            // new ListTile(
+            //   title: new Text('Tạo chữ bằng hình ảnh'),
+            //   // trailing: new Icon(Icons.exit_to_app),
+            //   trailing: new IconButton(
+            //     icon: new Icon(Icons.analytics_outlined),
+            //   ),
+            //   onTap: () {
+            //     Navigator.push(
+            //         context,
+            //         MaterialPageRoute(
+            //           builder: (context) => SignaturePicker(
+            //             title: 'Thêm chữ ký',
+            //           ), /*   AddImage(title: "Ảnh chữ ký",),*/
+            //         ));
+            //   },
+            // ),
             ListTile(
               title: new Text('Đổi mật khẩu'),
               trailing: new IconButton(
