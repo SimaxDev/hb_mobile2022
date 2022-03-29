@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>97574180778-cf1h7q9ir63jq0ig5a1q0uf8lkqfff2u.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.97574180778-cf1h7q9ir63jq0ig5a1q0uf8lkqfff2u</string>
+	<key>ANDROID_CLIENT_ID</key>
+	<string>97574180778-dms50h400eckeclge2bj11rnimddun9b.apps.googleusercontent.com</string>
+	<key>API_KEY</key>
+	<string>AIzaSyApgdY_mQXdMdLNZVtj2sdoZcWnX1Sxqz4</string>
+	<key>GCM_SENDER_ID</key>
+	<string>97574180778</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.hoabinh.jsc.gov.vn</string>
+	<key>PROJECT_ID</key>
+	<string>vbdh-hoa-binh</string>
+	<key>STORAGE_BUCKET</key>
+	<string>vbdh-hoa-binh.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:97574180778:ios:a439cdabb82eda1486fdd3</string>
+</dict>
+</plist>
