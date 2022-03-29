@@ -22,6 +22,8 @@ class rester {
     sharedStorage = await SharedPreferences.getInstance();
     if (!sharedStorage.getBool("rememberme")) {
       sharedStorage.remove("password");
+      sharedStorage.remove("expires_in");
+      sharedStorage.remove("token");
       tendangnhapAll = "";
       ten;
       datavb = "";

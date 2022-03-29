@@ -28,7 +28,8 @@ void logOut(BuildContext context) async {
   sharedStorage = await SharedPreferences.getInstance();
       if(!sharedStorage.get("rememberme")) {
         sharedStorage.remove("password");
-
+        sharedStorage.remove("expires_in");
+        sharedStorage.remove("token");
          tendangnhapAll = "";
          ten;
          datavb = "";
