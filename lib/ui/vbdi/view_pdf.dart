@@ -501,7 +501,9 @@ class _ViewPDF extends State<ViewPDF> {
                             setState(() {
                               _isDownloading = !_isDownloading;
                             });
-                            final dir = await getExternalStorageDirectory();
+                            final dir = Platform.isAndroid
+                                ? await getExternalStorageDirectory() //FOR ANDROID
+                                :  await getApplicationDocumentsDirectory();
                             Dio dio = Dio();
 
                             for (var item in ListDataPDF) {
@@ -763,8 +765,10 @@ class _ViewPDF extends State<ViewPDF> {
 //                             setState(() {
 //                               _isDownloading = !_isDownloading;
 //                             });
-//                             final dir = await getExternalStorageDirectory();
-//                             Dio dio = Dio();
+//                             final dir = Platform.isAndroid
+//                             ? await getExternalStorageDirectory() //FOR ANDROID
+//                              await getApplicationDocumentsDirectory();
+                            Dio dio = Dio();
 //
 //                             for (var item in ListDataPDF) {
 //                               if (item.Url == PDF_URL) {
