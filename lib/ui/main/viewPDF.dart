@@ -191,7 +191,7 @@ class _ViewPDF extends State<ViewPDFVB> {
     // TODO: implement initState
     super.dispose();
 
-    pdf = "";
+    // pdf = "";
   }
 
   GetPDF(String PDFD) async {
@@ -216,7 +216,7 @@ class _ViewPDF extends State<ViewPDFVB> {
                 child: PDF().fromUrl(
                   PDF_URL, //duration of cache
                   placeholder: (progress) => Center(child: Text('$progress %')),
-                  //errorWidget: (error) => Center(child: Text(error.toString())),
+                  errorWidget: (error) => Center(child: Text("")),
                 ))
             : Center(child: CircularProgressIndicator()),
         Row(
@@ -254,7 +254,8 @@ class _ViewPDF extends State<ViewPDFVB> {
                         },
                         items: ListDataPDF.map((value) {
                           return DropdownMenuItem<String>(
-                              value: value.Url,
+                              value: PDF_URL != null || PDF_URL != ""?value
+                                  .Url:"",
                               child: RichText(
                                 text: TextSpan(
                                   children: [
@@ -274,7 +275,9 @@ class _ViewPDF extends State<ViewPDFVB> {
                                     //   ),
                                     // ),
                                     TextSpan(
-                                      text: value.Name,
+                                      text: PDF_URL != null || PDF_URL != ""
+                                          ?value.Name:Text
+                                        ("Chọn bản ghi khác"),
                                       style: TextStyle(
                                           color: Colors.black.withOpacity(0.75),
                                           fontStyle: FontStyle.normal,

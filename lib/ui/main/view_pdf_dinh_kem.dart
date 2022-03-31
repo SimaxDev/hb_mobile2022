@@ -213,7 +213,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                 child: PDF().fromUrl(
                   PDF_URL, //duration of cache
                   placeholder: (progress) => Center(child: Text('$progress %')),
-                  //errorWidget: (error) => Center(child: Text(error.toString())),
+                  errorWidget: (error) => Center(child: Text("")),
                 ))
             : Center(child: CircularProgressIndicator()),
         Row(

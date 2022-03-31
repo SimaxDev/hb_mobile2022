@@ -285,12 +285,13 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
         });
 
       } else {
-        setState(() {
-          vbdUserChuaXuLy = false;
-        });
+        // setState(() {
+        //   vbdUserChuaXuLy = false;
+        // });
 
       }
     }
+    print(vbdUserChuaXuLy);
 
     vbdHanXuLy = vbDen.HanXL;
     checkbtnXDB = vbDen.checkbtnXDB1;

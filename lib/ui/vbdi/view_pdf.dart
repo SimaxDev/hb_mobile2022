@@ -274,12 +274,11 @@ class _ViewPDF extends State<ViewPDF> {
             //   child: CircularProgressIndicator(),
             // )
             //     : Offstage(),
-            PDF_URL != null
-                ? Container(
+            PDF_URL != null ? Container(
               margin: EdgeInsets.only(
                 top: 10,
               ),
-              child:Container(
+              child:localPath != null?Container(
                 key: stickyKeyPdf,
                 child: PDF(
 
@@ -304,10 +303,10 @@ class _ViewPDF extends State<ViewPDF> {
 
                     });
                   },
-              ).fromAsset(localPath),)
+              ).fromAsset(localPath),):SizedBox()
 
-            )
-                : Container(),
+            ):SizedBox(),
+
             PDF_URL == null
                 ? Center(
               child: CircularProgressIndicator(),

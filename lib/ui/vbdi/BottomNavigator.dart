@@ -199,11 +199,15 @@ bool isLoading = false;
                 ),
 
                 //Thay thế văn bản
-                (checkThuHoi == true
-                    //&&(ThemMoiVanBanDi == true
-                    // ||(userTenTruyCap.contains("thuyvn") && SiteAction.contains("vpubhb"))
-                    // || lstPhongBanLaVanThuVBDI.length == 0)
-                ) && vbdiTrangThaiVB != 13
+             
+                  (checkThuHoi == true&&(ThemMoiVanBanDi == true
+                    || (userTenTruyCap.contains("thuyvn") &&
+                          SiteAction.contains("vpubhb"))
+                    || (
+                          //vbdiPBLookup.LookupId>0 &&
+                     lstPhongBanLaVanThuVBDI.length > 0))) &&
+                      vbdiTrangThaiVB != 13
+              
                     ? Container(
                   child: InkWell(
                     child: Column(
@@ -232,8 +236,10 @@ bool isLoading = false;
                 ):SizedBox(),
 
                 // thiết lập hồi báo
-                vbdiCanTDHB == false && ThietLapHoiBao == true
-                    && vbdiTrangThaiVB !=13
+
+                !vbdiCanTDHB &&
+                   ThietLapHoiBao ==true
+                    &&vbdiTrangThaiVB !=13
                     ? Container(
                   child: InkWell(
                     child: Column(
@@ -257,10 +263,13 @@ bool isLoading = false;
                 ):SizedBox(),
 
                 // Cập nhật
-                (checkThuHoi == true &&(ThemMoiVanBanDi == true
-                    || (userTenTruyCap.contains("thuyvn") && SiteAction.contains("vpubhb"))) ||
-                    lstPhongBanLaVanThuVBDI.length > 0)
-                    && vbdiTrangThaiVB !=13
+                  (checkThuHoi== true&&(ThemMoiVanBanDi ==true
+                    || (userTenTruyCap.contains("thuyvn") &&
+                        SiteAction.contains("vpubhb")))
+                    || (
+                       // vbdiPBLookup.LookupId>0&&
+                     lstPhongBanLaVanThuVBDI.length > 0)) &&
+                    vbdiTrangThaiVB !=13
                     ? Container(
                   child: InkWell(
                     child: Column(
@@ -309,8 +318,8 @@ bool isLoading = false;
 
 
                 // đã chuỷen văn bản
-                (vbdiIsSentVanBan == false
-                    && CapSoVanBanDi == true)
+
+                  (!vbdiIsSentVanBan && CapSoVanBanDi == true)
                     && vbdiTrangThaiVB != 13
                     ? Container(
                   child: InkWell(
@@ -361,10 +370,12 @@ bool isLoading = false;
 
 
                 //Thu hồi
-                (checkThuHoi == true&&(ThemMoiVanBanDi == true
+                  (checkThuHoi == true&&(ThemMoiVanBanDi ==true
                     || (userTenTruyCap.contains("thuyvn")
                         && SiteAction.contains("vpubhb"))
-                    || lstPhongBanLaVanThuVBDI.length > 0))
+                    || (
+                        //oVanBanDi.vbdiPBLookup.LookupId>0 &&
+                         lstPhongBanLaVanThuVBDI.length > 0)))
                     && vbdiTrangThaiVB != 13
                     ?Container(
                   child: InkWell(
@@ -387,13 +398,10 @@ bool isLoading = false;
                   ),
                 ):SizedBox(),
 
-//Trả về
-                vbdiIsSentVanBan == false
-                    && vbdiSoKyHieu.isEmpty
-                    && vbdiSoKyHieu != null
-                    &&(CapSoVanBanDi == true
-                    || lstPhongBanLaVanThuVBDI.length > 0)
-                    && vbdiTrangThaiVB != 13
+//Trả lại
+               vbdiIsSentVanBan == false  && (CapSoVanBanDi == true
+                    || lstPhongBanLaVanThuVBDI.length > 0) &&
+                    vbdiTrangThaiVB != 13
                     ?Container(
                   child: InkWell(
                     child: Column(
@@ -401,7 +409,7 @@ bool isLoading = false;
                       children: <Widget>[
                         FlatButton.icon(
                           icon: Icon(Icons.keyboard_return),
-                          label: Text('Trả về'),
+                          label: Text('Trả lại'),
                           onPressed: () {
                             onPressButton(context, 5);
                           },

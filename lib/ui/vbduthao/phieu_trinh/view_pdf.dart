@@ -268,7 +268,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                 // placeholder: (progress) => Center(child: Text('$progress '
                 //'%')),
                 // key: stickyKeyPdf,
-                //errorWidget: (error) => Center(child: Text(error.toString())),
+                errorWidget: (error) => Center(child: Text("")),
               ),
             )
 

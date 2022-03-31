@@ -372,10 +372,12 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
                 //thuhoi
-                checkThuHoi == true && (vbdTTXuLyVanBanLT != 17
-                    && vbdTTXuLyVanBanLT != 28
-                    && vbdTTXuLyVanBanLT != 24
-                    && vbdTTXuLyVanBanLT != 26)
+
+                isTraCuu ==true
+                    && checkThuHoi ==true
+                    && ( vbdTTXuLyVanBanLT != 17
+                    && vbdTTXuLyVanBanLT != 28 && vbdTTXuLyVanBanLT != 24
+                    && vbdTTXuLyVanBanLT != 26) 
                     && (vbdTrangThaiXuLyVanBan !=2)
                     ?Container(
                   child: InkWell(
@@ -385,31 +387,6 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                         TextButton.icon(
                           icon: Icon(Icons.keyboard_return),
                           label: Text('Thu hồi'),
-                          // onPressed: () => showDialog<String>(
-                          //   context: context,
-                          //   builder: (BuildContext context) => AlertDialog(
-                          //     title: const Text('Thu hồi văn bản'),
-                          //     content: const Text('Bạn có chắc chắn muốn thu hồi văn bản?'),
-                          //     actions: <Widget>[
-                          //       TextButton(
-                          //         onPressed: () async {
-                          //
-                          //           EasyLoading.show();
-                          //           var thanhcong = await postChuyenTT( widget.id, "THUHOIVB");
-                          //           Navigator.of(context).pop();
-                          //           EasyLoading.dismiss();
-                          //             await showAlertDialog(context, json.decode(thanhcong)['Message']);
-                          //
-                          //         },
-                          //         child: const Text('Tiếp tục '),
-                          //       ),
-                          //       TextButton(
-                          //         onPressed: () => Navigator.pop(context),
-                          //         child: const Text('Huỷ'),
-                          //       ),
-                          //     ],
-                          //   ),
-                          // ),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute
                               (builder: (context) =>ThuHoiVb(id:widget.id, nam:widget.nam)
@@ -430,7 +407,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                       children: <Widget>[
                         TextButton.icon(
                           icon: Icon(Icons.edit),
-                          label: Text(' Sửa'),
+                          label: Text('Sửa'),
                           onPressed: () {
                             Navigator.of(context).push(MaterialPageRoute
                               (builder: (context) =>SuaVBD(id:widget.id,
@@ -527,7 +504,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 //Xử lý xong
 
-                (isTraCuu && (vbdIsSentVanBan || vbdPhuongThuc == 2)
+                (isTraCuu == true && (vbdIsSentVanBan == true|| vbdPhuongThuc == 2)
                     && (vbdTTXuLyVanBanLT != 17 && vbdTTXuLyVanBanLT != 28 
                     && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
                     && (vbdUserChuaXuLy == true))||
@@ -576,7 +553,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 //hạn xử lý
 
 
-                isTraCuu == true && vbdIsSentVanBan == true
+                isTraCuu== true  && vbdIsSentVanBan == true
                     && vbdUserChuaXuLy == true
                     && (vbdHanXuLy != null || vbdHanXuLy != "")
                     && (vbdTTXuLyVanBanLT != 17
@@ -647,7 +624,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
 
-                  isTraCuu && vbdTrangThaiXuLyVanBan != 3
+                  isTraCuu== true && vbdTrangThaiXuLyVanBan != 3
                      && XemDB.contains("",currentUserID)&&
              (vbdTTXuLyVanBanLT != 17
             && vbdTTXuLyVanBanLT != 28
