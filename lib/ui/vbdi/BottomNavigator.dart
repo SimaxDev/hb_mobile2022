@@ -204,7 +204,7 @@ bool isLoading = false;
                     || (userTenTruyCap.contains("thuyvn") &&
                           SiteAction.contains("vpubhb"))
                     || (
-                          //vbdiPBLookup.LookupId>0 &&
+                          vbdiPBLookup>0 &&
                      lstPhongBanLaVanThuVBDI.length > 0))) &&
                       vbdiTrangThaiVB != 13
               
@@ -267,7 +267,7 @@ bool isLoading = false;
                     || (userTenTruyCap.contains("thuyvn") &&
                         SiteAction.contains("vpubhb")))
                     || (
-                       // vbdiPBLookup.LookupId>0&&
+                          vbdiPBLookup>0 &&
                      lstPhongBanLaVanThuVBDI.length > 0)) &&
                     vbdiTrangThaiVB !=13
                     ? Container(
@@ -374,7 +374,7 @@ bool isLoading = false;
                     || (userTenTruyCap.contains("thuyvn")
                         && SiteAction.contains("vpubhb"))
                     || (
-                        //oVanBanDi.vbdiPBLookup.LookupId>0 &&
+                       vbdiPBLookup>0 &&
                          lstPhongBanLaVanThuVBDI.length > 0)))
                     && vbdiTrangThaiVB != 13
                     ?Container(

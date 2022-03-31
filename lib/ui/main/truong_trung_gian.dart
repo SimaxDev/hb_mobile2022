@@ -12,6 +12,7 @@ import 'package:http/http.dart' as http;
   int trangThaiVB =0;
   int vbdiTrangThaiVB =0;
   int vbdiCurrentNguoiTrinhID =0;
+  int vbdiPBLookup =0;
   String vbdiNguoiSoan= "";
   List lstPhongBanLaVanThuVBDI= [];
   List lstPhongBanLaVanThuVBDEN= [];

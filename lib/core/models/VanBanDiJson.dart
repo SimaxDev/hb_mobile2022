@@ -34,6 +34,7 @@ class VanBanDiJson {
   final List pdf1;
   final String LogxulyText;
   final String name;
+  final int vbdiPBLookup;
   List pdfDK;
 
 
@@ -69,6 +70,7 @@ class VanBanDiJson {
         this.LogxulyText,
         this.name,
         this.pdfDK,
+        this.vbdiPBLookup,
       });
 //factory convert json to model
   factory VanBanDiJson.fromJson(Map<String, dynamic> json) {
@@ -85,6 +87,8 @@ class VanBanDiJson {
         NguoiSoan:   json['vbdiNguoiSoan_x003a_Title'] == null ||json['vbdiNguoiSoan_x003a_Title']['LookupValue'] ==  null  ? "":json['vbdiNguoiSoan_x003a_Title']['LookupValue'] ,
       DonViGui: json['vbdiDonViSoanThao'] != null ||json['vbdiDonViSoanThao']['LookupValue'] != null ?
     json['vbdiDonViSoanThao']['LookupValue']  : "",
+      vbdiPBLookup: json['vbdiPBLookup'] != null ||json['vbdiPBLookup']['ID'] != null ?
+    json['vbdiPBLookup']['ID']  : 0,
       NgayKy:json['vbdiNgayKy'] != null  ?DateFormat('dd-MM-yyyy')
           .format(DateFormat('yyyy-MM-dd').parse(json['vbdiNgayKy'])) : "",
     DonViNhan: json['vbdiDSDonViNhanVB'].length > 0 &&

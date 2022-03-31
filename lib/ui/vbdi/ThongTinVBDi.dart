@@ -176,6 +176,7 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
       vbdiCanTDHB =  vbdi.vbdiCanTDHB1;
       vbdiSoKyHieu =  vbdi.SoKyHieu;
       checkThuHoi =  vbdi.checkThuHoi1;
+      vbdiPBLookup =  vbdi.vbdiPBLookup;
       LogxulyText =  vbdi.LogxulyText;
       List DonViNhan= [];
       DonViNhan  = vbdi.DonViNhan;

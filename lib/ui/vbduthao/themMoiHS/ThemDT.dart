@@ -52,7 +52,12 @@ class _ThemDTState extends State<ThemDT> {
   String DuThaoBo = "";
   Timer _timer;
   String  intuseduyet= "";
-
+  List chua = [];
+  String base64PDF = "";
+  _onDeleteItemPressed(item) {
+    chua.removeAt(item);
+    setState(() {});
+  }
 
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes: 5), (_) {
@@ -380,6 +385,29 @@ class _ThemDTState extends State<ThemDT> {
                                           },
                                         ),
                                       ),
+                                      Container(child: ListView.builder(
+                                        shrinkWrap: true,
+                                        itemCount: chua.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(chua[index],style: TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 13),
+                                              maxLines:2,),
+                                            trailing: IconButton(
+                                              icon: Icon(
+                                                Icons.delete,
+                                                size: 18.0,
+                                                color: Color(0xffDE3E43),
+                                              ),
+                                              onPressed: () {
+                                                _onDeleteItemPressed(index);
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      ),),
                                       Container(
                                         width:
                                             MediaQuery.of(context).size.width *

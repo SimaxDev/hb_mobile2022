@@ -2,6 +2,8 @@
 
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
 
@@ -332,6 +334,15 @@ var pagesize =  page +1;
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }
+  else{
+
+    Get.defaultDialog(
+
+            title:"Thông báo",
+        middleText:"Xác thực không thành công!"
+    );
+    EasyLoading.dismiss();
   }
 }
 
