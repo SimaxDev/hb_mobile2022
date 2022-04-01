@@ -52,10 +52,16 @@ class _ThemDTState extends State<ThemDT> {
   String DuThaoBo = "";
   Timer _timer;
   String  intuseduyet= "";
+  List chua1 = [];
+  String base64PDF1 = "";
   List chua = [];
   String base64PDF = "";
   _onDeleteItemPressed(item) {
     chua.removeAt(item);
+    setState(() {});
+  }
+  _onDeleteItemPressed1(item) {
+    chua1.removeAt(item);
     setState(() {});
   }
 
@@ -106,6 +112,28 @@ class _ThemDTState extends State<ThemDT> {
     });
   }
 
+  selectFile1() async {
+    FilePickerResult result = await FilePicker.platform.pickFiles(
+      type: FileType.custom,
+      allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
+      //allowed extension to choose
+    );
+
+    if (result != null) {
+      //if there is selected file
+      selectedfile1 = File(result.files.single.path);
+
+      if (selectedfile1 != null) {
+        // var bytes1 = await rootBundle.load(selectedfile.path);
+        List<int> Bytes = await selectedfile1.readAsBytesSync();
+        print(Bytes);
+        base64PDF1 = await base64Encode(Bytes);
+        print("hdaf  " + base64PDF1);
+        chua1.add(basename(selectedfile1.path));
+      }
+    }
+    setState(() {});
+  }
   selectFile() async {
     FilePickerResult result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -116,23 +144,19 @@ class _ThemDTState extends State<ThemDT> {
     if (result != null) {
       //if there is selected file
       selectedfile = File(result.files.single.path);
+
+      if (selectedfile != null) {
+        // var bytes1 = await rootBundle.load(selectedfile.path);
+        List<int> Bytes = await selectedfile.readAsBytesSync();
+        print(Bytes);
+        base64PDF = await base64Encode(Bytes);
+        print("hdaf  " + base64PDF);
+        chua.add(basename(selectedfile.path));
+      }
     }
     setState(() {});
   }
 
-  selectFile1() async {
-    FilePickerResult result1 = await FilePicker.platform.pickFiles(
-      type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
-      //allowed extension to choose
-    );
-
-    if (result1 != null) {
-      //if the1re is selected file
-      selectedfile1 = File(result1.files.single.path);
-    }
-    setState(() {});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -369,6 +393,9 @@ class _ThemDTState extends State<ThemDT> {
                                 ),
                                 Container(
                                   margin: EdgeInsets.only(right: 12),
+                                  width:
+                                  MediaQuery.of(context).size.width * 0.675,
+
                                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                                   child: Column(
                                     children: [
@@ -385,7 +412,11 @@ class _ThemDTState extends State<ThemDT> {
                                           },
                                         ),
                                       ),
-                                      Container(child: ListView.builder(
+                                      chua != null && chua!=[] &&chua.length >0
+                                          ?  Container
+                                        (child:
+                                      ListView
+                                          .builder(
                                         shrinkWrap: true,
                                         itemCount: chua.length,
                                         itemBuilder: (context, index) {
@@ -407,26 +438,15 @@ class _ThemDTState extends State<ThemDT> {
                                             ),
                                           );
                                         },
-                                      ),),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        margin: EdgeInsets.all(10),
-                                        //show file name here
-                                        child: selectedfile != null
-                                            ? Text(basename(selectedfile.path))
-                                            : Text(
-                                                "Nên sử dụng file pdf",
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Colors.blue),
-                                              ),
-                                        //basename is from path package, to get filename from path
-                                        //check if file is selected, if yes then show file name
+                                      ),):
+                                      Text(
+                                        "Nên sử dụng file pdf",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontStyle: FontStyle.italic,
+                                            color: Colors.blue),
                                       ),
                                     ],
                                   ),
@@ -513,27 +533,17 @@ class _ThemDTState extends State<ThemDT> {
                                   ),
                                 ),
                                 Container(
-                                  // decoration: BoxDecoration(
-                                  //   border: Border.all(
-                                  //     color: Colors.black38 ,
-                                  //     width: 1 ,
-                                  //   ),
-                                  //   borderRadius: BorderRadius.circular(7),
-                                  // ),
-
-                                  // width: MediaQuery
-                                  //     .of(context)
-                                  //     .size
-                                  //     .width * 0.67,
-
                                   margin: EdgeInsets.only(right: 12),
+                                  width:
+                                  MediaQuery.of(context).size.width * 0.675,
+
                                   padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                                   child: Column(
                                     children: [
                                       Container(
                                         width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
+                                        MediaQuery.of(context).size.width *
+                                            0.5,
                                         child: FlatButton(
                                           child: Text('Đính kèm file...'),
                                           color: Colors.blueAccent,
@@ -543,25 +553,42 @@ class _ThemDTState extends State<ThemDT> {
                                           },
                                         ),
                                       ),
-                                      Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.5,
-                                        margin: EdgeInsets.all(10),
-                                        //show file name here
-                                        child: selectedfile1 != null
-                                            ? Text(basename(selectedfile1.path))
-                                            : Text(
-                                                "Nên sử dụng file pdf",
-                                                maxLines: 2,
-                                                overflow: TextOverflow.ellipsis,
-                                                style: TextStyle(
-                                                    fontSize: 12,
-                                                    fontStyle: FontStyle.italic,
-                                                    color: Colors.blue),
+                                      chua1 != null && chua1!=[] &&chua1.length >0
+                                          ?  Container
+                                        (child:
+                                      ListView
+                                          .builder(
+                                        shrinkWrap: true,
+                                        itemCount: chua1.length,
+                                        itemBuilder: (context, index) {
+                                          return ListTile(
+                                            title: Text(chua1[index],style:
+                                            TextStyle(
+                                                fontStyle: FontStyle.normal,
+                                                fontWeight: FontWeight.w400,
+                                                fontSize: 13),
+                                              maxLines:2,),
+                                            trailing: IconButton(
+                                              icon: Icon(
+                                                Icons.delete,
+                                                size: 18.0,
+                                                color: Color(0xffDE3E43),
                                               ),
-                                        //basename is from path package, to get filename from path
-                                        //check if file is selected, if yes then show file name
+                                              onPressed: () {
+                                                _onDeleteItemPressed1(index);
+                                              },
+                                            ),
+                                          );
+                                        },
+                                      ),):
+                                      Text(
+                                        "Nên sử dụng file pdf",
+                                        maxLines: 2,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: TextStyle(
+                                            fontSize: 12,
+                                            fontStyle: FontStyle.italic,
+                                            color: Colors.blue),
                                       ),
                                     ],
                                   ),

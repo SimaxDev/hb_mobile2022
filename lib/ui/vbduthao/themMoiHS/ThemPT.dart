@@ -41,7 +41,12 @@ class _ThemPTState extends State<ThemPT> {
   bool clickPB = false;
   String tenPB = "";
   Timer _timer;
-
+  List chua = [];
+  String base64PDF = "";
+  _onDeleteItemPressed(item) {
+    chua.removeAt(item);
+    setState(() {});
+  }
 
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes:5), (_) {
@@ -73,7 +78,6 @@ class _ThemPTState extends State<ThemPT> {
     DateTime now = DateTime.now();
     formattedDate = DateFormat('dd-MM-yyyy').format(now);
   }
-
   selectFile() async {
     FilePickerResult result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
@@ -84,6 +88,15 @@ class _ThemPTState extends State<ThemPT> {
     if (result != null) {
       //if there is selected file
       selectedfile = File(result.files.single.path);
+
+      if (selectedfile != null) {
+        // var bytes1 = await rootBundle.load(selectedfile.path);
+        List<int> Bytes = await selectedfile.readAsBytesSync();
+        print(Bytes);
+        base64PDF = await base64Encode(Bytes);
+        print("hdaf  " + base64PDF);
+        chua.add(basename(selectedfile.path));
+      }
     }
     setState(() {});
   }
@@ -275,10 +288,16 @@ class _ThemPTState extends State<ThemPT> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(right: 12),
+                                width:
+                                MediaQuery.of(context).size.width * 0.675,
+
                                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
                                 child: Column(
                                   children: [
                                     Container(
+                                      width:
+                                      MediaQuery.of(context).size.width *
+                                          0.5,
                                       child: FlatButton(
                                         child: Text('Đính kèm file...'),
                                         color: Colors.blueAccent,
@@ -288,21 +307,41 @@ class _ThemPTState extends State<ThemPT> {
                                         },
                                       ),
                                     ),
-                                    Container(
-                                      width: MediaQuery.of(context).size.width * 0.5,
-                                      margin: EdgeInsets.all(10),
-                                      //show file name here
-                                      child: selectedfile != null
-                                          ? Text(basename(selectedfile.path))
-                                          : Text(
-                                              "Nên sử dụng file pdf",
-                                              maxLines: 2,
-                                              overflow: TextOverflow.ellipsis,
-                                              style: TextStyle(
-                                                  fontSize: 12, fontStyle: FontStyle.italic, color: Colors.blue),
+                                    chua != null && chua!=[] &&chua.length >0
+                                        ?  Container
+                                      (child:
+                                    ListView
+                                        .builder(
+                                      shrinkWrap: true,
+                                      itemCount: chua.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          title: Text(chua[index],style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13),
+                                            maxLines:2,),
+                                          trailing: IconButton(
+                                            icon: Icon(
+                                              Icons.delete,
+                                              size: 18.0,
+                                              color: Color(0xffDE3E43),
                                             ),
-                                      //basename is from path package, to get filename from path
-                                      //check if file is selected, if yes then show file name
+                                            onPressed: () {
+                                              _onDeleteItemPressed(index);
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),):
+                                    Text(
+                                      "Nên sử dụng file pdf",
+                                      maxLines: 2,
+                                      overflow: TextOverflow.ellipsis,
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.blue),
                                     ),
                                   ],
                                 ),

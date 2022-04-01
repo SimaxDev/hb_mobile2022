@@ -268,5 +268,8 @@ class rester {
     // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
     //     builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);
     Get.off(LoginWidget());
+    if(_timer != null){
+      _timer.cancel();
+    }
   }
 }

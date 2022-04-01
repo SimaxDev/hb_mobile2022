@@ -124,5 +124,7 @@ import 'package:http/http.dart' as http;
   int IDTT ;
   List chuaPDF = [];
   String tenPDFTruyen ="";
+  String imageCK ="";
+  double widthKy = 75.0, heightKy = 65.0;
 
 

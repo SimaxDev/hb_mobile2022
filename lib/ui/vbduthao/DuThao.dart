@@ -62,7 +62,7 @@ class DuThaoState extends State<DuThaoWidget> {
 
 
   void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:35), (_) {
+    _timer = Timer.periodic(const Duration(minutes:5), (_) {
       logOut(context);
       _timer.cancel();
     });
@@ -82,7 +82,6 @@ class DuThaoState extends State<DuThaoWidget> {
     _timer.cancel();
     _initializeTimer();
   }
-
   @override
   void initState() {
     _initializeTimer();

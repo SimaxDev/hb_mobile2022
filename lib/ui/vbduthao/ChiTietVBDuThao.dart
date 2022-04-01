@@ -302,7 +302,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
             // ViewPDFDK(),
             // ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
             //     top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
-            ViewPDFDT(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
+            ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
                 top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
             ViewPDFPT(idDuThao: widget.idDuThao,nam: widget.nam,
                 ),

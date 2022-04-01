@@ -1,4 +1,6 @@
 // import 'package:firebase_messaging/firebase_messaging.dart';
+import 'dart:async';
+
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
@@ -23,7 +25,7 @@ String tokenfirebase;
 //const  DOMAIN = "http://apimobile2021.ungdungtructuyen.vn";
 //const  DOMAIN = "cc";
 const  DOMAIN = "http://apimobile.hoabinh.gov.vn";
-
+Timer _timer;
 void logOut(BuildContext context) async {
   sharedStorage = await SharedPreferences.getInstance();
       if(!sharedStorage.get("rememberme")) {
@@ -148,6 +150,7 @@ void logOut(BuildContext context) async {
         ThemMoiVanBanDuThao = false;
          chuaPDF = [];
          tenPDFTruyen ="";
+
       }
  else{
     sharedStorage.remove("expires_in");
@@ -277,6 +280,9 @@ void logOut(BuildContext context) async {
  // Get.off(LoginWidget());
   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
       builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);
+  if(_timer != null){
+    _timer.cancel();
+  }
 }
 
 

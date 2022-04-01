@@ -71,8 +71,6 @@ class _ViewPDF extends State<ViewPDF> {
   double pdfHeight = 792.0;
   Completer<PDFViewController> pdfController = Completer<PDFViewController>();
   bool pdfReload = false;
-
-  double width = 75.0, height = 65.0;
   bool isLoading = false;
   bool chekKy = false;
   String localPath;
@@ -321,32 +319,57 @@ class _ViewPDF extends State<ViewPDF> {
                 child: Draggable(
                   child: Container(
                     margin: EdgeInsets.only(top: 40),
-                    width: width,
-                    height: height,
+                    width: widthKy,
+                    height: heightKy,
                     color: Colors.transparent,
                     child: Center(
+                      child:Image.network(
+                       imageCK,
+                        width: widthKy,
+                        height: heightKy,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                          return  Image(
+                                image: AssetImage('assets/signature.png'),
+                                width: widthKy,
+                                height: heightKy,
+                              );
+                        },
+                      ),
 
-                        child: (encodedImage != null && encodedImage != "")
-                            ? Image.memory(base64.decode(encodedImage), width: width, height: height, )
-                            : Image(
-                          image: AssetImage('assets/signature.png'),
-                          width: width,
-                          height: height,
-                        )
+
+                        // child: (encodedImage != null && encodedImage != "")
+                        //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
+                        //     : Image(
+                        //   image: AssetImage('assets/signature.png'),
+                        //   width: widthKy,
+                        //   height: heightKy,
+                        // )
 
 
 
                     ),
                   ),
                   feedback: Center(
+                    child:Image.network(
+                      imageCK,
+                      width: widthKy,
+                      height: heightKy,
+                      errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                        return  Image(
+                          image: AssetImage('assets/signature.png'),
+                          width: widthKy,
+                          height: heightKy,
+                        );
+                      },
+                    ),
+                      // child: (encodedImage != null && encodedImage != "")
+                      //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
+                      //     : Image(
+                      //   image: AssetImage('assets/signature.png'),
+                      //   width: widthKy,
+                      //   height: heightKy,
+                      // )
 
-                      child: (encodedImage != null && encodedImage != "")
-                          ? Image.memory(base64.decode(encodedImage), width: width, height: height, )
-                          : Image(
-                        image: AssetImage('assets/signature.png'),
-                        width: width,
-                        height: height,
-                      )
 
                   ), // 8.
                   childWhenDragging: Container(), // 9.
@@ -355,7 +378,7 @@ class _ViewPDF extends State<ViewPDF> {
                     setState(() {
                       if (parentPos == null) return;
                       left = drag.offset.dx - parentPos.left; // 11.
-                      top = (drag.offset.dy - parentPos.top) -10;
+                      top = (drag.offset.dy - parentPos.top) -30;
                     });
                     final keyContext = stickyKeyPdf.currentContext;
                     final box = keyContext.findRenderObject() as RenderBox;
@@ -371,7 +394,7 @@ class _ViewPDF extends State<ViewPDF> {
                     //   left = drag.offset.dx;
                     // });
 
-                    double dy = (box.size.height - top - height - ((box.size
+                    double dy = (box.size.height - top - heightKy - ((box.size
                         .height - boxHeight)/2));
                     double ratioH = pdfHeight/(boxHeight);
 
@@ -395,11 +418,11 @@ class _ViewPDF extends State<ViewPDF> {
                         widget.idDuThao,
                         "KySim",
                         widget.nam,
-                        ((left * ratioW)+(width*1/2)).toString(),
-                        (dy1+ height )
+                        ((left * ratioW)+(widthKy*1/2)).toString(),
+                        ((dy1+ heightKy )-20)
                             .toString(),
-                        (width * ratioW).toString(),
-                        (height * ratioW).toString(),
+                        (widthKy * ratioW).toString(),
+                        (heightKy * ratioW).toString(),
                         pdfCu,
                         _currentPage,
                         namefile);
