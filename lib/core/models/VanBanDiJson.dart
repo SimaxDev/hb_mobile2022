@@ -87,8 +87,8 @@ class VanBanDiJson {
         NguoiSoan:   json['vbdiNguoiSoan_x003a_Title'] == null ||json['vbdiNguoiSoan_x003a_Title']['LookupValue'] ==  null  ? "":json['vbdiNguoiSoan_x003a_Title']['LookupValue'] ,
       DonViGui: json['vbdiDonViSoanThao'] != null ||json['vbdiDonViSoanThao']['LookupValue'] != null ?
     json['vbdiDonViSoanThao']['LookupValue']  : "",
-      vbdiPBLookup: json['vbdiPBLookup'] != null ||json['vbdiPBLookup']['ID'] != null ?
-    json['vbdiPBLookup']['ID']  : 0,
+      vbdiPBLookup: json['vbdiPBLookup'] != null ||json['vbdiPBLookup']['LookupId'] != null ?
+    json['vbdiPBLookup']['LookupId']  : 0,
       NgayKy:json['vbdiNgayKy'] != null  ?DateFormat('dd-MM-yyyy')
           .format(DateFormat('yyyy-MM-dd').parse(json['vbdiNgayKy'])) : "",
     DonViNhan: json['vbdiDSDonViNhanVB'].length > 0 &&

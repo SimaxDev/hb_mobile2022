@@ -96,8 +96,10 @@ class _MenuRightState extends State<MenuRight> {
             ? item['ListPermissions']['ButPheVanBan']
             : false;
         groupID = item['groupID'] != null ? item['groupID'] : 0;
-        lstPhongBanLaVanThuVBDI = item['lstPhongBanLaVanThuVBDI'];
-        lstPhongBanLaVanThuVBDEN = item['lstPhongBanLaVanThuVBDEN'];
+        lstPhongBanLaVanThuVBDI = item['lstPhongBanLaVanThuVBDI'].length> 0
+            ?item['lstPhongBanLaVanThuVBDI']:[] ;
+        lstPhongBanLaVanThuVBDEN = item['lstPhongBanLaVanThuVBDEN'].length >
+            0 ? item['lstPhongBanLaVanThuVBDEN']: [];
         SiteAction = item['SiteAction'] != null ? item['SiteAction'] : "";
 
         if (item['ListPermissions'] != null &&

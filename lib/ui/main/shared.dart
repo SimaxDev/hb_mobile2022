@@ -109,6 +109,7 @@ void logOut(BuildContext context) async {
          GuiVanBanDi = false;
          GuiVanBan = false;
          SuaVanBanDen = false;
+        vbdiDSNguoiTrinhTiepKy = false;
          isQTNew = false;
          notIsQuanTriNew = false;
          ispGuiXuLyChinh = false;
@@ -235,6 +236,7 @@ void logOut(BuildContext context) async {
     GuiVanBanDi = false;
     GuiVanBan = false;
     SuaVanBanDen = false;
+    vbdiDSNguoiTrinhTiepKy = false;
     isQTNew = false;
     notIsQuanTriNew = false;
     ispGuiXuLyChinh = false;

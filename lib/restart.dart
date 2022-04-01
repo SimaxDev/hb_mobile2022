@@ -101,6 +101,7 @@ class rester {
       GuiVanBanDi = false;
       GuiVanBan = false;
       SuaVanBanDen = false;
+      vbdiDSNguoiTrinhTiepKy = false;
       isQTNew = false;
       notIsQuanTriNew = false;
       ispGuiXuLyChinh = false;
@@ -223,6 +224,7 @@ class rester {
       GuiVanBanDi = false;
       GuiVanBan = false;
       SuaVanBanDen = false;
+      vbdiDSNguoiTrinhTiepKy = false;
       isQTNew = false;
       notIsQuanTriNew = false;
       ispGuiXuLyChinh = false;

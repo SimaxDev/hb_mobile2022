@@ -83,6 +83,7 @@ import 'package:http/http.dart' as http;
   bool GuiVanBanDi = false;
   bool GuiVanBan = false;
   bool SuaVanBanDen = false;
+  bool vbdiDSNguoiTrinhTiepKy = false;
   bool isQTNew = false;
   bool notIsQuanTriNew = false;
   bool ispGuiXuLyChinh = false;

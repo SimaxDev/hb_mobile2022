@@ -419,7 +419,7 @@ class _ViewPDF extends State<ViewPDF> {
                         "KySim",
                         widget.nam,
                         ((left * ratioW)+(widthKy*1/2)).toString(),
-                        ((dy1+ heightKy )-20)
+                        ((dy1+ heightKy )-25)
                             .toString(),
                         (widthKy * ratioW).toString(),
                         (heightKy * ratioW).toString(),
@@ -664,7 +664,13 @@ class _ViewPDF extends State<ViewPDF> {
             ),
           ],
         )
-            : FloatingActionButton.extended(
+            : (((vbdiTrangThaiVB == 7 || vbdiTrangThaiVB == 6
+            || vbdiTrangThaiVB == 2) && (vbdiNguoiSoanID == currentUserID
+            || vbdiDSNguoiTrinhTiepKy == true))
+            || (vbdiNguoiKyID== currentUserID &&
+                vbdiTrangThaiVB == 4)
+                && chukyso ==1   )?
+        FloatingActionButton.extended(
           icon: const Icon(Icons.edit),
           label: Text("Ký"),
           backgroundColor: Colors.blue.shade800,
@@ -675,7 +681,8 @@ class _ViewPDF extends State<ViewPDF> {
               //_enableSwipe = !_enableSwipe;
             });
           },
-        ));
+        ) :SizedBox()
+    );
 
 //     //ký số bằng gửi pdf
 //     return Scaffold(

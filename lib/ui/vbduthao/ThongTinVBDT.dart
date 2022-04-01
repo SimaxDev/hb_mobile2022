@@ -221,6 +221,22 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
      loaiVanban =  vbDT.loaiVanban;
      loaivbDT =  loaiVanban;
    vbdiCurrentDSXuly_x003a_Title = vbDT.vbdiCurrentDSXuly_x003a_Title;
+
+
+       for (var item in vbdiDSNguoiTrinhTiep) {
+         if ((item['LookupId'] == currentUserID ) ) {
+           setState(() {
+             vbdiDSNguoiTrinhTiepKy = true;
+           });
+
+         } else {
+           // setState(() {
+           //   vbdUserChuaXuLy = false;
+           // });
+
+         }
+       }
+
    if(vbdiCurrentDSXuly_x003a_Title !=null &&vbdiCurrentDSXuly_x003a_Title
        !="" ){
      for( var item  in vbdiCurrentDSXuly_x003a_Title)

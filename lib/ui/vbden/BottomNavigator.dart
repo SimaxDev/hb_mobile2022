@@ -625,7 +625,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
                   isTraCuu== true && vbdTrangThaiXuLyVanBan != 3
-                     && XemDB.contains("",currentUserID)&&
+                     && XemDB.contains(currentUserID.toString())&&
              (vbdTTXuLyVanBanLT != 17
             && vbdTTXuLyVanBanLT != 28
             && vbdTTXuLyVanBanLT != 24

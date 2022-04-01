@@ -133,8 +133,10 @@ if(item == null){
             ? item['ListPermissions']['ButPheVanBan']
             : false;
         groupID = item['groupID'] != null ? item['groupID'] : 0;
-        lstPhongBanLaVanThuVBDI = item['lstPhongBanLaVanThuVBDI'];
-        lstPhongBanLaVanThuVBDEN = item['lstPhongBanLaVanThuVBDEN'];
+        lstPhongBanLaVanThuVBDI = item['lstPhongBanLaVanThuVBDI'].length> 0
+            ?item['lstPhongBanLaVanThuVBDI']:[] ;
+        lstPhongBanLaVanThuVBDEN = item['lstPhongBanLaVanThuVBDEN'].length >
+            0 ? item['lstPhongBanLaVanThuVBDEN']: [];
         SiteAction = item['SiteAction'] != null ? item['SiteAction'] : "";
 
         if (item['ListPermissions'] != null &&
@@ -166,7 +168,8 @@ if(item == null){
           GuiVanBan = item['ListPermissions']['GuiVanBan'] != null
               ? item['ListPermissions']['GuiVanBan']
               : false;
-          imageCK =item['ListFileAttach']!= null  &&
+          imageCK =item['ListFileAttach'].length >0 &&item['ListFileAttach']!=
+              null  &&
               item['ListFileAttach'][0]['Url'] != null
               ? item['ListFileAttach'][0]['Url']
               : "";
@@ -234,9 +237,9 @@ if(item == null){
             TextSpan(
               text: 'Bạn chưa có tài khoản? ',
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 14,
                 color: Color(0xff021029),
-                fontStyle: FontStyle.normal,
+                fontStyle: FontStyle.italic,
                 fontWeight: FontWeight.w400,
                 // color: Colors.white,
               ),
@@ -245,10 +248,10 @@ if(item == null){
                 text: 'Đăng ký',
                 style: TextStyle(
                   decoration: TextDecoration.underline,
-                  fontSize: 18,
+                  fontSize: 16,
                   color: Color(0xff021029),
-                  fontStyle: FontStyle.normal,
-                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.italic,
+                  fontWeight: FontWeight.w500,
                   // color: Colors.white,
                 )
                 // style: TextStyle(
@@ -332,7 +335,7 @@ if(item == null){
                             child: Column(
                               children: [
                                 Container(
-                                    padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
+                                    padding: EdgeInsets.fromLTRB(10, 20, 10, 0),
                                     child: new Theme(
                                       data: new ThemeData(
                                         primaryColor: Colors.black45,
@@ -341,8 +344,10 @@ if(item == null){
                                         controller: usernameController,
                                         cursorColor: Colors.black45,
                                         style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
+                                          color: Color(0xff021029),
+                                          fontStyle: FontStyle.normal,
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w500,),
                                         decoration: new InputDecoration(
                                           enabledBorder: OutlineInputBorder(
                                             borderSide: const BorderSide(
@@ -354,7 +359,7 @@ if(item == null){
                                           labelText: 'Tài khoản',
                                           labelStyle: TextStyle(
                                               color: Colors.black,
-                                              fontWeight: FontWeight.w800),
+                                              fontWeight: FontWeight.bold),
                                           prefixIcon: const Icon(
                                             Icons.person,
                                             color: Colors.black,
@@ -378,8 +383,10 @@ if(item == null){
                                             controller: passwordController,
                                             cursorColor: Colors.black45,
                                             style: TextStyle(
-                                                color: Colors.black,
-                                                fontWeight: FontWeight.bold),
+                                                color: Color(0xff021029),
+                                                fontSize: 14,
+                                                fontStyle: FontStyle.normal,
+                                                fontWeight: FontWeight.w500),
                                             decoration: new InputDecoration(
                                               enabledBorder: OutlineInputBorder(
                                                 borderSide: const BorderSide(
@@ -390,7 +397,7 @@ if(item == null){
                                                       color: Colors.white)),
                                               labelText: 'Mật khẩu',
                                               labelStyle: TextStyle(
-                                                fontWeight: FontWeight.w800,
+                                                fontWeight: FontWeight.bold,
                                                 color: Colors.black,
                                               ),
                                               prefixIcon: const Icon(
@@ -433,7 +440,7 @@ if(item == null){
                                         activeColor: Colors.black12,
                                         title: Text(
                                           "Nhớ tên đăng nhập",
-                                          style: TextStyle(
+                                          style: TextStyle(fontSize: 14,
                                               color: Colors.black,
                                               fontWeight: FontWeight.bold),
                                         ),
@@ -489,10 +496,10 @@ if(item == null){
                                 SizedBox(
                                   height: 10,
                                 ),
-                                //  _buildSignupBtn(),
-                                //  SizedBox(
-                                //   height: 10,
-                                // ),
+                                 _buildSignupBtn(),
+                                 SizedBox(
+                                  height: 10,
+                                ),
                               ],
                             ),
                             decoration: BoxDecoration(

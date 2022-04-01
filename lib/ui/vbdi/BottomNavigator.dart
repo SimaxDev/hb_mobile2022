@@ -199,15 +199,13 @@ bool isLoading = false;
                 ),
 
                 //Thay thế văn bản
-             
+
                   (checkThuHoi == true&&(ThemMoiVanBanDi == true
                     || (userTenTruyCap.contains("thuyvn") &&
                           SiteAction.contains("vpubhb"))
-                    || (
-                          vbdiPBLookup>0 &&
-                     lstPhongBanLaVanThuVBDI.length > 0))) &&
+                    || (vbdiPBLookup>0 && lstPhongBanLaVanThuVBDI.length > 0))) &&
                       vbdiTrangThaiVB != 13
-              
+
                     ? Container(
                   child: InkWell(
                     child: Column(
@@ -421,8 +419,8 @@ bool isLoading = false;
                 ):SizedBox(),
               ],
             );
-          }) : Center(
-          child: CircularProgressIndicator()
+          }) :
+      Center(child: CircularProgressIndicator()
       ),
     );
 
