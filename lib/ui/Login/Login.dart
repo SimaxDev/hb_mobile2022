@@ -496,10 +496,10 @@ if(item == null){
                                 SizedBox(
                                   height: 10,
                                 ),
-                                 _buildSignupBtn(),
-                                 SizedBox(
-                                  height: 10,
-                                ),
+                                //  _buildSignupBtn(),
+                                //  SizedBox(
+                                //   height: 10,
+                                // ),
                               ],
                             ),
                             decoration: BoxDecoration(

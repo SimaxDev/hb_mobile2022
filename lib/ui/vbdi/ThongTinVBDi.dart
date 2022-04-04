@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/models/VanBanDiJson.dart';
@@ -8,7 +9,7 @@ import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 class ThongTinVBDi extends StatefulWidget {
   final int id;
-  final int nam;
+  int nam;
   final String MaDonVi;
   final ttVbanDi;
 
@@ -59,8 +60,8 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
     _initializeTimer();
     super.initState();
     duthao = widget.ttVbanDi;
-    var tendangnhap = sharedStorage.getString("username");
-    this.GetYkienDataVBDi(widget.id,tendangnhap);
+    // var tendangnhap = sharedStorage.getString("username");
+    GetallYKien();
 
   }
 
@@ -73,13 +74,32 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
 //lấy danh sách chi tiết văn bản đến
 
 //lấy danh sách ý kiến văn bản đến
-  GetYkienDataVBDi(int id,String tendangnhap) async {
 
-    String data = await getYkienDataVBDi(tendangnhap,id,ActionXLYKien,widget
-        .nam);
+  GetallYKien()async{
 
-    yKienitems = json.decode(data)['OData'];
+    if (widget.nam == null) {
+      DateTime now = DateTime.now();
+      String  nam1 =  DateFormat('yyyy').format(now) ;
+      widget.nam = int.parse(nam1);
+    }
+    String data = await getYkienDataVBDi(
+        widget.id, ActionXLYKien, widget.nam);
+    setState(() {
+      isLoading = true;
+      yKienitems = json.decode(data)['OData'];
+    });
     isLoading = false;
+
+    GetYkienDataVBDi();
+  }
+
+  GetYkienDataVBDi() async {
+    //
+    // String data = await getYkienDataVBDi(tendangnhap,id,ActionXLYKien,widget
+    //     .nam);
+    //
+    // yKienitems = json.decode(data)['OData'];
+    // isLoading = false;
     for (var it in yKienitems) {
       listYkien.add(new Row(
         children: [
@@ -691,7 +711,8 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
             Divider(),
           ],
         ),
-       listYkien.length==0 || listYkien == null? SizedBox(): Container(
+        listYkien == null || listYkien.length == 0
+            ? SizedBox(): Container(
           alignment: Alignment.center,
           margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
           child: Text(

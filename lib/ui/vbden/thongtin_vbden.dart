@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'dart:math';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -74,8 +75,8 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     ttduthao = widget.ttvbDen;
     var tendangnhap = sharedStorage.getString("username");
     // GetDataDetailVBDen(widget.id);
-    GetYkienDataVBDen(widget.id, tendangnhap);
-    GetButPheDataVBDen(widget.id, tendangnhap);
+    GetallYKien();
+    GetallButPhe();
   }
 
 //lấy danh sách chi tiết văn bản đến
@@ -92,11 +93,30 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
 //
 //   }
 //lấy danh sách ý kiến văn bản đến
-  GetYkienDataVBDen(int id, String tendangnhap) async {
-    String data =
-        await getYkienDataVBDen(tendangnhap, id, ActionXLYKien, widget.Yearvb);
 
-    yKienitems = json.decode(data)['OData'];
+
+  GetallYKien()async{
+
+    if (widget.Yearvb == null) {
+      DateTime now = DateTime.now();
+      String  nam1 =  DateFormat('yyyy').format(now) ;
+      widget.Yearvb = int.parse(nam1);
+    }
+    String data = await getYkienDataVBDen(
+        widget.id, ActionXLYKien, widget.Yearvb);
+    setState(() {
+      isLoading = true;
+      yKienitems = json.decode(data)['OData'];
+    });
+    isLoading = false;
+
+    GetYkienDataVBDen();
+  }
+  GetYkienDataVBDen() async {
+    // String data =
+    //     await getYkienDataVBDen(tendangnhap, id, ActionXLYKien, widget.Yearvb);
+    //
+    // yKienitems = json.decode(data)['OData'];
     for (var it in yKienitems) {
       listYkien.add(new Row(
         children: [
@@ -158,17 +178,36 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
   }
 
   //lấy danh sach butphe vbden
-  GetButPheDataVBDen(int id, String tendangnhap) async {
-    if (mounted) {
-      setState(() {
-        isLoading = true;
-      });
-    }
+  GetallButPhe()async{
 
-    String data =
-        await getYkienDataVBDen(tendangnhap, id, ActionXLButPhe, widget.Yearvb);
+    if (widget.Yearvb == null) {
+      DateTime now = DateTime.now();
+      String  nam1 =  DateFormat('yyyy').format(now) ;
+      widget.Yearvb = int.parse(nam1);
+    }
+    String data = await getYkienDataVBDen(
+        widget.id, ActionXLButPhe, widget.Yearvb);
+    setState(() {
+      isLoading = true;
+      butPheitems = json.decode(data)['OData'];
+    });
     isLoading = false;
-    butPheitems = json.decode(data)['OData'];
+
+    GetButPheDataVBDen();
+  }
+
+
+  GetButPheDataVBDen() async {
+    // if (mounted) {
+    //   setState(() {
+    //     isLoading = true;
+    //   });
+    // }
+    //
+    // String data =
+    //     await getYkienDataVBDen(tendangnhap, id, ActionXLButPhe, widget.Yearvb);
+    // isLoading = false;
+    // butPheitems = json.decode(data)['OData'];
 
     for (var it in butPheitems) {
       listButPhe.add(new Row(
@@ -1242,7 +1281,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
           ),
         ),
         Divider(),
-        yKienitems == null || yKienitems.length == 0
+        listYkien == null || listYkien.length == 0
             ? Container()
             : Container(
                 // padding: EdgeInsets.only(left: 18.0),

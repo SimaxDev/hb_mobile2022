@@ -890,7 +890,7 @@ Future<String> getButPheDataVBDen(String username,int id,String ActionXL) async 
   }
 }
 
-Future<String> getYkienDataVBDen(String username,int id,String ActionXL,
+Future<String> getYkienDataVBDen(int id,String ActionXL,
     int nam)
 async {
 
@@ -899,7 +899,7 @@ async {
     nam =  int. parse(DateFormat('yyyy').format(now)) ;
   };
   var parts = [];
-  parts.add('TenDangNhap=' + username.toString());
+  // parts.add('TenDangNhap=' + username.toString());
   parts.add('ItemID=' + id.toString());
   parts.add('ActionXL=' + ActionXL.toString());
   parts.add('SYear=' + nam.toString());

@@ -154,10 +154,10 @@ Future<String> getDataByCreatedVBDi(String created) async {
   }
 }
 
-Future<String> getYkienDataVBDi(String username,int id,String ActionXL,int
+Future<String> getYkienDataVBDi(int id,String ActionXL,int
 nam) async {
   var parts = [];
-  parts.add('TenDangNhap=' + username.toString());
+  // parts.add('TenDangNhap=' + username.toString());
   parts.add('ItemID=' + id.toString());
   parts.add('ActionXL=' + ActionXL.toString());
   parts.add('SYear=' + nam.toString());
