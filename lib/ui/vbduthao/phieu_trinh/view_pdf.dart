@@ -260,17 +260,191 @@ class _ViewPDF extends State<ViewPDFPT> {
             //   child: CircularProgressIndicator(),
             // )
             //     : Offstage(),
-            PDF_URL != null?
-            Container(
-              margin: EdgeInsets.only(top:10,),
-              child:  PDF().fromUrl(
-                PDF_URL, //duration of cache
-                // placeholder: (progress) => Center(child: Text('$progress '
-                //'%')),
-                // key: stickyKeyPdf,
-                errorWidget: (error) => Center(child: Text("")),
+            localPath != null
+                ? Container(
+              key: stickyKeyPdf,
+              margin: EdgeInsets.only(left: 0, right: 0, top: 30),
+              child: PDFView(
+                enableSwipe: true,
+                autoSpacing: false,
+                pageFling: true,
+                pageSnap: true,
+                fitPolicy: FitPolicy.BOTH,
+                preventLinkNavigation: false,
+                key: ValueKey(localPath),
+                filePath: localPath,
+                swipeHorizontal: false,
+                nightMode: false,
+                onError: (e) {},
+                // onViewCreated:
+                //     (PDFViewController pdfViewController) {
+                //   pdfController.complete(pdfViewController);
+                // },
+                onRender: (_pages) {
+                  setState(() {
+                    pdfReady = true;
+                  });
+                },
+                onPageChanged: (int page, int total) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
               ),
             )
+                : Container(),
+
+            PDF_URL == null
+                ? Center(
+              child: CircularProgressIndicator(),
+            )
+                : Offstage(),
+            Positioned(
+              key: stickyKeyPositioned,
+              left: left,
+              top: top,
+              child: Visibility(
+                visible: _visibleSign,
+                child: Draggable(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 40),
+                    width: widthKy,
+                    height: heightKy,
+                    color: Colors.transparent,
+                    child: Center(
+
+                      child:
+                      Image.network(
+                        imageCK,
+                        width: widthKy,
+
+                        height: heightKy,
+                        errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                          return  Image(
+                            image: AssetImage('assets/signature.png'),
+                            width: widthKy,
+                            height: heightKy,
+                          );
+                        },
+                      ),
+
+
+                      // child: (encodedImage != null && encodedImage != "")
+                      //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
+                      //     : Image(
+                      //   image: AssetImage('assets/signature.png'),
+                      //   width: widthKy,
+                      //   height: heightKy,
+                      // )
+
+
+
+                    ),
+                  ),
+                  feedback: Center(
+                    child:
+
+                    Image.network(
+                      imageCK,
+                      width: widthKy,
+                      color: Color.fromRGBO(255, 255, 255, 0.19),
+                      height: heightKy,
+                      errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
+                        return  Image(
+                          image: AssetImage('assets/signature.png'),
+                          width: widthKy,
+                          height: heightKy,
+                        );
+                      },
+                    ),
+                    // child: (encodedImage != null && encodedImage != "")
+                    //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
+                    //     : Image(
+                    //   image: AssetImage('assets/signature.png'),
+                    //   width: widthKy,
+                    //   height: heightKy,
+                    // )
+
+
+                  ), // 8.
+                  childWhenDragging: Container(), // 9.
+                  onDragEnd: (drag) async {
+                    final parentPos = stickyKeyPdf.globalPaintBound;
+                    setState(() {
+                      if (parentPos == null) return;
+                      left = drag.offset.dx - parentPos.left; // 11.
+                      top = (drag.offset.dy - parentPos.top) -30;
+                    });
+                    final keyContext = stickyKeyPdf.currentContext;
+                    final box = keyContext.findRenderObject() as RenderBox;
+                    final pos = box.localToGlobal(Offset.zero);
+                    double ratioW = pdfWidth/(box.size.width);
+                    double ratio = (box.size.width)/pdfWidth;
+                    final boxWidth = box.size.width;
+
+                    final boxHeight = pdfHeight * ratio;
+
+                    // setState(() {
+                    //   top = drag.offset.dy - (box.size.height * 0.2);
+                    //   left = drag.offset.dx;
+                    // });
+
+                    double dy = (box.size.height - top - heightKy - ((box.size
+                        .height - boxHeight)/2));
+                    double ratioH = pdfHeight/(boxHeight);
+
+                    double dx = (left * ratioW);
+                    double dy1 = (dy * ratioH);
+
+                    // print("chièu dài PhepTinh: " +
+                    //     (siz.height - dragDetails.offset.dy).toString());
+
+                    // print('_currentPage: ====$_currentPage');
+                    // print('dx: ====$dx');
+                    // print('dy: ====$dy');
+                    // print('width: ====${(width * ratioW).toInt()}');
+                    // print('height: ====${(height * ratioW).toInt()}');
+                    //
+                    PDF_URL.substring(0, 38);
+                    // pdfCu = PDF_URL.substring(36, PDF_URL.length);
+                    pdfCu =  PDF_URL.replaceAll("http://apimobile.hoabinh.gov"
+                        ".vn/", "");
+                    EasyLoading.show();
+                    /// String vbtimkiem ;
+                    String vbtimkiem = await postKySim(
+                        widget.idDuThao,
+                        "KySim",
+                        widget.nam,
+                        ((left * ratioW)+(widthKy*1/2)).toString(),
+                        ((dy1+ heightKy )-25)
+                            .toString(),
+                        (widthKy * ratioW).toString(),
+                        (heightKy * ratioW).toString(),
+                        pdfCu,
+                        _currentPage,
+                        namefile);
+
+                    if(json.decode(vbtimkiem)['Erros'] == true){
+
+                      EasyLoading.dismiss();
+
+                      await showAlertDialog(
+                          context,json.decode(vbtimkiem)['Message']);
+                    }else{
+                      if (mounted) {
+                        setState(() {
+                          var duthaoList = json.decode(vbtimkiem)['OData'];
+                          NameMoi = duthaoList['Name'];
+                          UrlMoi = duthaoList['Url'];
+                          chekKy = true;
+                        });
+                      }
+                    }
+
+                  },
+                ),
+              ),
+            ),
 
 
             //     ? PDFView(
@@ -302,12 +476,7 @@ class _ViewPDF extends State<ViewPDFPT> {
             //     });
             //   },
             // )
-                : Container(),
-            PDF_URL == null
-                ? Center(
-              child: CircularProgressIndicator(),
-            )
-                : Offstage(),
+
             //            Positioned(
             //              key: stickyKeyPositioned,
             //              left: left,
@@ -747,44 +916,43 @@ class _ViewPDF extends State<ViewPDFPT> {
             FloatingActionButton(
               heroTag: "btnSign",
               child: const Icon(Icons.done),
-              backgroundColor: Colors.blue.shade800,
+              backgroundColor: chekKy == true
+                  ? Colors.blue.shade800
+                  : Colors.black38,
               onPressed: chekKy == true
                   ? () async {
                 if (_visibleSign) {
                   EasyLoading.show();
                   String pdf = "";
-                  // PDF_URL.substring(0, 38);
-                  // pdf = PDF_URL.substring(36, PDF_URL.length);
-                  // var thanhcong = await postKySimOK(
-                  //     widget.idDuThao,
-                  //     "UpdateFileS"
-                  //         "ignal",
-                  //     widget.nam,
-                  //     namefile,
-                  //     NameMoi,
-                  //     UrlMoi);
-                  var thanhcong = await postKySimOKKy(
-                    widget.idDuThao,
-                    "UpdateVanbanSauCapSo",
-                    widget.nam,
-                    namefilePDF,
-                  );
+                  PDF_URL.substring(0, 38);
+                  pdf = PDF_URL.substring(36, PDF_URL.length);
+                  var thanhcong = await postKySimOK(
+                      widget.idDuThao,
+                      "UpdateFileS"
+                          "ignal",
+                      widget.nam,
+                      namefile,
+                      NameMoi,
+                      UrlMoi);
                   Navigator.of(context).pop();
                   EasyLoading.dismiss();
                   await showAlertDialog(
                       context, json.decode(thanhcong)['Message']);
-                  setState(() {
-                    _visibleSign = !_visibleSign;
-                  });
                   //_getSignMessage(context);
-
+                  _visibleSign = !_visibleSign;
                 }
               }
                   : null,
             ),
           ],
         )
-            : FloatingActionButton.extended(
+            : (((vbdiTrangThaiVB == 7 || vbdiTrangThaiVB == 6
+            || vbdiTrangThaiVB == 2) && (vbdiNguoiSoanID == currentUserID
+            || vbdiDSNguoiTrinhTiepKy == true))
+            || (vbdiNguoiKyID== currentUserID &&
+                vbdiTrangThaiVB == 4)
+                && chukyso ==1   )?
+        FloatingActionButton.extended(
           icon: const Icon(Icons.edit),
           label: Text("Ký"),
           backgroundColor: Colors.blue.shade800,
@@ -825,7 +993,7 @@ class _ViewPDF extends State<ViewPDFPT> {
               //_enableSwipe = !_enableSwipe;
             });
           },
-        ));
+        ):SizedBox()) ;
 
     // return GestureDetector(
     //   onTap: _handleUserInteraction,

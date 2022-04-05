@@ -151,7 +151,7 @@ void logOut(BuildContext context) async {
         ThemMoiVanBanDuThao = false;
          chuaPDF = [];
          tenPDFTruyen ="";
-
+         imageCK ="";
       }
  else{
     sharedStorage.remove("expires_in");
@@ -277,9 +277,11 @@ void logOut(BuildContext context) async {
        IDTT ;
        chuaPDF = [];
        tenPDFTruyen ="";
+        imageCK ="";
     // FirebaseMessaging.instance.unsubscribeFromTopic("truyenthong_all");
   }
  // Get.off(LoginWidget());
+
   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
       builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);
   if(_timer != null){

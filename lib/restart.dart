@@ -142,6 +142,7 @@ class rester {
       IDTT;
       chuaPDF = [];
       tenPDFTruyen = "";
+      imageCK ="";
     } else {
       sharedStorage.remove("expires_in");
       sharedStorage.remove("token");
@@ -266,6 +267,7 @@ class rester {
       IDTT;
       chuaPDF = [];
       tenPDFTruyen = "";
+      imageCK ="";
     }
     // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
     //     builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);

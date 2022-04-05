@@ -1729,9 +1729,9 @@ bool isLoading = false;
                         ],
                       ),
                     ),
-                    SingleChildScrollView(
-                      child:  ViewPDFVB(),
-                    ),
+
+                     ViewPDFVB(),
+                    
                   ],
                 )));
         break;

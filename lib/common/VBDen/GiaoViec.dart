@@ -80,7 +80,12 @@ class _ThemMoiHSState extends State<GiaoViec> {
   String idLV;
   String idMD;
   Timer _timer;
-
+  List chua = [];
+  String base64PDF = "";
+  _onDeleteItemPressed(item) {
+    chua.removeAt(item);
+    setState(() {});
+  }
 
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes:5), (_) {
@@ -183,14 +188,24 @@ class _ThemMoiHSState extends State<GiaoViec> {
   selectFile() async {
     FilePickerResult result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
-      allowedExtensions: ['jpg', 'pdf', 'mp4','doc'],
+      allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
     );
 
     if (result != null) {
       //if there is selected file
       selectedfile = File(result.files.single.path);
+
+      if (selectedfile != null) {
+        // var bytes1 = await rootBundle.load(selectedfile.path);
+        List<int> Bytes = await selectedfile.readAsBytesSync();
+        print(Bytes);
+        base64PDF = await base64Encode(Bytes);
+        print("hdaf  " + base64PDF);
+        chua.add(basename(selectedfile.path));
+      }
     }
+    setState(() {});
   }
 
   // thời gian bắt đầu
@@ -451,7 +466,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
                                       .of(context)
                                       .size
                                       .width * 0.64,
-                                  padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                                   child:  InkWell(
                                     onTap: () {
                                       _selectDateBD(context);
@@ -512,7 +527,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
                                       .of(context)
                                       .size
                                       .width * 0.64,
-                                  padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                                  padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                                   child:  InkWell(
                                     onTap: () {
                                       _selectDate(context);
@@ -1107,39 +1122,63 @@ class _ThemMoiHSState extends State<GiaoViec> {
                               ),
                               Container(
                                 margin: EdgeInsets.only(right: 12),
+                                width:
+                                MediaQuery.of(context).size.width * 0.675,
+
                                 padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-
-
-                                child: Column(children: [
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.5,
-
-                                    child: FlatButton(
-                                      child: Text('Đính kèm file...'),
-                                      color: Colors.blueAccent,
-                                      textColor: Colors.white,
-                                      onPressed: () {
-                                        selectFile();
-                                      },
+                                child: Column(
+                                  children: [
+                                    Container(
+                                      width:
+                                      MediaQuery.of(context).size.width *
+                                          0.5,
+                                      child: FlatButton(
+                                        child: Text('Đính kèm file...'),
+                                        color: Colors.blueAccent,
+                                        textColor: Colors.white,
+                                        onPressed: () {
+                                          selectFile();
+                                        },
+                                      ),
                                     ),
-                                  ),
-                                  Container(
-                                    width: MediaQuery.of(context).size.width * 0.5,
-                                    margin: EdgeInsets.all(10),
-                                    //show file name here
-                                    child:selectedfile != null?
-                                    Text(basename(selectedfile.path)):
-                                    Text("",
+                                    chua != null && chua!=[] &&chua.length >0
+                                        ?  Container
+                                      (child:
+                                    ListView
+                                        .builder(
+                                      shrinkWrap: true,
+                                      itemCount: chua.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          title: Text(chua[index],style: TextStyle(
+                                              fontStyle: FontStyle.normal,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 13),
+                                            maxLines:2,),
+                                          trailing: IconButton(
+                                            icon: Icon(
+                                              Icons.delete,
+                                              size: 18.0,
+                                              color: Color(0xffDE3E43),
+                                            ),
+                                            onPressed: () {
+                                              _onDeleteItemPressed(index);
+                                            },
+                                          ),
+                                        );
+                                      },
+                                    ),):
+                                    Text(
+                                      "Nên sử dụng file pdf",
                                       maxLines: 2,
                                       overflow: TextOverflow.ellipsis,
-                                      style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
-                                          color: Colors.blue),),
-                                    //basename is from path package, to get filename from path
-                                    //check if file is selected, if yes then show file name
-                                  ),
-
-                                ],),
-
+                                      style: TextStyle(
+                                          fontSize: 12,
+                                          fontStyle: FontStyle.italic,
+                                          color: Colors.blue),
+                                    ),
+                                  ],
+                                ),
                               )
                             ],
                           ),

@@ -250,9 +250,7 @@ class _GiaoViecCNState extends State<GiaoViecCN> {
 
                               ) :
                               Text(textXLC,
-                                style: TextStyle(
-                                    color: Colors.black45
-                                ),
+                                style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
 
@@ -320,9 +318,7 @@ class _GiaoViecCNState extends State<GiaoViecCN> {
 
                                 ) :
                                 Text(textPH,
-                                  style: TextStyle(
-                                      color: Colors.black45
-                                  ),
+                                  style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                                   maxLines: 2,
                                   overflow: TextOverflow.ellipsis,
 

@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'dart:isolate';
 import 'dart:ui';
 import 'package:dio/dio.dart';
+import 'package:get/get.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -151,7 +152,7 @@ class _ViewPDF extends State<ViewPDF> {
     //File file =  new File(dir.path+"/vanbanmoi.pdf");// tao 1 tep moi
     final filename = urlPDF.substring(urlPDF.lastIndexOf("/") + 1);
     var request = await HttpClient().getUrl(Uri.parse(urlPDF));
-    var dir = await getApplicationDocumentsDirectory();
+    var dir = await getExternalStorageDirectory();
     print("Download files");
     print("${dir.path}/$filename");
     file = File("${dir.path}/$filename");
@@ -208,6 +209,11 @@ class _ViewPDF extends State<ViewPDF> {
 
   void _afterLayout(_) {
     _getRenderOffsets();
+  }
+  @override
+  void dispose(){
+    super.dispose();
+    EasyLoading.dismiss();
   }
 
   @override
@@ -272,38 +278,39 @@ class _ViewPDF extends State<ViewPDF> {
             //   child: CircularProgressIndicator(),
             // )
             //     : Offstage(),
-            PDF_URL != null ? Container(
-              margin: EdgeInsets.only(
-                top: 10,
-              ),
-              child:localPath != null?Container(
-                key: stickyKeyPdf,
-                child: PDF(
-
+            localPath != null
+                ? Container(
+              key: stickyKeyPdf,
+              margin: EdgeInsets.only(left: 0, right: 0, top: 30),
+              child: PDFView(
                 enableSwipe: true,
-                swipeHorizontal: false,
                 autoSpacing: false,
-                pageFling: false,
-                  onError: (e) {
-
-                  },
-                  onViewCreated: (PDFViewController pdfViewController) {
-                    pdfController.complete(pdfViewController);
-                  },
-                  onRender: (_pages) {
-                    setState(() {
-                      pdfReady = true;
-                    });
-                  },
-                  onPageChanged: (int page, int total) {
-                    setState(() {
-                      _currentPage = page;
-
-                    });
-                  },
-              ).fromAsset(localPath),):SizedBox()
-
-            ):SizedBox(),
+                pageFling: true,
+                pageSnap: true,
+                fitPolicy: FitPolicy.BOTH,
+                preventLinkNavigation: false,
+                key: ValueKey(localPath),
+                filePath: localPath,
+                swipeHorizontal: false,
+                nightMode: false,
+                onError: (e) {},
+                // onViewCreated:
+                //     (PDFViewController pdfViewController) {
+                //   pdfController.complete(pdfViewController);
+                // },
+                onRender: (_pages) {
+                  setState(() {
+                    pdfReady = true;
+                  });
+                },
+                onPageChanged: (int page, int total) {
+                  setState(() {
+                    _currentPage = page;
+                  });
+                },
+              ),
+            )
+                : Container(),
 
             PDF_URL == null
                 ? Center(
@@ -323,9 +330,12 @@ class _ViewPDF extends State<ViewPDF> {
                     height: heightKy,
                     color: Colors.transparent,
                     child: Center(
-                      child:Image.network(
+
+                      child:
+                      Image.network(
                        imageCK,
                         width: widthKy,
+
                         height: heightKy,
                         errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
                           return  Image(
@@ -350,9 +360,12 @@ class _ViewPDF extends State<ViewPDF> {
                     ),
                   ),
                   feedback: Center(
-                    child:Image.network(
+                    child:
+
+                    Image.network(
                       imageCK,
                       width: widthKy,
+                      color: Color.fromRGBO(255, 255, 255, 0.19),
                       height: heightKy,
                       errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
                         return  Image(
@@ -411,7 +424,9 @@ class _ViewPDF extends State<ViewPDF> {
                     // print('height: ====${(height * ratioW).toInt()}');
                     //
                     PDF_URL.substring(0, 38);
-                    pdfCu = PDF_URL.substring(36, PDF_URL.length);
+                    // pdfCu = PDF_URL.substring(36, PDF_URL.length);
+                    pdfCu =  PDF_URL.replaceAll("http://apimobile.hoabinh.gov"
+                        ".vn/", "");
                     EasyLoading.show();
                     /// String vbtimkiem ;
                     String vbtimkiem = await postKySim(
@@ -427,15 +442,23 @@ class _ViewPDF extends State<ViewPDF> {
                         _currentPage,
                         namefile);
 
-                    if (mounted) {
-                      setState(() {
-                        var duthaoList = json.decode(vbtimkiem)['OData'];
-                        NameMoi = duthaoList['Name'];
-                        UrlMoi = duthaoList['Url'];
-                        chekKy = true;
-                        EasyLoading.dismiss();
-                      });
+                    if(json.decode(vbtimkiem)['Erros'] == true){
+
+                      EasyLoading.dismiss();
+
+                      await showAlertDialog(
+                          context,json.decode(vbtimkiem)['Message']);
+                    }else{
+                      if (mounted) {
+                        setState(() {
+                          var duthaoList = json.decode(vbtimkiem)['OData'];
+                          NameMoi = duthaoList['Name'];
+                          UrlMoi = duthaoList['Url'];
+                          chekKy = true;
+                        });
+                      }
                     }
+
                   },
                 ),
               ),
@@ -636,7 +659,9 @@ class _ViewPDF extends State<ViewPDF> {
             FloatingActionButton(
               heroTag: "btnSign",
               child: const Icon(Icons.done),
-              backgroundColor: Colors.blue.shade800,
+              backgroundColor: chekKy == true
+                  ? Colors.blue.shade800
+                  : Colors.black38,
               onPressed: chekKy == true
                   ? () async {
                 if (_visibleSign) {
