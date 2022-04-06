@@ -290,7 +290,8 @@ class _ViewPDF extends State<ViewPDF> {
             localPath != null
                 ? Container(
                     key: stickyKeyPdf,
-                    margin: EdgeInsets.only(left: 0, right: 0, top: 30),
+                    margin: EdgeInsets.only(left: 0, right: 0, top: MediaQuery.of(context).size
+                        .height*0.04),
                     child: PDFView(
                       enableSwipe: true,
                       autoSpacing: false,
@@ -335,7 +336,8 @@ class _ViewPDF extends State<ViewPDF> {
                 child: Draggable(
                   child: Opacity(
                     child: Container(
-                   margin: EdgeInsets.only(top: 40),
+                   margin: EdgeInsets.only(top: MediaQuery.of(context).size
+                       .height*0.05),
                       width: widthKy,
                       height: heightKy,
                      color: Colors.transparent,
@@ -367,7 +369,8 @@ class _ViewPDF extends State<ViewPDF> {
                   ),
                   feedback: Opacity(
                     child: Container(
-                      margin: EdgeInsets.only(top: 40),
+                      margin: EdgeInsets.only(top: MediaQuery.of(context).size
+                          .height*0.05),
                       width: widthKy,
                       height: heightKy,
                       color: Colors.transparent,
@@ -450,7 +453,8 @@ class _ViewPDF extends State<ViewPDF> {
                         "KySim",
                         widget.nam,
                         ((left * ratioW) + (widthKy * 1 / 2)).toString(),
-                        ((dy1 + heightKy)-40 ).toString(),
+                        ((dy1 + heightKy) - MediaQuery.of(context).size
+                            .height*0.1 ).toString(),
                         (widthKy * ratioW).toString(),
                         (heightKy * ratioW).toString(),
                         pdfCu,
