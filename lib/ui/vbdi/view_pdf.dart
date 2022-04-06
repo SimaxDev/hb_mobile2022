@@ -164,10 +164,7 @@ class _ViewPDF extends State<ViewPDF> {
     print("Download files");
     print("${dir.path}/$filename");
     file = File("${dir.path}/$filename");
-    // setState(() {
-    //   isLoading = true;
-    //   file =  new File(dir.path+"/vanbanmoi.pdf");// tao 1 tep moi
-    // });
+
     await file.writeAsBytes(response.bodyBytes, flush: true);
     return file.path;
   }
@@ -206,14 +203,6 @@ class _ViewPDF extends State<ViewPDF> {
     xOff = offset.dx - this.left;
   }
 
-  void _getOffset(GlobalKey key) {
-    RenderBox box = key.currentContext.findRenderObject();
-    Offset position = box.localToGlobal(Offset.zero);
-    setState(() {
-      _x = position.dx;
-      _y = position.dy;
-    });
-  }
 
   void _afterLayout(_) {
     _getRenderOffsets();
