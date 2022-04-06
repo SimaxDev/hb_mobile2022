@@ -443,7 +443,7 @@ class _ViewPDF extends State<ViewPDF> {
                         widget.nam,
                         ((left * ratioW) + (widthKy * 1 / 2)).toString(),
                         ((dy1 + heightKy) - MediaQuery.of(context).size
-                            .height*0.1 ).toString(),
+                            .height*0.08 ).toString(),
                         (widthKy * ratioW).toString(),
                         (heightKy * ratioW).toString(),
                         pdfCu,
