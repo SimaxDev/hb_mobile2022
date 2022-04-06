@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -217,7 +219,8 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                             ) :
                             Text(textND,
                               style: TextStyle(
-                                  color: Colors.black45
+                                 fontWeight: FontWeight.normal,
+                                fontSize: 14
                               ),
                               maxLines: 2,
                               overflow: TextOverflow.ellipsis,

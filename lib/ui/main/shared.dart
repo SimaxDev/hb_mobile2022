@@ -152,6 +152,8 @@ void logOut(BuildContext context) async {
          chuaPDF = [];
          tenPDFTruyen ="";
          imageCK ="";
+        widthKy = 75.0;
+        heightKy = 150.0;
       }
  else{
     sharedStorage.remove("expires_in");
@@ -278,6 +280,8 @@ void logOut(BuildContext context) async {
        chuaPDF = [];
        tenPDFTruyen ="";
         imageCK ="";
+        widthKy = 75.0;
+        heightKy = 150.0;
     // FirebaseMessaging.instance.unsubscribeFromTopic("truyenthong_all");
   }
  // Get.off(LoginWidget());

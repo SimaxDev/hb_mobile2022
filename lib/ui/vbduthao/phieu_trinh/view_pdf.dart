@@ -306,74 +306,77 @@ class _ViewPDF extends State<ViewPDFPT> {
               child: Visibility(
                 visible: _visibleSign,
                 child: Draggable(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 40),
-                    width: widthKy,
-                    height: heightKy,
-                    color: Colors.transparent,
-                    child: Center(
-
-                      child:
-                      Image.network(
-                        imageCK,
-                        width: widthKy,
-
-                        height: heightKy,
-                        errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                          return  Image(
-                            image: AssetImage('assets/signature.png'),
-                            width: widthKy,
-                            height: heightKy,
-                          );
-                        },
-                      ),
-
-
-                      // child: (encodedImage != null && encodedImage != "")
-                      //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
-                      //     : Image(
-                      //   image: AssetImage('assets/signature.png'),
-                      //   width: widthKy,
-                      //   height: heightKy,
-                      // )
-
-
-
-                    ),
-                  ),
-                  feedback: Center(
-                    child:
-
-                    Image.network(
-                      imageCK,
+                  child: Opacity(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 40),
                       width: widthKy,
-                      color: Color.fromRGBO(255, 255, 255, 0.19),
                       height: heightKy,
-                      errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                        return  Image(
-                          image: AssetImage('assets/signature.png'),
+                      color: Colors.transparent,
+                      child: Center(
+                        child: Image.network(
+                          imageCK,
                           width: widthKy,
                           height: heightKy,
-                        );
-                      },
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace stackTrace) {
+                            return Image(
+                              image: AssetImage('assets/signature.png'),
+                              width: widthKy,
+                              height: heightKy,
+                            );
+                          },
+                        ),
+
+                        // child: (encodedImage != null && encodedImage != "")
+                        //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
+                        //     : Image(
+                        //   image: AssetImage('assets/signature.png'),
+                        //   width: widthKy,
+                        //   height: heightKy,
+                        // )
+                      ),
                     ),
-                    // child: (encodedImage != null && encodedImage != "")
-                    //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
-                    //     : Image(
-                    //   image: AssetImage('assets/signature.png'),
-                    //   width: widthKy,
-                    //   height: heightKy,
-                    // )
+                    opacity: 0.6,
+                  ),
+                  feedback: Opacity(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 40),
+                      width: widthKy,
+                      height: heightKy,
+                      color: Colors.transparent,
+                      child: Center(
+                        child: Image.network(
+                          imageCK,
+                          width: widthKy,
+                          height: heightKy,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace stackTrace) {
+                            return Image(
+                              image: AssetImage('assets/signature.png'),
+                              width: widthKy,
+                              height: heightKy,
+                            );
+                          },
+                        ),
 
-
-                  ), // 8.
+                        // child: (encodedImage != null && encodedImage != "")
+                        //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
+                        //     : Image(
+                        //   image: AssetImage('assets/signature.png'),
+                        //   width: widthKy,
+                        //   height: heightKy,
+                        // )
+                      ),
+                    ),
+                    opacity: 0.6,
+                  ),  // 8.
                   childWhenDragging: Container(), // 9.
                   onDragEnd: (drag) async {
                     final parentPos = stickyKeyPdf.globalPaintBound;
                     setState(() {
                       if (parentPos == null) return;
                       left = drag.offset.dx - parentPos.left; // 11.
-                      top = (drag.offset.dy - parentPos.top) -30;
+                      top = (drag.offset.dy - parentPos.top) ;
                     });
                     final keyContext = stickyKeyPdf.currentContext;
                     final box = keyContext.findRenderObject() as RenderBox;
@@ -416,8 +419,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                         "KySim",
                         widget.nam,
                         ((left * ratioW)+(widthKy*1/2)).toString(),
-                        ((dy1+ heightKy )-25)
-                            .toString(),
+                        ((dy1 + heightKy)-40 ).toString(),
                         (widthKy * ratioW).toString(),
                         (heightKy * ratioW).toString(),
                         pdfCu,

@@ -143,6 +143,8 @@ class rester {
       chuaPDF = [];
       tenPDFTruyen = "";
       imageCK ="";
+      widthKy = 75.0;
+      heightKy = 150.0;
     } else {
       sharedStorage.remove("expires_in");
       sharedStorage.remove("token");
@@ -268,6 +270,8 @@ class rester {
       chuaPDF = [];
       tenPDFTruyen = "";
       imageCK ="";
+      widthKy = 75.0;
+    heightKy = 150.0;
     }
     // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
     //     builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);

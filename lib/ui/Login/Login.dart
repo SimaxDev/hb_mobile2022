@@ -173,12 +173,12 @@ if(item == null){
               item['ListFileAttach'][0]['Url'] != null
               ? item['ListFileAttach'][0]['Url']
               : "";
-          // widthKy =item['SignatureWidth']!= null
-          //     ? item['SignatureWidth'].toDouble()
-          //     : 75.0;
-          // heightKy =item['SignatureHeight']!= null
-          //     ? item['SignatureHeight'].toDouble()
-          //     : 65.0;
+          widthKy =item['SignatureWidth']!= null
+              ? item['SignatureWidth'].toDouble()
+              : 75.0;
+          heightKy =item['SignatureHeight']!= null
+              ? item['SignatureHeight'].toDouble()
+              : 150.0;
         }
 
         userTenTruyCap =
@@ -541,7 +541,7 @@ if(item == null){
   Future<void> login(String username, String password) async {
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
-      //var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
+     //var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
       var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,

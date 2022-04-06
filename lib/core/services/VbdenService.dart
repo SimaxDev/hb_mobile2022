@@ -818,7 +818,7 @@ Future postTuCHoiVBD( username,id, ActionXL,  noidungykien,int nam) async {
   parts.add('ItemID=' + id.toString());
   parts.add('ActionXL=' + ActionXL);
   parts.add('SYear=' + nam.toString());
-  parts.add('yKienTuChoi=' + noidungykien);
+  parts.add('YKienTuChoi=' + noidungykien);
   var formData = parts.join('&');
   url = "/api/ServicesVBD/GetData";
 

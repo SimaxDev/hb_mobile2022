@@ -128,6 +128,17 @@ class _MenuRightState extends State<MenuRight> {
           GuiVanBan = item['ListPermissions']['GuiVanBan'] != null
               ? item['ListPermissions']['GuiVanBan']
               : false;
+          imageCK =item['ListFileAttach'].length >0 &&item['ListFileAttach']!=
+              null  &&
+              item['ListFileAttach'][0]['Url'] != null
+              ? item['ListFileAttach'][0]['Url']
+              : "";
+          widthKy =item['SignatureWidth']!= null
+              ? item['SignatureWidth'].toDouble()
+              : 75.0;
+          heightKy =item['SignatureHeight']!= null
+              ? item['SignatureHeight'].toDouble()
+              : 150.0;
         }
 
         userTenTruyCap =

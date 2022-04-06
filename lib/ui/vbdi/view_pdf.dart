@@ -210,8 +210,9 @@ class _ViewPDF extends State<ViewPDF> {
   void _afterLayout(_) {
     _getRenderOffsets();
   }
+
   @override
-  void dispose(){
+  void dispose() {
     super.dispose();
     EasyLoading.dismiss();
   }
@@ -280,42 +281,42 @@ class _ViewPDF extends State<ViewPDF> {
             //     : Offstage(),
             localPath != null
                 ? Container(
-              key: stickyKeyPdf,
-              margin: EdgeInsets.only(left: 0, right: 0, top: 30),
-              child: PDFView(
-                enableSwipe: true,
-                autoSpacing: false,
-                pageFling: true,
-                pageSnap: true,
-                fitPolicy: FitPolicy.BOTH,
-                preventLinkNavigation: false,
-                key: ValueKey(localPath),
-                filePath: localPath,
-                swipeHorizontal: false,
-                nightMode: false,
-                onError: (e) {},
-                // onViewCreated:
-                //     (PDFViewController pdfViewController) {
-                //   pdfController.complete(pdfViewController);
-                // },
-                onRender: (_pages) {
-                  setState(() {
-                    pdfReady = true;
-                  });
-                },
-                onPageChanged: (int page, int total) {
-                  setState(() {
-                    _currentPage = page;
-                  });
-                },
-              ),
-            )
+                    key: stickyKeyPdf,
+                    margin: EdgeInsets.only(left: 0, right: 0, top: 30),
+                    child: PDFView(
+                      enableSwipe: true,
+                      autoSpacing: false,
+                      pageFling: true,
+                      pageSnap: true,
+                      fitPolicy: FitPolicy.BOTH,
+                      preventLinkNavigation: false,
+                      key: ValueKey(localPath),
+                      filePath: localPath,
+                      swipeHorizontal: false,
+                      nightMode: false,
+                      onError: (e) {},
+                      // onViewCreated:
+                      //     (PDFViewController pdfViewController) {
+                      //   pdfController.complete(pdfViewController);
+                      // },
+                      onRender: (_pages) {
+                        setState(() {
+                          pdfReady = true;
+                        });
+                      },
+                      onPageChanged: (int page, int total) {
+                        setState(() {
+                          _currentPage = page;
+                        });
+                      },
+                    ),
+                  )
                 : Container(),
 
             PDF_URL == null
                 ? Center(
-              child: CircularProgressIndicator(),
-            )
+                    child: CircularProgressIndicator(),
+                  )
                 : Offstage(),
             Positioned(
               key: stickyKeyPositioned,
@@ -324,28 +325,26 @@ class _ViewPDF extends State<ViewPDF> {
               child: Visibility(
                 visible: _visibleSign,
                 child: Draggable(
-                  child: Container(
-                    margin: EdgeInsets.only(top: 40),
-                    width: widthKy,
-                    height: heightKy,
-                    color: Colors.transparent,
-                    child: Center(
-
-                      child:
-                      Image.network(
-                       imageCK,
-                        width: widthKy,
-
-                        height: heightKy,
-                        errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                          return  Image(
-                                image: AssetImage('assets/signature.png'),
-                                width: widthKy,
-                                height: heightKy,
-                              );
-                        },
-                      ),
-
+                  child: Opacity(
+                    child: Container(
+                   margin: EdgeInsets.only(top: 40),
+                      width: widthKy,
+                      height: heightKy,
+                     color: Colors.transparent,
+                      child: Center(
+                        child: Image.network(
+                          imageCK,
+                          width: widthKy,
+                          height: heightKy,
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace stackTrace) {
+                            return Image(
+                              image: AssetImage('assets/signature.png'),
+                              width: widthKy,
+                              height: heightKy,
+                            );
+                          },
+                        ),
 
                         // child: (encodedImage != null && encodedImage != "")
                         //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
@@ -354,36 +353,41 @@ class _ViewPDF extends State<ViewPDF> {
                         //   width: widthKy,
                         //   height: heightKy,
                         // )
-
-
-
+                      ),
                     ),
+                    opacity: 0.6,
                   ),
-                  feedback: Center(
-                    child:
-
-                    Image.network(
-                      imageCK,
+                  feedback: Opacity(
+                    child: Container(
+                      margin: EdgeInsets.only(top: 40),
                       width: widthKy,
-                      color: Color.fromRGBO(255, 255, 255, 0.19),
                       height: heightKy,
-                      errorBuilder: (BuildContext context, Object exception, StackTrace stackTrace) {
-                        return  Image(
-                          image: AssetImage('assets/signature.png'),
+                      color: Colors.transparent,
+                      child: Center(
+                        child: Image.network(
+                          imageCK,
                           width: widthKy,
                           height: heightKy,
-                        );
-                      },
+                          errorBuilder: (BuildContext context, Object exception,
+                              StackTrace stackTrace) {
+                            return Image(
+                              image: AssetImage('assets/signature.png'),
+                              width: widthKy,
+                              height: heightKy,
+                            );
+                          },
+                        ),
+
+                        // child: (encodedImage != null && encodedImage != "")
+                        //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
+                        //     : Image(
+                        //   image: AssetImage('assets/signature.png'),
+                        //   width: widthKy,
+                        //   height: heightKy,
+                        // )
+                      ),
                     ),
-                      // child: (encodedImage != null && encodedImage != "")
-                      //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
-                      //     : Image(
-                      //   image: AssetImage('assets/signature.png'),
-                      //   width: widthKy,
-                      //   height: heightKy,
-                      // )
-
-
+                    opacity: 0.6,
                   ), // 8.
                   childWhenDragging: Container(), // 9.
                   onDragEnd: (drag) async {
@@ -391,13 +395,13 @@ class _ViewPDF extends State<ViewPDF> {
                     setState(() {
                       if (parentPos == null) return;
                       left = drag.offset.dx - parentPos.left; // 11.
-                      top = (drag.offset.dy - parentPos.top) -30;
+                      top = (drag.offset.dy - parentPos.top) ;
                     });
                     final keyContext = stickyKeyPdf.currentContext;
                     final box = keyContext.findRenderObject() as RenderBox;
                     final pos = box.localToGlobal(Offset.zero);
-                    double ratioW = pdfWidth/(box.size.width);
-                    double ratio = (box.size.width)/pdfWidth;
+                    double ratioW = pdfWidth / (box.size.width);
+                    double ratio = (box.size.width) / pdfWidth;
                     final boxWidth = box.size.width;
 
                     final boxHeight = pdfHeight * ratio;
@@ -407,9 +411,11 @@ class _ViewPDF extends State<ViewPDF> {
                     //   left = drag.offset.dx;
                     // });
 
-                    double dy = (box.size.height - top - heightKy - ((box.size
-                        .height - boxHeight)/2));
-                    double ratioH = pdfHeight/(boxHeight);
+                    double dy = (box.size.height -
+                        top -
+                        heightKy -
+                        ((box.size.height - boxHeight) / 2));
+                    double ratioH = pdfHeight / (boxHeight);
 
                     double dx = (left * ratioW);
                     double dy1 = (dy * ratioH);
@@ -425,40 +431,40 @@ class _ViewPDF extends State<ViewPDF> {
                     //
                     PDF_URL.substring(0, 38);
                     // pdfCu = PDF_URL.substring(36, PDF_URL.length);
-                    pdfCu =  PDF_URL.replaceAll("http://apimobile.hoabinh.gov"
-                        ".vn/", "");
+                    pdfCu = PDF_URL.replaceAll(
+                        "http://apimobile.hoabinh.gov"
+                            ".vn/",
+                        "");
                     EasyLoading.show();
-                    /// String vbtimkiem ;
+                    //String vbtimkiem ;
                     String vbtimkiem = await postKySim(
                         widget.idDuThao,
                         "KySim",
                         widget.nam,
-                        ((left * ratioW)+(widthKy*1/2)).toString(),
-                        ((dy1+ heightKy )-25)
-                            .toString(),
+                        ((left * ratioW) + (widthKy * 1 / 2)).toString(),
+                        ((dy1 + heightKy)-40 ).toString(),
                         (widthKy * ratioW).toString(),
                         (heightKy * ratioW).toString(),
                         pdfCu,
                         _currentPage,
                         namefile);
 
-                    if(json.decode(vbtimkiem)['Erros'] == true){
-
+                    if (json.decode(vbtimkiem)['Erros'] == true) {
                       EasyLoading.dismiss();
 
                       await showAlertDialog(
-                          context,json.decode(vbtimkiem)['Message']);
-                    }else{
+                          context, json.decode(vbtimkiem)['Message']);
+                    } else {
                       if (mounted) {
                         setState(() {
                           var duthaoList = json.decode(vbtimkiem)['OData'];
                           NameMoi = duthaoList['Name'];
                           UrlMoi = duthaoList['Url'];
+                          EasyLoading.dismiss();
                           chekKy = true;
                         });
                       }
                     }
-
                   },
                 ),
               ),
@@ -547,7 +553,8 @@ class _ViewPDF extends State<ViewPDF> {
                               _isDownloading = !_isDownloading;
                             });
                             final dir = Platform.isAndroid
-                                ? await getExternalStorageDirectory() :  await getApplicationDocumentsDirectory();
+                                ? await getExternalStorageDirectory()
+                                : await getApplicationDocumentsDirectory();
                             Dio dio = Dio();
 
                             for (var item in ListDataPDF) {
@@ -607,13 +614,8 @@ class _ViewPDF extends State<ViewPDF> {
                                 showNotification: true,
                                 openFileFromNotification: true,
                               );
-
                             }
-
-                          }
-                          else{
-
-                          }
+                          } else {}
                         },
                       ),
                     ))
@@ -622,92 +624,91 @@ class _ViewPDF extends State<ViewPDF> {
 
             percentageBool == true
                 ? Center(
-                child: CircularPercentIndicator(
-                    radius: 60.0,
-                    lineWidth: 5.0,
-                    percent: 0.75,
-                    center: new Text(downloadMessage,
-                        style: TextStyle(color: Color(0xFF535355))),
-                    linearGradient: LinearGradient(
-                        begin: Alignment.topRight,
-                        end: Alignment.bottomLeft,
-                        colors: <Color>[
-                          Color(0xFF1AB600),
-                          Color(0xFF6DD400)
-                        ]),
-                    rotateLinearGradient: true,
-                    circularStrokeCap: CircularStrokeCap.round))
+                    child: CircularPercentIndicator(
+                        radius: 60.0,
+                        lineWidth: 5.0,
+                        percent: 0.75,
+                        center: new Text(downloadMessage,
+                            style: TextStyle(color: Color(0xFF535355))),
+                        linearGradient: LinearGradient(
+                            begin: Alignment.topRight,
+                            end: Alignment.bottomLeft,
+                            colors: <Color>[
+                              Color(0xFF1AB600),
+                              Color(0xFF6DD400)
+                            ]),
+                        rotateLinearGradient: true,
+                        circularStrokeCap: CircularStrokeCap.round))
                 : SizedBox(),
           ],
         ),
         floatingActionButton: _visibleSign
             ? Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          mainAxisSize: MainAxisSize.max,
-          children: <Widget>[
-            FloatingActionButton(
-              heroTag: "btnCancel",
-              child: const Icon(Icons.cancel),
-              backgroundColor: Colors.blue.shade800,
-              onPressed: () {
-                setState(() {
-                  _visibleSign = !_visibleSign;
-                  EasyLoading.dismiss();
-                });
-              },
-            ),
-            FloatingActionButton(
-              heroTag: "btnSign",
-              child: const Icon(Icons.done),
-              backgroundColor: chekKy == true
-                  ? Colors.blue.shade800
-                  : Colors.black38,
-              onPressed: chekKy == true
-                  ? () async {
-                if (_visibleSign) {
-                  EasyLoading.show();
-                  String pdf = "";
-                  PDF_URL.substring(0, 38);
-                  pdf = PDF_URL.substring(36, PDF_URL.length);
-                  var thanhcong = await postKySimOK(
-                      widget.idDuThao,
-                      "UpdateFileS"
-                          "ignal",
-                      widget.nam,
-                      namefile,
-                      NameMoi,
-                      UrlMoi);
-                  Navigator.of(context).pop();
-                  EasyLoading.dismiss();
-                  await showAlertDialog(
-                      context, json.decode(thanhcong)['Message']);
-                  //_getSignMessage(context);
-                  _visibleSign = !_visibleSign;
-                }
-              }
-                  : null,
-            ),
-          ],
-        )
-            : (((vbdiTrangThaiVB == 7 || vbdiTrangThaiVB == 6
-            || vbdiTrangThaiVB == 2) && (vbdiNguoiSoanID == currentUserID
-            || vbdiDSNguoiTrinhTiepKy == true))
-            || (vbdiNguoiKyID== currentUserID &&
-                vbdiTrangThaiVB == 4)
-                && chukyso ==1   )?
-        FloatingActionButton.extended(
-          icon: const Icon(Icons.edit),
-          label: Text("Ký"),
-          backgroundColor: Colors.blue.shade800,
-          onPressed: () {
-            setState(() {
-
-              _visibleSign = !_visibleSign;
-              //_enableSwipe = !_enableSwipe;
-            });
-          },
-        ) :SizedBox()
-    );
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisSize: MainAxisSize.max,
+                children: <Widget>[
+                  FloatingActionButton(
+                    heroTag: "btnCancel",
+                    child: const Icon(Icons.cancel),
+                    backgroundColor: Colors.blue.shade800,
+                    onPressed: () {
+                      setState(() {
+                        _visibleSign = !_visibleSign;
+                        EasyLoading.dismiss();
+                      });
+                    },
+                  ),
+                  FloatingActionButton(
+                    heroTag: "btnSign",
+                    child: const Icon(Icons.done),
+                    backgroundColor:
+                        chekKy == true ? Colors.blue.shade800 : Colors.black38,
+                    onPressed: chekKy == true
+                        ? () async {
+                            if (_visibleSign) {
+                              EasyLoading.show();
+                              String pdf = "";
+                              PDF_URL.substring(0, 38);
+                              pdf = PDF_URL.substring(36, PDF_URL.length);
+                              var thanhcong = await postKySimOK(
+                                  widget.idDuThao,
+                                  "UpdateFileS"
+                                  "ignal",
+                                  widget.nam,
+                                  namefile,
+                                  NameMoi,
+                                  UrlMoi);
+                              Navigator.of(context).pop();
+                              EasyLoading.dismiss();
+                              await showAlertDialog(
+                                  context, json.decode(thanhcong)['Message']);
+                              //_getSignMessage(context);
+                              _visibleSign = !_visibleSign;
+                            }
+                          }
+                        : null,
+                  ),
+                ],
+              )
+            : (((vbdiTrangThaiVB == 7 ||
+                            vbdiTrangThaiVB == 6 ||
+                            vbdiTrangThaiVB == 2) &&
+                        (vbdiNguoiSoanID == currentUserID ||
+                            vbdiDSNguoiTrinhTiepKy == true)) ||
+                    (vbdiNguoiKyID == currentUserID && vbdiTrangThaiVB == 4) &&
+                        chukyso == 1)
+                ? FloatingActionButton.extended(
+                    icon: const Icon(Icons.edit),
+                    label: Text("Ký"),
+                    backgroundColor: Colors.blue.shade800,
+                    onPressed: () {
+                      setState(() {
+                        _visibleSign = !_visibleSign;
+                        //_enableSwipe = !_enableSwipe;
+                      });
+                    },
+                  )
+                : SizedBox());
 
 //     //ký số bằng gửi pdf
 //     return Scaffold(
@@ -821,7 +822,7 @@ class _ViewPDF extends State<ViewPDF> {
 //                             final dir = Platform.isAndroid
 //                             ? await getExternalStorageDirectory() //FOR ANDROID
 //                              await getApplicationDocumentsDirectory();
-                            Dio dio = Dio();
+    Dio dio = Dio();
 //
 //                             for (var item in ListDataPDF) {
 //                               if (item.Url == PDF_URL) {
@@ -1069,7 +1070,6 @@ class _ViewPDF extends State<ViewPDF> {
 //                 },
 //               ));
 //ký bản cũ nhất
-
   }
 }
 
