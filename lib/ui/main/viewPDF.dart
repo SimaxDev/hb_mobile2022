@@ -84,12 +84,12 @@ class _ViewPDF extends State<ViewPDFVB> {
     url = Uri.parse(urlPDF);
     print(url);
     var response = await http.get(url);
-    //var dir = await getApplicationDocumentsDirectory();//truy cap vao muc
+    //var dir = await getApplicationSupportDirectory();//truy cap vao muc
     // chinh
     //File file =  new File(dir.path+"/vanbanmoi.pdf");// tao 1 tep moi
     final filename = urlPDF.substring(urlPDF.lastIndexOf("/") + 1);
     var request = await HttpClient().getUrl(Uri.parse(urlPDF));
-    var dir = await getApplicationDocumentsDirectory();
+    var dir = await getApplicationSupportDirectory();
     print("Download files");
     print("${dir.path}/$filename");
     files = File("${dir.path}/$filename");
@@ -311,7 +311,7 @@ class _ViewPDF extends State<ViewPDFVB> {
                         });
                         final dir = Platform.isAndroid
                             ? await getExternalStorageDirectory() //FOR ANDROID
-                            :  await getApplicationDocumentsDirectory();
+                            :  await getApplicationSupportDirectory();
 
                         Dio dio = Dio();
                         String url = "";

@@ -152,7 +152,15 @@ class _ViewPDF extends State<ViewPDF> {
     //File file =  new File(dir.path+"/vanbanmoi.pdf");// tao 1 tep moi
     final filename = urlPDF.substring(urlPDF.lastIndexOf("/") + 1);
     var request = await HttpClient().getUrl(Uri.parse(urlPDF));
-    var dir = await getExternalStorageDirectory();
+    var dir ;
+    if(Platform.isIOS){
+      dir =  await getApplicationSupportDirectory();
+    }
+    else{
+      dir =  await getExternalStorageDirectory();
+    }
+
+
     print("Download files");
     print("${dir.path}/$filename");
     file = File("${dir.path}/$filename");
@@ -554,7 +562,7 @@ class _ViewPDF extends State<ViewPDF> {
                             });
                             final dir = Platform.isAndroid
                                 ? await getExternalStorageDirectory()
-                                : await getApplicationDocumentsDirectory();
+                                : await getApplicationSupportDirectory();
                             Dio dio = Dio();
 
                             for (var item in ListDataPDF) {
@@ -821,7 +829,7 @@ class _ViewPDF extends State<ViewPDF> {
 //                             });
 //                             final dir = Platform.isAndroid
 //                             ? await getExternalStorageDirectory() //FOR ANDROID
-//                              await getApplicationDocumentsDirectory();
+//                              await getApplicationSupportDirectory();
     Dio dio = Dio();
 //
 //                             for (var item in ListDataPDF) {

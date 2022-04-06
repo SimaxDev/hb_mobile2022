@@ -66,7 +66,7 @@ class _ViewPDF extends State<ViewPDFVB_con> {
       url = Uri.parse(urlPDF);
       print(url);
       var response = await http.get(url);
-      //var dir = await getApplicationDocumentsDirectory();//truy cap vao muc
+      //var dir = await getApplicationSupportDirectory();//truy cap vao muc
     // chinh
       //File file =  new File(dir.path+"/vanbanmoi.pdf");// tao 1 tep moi
  final filename = urlPDF.substring(urlPDF.lastIndexOf("/") + 1);

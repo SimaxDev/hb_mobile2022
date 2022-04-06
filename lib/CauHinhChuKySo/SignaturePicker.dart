@@ -30,7 +30,7 @@ class _SignaturePickerState extends State<SignaturePicker> {
     // final image = await _picker.pickImage(source: ImageSource.camera);
     //
     // /// lấy đường dẫn thư mục để lưu
-    // Directory appDocDir = await getApplicationDocumentsDirectory();
+    // Directory appDocDir = await getApplicationSupportDirectory();
     // final String path = appDocDir.path;
     //
     // /// copy file đến đường dẫn mới

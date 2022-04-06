@@ -172,7 +172,7 @@
 //   Future<String> _createFileFromString(encode) async {
 //     final encodedStr = encode;
 //     Uint8List bytes = base64.decode(encodedStr);
-//     String dir = (await getApplicationDocumentsDirectory()).path;
+//     String dir = (await getApplicationSupportDirectory()).path;
 //     String fullPath = '$dir/abc.png';
 //     print("local file full path ${fullPath}");
 //     File file = File(fullPath);
