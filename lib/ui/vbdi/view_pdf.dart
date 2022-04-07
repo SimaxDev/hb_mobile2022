@@ -71,6 +71,9 @@ class _ViewPDF extends State<ViewPDF> {
   double pdfWidth = 612.0;
   double pdfHeight = 792.0;
   Completer<PDFViewController> pdfController = Completer<PDFViewController>();
+  final Completer<PDFViewController> _controller =
+  Completer<PDFViewController>();
+  int pages = 0;
   bool pdfReload = false;
   bool isLoading = false;
   bool chekKy = false;
@@ -282,29 +285,36 @@ class _ViewPDF extends State<ViewPDF> {
                     margin: EdgeInsets.only(left: 0, right: 0, top: MediaQuery.of(context).size
                         .height*0.04),
                     child: PDFView(
-                      enableSwipe: true,
-                      autoSpacing: false,
-                      pageFling: true,
-                      pageSnap: true,
-                      fitPolicy: FitPolicy.BOTH,
-                      preventLinkNavigation: false,
-                      key: ValueKey(localPath),
                       filePath: localPath,
+                      enableSwipe: true,
                       swipeHorizontal: false,
-                      nightMode: false,
-                      onError: (e) {},
-                      // onViewCreated:
-                      //     (PDFViewController pdfViewController) {
-                      //   pdfController.complete(pdfViewController);
-                      // },
+                      autoSpacing: true,
+                      pageFling: false,
+                      pageSnap: true,
+                      fitEachPage: true,
+                      // fitPolicy: FitPolicy.HEIGHT,
+
+                      preventLinkNavigation:
+                      true, // if set to true the link is handled in flutter
                       onRender: (_pages) {
                         setState(() {
+                          pages = _pages;
                           pdfReady = true;
                         });
                       },
+                      key: ValueKey(localPath),
+                      //nightMode: false,
+                      onError: (e) {},
+                      // onViewCreated: (PDFViewController pdfViewController) {
+                      //   _controller.complete(pdfViewController);
+                      // },
                       onPageChanged: (int page, int total) {
                         setState(() {
-                          _currentPage = page;
+
+
+                            _currentPage = page;
+
+
                         });
                       },
                     ),
@@ -396,6 +406,7 @@ class _ViewPDF extends State<ViewPDF> {
                       if (parentPos == null) return;
                       left = drag.offset.dx - parentPos.left; // 11.
                       top = (drag.offset.dy - parentPos.top) ;
+                      print("top  "+(top ).toString());
                     });
                     final keyContext = stickyKeyPdf.currentContext;
                     final box = keyContext.findRenderObject() as RenderBox;
@@ -436,16 +447,36 @@ class _ViewPDF extends State<ViewPDF> {
                             ".vn/",
                         "");
                     EasyLoading.show();
+                    print("hij  "+(MediaQuery.of(context).size
+                        .height-top-MediaQuery.of(context).size
+                        .height*0.04 -parentPos.top+MediaQuery.of(context).size.height / 15 )
+                        .toString());
+                    print("manhinh  "+(MediaQuery.of(context).size.height ).toString());
+                    print("pdf  "+(parentPos.top+parentPos.bottom ).toString());
+                    print("parentPos.top  "+(parentPos.top ).toString());
+                    print("+parentPos.bottom  "+(parentPos.bottom ).toString());
+                    print("selct  "+(MediaQuery.of(context).size.height / 15)
+                        .toString());
                     //String vbtimkiem ;
                     String vbtimkiem = await postKySim(
                         widget.idDuThao,
                         "KySim",
                         widget.nam,
                         ((left * ratioW) + (widthKy * 1 / 2)).toString(),
-                        ((dy1 + heightKy) - MediaQuery.of(context).size
-                            .height*0.08 ).toString(),
-                        (widthKy * ratioW).toString(),
-                        (heightKy * ratioW).toString(),
+                        // ((dy1 + heightKy) - MediaQuery.of(context).size
+                        //     .height*0.1 ).toString(),
+                        // (widthKy * ratioW).toString(),
+                        // (heightKy * ratioW).toString(),
+                        ((dy1 + heightKy) - (heightKy * 1 / 2)+MediaQuery.of
+                          (context).size
+                          .height*0.03).toString(),
+                        // ( MediaQuery.of(context).size
+                        //     .height-top-MediaQuery.of(context).size
+                        //     .height*0.04-parentPos.top +MediaQuery.of(context).size.height / 15)
+                        //     .toString(),
+
+                        (widthKy ).toString(),
+                        (heightKy ).toString(),
                         pdfCu,
                         _currentPage,
                         namefile);
@@ -491,7 +522,9 @@ class _ViewPDF extends State<ViewPDF> {
                         return DropdownButtonHideUnderline(
                           child: DropdownButton<String>(
                             hint: Text("Chọn bản ghi khác"),
-                            style: TextStyle(fontSize: 14, color: Colors.black),
+                            style: TextStyle(fontSize: 14,
+                                color: Colors.black,
+                            ),
                             value: PDF_URL,
                             isDense: false,
                             isExpanded: true,

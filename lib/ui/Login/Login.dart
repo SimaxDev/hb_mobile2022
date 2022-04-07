@@ -175,10 +175,10 @@ if(item == null){
               : "";
           widthKy =item['SignatureWidth']!= null
               ? item['SignatureWidth'].toDouble()
-              : 75.0;
+              : 150.0;
           heightKy =item['SignatureHeight']!= null
               ? item['SignatureHeight'].toDouble()
-              : 150.0;
+              : 75.0;
         }
 
         userTenTruyCap =

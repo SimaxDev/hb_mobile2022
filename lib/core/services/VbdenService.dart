@@ -323,7 +323,13 @@ var pagesize =  page +1;
   parts.add('relX=' + _x.toString());
   parts.add('relY=' + _y.toString());
   parts.add('width=' + witdh.toString());
-  parts.add('height=' + height.toString());
+  if(pagesize>1){
+    parts.add('height=' + (height+"30").toString());
+  }
+  else{
+    parts.add('height=' + height.toString());
+  }
+
   parts.add('pdfpage=' + pagesize.toString());
   parts.add('urlfile=' + linkpdf.toString());
   parts.add('SYear=' + nam.toString());
