@@ -543,7 +543,8 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                            child: TextFormField(
                              enabled: false,
                              keyboardType: TextInputType.text,
-                             controller: _dateControllerBD == null ? selectedDateBD : _dateControllerBD,
+                             controller: _dateControllerBD== null ?
+                             selectedDateBD : _dateControllerBD,
                              // onSaved: (val) {
                              //   _setDate1 = val;
                              // },
@@ -697,7 +698,8 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                          padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                          child: TextFormField(
                            controller: _soLuongTo,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
+                           autovalidateMode: AutovalidateMode
+                               .onUserInteraction,
                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                            decoration: InputDecoration(
                                disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),

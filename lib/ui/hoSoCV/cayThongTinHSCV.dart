@@ -69,7 +69,7 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   void initState() {
     // TODO: implement initState
     //  if(getString("username"))
-    _initializeTimer();
+    //_initializeTimer();
     GetDataTreeCayHSCV();
     GetDataTreeHSLQ();
     super.initState();
@@ -104,7 +104,8 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   }
 
   Future GetDataTreeHSLQ() async {
-    String detailVBDi1 = await postTreeCayHSCV(widget.idHS ,"GetVBDenLienQuan","SYear=2021");
+    String detailVBDi1 = await postTreeCayHSCV(widget.idHS ,"GetVBDenLienQuan"
+        "",widget.nam,"");
 
     setState(() {
       tongso = json.decode(detailVBDi1)['TotalCount'];
@@ -113,7 +114,8 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
     });
   }
   Future GetDataTreeCayHSCV() async {
-    String detailVBDi = await postTreeCayHSCV(widget.idHS ,ActionXL1,"isCongViec=false&isHoSocongviec=true&SYear=2021");
+    String detailVBDi = await postTreeCayHSCV(widget.idHS ,ActionXL1,"isCongV"
+        "iec=false&isHoSocongviec=true",widget.nam);
 
     if(mounted)
       {
@@ -137,9 +139,9 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   Widget build(BuildContext context) {
     _height = MediaQuery.of(context).size.height;
     return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
+      // onTap: _handleUserInteraction,
+      // onPanDown: _handleUserInteraction,
+      // onScaleStart: _handleUserInteraction,
       child:Scaffold(
 
       body: new ListView(

@@ -17,8 +17,8 @@ import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemMoiDT.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 class BottomNavHSCV extends StatefulWidget {
   int id;
-
-  BottomNavHSCV({this.id});
+  String nam;
+  BottomNavHSCV({this.id,this.nam});
 
   @override
   _BottomNavHSCV createState() => _BottomNavHSCV();
@@ -237,13 +237,14 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                                           icon: Icon(Icons.send_and_archive),
                                           label: Text('Cập nhật',style: TextStyle(fontWeight: FontWeight.bold)),
                                           onPressed: () async {
-                                            var tendangnhap = sharedStorage.getString("username");
                                             EasyLoading.show();
+                                            var tendangnhap = sharedStorage.getString("username");
+
                                             var thoiGian = _dateController
                                                 .text.toString();
                                             var thanhcong = await
                                             postHanXuLyHSCV(tendangnhap,widget
-                                                .id, "HanXuLy",thoiGian );
+                                                .id, "HanXuLy",thoiGian, widget.nam );
 
                                             EasyLoading.dismiss();
                                            Navigator.of(context).pop();

@@ -97,6 +97,13 @@ class _ThemDTState extends State<ThemDT> {
       }
     }
   }
+  @override
+  void dipose(){
+    if(_timer != null){
+      _timer.cancel();
+    }
+    super.dispose();
+  }
 
   GetDataLoaiVB() async {
     String tendangnhap = tendangnhapAll;

@@ -164,6 +164,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
     if( hsCV != null){
       titleDrawer =  hsCV.tenHoSo;
       hscvNguoiPhuTrach =  hsCV.hscvNguoiPhuTrach;
+      checkSoanVBDT =  hsCV.checkSoanVBDT;
       ChuyenVT = hsCV.ChuyenVT;
       hscvTrangThaiXuLy = hsCV.hscvTrangThaiXuLy;
       hscvNguoiLap = hsCV.hscvNguoiLap;
@@ -630,7 +631,8 @@ class _thongTinHSCV extends State<thongTinHSCV> {
                   Container(
                     width: MediaQuery.of(context).size.width * 0.6,
                     padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
-                    child: Text( hsCV.tinhTrangVL,
+                    child: Text(hsCV.tinhTrangVL == "1" ?"Chưa tạo":(hsCV
+                        .tinhTrangVL == "2"?"Đã tạo":"") ,
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 14
@@ -808,7 +810,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
       appBar: AppBar(title: Text("Chi tiết hồ sơ công việc"),
        ),
       body: isLoading ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue))) :  getBody(),
-      bottomNavigationBar: BottomNavHSCV(id  : widget.idHS),
+      bottomNavigationBar: BottomNavHSCV(id  : widget.idHS,nam: widget.nam),
       drawer:new Drawer(
         child: new ListView(
           children: <Widget>[
@@ -829,7 +831,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
             Container(
               height: MediaQuery.of(context).size.height,
               child: cayThongTinHSCV(title: titleDrawer,idHS:widget.idHS,
-                  idVBDlienQuan:idVBDlienQuan),
+                  idVBDlienQuan:idVBDlienQuan,nam:widget.nam),
             )
           ],
         ),
@@ -839,6 +841,18 @@ class _thongTinHSCV extends State<thongTinHSCV> {
 }
 
 
+String TinhTrangVL(id){
+  String tt ;
+  switch(id){
+    case 1:
+      tt = "Chưa tạo";
+      break;
+    case 2:
+      tt= "Đã tạo";
+      break;
+  }
+  return tt;
+}
 String ttDuthao(id){
   String tt ;
   switch(id){

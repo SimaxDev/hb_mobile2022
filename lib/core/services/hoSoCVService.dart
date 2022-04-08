@@ -86,13 +86,15 @@ import 'callApi.dart';
   }
 
 
-  Future<String>postHanXuLyHSCV( username,id, ActionXL, String noidungykien)
+  Future<String>postHanXuLyHSCV( username,id, ActionXL, String noidungykien,
+      String nam)
   async {
     var parts = [];
     parts.add('TenDangNhap=' + username.toString());
     parts.add('ItemID=' + id.toString());
     parts.add('ActionXL=' + ActionXL);
     parts.add('hscvHanXuLy=' + noidungykien);
+    parts.add('SYear=' + nam.toString());
     var formData = parts.join('&');
     String url = "/api/ServicesHSCV/GetData";
     var response = await responseDataPost(url, formData);
@@ -102,12 +104,13 @@ import 'callApi.dart';
     }
   }
 
-  Future<String>postTreeCayHSCV( id, ActionXL, String noidungykien)
+  Future<String>postTreeCayHSCV( id, ActionXL, String noidungykien,String nam)
   async {
     var parts = [];
     parts.add('ItemID=' + id.toString());
     parts.add('ActionXL=' + ActionXL);
-    parts.add(noidungykien);
+    parts.add(noidungykien.toString());
+    parts.add('SYear='+nam.toString());
     var formData = parts.join('&');
     String url = "/api/ServicesHSCV/GetData";
     var response = await responseDataPost(url, formData);
