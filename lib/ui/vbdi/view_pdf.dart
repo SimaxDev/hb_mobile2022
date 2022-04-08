@@ -289,10 +289,6 @@ class _ViewPDF extends State<ViewPDF> {
                       enableSwipe: true,
                       swipeHorizontal: false,
                       autoSpacing: true,
-                      pageFling: false,
-                      pageSnap: true,
-                      fitEachPage: true,
-                      // fitPolicy: FitPolicy.HEIGHT,
 
                       preventLinkNavigation:
                       true, // if set to true the link is handled in flutter
@@ -447,16 +443,6 @@ class _ViewPDF extends State<ViewPDF> {
                             ".vn/",
                         "");
                     EasyLoading.show();
-                    print("hij  "+(MediaQuery.of(context).size
-                        .height-top-MediaQuery.of(context).size
-                        .height*0.04 -parentPos.top+MediaQuery.of(context).size.height / 15 )
-                        .toString());
-                    print("manhinh  "+(MediaQuery.of(context).size.height ).toString());
-                    print("pdf  "+(parentPos.top+parentPos.bottom ).toString());
-                    print("parentPos.top  "+(parentPos.top ).toString());
-                    print("+parentPos.bottom  "+(parentPos.bottom ).toString());
-                    print("selct  "+(MediaQuery.of(context).size.height / 15)
-                        .toString());
                     //String vbtimkiem ;
                     String vbtimkiem = await postKySim(
                         widget.idDuThao,
@@ -469,12 +455,7 @@ class _ViewPDF extends State<ViewPDF> {
                         // (heightKy * ratioW).toString(),
                         ((dy1 + heightKy) - (heightKy * 1 / 2)+MediaQuery.of
                           (context).size
-                          .height*0.03).toString(),
-                        // ( MediaQuery.of(context).size
-                        //     .height-top-MediaQuery.of(context).size
-                        //     .height*0.04-parentPos.top +MediaQuery.of(context).size.height / 15)
-                        //     .toString(),
-
+                          .height*0.01).toString(),
                         (widthKy ).toString(),
                         (heightKy ).toString(),
                         pdfCu,

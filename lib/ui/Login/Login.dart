@@ -56,6 +56,7 @@ class LoginState extends State<LoginWidget> {
         iOSId:"com.hoabinh.jsc.gov.vn"
     );
     final status = await newVersion.getVersionStatus();
+
     if (status.localVersion != status.storeVersion) {
       newVersion.showUpdateDialog(
         context: context,
