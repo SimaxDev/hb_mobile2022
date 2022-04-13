@@ -69,7 +69,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
   @override
   void dispose() {
     if(_timer != null){
-      _timer.cancel();
+      _timer?.cancel();
     }
     super.dispose();
     EasyLoading.dismiss();

@@ -67,6 +67,9 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
     //  if(getString("username"))
 
     super.initState();
+    if (_timer != null) {
+      _timer.cancel();
+    }
     isLoading = true;
     GetDataLinhVuc();
     _initializeTimer();

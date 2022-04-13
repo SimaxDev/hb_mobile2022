@@ -38,9 +38,12 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
        "hscvNgayMoHoSo",
         label: "Ngày mở hồ sơ",valueBuilder:formatDOB
    ),
-    JsonTableColumn("hscvNguoiLap.Title", label: "Người lập"),
-    JsonTableColumn("Title", label: "Tên hồ sơ công việc"),
-    JsonTableColumn("hscvTrangThaiXuLy", label: "Trạng thái",valueBuilder:ttHoSo),
+    JsonTableColumn("hscvNguoiLap.Title" ,label: "Người lập",
+        defaultValue: ""
+        "NA"),
+    JsonTableColumn("Title", label: "Tên hồ sơ công việc",defaultValue: "NA"),
+    JsonTableColumn("hscvTrangThaiXuLy", label: "Trạng thái",
+        valueBuilder:ttHoSo),
   ];
 
 
@@ -223,7 +226,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
 
 //Simply pass this column list to JsonTable
                                   JsonTable(
-                                    jsonL,
+                                    jsonL,showColumnToggle: true,
                                     columns: columns,
                                     allowRowHighlight: true,
                                     rowHighlightColor: Colors.yellow[500].withOpacity(0.7),

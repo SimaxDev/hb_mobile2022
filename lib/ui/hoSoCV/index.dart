@@ -756,7 +756,7 @@ class HSCVState extends State<HSCVWidget> {
           onPressed: () {
             setState(() {
               if(_timer != null){
-                _timer.cancel();
+                _timer?.cancel();
               }
             });
 

@@ -85,7 +85,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes: 5), (_) {
       rester().logOutALL();
-      _timer.cancel();
+      _timer?.cancel();
       print('ket thuc');
     });
   }
@@ -96,7 +96,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
       return;
     }
 
-    _timer.cancel();
+    _timer?.cancel();
     _initializeTimer();
   }
 
@@ -124,7 +124,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
   @override
   void dispose(){
     super.dispose();
-    _timer.cancel();
+    _timer?.cancel();
     EasyLoading.dismiss();
   }
   GetDataSoCV() async {

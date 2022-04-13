@@ -543,7 +543,7 @@ if(item == null){
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
      //var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
-      var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
+     var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,
         'password': password,

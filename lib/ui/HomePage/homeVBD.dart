@@ -49,7 +49,7 @@ class PageState extends State<HomeVBDen> {
       return;
     }
 
-    _timer.cancel();
+    _timer?.cancel();
    _initializeTimer();
   }
   void _initializeTimer() {

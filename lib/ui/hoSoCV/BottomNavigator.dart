@@ -347,7 +347,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                             TextButton.icon(
                               icon: Icon(Icons.ad_units
                               ),
-                              label: Text('Soạn VBDT'),
+                              label: Text('Soạn VBDT',),
                               onPressed: () {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
@@ -377,9 +377,10 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                               ),
                               label: Text('Huỷ'),
                               onPressed: () async {
-
+                                EasyLoading.show();
                                 await deleteHSCV( widget
                                     .id, "DeleteHSCV");
+                                EasyLoading.dismiss();
                                Navigator.of(context).pop();
                               }
                             )

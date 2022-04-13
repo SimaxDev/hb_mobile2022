@@ -50,7 +50,7 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes:5), (_) {
       logOut(context);
-      _timer.cancel();
+      _timer?.cancel();
     });
 
   }
@@ -61,7 +61,7 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
       return;
     }
 
-    _timer.cancel();
+    _timer?.cancel();
     _initializeTimer();
   }
 
@@ -95,7 +95,7 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   void dispose(){
     super.dispose();
     if(_timer != null){
-      _timer.cancel();
+      _timer?.cancel();
     }
     strListId;
     strListVanBanLienQuanID;

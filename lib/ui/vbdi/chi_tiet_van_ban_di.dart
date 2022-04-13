@@ -263,7 +263,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
           child: CircularProgressIndicator(),
         ),
         bottomNavigationBar: BottomNav(id : widget.id,nam:year,
-            MaDonVi:widget.MaDonVi),
+            MaDonVi:widget.MaDonVi,ttVbanDi:duthao),
       ),
     ):DefaultTabController(
       length: 3,
@@ -323,7 +323,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
           child: CircularProgressIndicator(),
         ),
         bottomNavigationBar: BottomNav(id : widget.id,nam:year,
-            MaDonVi:widget.MaDonVi),
+            MaDonVi:widget.MaDonVi,ttVbanDi:duthao),
       ),
     );
 

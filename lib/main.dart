@@ -107,7 +107,7 @@ class _NotificationState extends State<Notification> {
       print(_timer);
       Navigator.of
         (context).pop();
-      _timer.cancel();
+      _timer?.cancel();
       print('ket thuc');
     });
 
@@ -119,7 +119,7 @@ class _NotificationState extends State<Notification> {
       return;
     }
 
-    _timer.cancel();
+    _timer?.cancel();
     _initializeTimer();
   }
 

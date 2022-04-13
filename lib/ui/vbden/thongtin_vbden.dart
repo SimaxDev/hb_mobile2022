@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:math';
 import 'package:date_time_picker/date_time_picker.dart';
+import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -397,18 +398,73 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
               height: 5,
             ),
 
-            yKienThuHoi.isNotEmpty ||
-                    yKienThuHoi != null &&
-                        (vbdTTXuLyVanBanLT != 29 &&
-                            vbdTTXuLyVanBanLT != 16 &&
-                            vbdTTXuLyVanBanLT != 15 &&
-                            vbdTTXuLyVanBanLT != 14 &&
-                            vbdTTXuLyVanBanLT != 13 &&
-                            vbdTTXuLyVanBanLT != 18 &&
-                            vbdTTXuLyVanBanLT != 21 &&
-                            vbdTTXuLyVanBanLT != 23 &&
-                            vbdTTXuLyVanBanLT != 25 &&
-                            vbdTTXuLyVanBanLT != 27)
+    // (yKienThuHoi.isNotEmpty ||
+    // yKienThuHoi != null)&& (vbdTTXuLyVanBanLT != 29
+    // && vbdTTXuLyVanBanLT !=16 && vbdTTXuLyVanBanLT !=15
+    // && vbdTTXuLyVanBanLT !=14 && vbdTTXuLyVanBanLT != 13
+    // && vbdTTXuLyVanBanLT != 18 && vbdTTXuLyVanBanLT != 21
+    // && vbdTTXuLyVanBanLT != 23 && vbdTTXuLyVanBanLT != 25
+    // && vbdTTXuLyVanBanLT != 27
+    // && vbdPhuongThuc == 2 )
+    //             ? Column(
+    //           children: [
+    //             Row(
+    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //               children: [
+    //                 Container(
+    //                   width: MediaQuery.of(context).size.width * 0.4,
+    //                   padding: EdgeInsets.only(left: 20.0),
+    //                   child: Text(
+    //                     'Ý kiến thu hồi/lấy lại/thay thế',
+    //                     style: TextStyle(
+    //                         fontWeight: FontWeight.bold, fontSize: 14),
+    //                   ),
+    //                 ),
+    //                 Container(
+    //                   width: MediaQuery.of(context).size.width * 0.6,
+    //                   padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
+    //                   child: Text(
+    //                     yKienThuHoi,
+    //                     style: TextStyle(
+    //                         fontWeight: FontWeight.normal,
+    //                         fontSize: 14,
+    //                         color: Colors.red),
+    //                     // overflow: TextOverflow.ellipsis,
+    //                     textAlign: TextAlign.start,
+    //                   ),
+    //                 )
+    //               ],
+    //             ),
+    //             Divider(),
+    //           ],
+    //         )
+    //             : SizedBox(),
+
+
+
+    //         (yKienThuHoi.isNotEmpty ||
+    // yKienThuHoi != null)
+            !(yKienThuHoi?.isEmpty ?? true)
+                && (vbdTTXuLyVanBanLT != 29 && vbdTTXuLyVanBanLT !=16
+                && vbdTTXuLyVanBanLT !=15 && vbdTTXuLyVanBanLT !=14
+                && vbdTTXuLyVanBanLT != 13 && vbdTTXuLyVanBanLT != 18
+                && vbdTTXuLyVanBanLT != 21 && vbdTTXuLyVanBanLT != 23
+                && vbdTTXuLyVanBanLT != 25
+                && vbdTTXuLyVanBanLT != 27 && vbdPhuongThuc != 2)
+            
+            
+            // yKienThuHoi.isNotEmpty ||
+            //         yKienThuHoi != null &&
+            //             (vbdTTXuLyVanBanLT != 29 &&
+            //                 vbdTTXuLyVanBanLT != 16 &&
+            //                 vbdTTXuLyVanBanLT != 15 &&
+            //                 vbdTTXuLyVanBanLT != 14 &&
+            //                 vbdTTXuLyVanBanLT != 13 &&
+            //                 vbdTTXuLyVanBanLT != 18 &&
+            //                 vbdTTXuLyVanBanLT != 21 &&
+            //                 vbdTTXuLyVanBanLT != 23 &&
+            //                 vbdTTXuLyVanBanLT != 25 &&
+            //                 vbdTTXuLyVanBanLT != 27)
                 ? Column(
                     children: [
                       Row(
@@ -443,9 +499,9 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   )
                 : SizedBox(),
 
-            vbdTTXuLyVanBanLT == 16 ||
+            (vbdTTXuLyVanBanLT == 16 ||
                     vbdTTXuLyVanBanLT == 15 ||
-                    vbdTTXuLyVanBanLT == 14
+                    vbdTTXuLyVanBanLT == 14) && vbdPhuongThuc == 2
                 ? Column(
                     children: [
                       Row(
@@ -480,11 +536,11 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   )
                 : SizedBox(),
 
-            vbdTTXuLyVanBanLT == 18 ||
+            ( vbdTTXuLyVanBanLT == 18 ||
                     vbdTTXuLyVanBanLT == 21 ||
                     vbdTTXuLyVanBanLT == 23 ||
-                    vbdTTXuLyVanBanLT == 25
-                ? Column(
+                    vbdTTXuLyVanBanLT == 25) && vbdPhuongThuc == 2
+    ? Column(
                     children: [
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -652,8 +708,15 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            onPressed: () {
+                            onPressed: () async {
+                              var tendangnhap = sharedStorage.getString("username");
+                              EasyLoading.show();
+                              // var thanhcong = await postChuyenVBDi(widget.id,
+                              //   "TUCHOI",widget.Yearvb,yKienTuChoi);
                               Navigator.of(context).pop();
+                              EasyLoading.dismiss();
+                             // showAlertDialog(context, json.decode
+                              //(thanhcong)['Message']);
                             },
                             style: ButtonStyle(
                               backgroundColor:

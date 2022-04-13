@@ -51,7 +51,7 @@ class PageState extends State<HomePage> {
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes:5), (_) {
       logOut(context);
-      _timer.cancel();
+      _timer?.cancel();
     });
 
   }
@@ -62,7 +62,7 @@ class PageState extends State<HomePage> {
       return;
     }
 
-    _timer.cancel();
+    _timer?.cancel();
     _initializeTimer();
   }
   //initial
@@ -151,7 +151,7 @@ class PageState extends State<HomePage> {
   void dispose() {
     super.dispose();
     if(_timer != null){
-      _timer.cancel();
+      _timer?.cancel();
     }
   }
 

@@ -14,7 +14,7 @@ class rester {
   void initializeTimer() {
     _timer = Timer.periodic(const Duration(seconds: 10), (_) {
       logOutALL();
-      _timer.cancel();
+      _timer?.cancel();
     });
   }
 
@@ -273,11 +273,12 @@ class rester {
       widthKy = 75.0;
     heightKy = 150.0;
     }
+    if(_timer != null){
+      _timer?.cancel();
+    }
     // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
     //     builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);
     Get.off(LoginWidget());
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
 }

@@ -23,6 +23,7 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/common/VBDi/TreeFromJson.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
+import 'package:hb_mobile2021/ui/vbdi/viewPDF_ChuyenLT.dart';
 
 import '../main/viewPDF.dart';
 
@@ -98,7 +99,7 @@ bool isLoading = false;
         color: Colors.white,
       ),
       height: 56.0,
-      child: vanbanList.length > 0 ?
+      child: vanbanList.length > 0 && widget.ttVbanDi != null  ?
       ListView.builder(
           scrollDirection: Axis.horizontal,
           itemCount: 1,
@@ -1730,7 +1731,7 @@ bool isLoading = false;
                       ),
                     ),
 
-                     ViewPDFVB(),
+                    ViewPDFLT(),
                     
                   ],
                 )));

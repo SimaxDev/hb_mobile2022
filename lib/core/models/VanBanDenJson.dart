@@ -60,6 +60,7 @@ class VanBanDenJson {
   int vbdPhongBanPT;
   int vbdNguoiDungPT;
   int vbdUserXuLyC;
+  int ttThuHoi;
 
 
 
@@ -120,6 +121,7 @@ class VanBanDenJson {
         this.soCongVan,
         this.soCongVanID,
         this.isTraCuu,
+        this.ttThuHoi,
 
       });
   //factory convert json['vanBanDen'] to model
