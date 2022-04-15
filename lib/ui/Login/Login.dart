@@ -484,9 +484,6 @@ if(item == null){
                                           isLoading = true;
                                         });
                                       }
-                                      if (_timer != null) {
-                                        _timer.cancel();
-                                      }
 
                                       login(usernameController.text.trim(),
                                           passwordController.text);

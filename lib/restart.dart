@@ -85,6 +85,7 @@ class rester {
       vbdSoVanBan = 0;
       hscvTrangThaiXuLy = 0;
       currentDuThao;
+      vbdiXuatPhatTuHSCV;
       lstvbdUserChuaXuLy = [];
       // strId = [];
       // strVanBanLienQuanID = [];
@@ -211,6 +212,7 @@ class rester {
       vbdSoVanBan = 0;
       hscvTrangThaiXuLy = 0;
       currentDuThao;
+      vbdiXuatPhatTuHSCV;
       lstvbdUserChuaXuLy = [];
       // strId = [];
       // strVanBanLienQuanID = [];

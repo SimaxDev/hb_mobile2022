@@ -44,13 +44,13 @@ class PageState extends State<HomeVBDen> {
   int tong = 0;
   Timer _timer;
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer?.cancel();
-   _initializeTimer();
+   //  if (!_timer.isActive) {
+   //    // This means the user has been logged out
+   //    return;
+   //  }
+   //
+   //  _timer?.cancel();
+   // _initializeTimer();
   }
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes:5), (_) {
@@ -62,7 +62,7 @@ class PageState extends State<HomeVBDen> {
   //initial
   @override
   void initState() {
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
     GetInfoUserNew();
     getHomeVBDen();

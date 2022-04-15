@@ -67,12 +67,12 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
     //  if(getString("username"))
 
     super.initState();
-    if (_timer != null) {
-      _timer.cancel();
-    }
+    // if (_timer != null) {
+    //   _timer.cancel();
+    // }
     isLoading = true;
     GetDataLinhVuc();
-    _initializeTimer();
+   // _initializeTimer();
   }
   void _initializeTimer() {
     _timer = Timer.periodic(const Duration(minutes:5), (_) {
@@ -83,13 +83,13 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 // lấy file từ điện thoại
 //   selectFile() async {

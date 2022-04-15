@@ -84,6 +84,26 @@ Future<String> getDataHomeVBDi(int skip, int pageSize,  String ActionXL,
     return items;
   }
 }
+Future<String> getDataHomeVBDiThayThe(int skip, int pageSize,  String ActionXL,
+     nam,int skippage) async {
+  String url = "/api/ServicesVBDi/GetData";
+  var parts = [];
+  parts.add('ActionXL=' + ActionXL.toString());
+  parts.add('skip=' + skippage.toString());
+  parts.add('page=' + skip.toString());
+  parts.add('take=20' );
+  parts.add('pagesize=' + pageSize.toString());
+  parts.add('Yearvb=' + nam.toString());
+  parts.add('GriSort=[{ field: "vbdiNgayBanHanh", dir: "false" }, { field: "vbdiSoCongVan", dir: "false" }, { field: "vbdiYear", dir: "false" }]' );
+  var formData = parts.join('&');
+  var response = await responseDataPost(url, formData);
+
+  if (response.statusCode == 200) {
+    var items = (response.body);
+    return items;
+  }
+}
+
 Future<String> getDataByKeyWordVBDi(String TenDangNhap,String ActionXL,String
 text,String year,query) async {
   var url= "/api/ServicesVBDi/GetData";

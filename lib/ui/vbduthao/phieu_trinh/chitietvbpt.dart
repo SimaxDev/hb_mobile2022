@@ -46,13 +46,13 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
 
@@ -69,6 +69,7 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
     if(_timer != null){
       _timer.cancel();
     }
+    pdf = "";
    }
 
   //lấy danh sách chi tiết văn bản dự thảo

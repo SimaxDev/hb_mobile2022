@@ -31,8 +31,6 @@ class JsonDataGrid extends StatefulWidget {
 class _JsonDataGridState extends State<JsonDataGrid> {
   _JsonDataGridSource jsonDataGridSource;
   _JsonDataGridSource jsonDataGridSource1;
-  List<_Product> productlist11 = [];
-  List<_Product> productlist22 = [];
   final _sigInFormKey = GlobalKey<FormState>();
   final int _rowsPerPage = 5;
   double _height;
@@ -70,7 +68,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-
+    jsonDataGridSource;
 
   }
   generateProductList(String text) async {
@@ -80,46 +78,32 @@ class _JsonDataGridState extends State<JsonDataGrid> {
       });
     }
 
-    //vbdi = await getTT(ActionXL,text, dropdownValue);
-    vbdi =  await getDataByKeyWordVBDT("huongvt.ubnd", "GetListVBDT",
-        text,dropdownValue,"");
+    String vbtimkiem = await getDataByKeyWordVBDi("", ActionXL,
+      text,dropdownValue,"",);
 
-    jsonSample = jsonDecode(vbdi)['OData'];
+    jsonSample = jsonDecode(vbtimkiem)['OData'];
+
+
+    // jsonDataGridSource = jsonSample;
+    // jsonDataGridSource = _JsonDataGridSource(jsonSample);
+
+
       var list = jsonSample.cast<Map<String, dynamic>>();
       productlist1.value =
           await list.map<_Product>((json) => _Product.fromJson(json)).toList();
-      // if(mounted){
-      //   setState(() {
-      //     jsonDataGridSource = _JsonDataGridSource(productlist);
-      //   });
-      // }
+      if(mounted){
+        setState(() {
+          jsonDataGridSource = _JsonDataGridSource(productlist1.value);
+        });
+      }
 
 
-    jsonDataGridSource = _JsonDataGridSource(productlist1.value);
+    //jsonDataGridSource = _JsonDataGridSource(productlist1.value);
 
-    return productlist1;
+    return productlist1.value;
 
   }
 
-   GetDataByKeyWordVBDi(String text) async {
-
-    setState(() {
-      showD = false;
-    });
-
-    var tendangnhap = sharedStorage.getString("username");
-   // EasyLoading.show();
-    vbdi = await await getDataByKeyWordVBDT(tendangnhap, "GetListVBDT",
-        text,dropdownValue,"");
-      jsonSample = jsonDecode(vbdi)['OData'];
-
-    var list = jsonSample.cast<Map<String, dynamic>>();
-    productlist1.value =
-    await list.map<_Product>((json) => _Product.fromJson(json)).toList();
-    jsonDataGridSource = _JsonDataGridSource(productlist1.value);
-    //productlist = productlist;
-    return productlist1;
-  }
 
 
 
@@ -293,7 +277,7 @@ class _JsonDataGridState extends State<JsonDataGrid> {
                                     setState(() {
                                       testthuhomerxoa = val;
                                      // testthuhomerxoa = text1;
-
+                                     // GetDataByKeyWordVBDi(testthuhomerxoa);
                                     generateProductList(testthuhomerxoa);
                                     setState(() {
                                      });
@@ -437,63 +421,108 @@ class _JsonDataGridState extends State<JsonDataGrid> {
 
   Widget getbody(){
 
-    return FutureBuilder(
-        future: generateProductList(text1),
-        builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
-          return snapshot.hasData == true
-              ? Column(children: [
-            SizedBox(
-             height: MediaQuery.of(context).size.height* 0.4,
-             child:  SfDataGrid(
-               source: jsonDataGridSource,
-               columns: getColumns(),
-               highlightRowOnHover: false ,
-               columnWidthMode: ColumnWidthMode.fill,
-               selectionMode:SelectionMode.single ,
-               onCellTap: (DataGridCellTapDetails details) {
 
-                 if (details.rowColumnIndex.rowIndex == 0) return;
+    return  SfDataGrid(
+        source: jsonDataGridSource,
+        columns: <GridColumn>[
+          GridColumn(
+              columnName: 'ID',
+              label: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'ID',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'name',
+              label: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Name',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'designation',
+              label: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    'Designation',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+          GridColumn(
+              columnName: 'salary',
+              label: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 16.0),
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    'Salary',
+                    overflow: TextOverflow.ellipsis,
+                  ))),
+        ],
+        gridLinesVisibility: GridLinesVisibility.both,
+        headerGridLinesVisibility: GridLinesVisibility.both);
 
-
-
-               },
-               onSelectionChanged: (addedRows, removedRows)  {
-
-                 ID = int.parse(addedRows[0].getCells()[2].value) ;
-
-               },
-
-
-               // onRowSelect: (index, map) {
-               //   // print(index);
-               //   //print(map);
-               //   // print(map['ID']);
-               //
-               // },
-
-             ),),
-
-            SizedBox(),
-           Obx(()=>SfDataPager
-             (
-             pageCount: productlist1.length >0?productlist1.length /
-                 _rowsPerPage:1,
-             // direction: Axis.horizontal,
-             //pageCount:1,
-             // delegate: jsonDataGridSource,
-             delegate: jsonDataGridSource,
-           ),
-           ),
-
-
-          ],)
-              : Center(
-            child: CircularProgressIndicator(
-              strokeWidth: 1,
-            ),
-          );
-        });
+    // return FutureBuilder(
+    //     future: generateProductList(text1),
+    //     builder: (BuildContext context, AsyncSnapshot<dynamic> snapshot) {
+    //       return snapshot.hasData
+    //           ? Column(children: [
+    //         SizedBox(
+    //          height: MediaQuery.of(context).size.height* 0.4,
+    //          child:  SfDataGrid(
+    //            source: jsonDataGridSource,
+    //            columns: getColumns(),
+    //            highlightRowOnHover: true ,
+    //            columnWidthMode: ColumnWidthMode.fill,
+    //            selectionMode:SelectionMode.single ,
+    //            onCellTap: (DataGridCellTapDetails details) {
+    //
+    //              if (details.rowColumnIndex.rowIndex == 0) return;
+    //
+    //
+    //
+    //            },
+    //            onSelectionChanged: (addedRows, removedRows)  {
+    //
+    //              ID = int.parse(addedRows[0].getCells()[2].value) ;
+    //
+    //            },
+    //
+    //
+    //            // onRowSelect: (index, map) {
+    //            //   // print(index);
+    //            //   //print(map);
+    //            //   // print(map['ID']);
+    //            //
+    //            // },
+    //
+    //          ),),
+    //
+    //         SizedBox(),
+    //        Obx(()=>SfDataPager
+    //          (
+    //          pageCount: productlist1.length >0?productlist1.length /
+    //              _rowsPerPage:1,
+    //          // direction: Axis.horizontal,
+    //          //pageCount:1,
+    //          // delegate: jsonDataGridSource,
+    //          delegate: jsonDataGridSource,
+    //        ),
+    //        ),
+    //
+    //
+    //       ],)
+    //           : Center(
+    //         child: CircularProgressIndicator(
+    //           strokeWidth: 1,
+    //         ),
+    //       );
+    //     });
   }
+
 
 
 }
@@ -545,7 +574,7 @@ class _JsonDataGridSource extends DataGridSource {
   List<DataGridRow> get rows => dataGridRows;
 
   @override
-  DataGridRowAdapter buildRow(DataGridRow row) {
+  DataGridRowAdapter buildRow(DataGridRow row)  {
     return row == 0?Container():   DataGridRowAdapter
       (cells: [
       Container(

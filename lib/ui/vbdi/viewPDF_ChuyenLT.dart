@@ -70,15 +70,6 @@ class _ViewPDF extends State<ViewPDFLT> {
     });
   }
 
-  void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
-  }
 
   Future<String> loadPDF(String urlPDF) async {
     url = Uri.parse(urlPDF);

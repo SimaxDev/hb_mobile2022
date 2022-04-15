@@ -10,6 +10,7 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/local_notification_service.dart';
+import 'package:hb_mobile2021/restart.dart';
 import 'package:hb_mobile2021/ui/Login/splash.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
@@ -55,25 +56,53 @@ Future<void> main() async{
   }else{
     isLogin = false;
   }
+  _initializeTimer();
 
   runApp(MyApp());
+
+}
+Timer _timer;
+void _initializeTimer() {
+  _timer = Timer.periodic(const Duration(minutes:5), (_) {
+    rester().logOutALL();
+    _timer.cancel();
+  });
+
+}
+void _handleUserInteraction([_]) {
+  _timer.cancel();
+  _initializeTimer();
+  if (!_timer.isActive) {
+    // This means the user has been logged out
+
+    return;
+
+  }
+
 
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Notification(),
-      // builder: (BuildContext context, Widget child) {
-      //   final MediaQueryData data = MediaQuery.of(context);
-      //   return MediaQuery(
-      //     data: data.copyWith(
-      //         textScaleFactor: data.textScaleFactor > 2.0 ? 2.0 : data.textScaleFactor),
-      //     child: FlutterEasyLoading(child: child),
-      //   )  ;
-      // },
+    return  Listener(onPointerDown:_handleUserInteraction ,
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home:GestureDetector(
+          // onTap: _handleUserInteraction,
+          // onPanDown: _handleUserInteraction,
+          // onScaleStart: _handleUserInteraction,
+          child: Notification(),
+          // builder: (BuildContext context, Widget child) {
+          //   final MediaQueryData data = MediaQuery.of(context);
+          //   return MediaQuery(
+          //     data: data.copyWith(
+          //         textScaleFactor: data.textScaleFactor > 2.0 ? 2.0 : data.textScaleFactor),
+          //     child: FlutterEasyLoading(child: child),
+          //   )  ;
+          // },
+        ),
+      ),
     );
   }
 }
@@ -113,15 +142,7 @@ class _NotificationState extends State<Notification> {
 
   }
 
-  void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
 
-    _timer?.cancel();
-    _initializeTimer();
-  }
 
 
   // @override

@@ -39,27 +39,25 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
   void initState(){
     super.initState();
-    _initializeTimer();
+   // _initializeTimer();
   }
 
   @override
   void dispose(){
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
 
   }
 

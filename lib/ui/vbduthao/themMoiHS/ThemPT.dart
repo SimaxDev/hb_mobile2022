@@ -57,19 +57,19 @@ class _ThemPTState extends State<ThemPT> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _initializeTimer();
+    //_initializeTimer();
     super.initState();
     if (mounted) {  setState(() {
       clickPB = clickChon;
@@ -103,9 +103,7 @@ class _ThemPTState extends State<ThemPT> {
   @override
   void dispose(){
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
   @override
   Widget build(BuildContext context) {

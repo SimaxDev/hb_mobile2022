@@ -64,7 +64,7 @@ class PageState extends State<HomeVBDi> {
   //initial
   @override
   void initState() {
-  _initializeTimer();
+  //_initializeTimer();
     super.initState();
     GetInfoUserNew();
     getHomeVBDen();

@@ -77,20 +77,20 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    if(_timer != null){
-      _timer.cancel();
-    }
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // if(_timer != null){
+    //   _timer.cancel();
+    // }
+    // _initializeTimer();
   }
 
   @override
   void initState() {
-    _initializeTimer();
+    //_initializeTimer();
     super.initState();
     var tendangnhap = sharedStorage.getString("username");
     GetDataDetailVBDi(tendangnhap);

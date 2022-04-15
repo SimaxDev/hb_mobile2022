@@ -77,20 +77,20 @@ class _VanBanDi extends State<VanBanDi> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
 
   @override
   void initState() {
 
-    _initializeTimer();
+    //_initializeTimer();
     // TODO: implement initState
     //  if(getString("username"))
 
@@ -190,6 +190,7 @@ class _VanBanDi extends State<VanBanDi> {
       nam,skippage);
     if (mounted) {setState(() {
       // dataList += json.decode(vbden)['OData'];
+
       dataList.addAll(json.decode(vanbandi)['OData']);
       skip++;
       skippage += 10;
@@ -693,10 +694,10 @@ class _VanBanDi extends State<VanBanDi> {
     var ngayky  =item['vbdiNgayBanHanh'] != null ?DateFormat('dd-MM-yyyy')
         .format(DateFormat('yyyy-MM-dd').parse(item['vbdiNgayBanHanh'])):"";
      //= DateFormat('dd-MM-yyyy').format(temp);
-    int id = item['ID'] != null?item['ID'] :"";
+    int id = item['ID'] != null?item['ID'] :0;
     var MaDonVi = item['MaDonVi'] != null ? item['MaDonVi'] :"";
-    _fetchPrefs() async {
-      await Future.delayed(Duration(seconds: 1));
+    _fetchPrefs()  {
+      // await Future.delayed(Duration(seconds: 1));
       Navigator.push(
         context,
         MaterialPageRoute(

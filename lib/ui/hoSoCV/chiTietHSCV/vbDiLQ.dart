@@ -52,13 +52,13 @@ class _vbDiLQState extends State<vbDiLQ> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   // List<dynamic> dataListThayThe = [];
@@ -83,7 +83,7 @@ class _vbDiLQState extends State<vbDiLQ> {
 
   @override
   void initState() {
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
     if (mounted) {  setState(() {
 

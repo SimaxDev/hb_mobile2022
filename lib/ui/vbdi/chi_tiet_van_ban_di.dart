@@ -6,6 +6,7 @@ import 'package:hb_mobile2021/core/models/VanBanDiJson.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
 import 'package:hb_mobile2021/ui/vbduthao/phieu_trinh/view_pdf.dart';
@@ -43,6 +44,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   ValueNotifier<String> assetPDFPath = ValueNotifier<String>('');
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
   String FileTaiLieu ="";
+  Timer _timer;
 
   Future<File> createFileOfPdfUrl(String filePath) async {
     Completer<File> completer = Completer();
@@ -165,6 +167,15 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
     }
 
   }
+  @override
+  void dispose(){
+    super.dispose();
+    pdf = "";
+    if(_timer != null){
+      _timer.cancel();
+    }
+  }
+
 
   @override
   Widget build(BuildContext context) {

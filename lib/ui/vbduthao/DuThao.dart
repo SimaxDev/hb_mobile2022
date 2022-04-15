@@ -74,17 +74,17 @@ class DuThaoState extends State<DuThaoWidget> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
   @override
   void initState() {
-    _initializeTimer();
+    //_initializeTimer();
     // TODO: implement initState
     super.initState();
     isLoading = true;
@@ -121,9 +121,9 @@ class DuThaoState extends State<DuThaoWidget> {
   @override
   void dispose() {
 
-    if(_timer != null){
-      _timer.cancel();
-    }
+    // if(_timer != null){
+    //   _timer.cancel();
+    // }
 
     super.dispose();
   }
@@ -223,7 +223,7 @@ class DuThaoState extends State<DuThaoWidget> {
   //tim kiem van ban
   GetDataByKeyWordVBDT(String text) async {
     var tendangnhap = sharedStorage.getString("username");
-    String vbtimkiem = await getDataByKeyWordVBDT(tendangnhap, ActionXL,
+    String vbtimkiem = await getDataByKeyWordVBDT( ActionXL,
       text,dropdownValue,widget.urlLoaiVB);
     setState(() {
       duthaoList = json.decode(vbtimkiem)['OData'];
@@ -582,9 +582,7 @@ class DuThaoState extends State<DuThaoWidget> {
         backgroundColor: Colors.blue,
         child: Icon(Icons.add),
         onPressed: () {
-          if(_timer != null){
-            _timer.cancel();
-          }
+
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
                   builder: (BuildContext context) => ThemMoiDT()),
@@ -690,7 +688,7 @@ class DuThaoState extends State<DuThaoWidget> {
     var vbdiTrichYeuField = item['vbdiTrichYeu'] != null ?item['vbdiTrichYeu'] : "";
    //var isyKienField = item['isyKienField'] ?? "";
     var sMIDField = item['ID'] != null ? item['ID']: 0;
-    currentDuThao = item['vbdiXuatPhatTuHSCV'].length> 0 ?
+    vbdiXuatPhatTuHSCV = item['vbdiXuatPhatTuHSCV'].length> 0 ?
     item['vbdiXuatPhatTuHSCV']:[];
     var MaDonVi = item['MaDonVi'] != null ? item['MaDonVi'] :"";
     String trangthaiState = ttDuthao(trangthai);
@@ -701,9 +699,6 @@ class DuThaoState extends State<DuThaoWidget> {
         elevation: 1.5,
         child: InkWell(
           onTap: () {
-            if(_timer != null){
-              _timer.cancel();
-            }
 
             // isyKienField == false ?
            // MaDonVi = Request["MaDonVi"];

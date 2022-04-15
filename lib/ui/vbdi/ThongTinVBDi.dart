@@ -45,19 +45,19 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _initializeTimer();
+    //_initializeTimer();
     super.initState();
     duthao = widget.ttVbanDi;
     // var tendangnhap = sharedStorage.getString("username");
@@ -69,7 +69,7 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
   @override
   void dispose(){
      super.dispose();
-     _timer.cancel();
+
   }
 //lấy danh sách chi tiết văn bản đến
 
@@ -92,7 +92,6 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
 
     GetYkienDataVBDi();
   }
-
   GetYkienDataVBDi() async {
     //
     // String data = await getYkienDataVBDi(tendangnhap,id,ActionXLYKien,widget
@@ -203,12 +202,13 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
       for(var item in DonViNhan)
       {
        var b= item["LookupValue"];
-       donViNhan += b+",";
-      }
-      if(donViNhan !=  "")
-      {
-        donViNhan = donViNhan.substring(0,donViNhan.length-1);
-
+       donViNhan=b;
+      //  donViNhan += b+",";
+      // }
+      // if(donViNhan !=  "")
+      // {
+      //   donViNhan = donViNhan.substring(0,donViNhan.length-1);
+      //
       }
       Listpdf = vbdi.pdf1;
       List chuaPDF = [];

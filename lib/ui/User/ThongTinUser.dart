@@ -59,7 +59,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
   }
 
   void initState() {
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
     refreshList();
     GetDataDetailUser();

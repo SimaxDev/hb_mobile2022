@@ -5,6 +5,7 @@ import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
 import 'package:hb_mobile2021/ui/vbdi/view_pdf.dart';
@@ -93,9 +94,10 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
   @override
   void dispose(){
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+    pdf = "";
+    // if(_timer != null){
+    //   _timer.cancel();
+    // }
   }
 
   @override

@@ -62,13 +62,13 @@ class _vbDenLQState extends State<vbDenLQ> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   Future<Null> onRefresh() async {
@@ -84,7 +84,7 @@ class _vbDenLQState extends State<vbDenLQ> {
 
   @override
   void initState() {
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
 
 

@@ -73,19 +73,19 @@ class _ThemDTState extends State<ThemDT> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
   void initState() {
     GetDataLoaiVB();
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
     setState(() {
       //this.selectFile();
@@ -99,9 +99,7 @@ class _ThemDTState extends State<ThemDT> {
   }
   @override
   void dipose(){
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     super.dispose();
   }
 

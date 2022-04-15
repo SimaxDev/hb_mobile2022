@@ -50,28 +50,26 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
   void dispose() {
 
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     super.dispose();
   }
 
   @override
   void initState() {
     // TODO: implement initState
-    _initializeTimer();
+    //_initializeTimer();
     super.initState();
     ttduthao = widget.ttvbDen;
     var tendangnhap = sharedStorage.getString("username");
@@ -313,6 +311,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     // isTraCuu = vbDen.isTraCuu;
     XemDB = vbDen.UserChuaXL;
     vbdTTXuLyVanBanLT = vbDen.vbdTTXuLyVBLT;
+    currentDuThao = vbDen.vbdiXuatPhatTuVBDuTHao;
     vbdPhuongThuc = vbDen.vbdPT;
     vbdSoVanBan = vbDen.vbdSVB;
     vanbandenCapNhat = vbDen.vanbandenCapNhat;
@@ -325,9 +324,9 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
         });
 
       } else {
-        // setState(() {
-        //   vbdUserChuaXuLy = false;
-        // });
+        setState(() {
+          vbdUserChuaXuLy = false;
+        });
 
       }
     }

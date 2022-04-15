@@ -96,17 +96,17 @@ class _ThemMoiHSState extends State<GiaoViec> {
   }
 
   void _handleUserInteraction([_]) {
-    if(_timer != null){
-      if (!_timer.isActive) {
-        // This means the user has been logged out
-        return;}
+    // if(_timer != null){
+    //   if (!_timer.isActive) {
+    //     // This means the user has been logged out
+    //     return;}
+    //
+    //   _timer.cancel();
+    // }
 
-      _timer.cancel();
-    }
 
 
-
-    _initializeTimer();
+   // _initializeTimer();
   }
 
 

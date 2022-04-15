@@ -61,6 +61,7 @@ class VanBanDenJson {
   int vbdNguoiDungPT;
   int vbdUserXuLyC;
   int ttThuHoi;
+  int vbdiXuatPhatTuVBDuTHao;
 
 
 
@@ -122,6 +123,7 @@ class VanBanDenJson {
         this.soCongVanID,
         this.isTraCuu,
         this.ttThuHoi,
+        this.vbdiXuatPhatTuVBDuTHao,
 
       });
   //factory convert json['vanBanDen'] to model
@@ -220,6 +222,9 @@ class VanBanDenJson {
       vbdNguoiDungPT: json['vanBanDen']['vbdNguoiDungPT']!= null &&
           json['vanBanDen']['vbdNguoiDungPT'].length >0  ?
       json['vanBanDen']['vbdNguoiDungPT']['LookupId']:0,
+      vbdiXuatPhatTuVBDuTHao: json['VanBanDi']['vbdiXuatPhatTuVBDuTHao']!= null &&
+          json['VanBanDi']['vbdiXuatPhatTuVBDuTHao'].length >0  ?
+      json['VanBanDi']['vbdiXuatPhatTuVBDuTHao']['LookupId']:0,
       vbdUserXuLyC: json['vbdUserXuLyC']!= null &&json['vanBanDen']['vbdUserXuLyC'].length > 0 ?
       json['vanBanDen']['vbdUserXuLyC']['LookupId']:0,
       strUserPH: json['vanBanDen']['strUserPH']!= null ? json['vanBanDen']['strUserPH']:"",

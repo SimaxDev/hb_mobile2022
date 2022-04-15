@@ -59,7 +59,7 @@ class _ChonDSState extends State<ChonDS> {
   @override
   void initState() {
     // TODO: implement initState
-    _initializeTimer();
+    //_initializeTimer();
     var tendangnhap = sharedStorage.getString("username");
     //this.GetDataDetailVBDen(widget.id);
     // this.GetYkienDataVBDen(widget.id);

@@ -53,13 +53,13 @@ class _Menuleft extends State<MenuLeft>  {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
 
@@ -67,7 +67,7 @@ class _Menuleft extends State<MenuLeft>  {
   void initState() {
     // TODO: implement initState
     //  if(getString("username"))
-    _initializeTimer();
+    //_initializeTimer();
     this.getMenu();
     isLoading = true;
     //tappedIndex = 0;
@@ -89,7 +89,7 @@ class _Menuleft extends State<MenuLeft>  {
   @override
   void dispose(){
     super.dispose();
-    _timer.cancel();
+
   }
   getMenu() async {
 

@@ -47,18 +47,18 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
   void initState() {
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
     getHomeVBDen();
     getHomeVBDi();
@@ -67,9 +67,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
 
   @override
   void dispose(){
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     super.dispose();
   }
   getHomeVBDT() async {

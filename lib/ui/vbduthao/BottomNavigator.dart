@@ -92,19 +92,19 @@ class _BottomNav extends State<BottomNav> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
   void initState() {
   // GetDataDetailVBDT();
-    _initializeTimer();
+    //_initializeTimer();
     duThao = widget.ttDuThao;
     if (mounted) {  setState(() {
       // GetIdUser(widget.username);
@@ -175,9 +175,7 @@ class _BottomNav extends State<BottomNav> {
   void dispose() {
     super.dispose();
     EasyLoading.dismiss();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
   @override
   Widget build(BuildContext context) {

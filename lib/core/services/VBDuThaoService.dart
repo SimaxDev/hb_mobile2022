@@ -85,11 +85,11 @@ async {
 }
 
 
-Future<String> getDataByKeyWordVBDT(String TenDangNhap,String ActionXL,String
+Future<String> getDataByKeyWordVBDT(String ActionXL,String
 text,String year,query) async {
   var url = "/api/ServicesVBDT/GetData";
   var parts = [];
-  parts.add('TenDangNhap=' + TenDangNhap.toString());
+  // parts.add('TenDangNhap=' + TenDangNhap.toString());
   parts.add('ActionXL=' + ActionXL.toString());
   parts.add('searchTimNhanh=' + text);
   parts.add('Yearvb=' + year);

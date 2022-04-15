@@ -114,13 +114,13 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
@@ -175,8 +175,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
   void dispose() {
     super.dispose();
     EasyLoading.dismiss();
-    if(_timer != null)
-    _timer.cancel();
+
   }
 
 
@@ -372,12 +371,11 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
                 //thuhoi
-
-                isTraCuu ==true
-                    && checkThuHoi ==true
+                isTraCuu == true && checkThuHoi == true
                     && ( vbdTTXuLyVanBanLT != 17
-                    && vbdTTXuLyVanBanLT != 28 && vbdTTXuLyVanBanLT != 24
-                    && vbdTTXuLyVanBanLT != 26) 
+                    && vbdTTXuLyVanBanLT != 28 
+                    && vbdTTXuLyVanBanLT != 24
+                    && vbdTTXuLyVanBanLT != 26)
                     && (vbdTrangThaiXuLyVanBan !=2)
                     ?Container(
                   child: InkWell(
@@ -424,13 +422,13 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 //giao việc
 
-                isTraCuu == true
-                    // ( lstvbdUserChuaXuLy.where((o) => o['LookupId'] == currentUserID >0'))
-            && vbdUserChuaXuLy == true
-                    //&& currentDuThao.ID <= 0
+
+                isTraCuu == true &&vbdUserChuaXuLy == true
+                    && currentDuThao<= 0
                     && (vbdTTXuLyVanBanLT != 17
                     && vbdTTXuLyVanBanLT != 28 
-                    && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
+                    && vbdTTXuLyVanBanLT != 24
+                    && vbdTTXuLyVanBanLT != 26)
                 ?Container(
                   child: InkWell(
                     child: Column(
@@ -552,14 +550,12 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 //hạn xử lý
 
-
                 isTraCuu== true  && vbdIsSentVanBan == true
-                    && vbdUserChuaXuLy == true
-                    && (vbdHanXuLy != null || vbdHanXuLy != "")
+                    &&  vbdUserChuaXuLy == true
+                    && !(vbdHanXuLy?.isNotEmpty ?? false)
                     && (vbdTTXuLyVanBanLT != 17
-                    &&vbdTTXuLyVanBanLT != 28
-                    && vbdTTXuLyVanBanLT != 24
-                    && vbdTTXuLyVanBanLT != 26)
+                    && vbdTTXuLyVanBanLT != 28 
+                    && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
                     ? Container(
                   child: InkWell(
                     child: Column(
@@ -579,10 +575,9 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                 ):SizedBox() ,
 
 //Xem để biết
-                checkbtnXDB == true && (vbdTTXuLyVanBanLT != 17
-                    && vbdTTXuLyVanBanLT != 28
-                    && vbdTTXuLyVanBanLT != 24
-                    && vbdTTXuLyVanBanLT != 26)
+                isTraCuu== true  && vbdUserChuaXuLy== true  && (vbdTTXuLyVanBanLT != 17
+                    && vbdTTXuLyVanBanLT != 28 
+                    && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
                     ?  Container(
                   child: InkWell(
                     child: Column(
@@ -664,9 +659,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          if(_timer != null){
-            _timer.cancel();
-          }
+
 
           return _getBodyPage(context, index);
         });
@@ -1020,7 +1013,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                           label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
                           TextAlign.center,),
                           onPressed: ()  {
-                            _timer.cancel();
+
                             Navigator.of(context).pop();
                           },
                           style: ButtonStyle(
@@ -1072,7 +1065,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                                   TextAlign.center,),
                                 onPressed: ()async   {
                                   EasyLoading.show();
-                                  _timer.cancel();
+
                                   EasyLoading.dismiss();
                                   Navigator.of(context).pop();
                                 },
@@ -1101,7 +1094,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                                 label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
                                 TextAlign.center,),
                                 onPressed: ()  {
-                                  _timer.cancel();
+
                                   Navigator.of(context).pop();
                                 },
                                 style: ButtonStyle(

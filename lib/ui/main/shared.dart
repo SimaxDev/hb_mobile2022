@@ -92,6 +92,7 @@ void logOut(BuildContext context) async {
          vbdSoVanBan= 0;
          hscvTrangThaiXuLy= 0;
            currentDuThao;
+        vbdiXuatPhatTuHSCV;
          lstvbdUserChuaXuLy = [];
          // strId = [];
          // strVanBanLienQuanID = [];
@@ -222,6 +223,7 @@ void logOut(BuildContext context) async {
     vbdSoVanBan= 0;
     hscvTrangThaiXuLy= 0;
     currentDuThao;
+    vbdiXuatPhatTuHSCV;
     lstvbdUserChuaXuLy = [];
     // strId = [];
     // strVanBanLienQuanID = [];
@@ -288,9 +290,7 @@ void logOut(BuildContext context) async {
 
   Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
       builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);
-  if(_timer != null){
-    _timer.cancel();
-  }
+
 }
 
 

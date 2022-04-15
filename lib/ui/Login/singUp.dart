@@ -399,8 +399,7 @@ class LoginState extends State<singUp> {
                                           EmailController.text);
                                       EasyLoading.dismiss();
                                       Navigator.of(context).pop();
-                                      showAlertDialog(context,
-                                          json.decode(thanhcong)['Message']);
+                                      showAlertDialog(context, json.decode(thanhcong)['Message']);
                                     }
                                   }
                                 }

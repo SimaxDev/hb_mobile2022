@@ -91,13 +91,13 @@ class _ThemMoiHSState extends State<SuaVBD> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer?.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer?.cancel();
+    // _initializeTimer();
   }
 
 
@@ -107,7 +107,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
     //  if(getString("username"))
 
     super.initState();
-    _initializeTimer();
+   // _initializeTimer();
     isLoading = true;
     DOnVI =  DonViInSiteID;
     GetDataLinhVuc();

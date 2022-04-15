@@ -40,26 +40,24 @@ class _themMoiHTState extends State<themMoiHT> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
   @override
   void initState() {
     // TODO: implement initState
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
   }
   @override
   void dispose(){
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     NoiDung.text = "";
   }
 

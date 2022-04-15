@@ -91,7 +91,7 @@ class ListVBDen1 extends State<ListVBDen> {
 
   @override
   void initState() {
-    _initializeTimer();
+    //_initializeTimer();
     // TODO: implement initState
     //  if(getString("username"))
     super.initState();

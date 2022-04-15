@@ -90,7 +90,7 @@ class _hoTroState extends State<hoTro> {
   }
   @override
   void initState(){
-    _initializeTimer();
+   // _initializeTimer();
     super.initState();
 
     GetInfoUserNew();
@@ -109,9 +109,7 @@ class _hoTroState extends State<hoTro> {
 
   @override
   void dispose(){
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     super.dispose();
   }
 
