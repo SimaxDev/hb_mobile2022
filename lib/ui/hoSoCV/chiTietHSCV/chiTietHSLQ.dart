@@ -86,8 +86,8 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
   }
 
   GetDataHSCV1() async {
-  hscv = await getDataDetailHSCV1(ActionXL,"intType=3&sYear=2021&lstIDhoSo=56"
-      "",widget.id);
+  hscv = await getDataDetailHSCV1(ActionXL,"intType=3&lstIDhoSo=56"
+      "",widget.id,widget.nam);
   if (mounted) {
     setState(() {
       isLoading = true;

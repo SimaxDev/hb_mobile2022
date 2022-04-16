@@ -322,7 +322,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                               label: Text('Chuyển vào hồ sơ'),
                               onPressed: () {
                                 Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                                    chuyenVaoHS(id:widget.id)));
+                                    chuyenVaoHS(id:widget.id,nam:widget.nam)));
 
 
                               },

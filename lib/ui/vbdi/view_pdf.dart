@@ -465,8 +465,20 @@ class _ViewPDF extends State<ViewPDF> {
                     if (json.decode(vbtimkiem)['Erros'] == true) {
                       EasyLoading.dismiss();
 
-                      await showAlertDialog(
-                          context, json.decode(vbtimkiem)['Message']);
+
+                      if(json.decode(vbtimkiem)['Message'].constais("Chưa cấu"
+                          " hình số sim ký và ảnh chữ ký")
+                      ||json.decode(vbtimkiem)['Message'].constais("Chưa cấu hình số sim ký ")
+                      ||json.decode(vbtimkiem)['Message'].constais("Chưa cấu hình ảnh chữ ký ") )
+                        {
+                          await showAlertDialog(context, json.decode(vbtimkiem)['Message']);
+                        }
+                      else
+                        {
+                          await showAlertDialog(
+                              context,"Ký số không thành công!");
+                        }
+
                     } else {
                       if (mounted) {
                         setState(() {

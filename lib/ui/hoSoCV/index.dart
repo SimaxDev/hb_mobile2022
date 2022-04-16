@@ -136,7 +136,7 @@ class HSCVState extends State<HSCVWidget> {
       }
       if (widget.urlLoaiVB == "") {
         widget.urlLoaiVB = "intType=-4&hscvTrangThaiXuLy=-1&isHoSocongviec"
-            "=true&skip=0&pageSize=20&take=20";
+            "=true";
       }
       GetDataHSCV();
       IDT = IDTT;
@@ -235,7 +235,7 @@ class HSCVState extends State<HSCVWidget> {
     }
 
     String vbhs = "";
-    vbhs = await getDataHomeHSCV(ActionXL, widget.urlLoaiVB);
+    vbhs = await getDataHomeHSCV(ActionXL, widget.urlLoaiVB,skip,pageSize);
     if (mounted) {
       setState(() {
         HoSoList.addAll(json.decode(vbhs)['OData']);
@@ -927,7 +927,7 @@ class HSCVState extends State<HSCVWidget> {
                       ),
                     ),
                     SizedBox(
-                      height: 10,
+                      height: 5,
                     ),
                     Container(
                       margin: EdgeInsets.only(left: 15.0, bottom: 10),
@@ -975,7 +975,7 @@ class HSCVState extends State<HSCVWidget> {
                       SizedBox(
                         height: 20,
                       ),
-                      Column(
+                      hscvHanXuLy == null || hscvHanXuLy == ""?   Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
@@ -1005,7 +1005,7 @@ class HSCVState extends State<HSCVWidget> {
                                     fontStyle: FontStyle.italic),
                               )),
                         ],
-                      ),
+                      ):SizedBox(),
                     ],
                   ),
                 ),

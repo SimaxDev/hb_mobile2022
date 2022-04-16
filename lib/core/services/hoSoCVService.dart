@@ -35,11 +35,12 @@ import 'callApi.dart';
     }
   }
   
-  Future<String> getDataDetailHSCV1(String ActionXL,String query,int idHS)
+  Future<String> getDataDetailHSCV1(String ActionXL,String query,int idHS,nam)
   async {
     var parts = [];
     parts.add('ItemID=' + idHS.toString());
     parts.add('ActionXL=' + ActionXL);
+    parts.add('sYear=' + nam.toString());
     parts.add(query);
     var formData = parts.join('&');
     String url = "/api/ServicesHSCV/GetData";
@@ -164,13 +165,16 @@ trangthai) async {
 
 
   Future<String> getDataHomeHSCV( String ActionXL,
-      String query) async {
+      String query,int skip,int skipPage) async {
     String url = "/api/ServicesHSCV/GetData";
     DateTime now = DateTime.now();
     String Yearvb = DateFormat('yyyy').format(now);
     var parts = [];
     parts.add('ActionXL=' + ActionXL.toString());
-    parts.add('SYear=' + Yearvb);
+    parts.add('SYear=' + Yearvb.toString());
+    parts.add('skip=' + skip.toString());
+    parts.add('pageSize=' + skipPage.toString());
+    parts.add("take=20");
 
     parts.add(query.toString());
     var formData = parts.join('&');
@@ -211,9 +215,10 @@ Future<String> getDataHomeHSCV1( String ActionXL,
     }
   }
 
-  Future<String> postChuyenHS(int id,String ActionXL,hosoid) async {
+  Future<String> postChuyenHS(int id,String ActionXL,hosoid,nam) async {
     var parts = [];
     parts.add('ItemID=' + id.toString());
+    parts.add('SYear=' + nam.toString());
     parts.add('hosoid=' + hosoid.toString());
     parts.add('ActionXL=' + ActionXL.toString());
     var formData = parts.join('&');

@@ -93,7 +93,7 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
   }
 
   GetDataHSCV1() async {
-    hscv = await getDataDetailHSCV1(ActionXL,"",widget.id);
+    hscv = await getDataDetailHSCV1(ActionXL,"",widget.id,widget.nam);
 
     setState(() {
       dataListThayThe = jsonDecode(hscv)['OData'];

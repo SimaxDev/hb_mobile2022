@@ -126,7 +126,7 @@ class SplashState extends State<SplashWidget> {
                           Text(" Số ĐT hỗ trợ kỹ thuật:"
                             ,style: TextStyle(color: Colors.white,fontSize:
                             14),),
-                          Text(" 093 694 8688"
+                          Text("0218 3897 506"
                             ,style: TextStyle(color: Colors.white,fontSize:
                             18, shadows: [
                               Shadow(
