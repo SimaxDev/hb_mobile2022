@@ -15,8 +15,10 @@ import 'dart:convert';
 class HomePage extends StatefulWidget {
   final returnData;
   final String username;
+  final String nam;
 
-  HomePage({Key key, this.returnData, this.username}) : super(key: key);
+  HomePage({Key key, this.returnData, this.username,this.nam}) : super(key:
+  key);
 
   @override
   State<StatefulWidget> createState() {
@@ -77,7 +79,7 @@ class PageState extends State<HomePage> {
     GetDataByKeyYearVBDi2();
   }
   GetDataByKeyYearVBDi() async {
-    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "0",
+    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "0",widget.nam
       );
     isLoading = true;
     setState(() {
@@ -90,7 +92,7 @@ class PageState extends State<HomePage> {
 
   }
   GetDataByKeyYearVBDi1() async {
-    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "1",
+    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "1",widget.nam
        );
     isLoading = true;
     setState(() {
@@ -101,7 +103,7 @@ class PageState extends State<HomePage> {
 
 
   } GetDataByKeyYearVBDi2() async {
-    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "5",
+    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "5",widget.nam
        );   isLoading = true;
     setState(() {
       isLoading = false;

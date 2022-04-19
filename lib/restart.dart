@@ -141,6 +141,7 @@ class rester {
       idTheoDoi = "";
       idNTD = "";
       IDTT;
+      OldID2010 = 0;
       chuaPDF = [];
       tenPDFTruyen = "";
       imageCK ="";
@@ -269,6 +270,7 @@ class rester {
       idNTD = "";
       ThemMoiVanBanDuThao = false;
       IDTT;
+      OldID2010 = 0;
       chuaPDF = [];
       tenPDFTruyen = "";
       imageCK ="";

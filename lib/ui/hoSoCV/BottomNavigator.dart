@@ -43,7 +43,6 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
   String ActionXL = "GetListVBDi";
   final GlobalKey<State> key = new GlobalKey<State>();
 
-
   @override
   void initState() {
     setState(() {
@@ -148,13 +147,14 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                               actions: <Widget>[
                                 TextButton(
                                   onPressed: () async {
-
+                                    //Navigator.of(context).pop();
                                     EasyLoading.show();
                                     var thanhcong = await getDataDetailHSCV( widget.id, "KetThucHSCV");
-
                                     EasyLoading.dismiss();
                                    Navigator.of(context).pop();
-                                    await showAlertDialog(context, json.decode(thanhcong)['Message']);
+                                    await   showAlertDialog(context, json
+                                        .decode
+                                    (thanhcong)['Message']);
 
                                   },
                                   child: const Text('Tiếp tục '),

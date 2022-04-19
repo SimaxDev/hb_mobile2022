@@ -36,6 +36,7 @@ class VanBanDuThaoJson {
   final  bool isDuyetTruongPhongDT;
   final  int vbdiNguoiKyIDDT;
   final int vbdiCurrentNguoiTrinhIDDT;
+  final int OldID2010;
     final List pdfDT;
   List pdfDK;
   //Constructor
@@ -69,6 +70,7 @@ class VanBanDuThaoJson {
         this.vbdiCurrentNguoiTrinhIDDT,
         this.pdfDT,
         this.pdfDK,
+        this.OldID2010,
 
 
       });
@@ -140,6 +142,9 @@ class VanBanDuThaoJson {
     trangThai :  json['vbdiTrangThaiVBText'] != null
         ? json['vbdiTrangThaiVBText']
         : "",
+      OldID2010 :  json['OldID2010'] != null
+        ? json['OldID2010']
+        :0,
     donviSoanthao :  json['vbdiDonViSoanThao'] != null
         ? json['vbdiDonViSoanThao']['LookupValue']
         : "",
@@ -153,6 +158,9 @@ class VanBanDuThaoJson {
       pdfDK: json['lstFileTaiLieuDinhKemvbdi']==null||json['lstFileTaiLieuDinhKemvbdi'].length <=0
           ?[]:
       json['lstFileTaiLieuDinhKemvbdi'],
+      vbdiCurrentDSXuly_x003a_Title: json['vbdiCurrentDSXuly_x003a_Title']==null||json['vbdiCurrentDSXuly_x003a_Title'].length <=0
+          ?[]:
+      json['vbdiCurrentDSXuly_x003a_Title'],
 
       //TrangThaiVB: json['vbdiTrangThaiVB'] !=  null ? json['vbdiTrangThaiVB'] : "",
     );

@@ -33,9 +33,7 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
 
   @override
   void dipose(){
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     super.dispose();
   }
 

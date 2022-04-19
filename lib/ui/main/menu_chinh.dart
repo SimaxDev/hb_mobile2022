@@ -245,7 +245,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           // });}
 
           //  GetDetailMenuLeft(widget.page,query, widget.year);
-          _timer.cancel();
+
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
               BottomNavigator(page: 3,
                   query : query,year: widget.year,ID :ID )), (Route<dynamic>
@@ -281,7 +281,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           Colors.white, fontSize: 11.0)),
         ),
         onTap: () {
-          _timer.cancel();
+
 
           // checker = true;
           // if (mounted) {setState(()   {
@@ -343,7 +343,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           // });}
 
           //  GetDetailMenuLeft(widget.page,query, widget.year);
-          _timer.cancel();
+
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
               BottomNavigator(page: 2,
                   query : query,year: widget.year,ID :ID )), (Route<dynamic>

@@ -738,7 +738,7 @@ class DuThaoState extends State<DuThaoWidget> {
                           overflow: TextOverflow.ellipsis,
                           style: TextStyle(
                             fontSize: 16,
-                            fontWeight: FontWeight.w600,
+                            fontWeight: FontWeight.w600,color: Colors.blue
                           ),
                         )),
                     SizedBox(

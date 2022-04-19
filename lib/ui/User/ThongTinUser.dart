@@ -41,20 +41,18 @@ class _ThongtinUserState extends State<ThongtinUser> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
   @override
   void dispose(){
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
 
   }
 

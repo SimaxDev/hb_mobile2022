@@ -24,7 +24,7 @@ import 'package:hb_mobile2021/ui/vbdi/BottomNavigator.dart';
 class ChiTietVanBanDi extends StatefulWidget {
   int id;
   final String username;
-  final String MaDonVi;
+  String MaDonVi;
   final String nam;
   ChiTietVanBanDi({this.id,this.username,this.nam,this.MaDonVi});
   @override
@@ -39,7 +39,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   bool isLoadingPDF = true;
   var urlFile = null;
   var duthao = null;
-  int year = 0;
+  int year = 2022;
   String ActionXL = "GetVBDiByID";
   ValueNotifier<String> assetPDFPath = ValueNotifier<String>('');
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
@@ -129,17 +129,20 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
     //_initializeTimer();
     super.initState();
     GetDataDetailVBDi(widget.id);
-    if (widget.MaDonVi.startsWith("sites"))
-    {
+    if(widget.MaDonVi != null ){
+      if (widget.MaDonVi.startsWith("sites"))
+      {
 
-      String a = "2022";
-      if(widget.nam != null){
-      a =  widget.nam;}
-      year = int.parse(a);
-      // List<string> lstTT = MaDonVi.Split('/').ToList();
-      // if (lstTT.Count > 0 && lstTT.Count == 3)
-      //   SYear = lstTT[1].ToInt32();
+        String a = "2022";
+        if(widget.nam != null){
+          a =  widget.nam;}
+        year = int.parse(a);
+        // List<string> lstTT = MaDonVi.Split('/').ToList();
+        // if (lstTT.Count > 0 && lstTT.Count == 3)
+        //   SYear = lstTT[1].ToInt32();
+      }
     }
+
    /* getFileFromURL(pdf).then((f)
     {
       if (mounted) { setState(() {
@@ -151,6 +154,11 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   }
 
   GetDataDetailVBDi(int id) async {
+    if(widget.MaDonVi == null){
+      setState(() {
+        widget.MaDonVi= "";
+      });
+    }
     String detailVBDi=  await getDataDetailVBDi(id, ActionXL,
         widget.MaDonVi);
     if(mounted){
@@ -171,9 +179,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   void dispose(){
     super.dispose();
     pdf = "";
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
 
 

@@ -127,9 +127,7 @@ class _VanBanDi extends State<VanBanDi> {
 
   @override
   void dispose(){
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     super.dispose();
   }
 
@@ -708,12 +706,12 @@ class _VanBanDi extends State<VanBanDi> {
     }
 
     //VanBanDiJson vbdi = vanBanDiJson(item.toString());
-    return item['vbdiSoKyHieu'] == null || item['vbdiSoKyHieu'] == false || item['vbdiIsSentVanBan']  == false
+    return
+        !item['vbdiIsSentVanBan']
         ? Card(
             elevation: 1.5,
             child: InkWell(
               onTap: () {
-                _timer.cancel();
                 _fetchPrefs();
                 // Navigator.push(
                 //   context,
@@ -783,7 +781,7 @@ class _VanBanDi extends State<VanBanDi> {
             elevation: 1.5,
             child: InkWell(
               onTap: () {
-                _timer.cancel();
+
                 _fetchPrefs();
                 // Navigator.push(
                 //   context,

@@ -112,9 +112,6 @@ class BottomNavigatorState extends State<BottomNavigator> {
   @override
   void dispose() {
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
 
 
   }
@@ -308,9 +305,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
   }
 
   Widget body() {
-    if(_timer!= null){
-      _timer.cancel();
-    }
+
 
     switch (_currentIndex) {
       case 0:

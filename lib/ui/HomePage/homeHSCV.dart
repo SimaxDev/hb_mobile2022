@@ -18,8 +18,10 @@ import 'dart:convert';
 class HomeHSCV extends StatefulWidget {
   final returnData;
   final String username;
+  final String nam;
 
-  HomeHSCV({Key key, this.returnData, this.username}) : super(key: key);
+  HomeHSCV({Key key, this.returnData, this.username,this.nam}) : super(key:
+  key);
 
   @override
   State<StatefulWidget> createState() {
@@ -38,7 +40,7 @@ class PageState extends State<HomeHSCV> {
   List HoSoList = [];
   List HoSoList1 = [];
   List HoSoList2 = [];
-
+  String  nam1 =  '2022';
   // lấy năm hiện tại
   String tenDN = "";
   String queryDXL = "";
@@ -72,7 +74,12 @@ class PageState extends State<HomeHSCV> {
   //initial
   @override
   void initState() {
-    //_initializeTimer();
+    //_initializeTimer();'
+    DateTime now = DateTime.now();
+    setState(() {
+        nam1 =  DateFormat('yyyy').format(now) ;
+    });
+
     super.initState();
     GetInfoUserNew();
     getHomeVBDen();
@@ -81,7 +88,7 @@ class PageState extends State<HomeHSCV> {
     GetDataByKeyYearVBDi2();
   }
   GetDataByKeyYearVBDi() async {
-    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "0",
+    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "0",nam1
     );
     isLoading = true;
     setState(() {
@@ -94,7 +101,7 @@ class PageState extends State<HomeHSCV> {
 
   }
   GetDataByKeyYearVBDi1() async {
-    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "1",
+    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "1",nam1
     );
     isLoading = true;
     setState(() {
@@ -105,7 +112,7 @@ class PageState extends State<HomeHSCV> {
 
 
   } GetDataByKeyYearVBDi2() async {
-    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "5",
+    String yeartimkiem = await getDataByKeyTrangThai( ActionXL, "5",nam1
     );   isLoading = true;
     setState(() {
       isLoading = false;

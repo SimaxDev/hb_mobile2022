@@ -149,6 +149,7 @@ void logOut(BuildContext context) async {
          idTheoDoi = "";
          idNTD = "";
          IDTT ;
+        OldID2010 = 0;
         ThemMoiVanBanDuThao = false;
          chuaPDF = [];
          tenPDFTruyen ="";
@@ -278,6 +279,7 @@ void logOut(BuildContext context) async {
        idPhoiHop = "";
        idTheoDoi = "";
        idNTD = "";
+        OldID2010 = 0;
        IDTT ;
        chuaPDF = [];
        tenPDFTruyen ="";

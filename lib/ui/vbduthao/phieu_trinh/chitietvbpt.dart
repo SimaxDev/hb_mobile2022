@@ -58,7 +58,7 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
 
   @override
   void initState() {
-     _initializeTimer();
+
     super.initState();
     duThao =  widget.duThaoPT;
      isLoading = true;
@@ -66,9 +66,7 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
    @override
    void dispose(){
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     pdf = "";
    }
 

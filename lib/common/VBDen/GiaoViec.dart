@@ -1355,7 +1355,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
                                       idTheoDoi="";
                                       Navigator.of(context).pop();
                                       showAlertDialog(context, json.decode(thanhcong)['Message']);
-                                      _timer.cancel();
+
 
                                     }
 
@@ -1385,7 +1385,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
                                     label: Text('Huỷ',style: TextStyle
                                       (fontWeight: FontWeight.bold)),
                                     onPressed: () {
-                                      _timer.cancel();
+
                                       EasyLoading.dismiss();
                                       Navigator.of(context).pop();
                                     },

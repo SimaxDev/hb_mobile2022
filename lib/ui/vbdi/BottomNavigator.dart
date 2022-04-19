@@ -84,7 +84,6 @@ bool isLoading = false;
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
     currentUserID;
     EasyLoading.dismiss();
 
@@ -119,10 +118,6 @@ bool isLoading = false;
                               label: Text('Chuyển VB ngoài đơn vị'),
                               onPressed: () {
 
-                                if(_timer != null){
-                                  _timer.cancel();
-                                }
-
                                 // onPressButton(context, 0);
                                 onPressButton(context, 3);
                               },
@@ -145,9 +140,7 @@ bool isLoading = false;
                               icon: Icon(Icons.next_plan_outlined),
                               label: Text('Chuyển VB nội bộ đơn vị'),
                               onPressed: () {
-                                if(_timer != null){
-                                  _timer.cancel();
-                                }
+
                                 // onPressButton(context, 0);
                                 onPressButton(context, 6);
                               },
@@ -177,9 +170,7 @@ bool isLoading = false;
                               icon: Icon(Icons.next_plan_outlined),
                               label: Text('Chuyển trục liên thông'),
                               onPressed: () {
-                                if(_timer != null){
-                                  _timer.cancel();
-                                }
+
                                 // onPressButton(context, 0);
                                 onPressButton(context, 0);
                               },
@@ -202,9 +193,7 @@ bool isLoading = false;
                           icon: Icon(Icons.comment),
                           label: Text('Ý kiến/bút phê'),
                           onPressed: () {
-                            if(_timer != null){
-                              _timer.cancel();
-                            }
+
                             onPressButton(context, 1);
                           },
                           textTheme: ButtonTextTheme.primary,
@@ -233,9 +222,7 @@ bool isLoading = false;
                                 ),
                                 label: Text('Thay thế VB'),
                                 onPressed: () {
-                                  if(_timer != null){
-                                    _timer.cancel();
-                                  }
+
                                   // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                                   // JsonDataGrid()));
                                   Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
@@ -269,9 +256,7 @@ bool isLoading = false;
                               ),
                               label: Text('Thiết lập hồi báo'),
                               onPressed: () {
-                                if(_timer != null){
-                                  _timer.cancel();
-                                }
+
                                 onPressButton(context, 7);
                               },
                             )
@@ -782,10 +767,7 @@ bool isLoading = false;
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          if(_timer != null){
-            _timer.cancel();
-          }
-          
+
           return _getBodyPage(context, index);
         });
   }

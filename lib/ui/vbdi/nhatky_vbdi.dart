@@ -56,9 +56,7 @@ class _NhatKyVBDi extends State<NhatKyVBDi> {
   void dispose() {
     super.dispose();
     listNhatKy;
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
 
   fetchData() async {

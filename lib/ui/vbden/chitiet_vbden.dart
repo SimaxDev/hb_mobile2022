@@ -23,7 +23,7 @@ class ChiTietVBDen extends StatefulWidget {
   int id;
   int Yearvb;
   final String ListName;
-  final String MaDonVi;
+  String MaDonVi;
 
 
 
@@ -43,7 +43,7 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
    var  ttduthao = null ;
    String ActionXL = "GetVBDByIDMobile";
-  int year = 0;
+  int year = 2022;
   List FileTaiLieu =[];
    Timer _timer;
 
@@ -90,15 +90,23 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
       });}
 
     });
-    if (widget.MaDonVi.startsWith("sites"))
-    {
-      year =  widget.Yearvb;
-      // List<string> lstTT = MaDonVi.Split('/').ToList();
-      // if (lstTT.Count > 0 && lstTT.Count == 3)
-      //   SYear = lstTT[1].ToInt32();
+    if(widget.MaDonVi != null){
+      if (widget.MaDonVi.startsWith("sites"))
+      {
+        year =  widget.Yearvb;
+        // List<string> lstTT = MaDonVi.Split('/').ToList();
+        // if (lstTT.Count > 0 && lstTT.Count == 3)
+        //   SYear = lstTT[1].ToInt32();
+      }
     }
+
   }
    GetDataDetailVBDen(int id) async {
+     if(widget.MaDonVi == null){
+       setState(() {
+         widget.MaDonVi= "";
+       });
+     }
      String detailVBDen =  await getDataDetailVBDen(id,ActionXL
          ,widget.MaDonVi,widget.Yearvb);
      if (mounted) { setState(() {

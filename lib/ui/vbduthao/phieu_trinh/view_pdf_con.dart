@@ -180,7 +180,7 @@ class _ViewPDF extends State<ViewPDFPT_con> {
   @override
   Future<void> initState() {
     // TODO: implement initState
-    _initializeTimer();
+
     super.initState();
     PDF_URL=  pdf;
     if(widget.viewPDF != null ){

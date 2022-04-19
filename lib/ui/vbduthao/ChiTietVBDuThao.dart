@@ -61,7 +61,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
   var  daduyet= null;
   var vanban =  null;
   var tendangnhap = "";
-  int year=0;
+  int year=2022;
   double pdfWidth = 612.0;
   double pdfHeight = 792.0;
   String ActionXLPT = "GetToTrinh";
@@ -115,18 +115,21 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
     // GetIdUser(tendangnhap);
     // isyKienField == false ?
 
-    if (widget.MaDonVi.startsWith("sites")) {
-      String a = "2022";
+    if(widget.MaDonVi != null){
+      if (widget.MaDonVi.startsWith("sites")) {
+        String a = "2022";
 
 
-      if(widget.nam != null){
-        a = widget.nam;
+        if(widget.nam != null){
+          a = widget.nam;
+        }
+        year = int.parse(a);
+        // List<string> lstTT = MaDonVi.Split('/').ToList();
+        // if (lstTT.Count > 0 && lstTT.Count == 3)
+        //   SYear = lstTT[1].ToInt32();
       }
-      year = int.parse(a);
-      // List<string> lstTT = MaDonVi.Split('/').ToList();
-      // if (lstTT.Count > 0 && lstTT.Count == 3)
-      //   SYear = lstTT[1].ToInt32();
     }
+
   }
 
   GetDataDetailVBDT() async {
@@ -143,7 +146,6 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
       FileTaiLieu = json.decode(detailVBDT)['OData']
       ['FileTaiLieu'] != null ?json.decode(detailVBDT)['OData']['FileTaiLieu']:"";
         duThao = VanBanDuThaoJson.fromJson(duThaoDT);
-
         isLoading = true;
       });
     }
@@ -158,11 +160,11 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
     String PT = await getDataDetailVBPT(
         widget.idDuThao, ActionXLPT, widget.nam);
     if(mounted){
-      //setState(() {
+     setState(() {
         duThaoPT = json.decode(PT)['OData'];
         print("ấd"+duThaoPT.toString());
 
-     // });
+      });
     }
 
   }

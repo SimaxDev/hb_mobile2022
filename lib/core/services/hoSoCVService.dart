@@ -41,7 +41,7 @@ import 'callApi.dart';
     parts.add('ItemID=' + idHS.toString());
     parts.add('ActionXL=' + ActionXL);
     parts.add('sYear=' + nam.toString());
-    parts.add(query);
+    parts.add('searchTimNhanh=' +query);
     var formData = parts.join('&');
     String url = "/api/ServicesHSCV/GetData";
     var response = await responseDataPost(url, formData);
@@ -146,7 +146,7 @@ import 'callApi.dart';
     }
   }
 Future<String>getDataByKeyTrangThai(String ActionXL,String
-trangthai) async {
+trangthai,nam) async {
 
 
   var url = "/api/ServicesHSCV/GetData";
@@ -154,7 +154,7 @@ trangthai) async {
   parts.add("isHoSocongviec=true");
   parts.add('ActionXL=' + ActionXL.toString());
   parts.add('hscvTrangThaiXuLy=' + trangthai);
-  //  parts.add('SYear=' + nam);
+   parts.add('SYear='+nam.toString());
   var formData = parts.join('&');
   var response = await responseDataPost(url, formData);
   if (response.statusCode == 200) {

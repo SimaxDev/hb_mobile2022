@@ -198,13 +198,19 @@ class _ViewPDF extends State<ViewPDFLT> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SingleChildScrollView(child:  PDF_URL != null
-          ?PDF().fromUrl(
-        PDF_URL, //duration of cache
-        placeholder: (progress) => Center(child: Text('$progress %')),
-        errorWidget: (error) => Center(child: Text("")),
+      body:
+      Container(
+
+        child:PDF_URL != null
+            ?PDF().fromUrl(
+          PDF_URL, //duration of cache
+          placeholder: (progress) => Center(child: Text('$progress %')),
+          errorWidget: (error) => Center(child: Text("")),
+        )
+            : Center(child: CircularProgressIndicator()),)
+          
       )
-          : Center(child: CircularProgressIndicator()),)
+      
       // body: Stack(
       //   children: [
       //     PDF_URL != null
@@ -419,7 +425,7 @@ class _ViewPDF extends State<ViewPDFLT> {
       //         : SizedBox(),
       //   ],
       // ),
-    );
+    ;
 
     // return GestureDetector(
     //     onTap: _handleUserInteraction,

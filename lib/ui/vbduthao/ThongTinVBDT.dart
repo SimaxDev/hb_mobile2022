@@ -63,7 +63,6 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
   @override
   void initState() {
     super.initState();
-    _initializeTimer();
     duThao =  widget.ttDuThao;
 
     print("duthao  "+duThao.toString());
@@ -176,6 +175,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     var donviSoanthao = "";
     var loaiVanban = "";
     var vbdiCurrentDSXuly_x003a_Title = [];
+    var   vbdiCurrentDSXuly = [];
     vanbanDT =  duThao;
     if(vbDT != null){
        trichYeu =  vbDT.trichYeu;
@@ -187,6 +187,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     checkThuHoi = checkThuHoi1;
     TrichYeuDT = trichYeu;
      ngaytrinhky =  vbDT.ngaytrinhky;
+       OldID2010 =  vbDT.OldID2010;
     ngayTrinhDT = ngaytrinhky;
      nguoiSoanThao =  vbDT.nguoiSoanThao;
     vbdiNguoiSoanID =  vbDT.vbdiNguoiSoanIDDT;
@@ -219,7 +220,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
      loaiVanban =  vbDT.loaiVanban;
      loaivbDT =  loaiVanban;
    vbdiCurrentDSXuly_x003a_Title = vbDT.vbdiCurrentDSXuly_x003a_Title;
-
+   vbdiCurrentDSXuly = vbDT.vbdiCurrentDSXuly_x003a_Title;
 
        for (var item in vbdiDSNguoiTrinhTiep) {
          if ((item['LookupId'] == currentUserID ) ) {
@@ -241,7 +242,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
      {
        List DsYKien =  [];
        var  ten =  item['LookupValue'];
-       tenDsYKien += ten + ",";
+       tenDsYKien = ten + ",";
      }
      if(tenDsYKien !=  ""){
        tenDsYKien = tenDsYKien.substring(0,tenDsYKien.length-1);
@@ -421,31 +422,34 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
                   ],
                 ),
                 Divider(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      padding: EdgeInsets.only(left: 20.0),
-                      child: Text(
-                        'DS xin ý kiến',
-                        style: TextStyle(
-                            fontSize: 14, fontWeight: FontWeight.bold),
+                vbdiCurrentDSXuly.length >0? Column(children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          'DS xin ý kiến',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
                       ),
-                    ),
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
-                      child: Text(
-    tenDsYKien,
-                        style: TextStyle(
-                            fontWeight: FontWeight.normal, fontSize: 14),
-                        textAlign: TextAlign.justify,
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
+                        child: Text(
+                          tenDsYKien,
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 14),
+                          textAlign: TextAlign.justify,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-                Divider(),
+                    ],
+                  ),
+                  Divider(),
+                ],):SizedBox(),
+
 
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -472,91 +476,96 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
                   ],
                 ),
                 Divider(),
-                trangThaiLD == 2
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Lãnh đạo đang xử lý',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
-                            child: Text(
-                              lanhDao2+"(Duyệt/cho ý kiến)",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal, fontSize: 14),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ),
+                vbdiNguoiSoanID == currentUserID
+                    && (vbdiTrangThaiVB == 2||vbdiTrangThaiVB == 4)?Column(children: [
+                  trangThaiLD == 2
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          'Lãnh đạo đang xử lý',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
+                        child: Text(
+                          lanhDao2+"(Duyệt/cho ý kiến)",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 14),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
 
-                          //),
-                        ],
-                      )
-                    : SizedBox(),
-                trangThaiLD == 4
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Lãnh đạo đang xử lý',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
-                            child: Text(
-                              lanhDao4+"(Ký/phát hành VB)",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal, fontSize: 14),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ),
+                      //),
+                    ],
+                  )
+                      : SizedBox(),
+                  trangThaiLD == 4
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          'Lãnh đạo đang xử lý',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
+                        child: Text(
+                          lanhDao4+"(Ký/phát hành VB)",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 14),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
 
-                          //),
-                        ],
-                      )
-                    : SizedBox(),
-                trangThaiLD != 2 && trangThaiLD != 4
-                    ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: <Widget>[
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Lãnh đạo đang xử lý',
-                              style: TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.bold),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
-                            child: Text(
-                              "",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal, fontSize: 14),
-                              textAlign: TextAlign.justify,
-                            ),
-                          ),
+                      //),
+                    ],
+                  )
+                      : SizedBox(),
+                  trangThaiLD != 2 && trangThaiLD != 4
+                      ? Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: <Widget>[
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.4,
+                        padding: EdgeInsets.only(left: 20.0),
+                        child: Text(
+                          'Lãnh đạo đang xử lý',
+                          style: TextStyle(
+                              fontSize: 14, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      Container(
+                        width: MediaQuery.of(context).size.width * 0.6,
+                        padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
+                        child: Text(
+                          "",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal, fontSize: 14),
+                          textAlign: TextAlign.justify,
+                        ),
+                      ),
 
-                          //),
-                        ],
-                      )
-                    : SizedBox(),
-                Divider(),
+                      //),
+                    ],
+                  )
+                      : SizedBox(),
+                  Divider(),
+                ]
+                  ,):SizedBox(),
+
               ],
             ),
             lstYKien == null || lstYKien.length == 0

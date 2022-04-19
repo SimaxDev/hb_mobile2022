@@ -10,12 +10,14 @@ import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/ThongTinHSCV.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
+import 'package:hb_mobile2021/ui/vbdi/ThongTinVBDi.dart';
+import 'package:hb_mobile2021/ui/vbdi/chi_tiet_van_ban_di.dart';
 import 'dart:convert';
 import 'package:json_table/json_table.dart';
 
 class vbDiLQ extends StatefulWidget {
   final int id;
-  final String  nam;
+  final String nam;
 
   vbDiLQ({this.id, this.nam});
 
@@ -24,7 +26,6 @@ class vbDiLQ extends StatefulWidget {
 }
 
 class _vbDiLQState extends State<vbDiLQ> {
-
   TextEditingController _titleController = TextEditingController();
   bool isClick = true;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -38,17 +39,16 @@ class _vbDiLQState extends State<vbDiLQ> {
   var idLoaiVB;
   bool showD = true;
   int hosoid;
+  int nam = 2022;
   String testthuhomerxoa;
   String ActionXL = "GetVBDiLienQuan";
   Timer _timer;
 
-
   void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
+    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
       logOut(context);
       _timer.cancel();
     });
-
   }
 
   void _handleUserInteraction([_]) {
@@ -73,9 +73,10 @@ class _vbDiLQState extends State<vbDiLQ> {
   Future<Null> onRefresh() async {
     refreshKey.currentState?.show(atTop: false);
     await Future.delayed(Duration(seconds: 2));
-    if (mounted) { setState(() {
-      hscv;
-    });
+    if (mounted) {
+      setState(() {
+        hscv;
+      });
     }
 
     return null;
@@ -83,18 +84,20 @@ class _vbDiLQState extends State<vbDiLQ> {
 
   @override
   void initState() {
-   // _initializeTimer();
+    // _initializeTimer();
+
     super.initState();
-    if (mounted) {  setState(() {
-
-      GetDataHSCV1();
-    });}
-
-
+    if (mounted) {
+      setState(() {
+        nam  =  int.parse(widget.nam);
+        GetDataHSCV1("");
+      });
+    }
   }
 
-  GetDataHSCV1() async {
-    hscv = await getDataDetailHSCV1(ActionXL,"",widget.id,widget.nam);
+  GetDataHSCV1(String query) async {
+
+    hscv = await getDataDetailHSCV1(ActionXL, query, widget.id,nam);
 
     setState(() {
       dataListThayThe = jsonDecode(hscv)['OData'];
@@ -102,91 +105,109 @@ class _vbDiLQState extends State<vbDiLQ> {
     });
   }
 
-
-
   @override
   Widget build(BuildContext context) {
-    double  _height = MediaQuery.of(context).size.height;
-    Size  size = MediaQuery.of(context).size;
-    double  _width = MediaQuery.of(context).size.width;
+    double _height = MediaQuery.of(context).size.height;
+    Size size = MediaQuery.of(context).size;
+    double _width = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: _handleUserInteraction,
       onPanDown: _handleUserInteraction,
       onScaleStart: _handleUserInteraction,
-      child:Scaffold(
-      appBar: AppBar(title: Text("Thông tin chi tiết hồ sơ công việc"),
-        //automaticallyImplyLeading: false
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text("Thông tin chi tiết hồ sơ công việc"),
+          //automaticallyImplyLeading: false
+        ),
+        body: Container(
+          padding: EdgeInsets.all(20),
+          child: Column(
+            children: [
+              SizedBox(
+                height: 20,
+              ),
+              TextField(
+                autofocus: true,
+                // controller: usernameController,
+                cursorColor: Colors.black45,
+                style: TextStyle(
+                  color: Colors.black,
+                ),
+                decoration: new InputDecoration(
+                  filled: true,
+                  fillColor: Colors.white,
+                  hintText: 'Nhập từ khoá tìm kiếm',
+                  hintStyle: TextStyle(
+                    color: Color(0xffC0C0C0),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    fontStyle: FontStyle.normal,
+                  ),
+                  contentPadding:
+                      const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                  enabledBorder: UnderlineInputBorder(
+                    borderSide: BorderSide(color: Colors.black45),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),  onChanged: (value) {
+                if (mounted) {
+                  setState(() {
+                    GetDataHSCV1(value); 
+                  });
+                }
+              },
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Row(
+                children: [
+                  Container(
+                    width: _width * 0.3,
+                    alignment: Alignment.center,
+                    height: _height * 0.05,
+                    child: Text("Số ký hiệu",
+                        style: TextStyle(
+                            fontSize: 16, fontWeight: FontWeight.w500)),
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    width: _width * 0.6,
+                    height: _height * 0.05,
+                    child: Text(
+                      "Trích yếu",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
+                    ),
+                  ),
+                ],
+              ),
+              Divider(),
+              Expanded(child: buildTree())
+            ],
+          ),
+        ),
       ),
-      body:Container( padding: EdgeInsets.all(20),
-        child: Column(
-          children: [
-            SizedBox(height: 20,),
-            TextField(autofocus: true,
-              // controller: usernameController,
-              cursorColor: Colors.black45,
-              style: TextStyle(
-                color: Colors.black,
-              ),
-              decoration: new InputDecoration(
-                filled: true,
-                fillColor: Colors.white,
-                hintText: 'Nhập từ khoá tìm kiếm',
-                hintStyle: TextStyle(
-                  color: Color(0xffC0C0C0),
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
-                  fontStyle: FontStyle.normal,
-                ),
-                contentPadding:
-                const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-                focusedBorder: OutlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black45),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(color: Colors.black45),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-
-            SizedBox(height: 30,),
-            Row(children: [
-              Container(width: _width*0.3,
-                alignment: Alignment.center,
-                height:_height*0.05,
-                child: Text("Số ký hiệu",style: TextStyle
-                  (fontSize: 16,fontWeight: FontWeight.w500)),),
-
-              Container(alignment: Alignment.center,
-                width: _width*0.6,
-                height:_height*0.05,child: Text("Trích yếu",style: TextStyle
-                  (fontSize: 16,fontWeight: FontWeight.w500)
-                  ,),),
-            ],),
-
-            Divider(),
-
-            Expanded(child: buildTree())
-
-          ],
-        ),),
-
-    ),);
+    );
   }
 
   Widget buildTree() {
-    if (dataListThayThe== null || dataListThayThe.length < 0 || isLoading) {
+    if (dataListThayThe == null || dataListThayThe.length < 0 || isLoading) {
       return Center(
           child: CircularProgressIndicator(
-            valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-          ));
-    } else if (dataListThayThe.length  == 0) {
+        valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+      ));
+    } else if (dataListThayThe.length == 0) {
       return Center(
         child: Text("Không có bản ghi"),
       );
     }
-    return RefreshIndicator(key: refreshKey,
+    return RefreshIndicator(
+        key: refreshKey,
         child: ListView.builder(
           // controller: _scrollerController,
           itemCount: dataListThayThe == null ? 0 : dataListThayThe.length + 1,
@@ -199,12 +220,11 @@ class _vbDiLQState extends State<vbDiLQ> {
           },
         ),
         onRefresh: onRefresh);
-
   }
+
   Widget _buildProgressIndicator() {
     return new Padding(
       padding: const EdgeInsets.all(8.0),
-
       child: new Center(
         child: new Opacity(
           opacity: isLoading ? 1.0 : 00,
@@ -215,49 +235,62 @@ class _vbDiLQState extends State<vbDiLQ> {
   }
 
   Widget getList(item) {
+    var Title = item['vbdiTrichYeu'] != null ? item['vbdiTrichYeu'] : "";
+    var hscvMaHoSo = item['vbdiSoKyHieu'] != null ? item['vbdiSoKyHieu'] : "";
+    var vbdiIsSentVanBan = item['vbdiIsSentVanBan'] != null ?
+    item['vbdiIsSentVanBan'] : false;
+    var vbdiDoKhan =
+        item['vbdiDoKhan'] != null && item['vbdiDoKhan']['Title'] != null
+            ? item['vbdiDoKhan']['Title']
+            : "";
+    var sMIDField = item['ID'] != null ? item['ID'] : 0;
 
-    var Title = item['vbdiTrichYeu'] != null ?item['vbdiTrichYeu'] :"" ;
-    var hscvMaHoSo = item['vbdiSoKyHieu'] != null ?item['vbdiSoKyHieu'] :"" ;
-    var vbdiDoKhan = item['vbdiDoKhan'] != null &&
-        item['vbdiDoKhan']['Title'] != null
-    ?item['vbdiDoKhan']['Title'] :"" ;
-    var sMIDField = item['ID'] != null ? item['ID']: 0;
-
-    return Column(children: [
-
-      ListTile(
-
-          leading: Container(width: MediaQuery.of(context).size.width*0.25,child: Text(hscvMaHoSo),),
-          title: Text(Title,maxLines: 2,),
-
-          trailing:(vbdiDoKhan == "Thượng khẩn" ||vbdiDoKhan
-              == "Khẩn" || vbdiDoKhan == "Hỏa tốc")? Image(
-              width: MediaQuery.of(context).size.width*0.1,
-              alignment: Alignment.centerLeft,
-              image: AssetImage('assets/hoatoc.png')):SizedBox(),
-          onTap: () {Navigator.push(
-            context,
-            MaterialPageRoute(
-              builder: (context) => thongTinHSCV(
-                idHS: sMIDField,nam: widget.nam,
-              ),
+    return Column(
+      children: [
+        ListTile(
+            leading: Container(
+              width: MediaQuery.of(context).size.width * 0.25,
+              child:!vbdiIsSentVanBan?  Text(hscvMaHoSo,style: TextStyle(color: Colors.blue),): Text(hscvMaHoSo),
             ),
-          );}
-
-      ) ,Divider()
-    ],);
+            title:!vbdiIsSentVanBan? Text(
+              Title,
+              style: TextStyle(color: Colors.blue),
+              maxLines: 2,
+            ): Text(
+              Title,
+              maxLines: 2,
+            ),
+            trailing: (vbdiDoKhan == "Thượng khẩn" ||
+                    vbdiDoKhan == "Khẩn" ||
+                    vbdiDoKhan == "Hỏa tốc")
+                ? Image(
+                    width: MediaQuery.of(context).size.width * 0.1,
+                    alignment: Alignment.centerLeft,
+                    image: AssetImage('assets/hoatoc.png'))
+                : SizedBox(),
+            onTap: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => ChiTietVanBanDi(
+                    id: sMIDField,
+                    nam: widget.nam,
+                  ),
+                ),
+              );
+            }),
+        Divider()
+      ],
+    );
   }
-
-
-
 }
 
-String formatDOB(value){
-  return DateFormat('dd-MM-yy')
-      .format(DateFormat('yy-MM-dd').parse(value));
+String formatDOB(value) {
+  return DateFormat('dd-MM-yy').format(DateFormat('yy-MM-dd').parse(value));
   // var parsedDate = DateTime.parse(strDt);
   // return ("${parsedDate.day}/${parsedDate.month}/${parsedDate.year}");
 }
+
 String ttHoSo(id) {
   String tt;
   switch (id) {
@@ -279,7 +312,6 @@ String ttHoSo(id) {
     case 5:
       tt = "Đã trả về ";
       break;
-
   }
   return tt;
 }

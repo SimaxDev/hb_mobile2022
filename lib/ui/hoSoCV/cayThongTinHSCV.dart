@@ -267,7 +267,7 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
                           context,
                           MaterialPageRoute(
                             builder: (context) => vbDiLQ(
-                                id: widget.idHS
+                                id: widget.idHS,nam:widget.nam
                             ),
                           ),
                         );

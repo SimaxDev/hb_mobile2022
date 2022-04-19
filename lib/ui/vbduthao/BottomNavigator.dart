@@ -196,13 +196,11 @@ class _BottomNav extends State<BottomNav> {
             itemBuilder: (context, index) {
               return Row(
                 children: <Widget>[
-                  vbdiCurrentNguoiTrinhID == currentUserID &&
-                      vbdiCurrentUserReceived.length > 0 &&
-                      vbdiTrangThaiVB != 5 &&
-                      vbdiTrangThaiVB != 8 &&
-                      vbdiTrangThaiVB != 3 &&
-                      vbdiTrangThaiVB != 1 &&
-                      vbdiTrangThaiVB != 6
+                  vbdiCurrentNguoiTrinhID == currentUserID
+                      && vbdiTrangThaiVB != 5 && vbdiTrangThaiVB != 8 
+                      && vbdiTrangThaiVB != 3
+                      && vbdiTrangThaiVB != 6 && vbdiTrangThaiVB != 1
+                      // && isThuHoi
                       ? Container(
                     child: InkWell(
                       child: Column(
@@ -463,11 +461,12 @@ class _BottomNav extends State<BottomNav> {
                   )
                       : SizedBox(),
 
-                  // isTrinhTiep == true && isQTNew == true||
-                  vbdiTrangThaiVB == 2 ||
-                      vbdiTrangThaiVB == 3 ||
-                      (vbdiNguoiSoanID == currentUserID &&
-                          vbdiTrangThaiVB == 6)
+
+                  OldID2010 != 1 && (trinhDaCoNgDuyet == true || trinhLan2 ==
+                      true
+                      || vbdiTrangThaiVB == 6 )
+                      && vbdiNguoiSoanID == currentUserID
+                      && CurrentDonViID == 198
                       ? Container(
                     child: InkWell(
                       child: Column(
@@ -773,6 +772,7 @@ class _BottomNav extends State<BottomNav> {
                                 textAlign: TextAlign.center,
                               ),
                               onPressed: () async {
+                                EasyLoading.dismiss();
                                 pdfString.value = "";
                                 selectedfile = null;
                                 Navigator.of(context).pop();

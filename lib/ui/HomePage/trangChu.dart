@@ -112,15 +112,13 @@ class PageState extends State<trangChu> {
       ThongbaoD = 0;
       ThongbaoDi= 0;
       ThongbaoDT= 0;
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
 
   GetDataByKeyYearVBDi() async {
     String yeartimkiem = await getDataByKeyTrangThai(
       ActionXL,
-      "0",
+      "0",widget.nam
     );
     isLoading = true;
     setState(() {
@@ -181,7 +179,7 @@ class PageState extends State<trangChu> {
   GetDataByKeyYearVBDi1() async {
     String yeartimkiem = await getDataByKeyTrangThai(
       ActionXL,
-      "1",
+      "1",widget.nam
     );
     isLoading = true;
     setState(() {
@@ -194,7 +192,7 @@ class PageState extends State<trangChu> {
   GetDataByKeyYearVBDi2() async {
     String yeartimkiem = await getDataByKeyTrangThai(
       ActionXL,
-      "5",
+      "5",widget.nam
     );
     isLoading = true;
     setState(() {
@@ -329,14 +327,12 @@ class PageState extends State<trangChu> {
                           color: Color(0xffE57373),
                           child: InkWell(
                             onTap: () {
-                              if(_timer != null){
-                                _timer.cancel();
-                              }
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
                                     builder: (context) => HomeHSCV(
-                                      username: widget.username,
+                                      username: widget.username,nam:widget.nam
                                     ),
                                   ));
                             },
@@ -366,9 +362,7 @@ class PageState extends State<trangChu> {
                           color: Color(0xff43A047),
                           child: InkWell(
                             onTap: () {
-                              if(_timer != null){
-                                _timer.cancel();
-                              }
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -402,9 +396,7 @@ class PageState extends State<trangChu> {
                           color: Color(0xffFBA922),
                           child: InkWell(
                             onTap: () {
-                              if(_timer != null){
-                                _timer.cancel();
-                              }
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -438,9 +430,7 @@ class PageState extends State<trangChu> {
                           color: Color(0xff54A88F),
                           child: InkWell(
                             onTap: () {
-                              if(_timer != null){
-                                _timer.cancel();
-                              }
+
                               Navigator.push(
                                   context,
                                   MaterialPageRoute(
@@ -625,9 +615,7 @@ class PageState extends State<trangChu> {
   Widget itemVBD(String imagePath) {
     return InkWell(
       onTap: () {
-        if(_timer != null){
-          _timer.cancel();
-        }
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -698,9 +686,7 @@ class PageState extends State<trangChu> {
   Widget itemVBDi(String imagePath) {
     return InkWell(
       onTap: () {
-        if(_timer != null){
-          _timer.cancel();
-        }
+
         Navigator.push(
             context,
             MaterialPageRoute(
@@ -770,9 +756,7 @@ class PageState extends State<trangChu> {
   Widget itemVBDT(String imagePath) {
     return InkWell(
       onTap: () {
-        if(_timer != null){
-          _timer.cancel();
-        }
+
         Navigator.push(
             context,
             MaterialPageRoute(

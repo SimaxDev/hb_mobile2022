@@ -79,14 +79,14 @@ class ListVBDen1 extends State<ListVBDen> {
   }
 
   void _handleUserInteraction([_]) {
-    if (!_timer.isActive) {
-
-      // This means the user has been logged out
-      return;
-    }
-
-    _timer.cancel();
-    _initializeTimer();
+    // if (!_timer.isActive) {
+    //
+    //   // This means the user has been logged out
+    //   return;
+    // }
+    //
+    // _timer.cancel();
+    // _initializeTimer();
   }
 
   @override
@@ -131,9 +131,7 @@ class ListVBDen1 extends State<ListVBDen> {
 
   @override
   void dispose() {
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     super.dispose();
   }
 
@@ -705,7 +703,7 @@ class ListVBDen1 extends State<ListVBDen> {
             elevation: 1.5,
             child: InkWell(
               onTap: () {
-                _timer.cancel();
+
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -768,75 +766,142 @@ class ListVBDen1 extends State<ListVBDen> {
               ),
             ),
           )
-        : Card(
-            elevation: 1.5,
-            child: InkWell(
-              onTap: () {
-                _timer.cancel();
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => ChiTietVBDen(id: id,
-                        ListName:ListName,Yearvb:Yearvb,MaDonVi: MaDonVi,),
-                  ),
-                );
-              },
-              child: Padding(
-                padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: MediaQuery.of(context).size.width * 0.9,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              Container(
-                                  padding: EdgeInsets.fromLTRB(5.0, 3, 0, 0),
-                                  child: Text(
-                                    soKyHieu,
-                                    overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
-                                  )),
-                              Container(
-                                  padding: EdgeInsets.fromLTRB(5.0, 3, 0, 0),
-                                  // width: MediaQuery.of(context).size.width * 0.3,
-                                  child: Text(
-                                    "(" + ngaybanhanh + ")",
-                                    //  overflow: TextOverflow.ellipsis,
-                                    style: TextStyle(
-                                        color: Colors.black,
-                                        fontSize: 14,
-                                        fontWeight: FontWeight.w400,
-                                        fontStyle: FontStyle.italic),
-                                  )),
-                            ],
-                          ),
-                          SizedBox(
-                            height: 25,
-                          ),
-                          Container(
-                              padding: EdgeInsets.fromLTRB(5.0, 0, 0, 0),
-                              width: MediaQuery.of(context).size.width * 0.98,
-                              child: Text(
-                                trichyeu,
-                                maxLines: 3,
-                                overflow: TextOverflow.ellipsis,
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 14,
-                                ),
-                              )),
-                        ],
-                      ),
-                    )
-                  ],
-                ),
-              ),
+        : (trangthai == 2 ?Card(
+      elevation: 1.5,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChiTietVBDen(id: id,
+                ListName:ListName,Yearvb:Yearvb,MaDonVi: MaDonVi,),
             ),
           );
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.fromLTRB(5.0, 3, 0, 0),
+                            child: Text(
+                              soKyHieu,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: Colors.red, fontSize: 16,
+                                  fontWeight: FontWeight.w600),
+                            )),
+                        Container(
+                            padding: EdgeInsets.fromLTRB(5.0, 3, 0, 0),
+                            // width: MediaQuery.of(context).size.width * 0.3,
+                            child: Text(
+                              "(" + ngaybanhanh + ")",
+                              //  overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.italic),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                        padding: EdgeInsets.fromLTRB(5.0, 0, 0, 0),
+                        width: MediaQuery.of(context).size.width * 0.98,
+                        child: Text(
+                          trichyeu,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.red,
+                            fontSize: 14,
+                          ),
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    ):Card(
+      elevation: 1.5,
+      child: InkWell(
+        onTap: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ChiTietVBDen(id: id,
+                ListName:ListName,Yearvb:Yearvb,MaDonVi: MaDonVi,),
+            ),
+          );
+        },
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 5.0, horizontal: 0),
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width * 0.9,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                            padding: EdgeInsets.fromLTRB(5.0, 3, 0, 0),
+                            child: Text(
+                              soKyHieu,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(color: Colors.black, fontSize: 16, fontWeight: FontWeight.w600),
+                            )),
+                        Container(
+                            padding: EdgeInsets.fromLTRB(5.0, 3, 0, 0),
+                            // width: MediaQuery.of(context).size.width * 0.3,
+                            child: Text(
+                              "(" + ngaybanhanh + ")",
+                              //  overflow: TextOverflow.ellipsis,
+                              style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w400,
+                                  fontStyle: FontStyle.italic),
+                            )),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 25,
+                    ),
+                    Container(
+                        padding: EdgeInsets.fromLTRB(5.0, 0, 0, 0),
+                        width: MediaQuery.of(context).size.width * 0.98,
+                        child: Text(
+                          trichyeu,
+                          maxLines: 3,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(
+                            color: Colors.black,
+                            fontSize: 14,
+                          ),
+                        )),
+                  ],
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    ));
   }
 
   //sawsp xep

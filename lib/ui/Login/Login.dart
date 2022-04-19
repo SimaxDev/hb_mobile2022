@@ -61,16 +61,16 @@ class LoginState extends State<LoginWidget> {
       newVersion.showUpdateDialog(
         context: context,
         versionStatus: status,
-        dialogTitle: "UPDATE!!!",
-        dismissButtonText: "Skip",
-        dialogText: "Please update the app from " +
+        dialogTitle: "CẬP NHẬT!!!",
+        dismissButtonText: "Bỏ qua",
+        dialogText: "Vui lòng cập nhật ứng dụng từ " +
             "${status.localVersion}" +
-            " to " +
+            " lên " +
             "${status.storeVersion}",
         dismissAction: () {
           SystemNavigator.pop();
         },
-        updateButtonText: "Lets update",
+        updateButtonText: "Cập nhật",
       );
     }
 
@@ -539,8 +539,8 @@ if(item == null){
   Future<void> login(String username, String password) async {
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
-     //var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
-     var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
+    // var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
+  var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,
         'password': password,
