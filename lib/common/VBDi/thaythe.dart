@@ -48,7 +48,8 @@ class _ThayTheState extends State<ThayThe> {
   int ID = 0;
   bool showD = true;
   bool isLoading = true;
-  List<String> Year = ["2022","2021", "2020", "2019", "2018", "2017"];
+  List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
+
   String dropdownValue ="2022";
   String testthuhomerxoa;
   String ActionXL = "GetListVBDi";
