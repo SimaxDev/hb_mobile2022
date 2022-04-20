@@ -74,26 +74,7 @@ class ListVBDen1 extends State<DynamicEvent> {
   List<ListDataP>  ListDataPDF = [];
   String IdLanhDao = "0";
 
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -277,11 +258,7 @@ class ListVBDen1 extends State<DynamicEvent> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: new AppBar(
         title: Row(
@@ -351,8 +328,8 @@ class ListVBDen1 extends State<DynamicEvent> {
             children: [
               Container(
                   width: MediaQuery.of(context).size.width *0.35,
-                child: Text("Lịch công tác lãnh đạo:",style: TextStyle(fontWeight:
-                FontWeight.bold,fontSize: 13),)
+                  child: Text("Lịch công tác lãnh đạo:",style: TextStyle(fontWeight:
+                  FontWeight.bold,fontSize: 13),)
               ),
               Container(alignment: Alignment.center,
                 width: MediaQuery.of(context).size.width*0.5,
@@ -391,22 +368,22 @@ class ListVBDen1 extends State<DynamicEvent> {
                               },
                               value: value.ID.toString(),
                               child:Padding(padding: EdgeInsets.all(10),
-                              child: RichText(
-                                text: TextSpan(
-                                  children: [
+                                child: RichText(
+                                  text: TextSpan(
+                                    children: [
 
 
-                                    TextSpan(text:value.Name == null? "":value.Name, style:
-                                    TextStyle(
-                                        color: Colors.black.withOpacity(0.75),
-                                        fontStyle: FontStyle.normal,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 13),
+                                      TextSpan(text:value.Name == null? "":value.Name, style:
+                                      TextStyle(
+                                          color: Colors.black.withOpacity(0.75),
+                                          fontStyle: FontStyle.normal,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 13),
 
-                                    ),
-                                  ],
-                                ),
-                              ),)
+                                      ),
+                                    ],
+                                  ),
+                                ),)
                           );
                         }).toList(),
                       ),
@@ -433,14 +410,14 @@ class ListVBDen1 extends State<DynamicEvent> {
                       child:  GestureDetector(
                         onTap: (){
 
-                            int tuansau = tuanThu;
+                          int tuansau = tuanThu;
 
-                            tuansau-- ;
-                            GetDataVBDen(dropdownValue,tuansau.toString(),IdLanhDao);
-                            dataList.clear();
-                            setState(() {
-                              checkOpen= false;
-                            });
+                          tuansau-- ;
+                          GetDataVBDen(dropdownValue,tuansau.toString(),IdLanhDao);
+                          dataList.clear();
+                          setState(() {
+                            checkOpen= false;
+                          });
 
 
                         },
@@ -455,14 +432,14 @@ class ListVBDen1 extends State<DynamicEvent> {
                                       style: TextStyle(
                                         fontSize: 16,
                                         fontWeight: FontWeight.bold,
-                                      //  decoration: TextDecoration.underline,
+                                        //  decoration: TextDecoration.underline,
                                       )),
                                 ),
 
                               ],
                             )),
                       )
-                          ),
+                  ),
                 ),
               ),
               Flexible(
@@ -473,32 +450,32 @@ class ListVBDen1 extends State<DynamicEvent> {
                     //_selectDateTN(context);
                   },
                   child:    Container(
-                    alignment: Alignment.center,
+                      alignment: Alignment.center,
                       //width: MediaQuery.of(context).size.width * 0.23,
                       child:  GestureDetector(
                           onTap: onToggleNgayDen,
                           child:Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
-                            Container(
-                              margin: EdgeInsets.only(top: 15, left: 10),
-                              alignment: Alignment.center,
-                              child: Text('Tuần thứ: ',
-                                  //overflow: TextOverflow.clip,
-                                  style: TextStyle(fontSize: 16, fontWeight:
-                                  FontWeight.bold,color: Colors.blue)),
-                            ),
-                            Container(
-                              margin: EdgeInsets.only(top: 15),
-                              alignment: Alignment.center,
-                              child: Text(tuanThu.toString()
-                                  ,
-                                  //overflow: TextOverflow.clip,
-                                  style: TextStyle(fontSize: 16, fontWeight:
-                                  FontWeight.bold)),
-                            )
-                          ],)
-                        )),
+                              Container(
+                                margin: EdgeInsets.only(top: 15, left: 10),
+                                alignment: Alignment.center,
+                                child: Text('Tuần thứ: ',
+                                    //overflow: TextOverflow.clip,
+                                    style: TextStyle(fontSize: 16, fontWeight:
+                                    FontWeight.bold,color: Colors.blue)),
+                              ),
+                              Container(
+                                margin: EdgeInsets.only(top: 15),
+                                alignment: Alignment.center,
+                                child: Text(tuanThu.toString()
+                                    ,
+                                    //overflow: TextOverflow.clip,
+                                    style: TextStyle(fontSize: 16, fontWeight:
+                                    FontWeight.bold)),
+                              )
+                            ],)
+                      )),
                 ),
               ),
 
@@ -515,29 +492,29 @@ class ListVBDen1 extends State<DynamicEvent> {
                       child: GestureDetector(
                         onTap: (){
 
-                            int tuantiep = tuanThu;
-                            tuantiep++ ;
-                            GetDataVBDen(dropdownValue,tuantiep.toString(),IdLanhDao);
-                            dataList.clear();
-                            setState(() {
-                              checkOpen= false;
-                            });
+                          int tuantiep = tuanThu;
+                          tuantiep++ ;
+                          GetDataVBDen(dropdownValue,tuantiep.toString(),IdLanhDao);
+                          dataList.clear();
+                          setState(() {
+                            checkOpen= false;
+                          });
 
 
                         },
                         child: Container(
-                            padding: const EdgeInsets.fromLTRB(15, 7, 0, 0),
-                            child: Container(
-                              child: Text('Tuần sau',
-                                  //overflow: TextOverflow.clip,
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                   // decoration: TextDecoration.underline,
-                                  )),
-                            ),),
+                          padding: const EdgeInsets.fromLTRB(15, 7, 0, 0),
+                          child: Container(
+                            child: Text('Tuần sau',
+                                //overflow: TextOverflow.clip,
+                                style: TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.bold,
+                                  // decoration: TextDecoration.underline,
+                                )),
+                          ),),
                       )
-                          ),
+                  ),
                 ),
               ),
 
@@ -560,7 +537,7 @@ class ListVBDen1 extends State<DynamicEvent> {
       ),
       endDrawerEnableOpenDragGesture: false,
 
-    ),);
+    );
   }
 
   Widget UiGetData() {

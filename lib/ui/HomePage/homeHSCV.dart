@@ -50,26 +50,7 @@ class PageState extends State<HomeHSCV> {
   int tong = 0;
   int tong1 = 0;
   int tong2 = 0;
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   //initial
   @override
@@ -161,144 +142,137 @@ class PageState extends State<HomeHSCV> {
   @override
   void dispose() {
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
 
   //body
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: _handleUserInteraction,
-        onPanDown: _handleUserInteraction,
-        onScaleStart: _handleUserInteraction,
-      child:
-      Scaffold(
-      appBar: new AppBar(
-        automaticallyImplyLeading: false,
-        title: Text('Hồ sơ công việc'),
-        actions: <Widget>[
-          Builder(
-            builder: (context) => IconButton(
-              icon: Icon(Icons.person_outline),
-              onPressed: () => Scaffold.of(context).openEndDrawer(),
-              //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+    return Scaffold(
+        appBar: new AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Hồ sơ công việc'),
+          actions: <Widget>[
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.person_outline),
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+                //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
             ),
-          ),
-        ],
-      ),
-      endDrawer: MenuRight(hoten: user.Title,chucvu: user.ChucVu, users: widget.username,),
-      endDrawerEnableOpenDragGesture: false,
-      body: Column(
-        children: [
-          Expanded(child: Container(
-            child: Container(
-                height: MediaQuery.of(context).size.height * 0.26,
-                child: SingleChildScrollView(child:
-                dataListVBDi == null || dataListVBDi.length < 0 || isLoading ?
-                Center(
-                    child: CircularProgressIndicator(
-                      valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-                    )):Column(
-                  children: [
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          ttHoSo(0),
-                        ),
-                        leading: Image(image: AssetImage('assets/icon/folderApp.png'),
-                            color: Colors.blue.shade500,width: MediaQuery.of(context).size
-                                .width * 0.05,
-                            height: MediaQuery.of(context).size.height *
-                                0.025, fit: BoxFit.fill),
-                        trailing: Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width* 0.09,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          //padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueGrey[100],width: 1),
-                            borderRadius: BorderRadius.circular(7),
-                            color: Colors.blueAccent,
+          ],
+        ),
+        endDrawer: MenuRight(hoten: user.Title,chucvu: user.ChucVu, users: widget.username,),
+        endDrawerEnableOpenDragGesture: false,
+        body: Column(
+          children: [
+            Expanded(child: Container(
+              child: Container(
+                  height: MediaQuery.of(context).size.height * 0.26,
+                  child: SingleChildScrollView(child:
+                  dataListVBDi == null || dataListVBDi.length < 0 || isLoading ?
+                  Center(
+                      child: CircularProgressIndicator(
+                        valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                      )):Column(
+                    children: [
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            ttHoSo(0),
                           ),
-                          child: new Text(tong.toString(), style: new TextStyle
-                            (color:
-                          Colors.white, fontSize:11.0)),
-                        ),
-                        onTap: () {
-                          Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=0",page:4) );
-                        },
-                      ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          ttHoSo(1),
-                        ),
-                        leading: Image(image: AssetImage('assets/icon/folderApp.png'),
-                            color: Colors.blue.shade500,width: MediaQuery.of(context).size
-                                .width * 0.05,
-                            height: MediaQuery.of(context).size.height *
-                                0.025, fit: BoxFit.fill),
-                        trailing: Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width* 0.09,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          //padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueGrey[100],width: 1),
-                            borderRadius: BorderRadius.circular(7),
-                            color: Colors.blueAccent,
+                          leading: Image(image: AssetImage('assets/icon/folderApp.png'),
+                              color: Colors.blue.shade500,width: MediaQuery.of(context).size
+                                  .width * 0.05,
+                              height: MediaQuery.of(context).size.height *
+                                  0.025, fit: BoxFit.fill),
+                          trailing: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width* 0.09,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            //padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blueGrey[100],width: 1),
+                              borderRadius: BorderRadius.circular(7),
+                              color: Colors.blueAccent,
+                            ),
+                            child: new Text(tong.toString(), style: new TextStyle
+                              (color:
+                            Colors.white, fontSize:11.0)),
                           ),
-                          child: new Text(tong1.toString(), style: new TextStyle
-                            (color:
-                          Colors.white, fontSize:11.0)),
+                          onTap: () {
+                            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=0",page:4) );
+                          },
                         ),
-                        onTap: () {
-
-                          Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=1",page:4) );
-                        },
                       ),
-                    ),
-                    Card(
-                      child: ListTile(
-                        title: Text(
-                          ttHoSo(5),
-                        ),
-                        leading: Image(image: AssetImage('assets/icon/folderApp.png'),
-                            color: Colors.blue.shade500,width: MediaQuery.of(context).size
-                                .width * 0.05,
-                            height: MediaQuery.of(context).size.height *
-                                0.025, fit: BoxFit.fill),
-                        trailing: Container(
-                          alignment: Alignment.center,
-                          width: MediaQuery.of(context).size.width* 0.09,
-                          height: MediaQuery.of(context).size.height * 0.05,
-                          //padding: const EdgeInsets.all(1),
-                          decoration: BoxDecoration(
-                            border: Border.all(color: Colors.blueGrey[100],width: 1),
-                            borderRadius: BorderRadius.circular(7),
-                            color: Colors.blueAccent,
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            ttHoSo(1),
                           ),
-                          child: new Text(tong2.toString(), style: new TextStyle
-                            (color:
-                          Colors.white, fontSize:11.0)),
+                          leading: Image(image: AssetImage('assets/icon/folderApp.png'),
+                              color: Colors.blue.shade500,width: MediaQuery.of(context).size
+                                  .width * 0.05,
+                              height: MediaQuery.of(context).size.height *
+                                  0.025, fit: BoxFit.fill),
+                          trailing: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width* 0.09,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            //padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blueGrey[100],width: 1),
+                              borderRadius: BorderRadius.circular(7),
+                              color: Colors.blueAccent,
+                            ),
+                            child: new Text(tong1.toString(), style: new TextStyle
+                              (color:
+                            Colors.white, fontSize:11.0)),
+                          ),
+                          onTap: () {
+
+                            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=1",page:4) );
+                          },
                         ),
-                        onTap: () {
-                          Get.offAll(BottomNavigator(query: "sHoSocongviec=true&hscvTrangThaiXuLy=5",page:4) );
-
-                        },
                       ),
-                    ),
+                      Card(
+                        child: ListTile(
+                          title: Text(
+                            ttHoSo(5),
+                          ),
+                          leading: Image(image: AssetImage('assets/icon/folderApp.png'),
+                              color: Colors.blue.shade500,width: MediaQuery.of(context).size
+                                  .width * 0.05,
+                              height: MediaQuery.of(context).size.height *
+                                  0.025, fit: BoxFit.fill),
+                          trailing: Container(
+                            alignment: Alignment.center,
+                            width: MediaQuery.of(context).size.width* 0.09,
+                            height: MediaQuery.of(context).size.height * 0.05,
+                            //padding: const EdgeInsets.all(1),
+                            decoration: BoxDecoration(
+                              border: Border.all(color: Colors.blueGrey[100],width: 1),
+                              borderRadius: BorderRadius.circular(7),
+                              color: Colors.blueAccent,
+                            ),
+                            child: new Text(tong2.toString(), style: new TextStyle
+                              (color:
+                            Colors.white, fontSize:11.0)),
+                          ),
+                          onTap: () {
+                            Get.offAll(BottomNavigator(query: "sHoSocongviec=true&hscvTrangThaiXuLy=5",page:4) );
 
-                  ],
-                ),
-                )
-            ),
-          ))
-        ],
-      )
+                          },
+                        ),
+                      ),
+
+                    ],
+                  ),
+                  )
+              ),
+            ))
+          ],
+        )
       // body: new ListView(
       //   padding: const EdgeInsets.all(0.0),
       //   children: <Widget>[
@@ -323,7 +297,7 @@ class PageState extends State<HomeHSCV> {
       //
       //   ],
       // ),
-    ));
+    );
   }
 
   //lấy dữ liệu vb đi

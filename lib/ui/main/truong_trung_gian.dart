@@ -1,3 +1,4 @@
+import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'dart:async';
 import 'package:http/http.dart' as http;
@@ -97,7 +98,7 @@ import 'package:http/http.dart' as http;
   String TrichYeuDT = "";
   String loaivbDT =  "";
   String vbdiSoKyHieu = "";
-  String vNguoiKy = "";
+ String vNguoiKy = "";
   String vNguoiTrinh= "";
   String toTrinh= "";
   String CurrentTenDonVi= "";

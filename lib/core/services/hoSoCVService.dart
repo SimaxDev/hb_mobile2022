@@ -35,13 +35,15 @@ import 'callApi.dart';
     }
   }
   
-  Future<String> getDataDetailHSCV1(String ActionXL,String query,int idHS,nam)
+  Future<String> getDataDetailHSCV1(String ActionXL,String query,int idHS,
+      nam,tim)
   async {
     var parts = [];
     parts.add('ItemID=' + idHS.toString());
     parts.add('ActionXL=' + ActionXL);
     parts.add('sYear=' + nam.toString());
-    parts.add('searchTimNhanh=' +query);
+    parts.add('searchTimNhanh=' + tim.toString());
+    parts.add(query);
     var formData = parts.join('&');
     String url = "/api/ServicesHSCV/GetData";
     var response = await responseDataPost(url, formData);

@@ -31,25 +31,9 @@ class MenuRight extends StatefulWidget {
 
 class _MenuRightState extends State<MenuRight> {
   var tendangnhap;
-  Timer _timer;
   List lstThongTinLConfig = [];
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-  }
 
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -248,189 +232,184 @@ class _MenuRightState extends State<MenuRight> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child: new Drawer(
-        child: ListView(
-          children: <Widget>[
-            Container(
-              padding: EdgeInsets.only(top: 25.0, left: 5.0),
-              color: Colors.blue,
-              height: MediaQuery.of(context).size.height * 0.3,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                  // Material(
-                  //   borderRadius: BorderRadius.all(Radius.circular(50.0)),
-                  //   elevation: 10,
-                  //   child: Padding(padding: EdgeInsets.all(9.0),
-                  //     child: Image.asset("assets/logo-user.jpg", height: 85, width: 85),
-                  //   ),
-                  // ),
-                  Container(
-                    margin: EdgeInsets.all(8),
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.height * 0.13,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      image: DecorationImage(
-                          image: new AssetImage("assets/logo-user.jpg"),
-                          fit: BoxFit.cover),
-                    ),
+    return  new Drawer(
+      child: ListView(
+        children: <Widget>[
+          Container(
+            padding: EdgeInsets.only(top: 25.0, left: 5.0),
+            color: Colors.blue,
+            height: MediaQuery.of(context).size.height * 0.3,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                // Material(
+                //   borderRadius: BorderRadius.all(Radius.circular(50.0)),
+                //   elevation: 10,
+                //   child: Padding(padding: EdgeInsets.all(9.0),
+                //     child: Image.asset("assets/logo-user.jpg", height: 85, width: 85),
+                //   ),
+                // ),
+                Container(
+                  margin: EdgeInsets.all(8),
+                  width: MediaQuery.of(context).size.width * 0.3,
+                  height: MediaQuery.of(context).size.height * 0.13,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    image: DecorationImage(
+                        image: new AssetImage("assets/logo-user.jpg"),
+                        fit: BoxFit.cover),
                   ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 20),
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    widget.hoten,
+                    style: TextStyle(
+                        color: Colors.white,
+                        fontSize:
+                        MediaQuery.of(context).textScaleFactor == 2.0
+                            ? MediaQuery.of(context).textScaleFactor * 4
+                            : 20),
+                  ),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  margin: EdgeInsets.only(top: 20),
+                  width: MediaQuery.of(context).size.width,
+                  child: Text(
+                    widget.chucvu,
+                    style: TextStyle(color: Colors.white, fontSize: 16.0),
+                  ),
+                ),
+              ],
+            ),
+          ),
+          lstThongTinGroup.length > 1
+              ? Column(
+            children: [
+              Container(
+                alignment: Alignment.center,
+                margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+                child: Text(
+                  OrganName,
+                  style: TextStyle(
+                    color: Colors.black, fontSize: 14.0,
+                    fontWeight: FontWeight.bold,
+                    // decoration: TextDecoration.underline,
+                  ),
+                ),
+              ),
+              Column(
+                children: [
                   Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 20),
-                    width: MediaQuery.of(context).size.width,
-                    child: Text(
-                      widget.hoten,
+                    alignment: Alignment.centerLeft,
+                    margin: EdgeInsets.only(top: 10, left: 10),
+                    child: new Text(
+                      "- Chọn đơn vị khác để làm việc:",
                       style: TextStyle(
-                          color: Colors.white,
-                          fontSize:
-                              MediaQuery.of(context).textScaleFactor == 2.0
-                                  ? MediaQuery.of(context).textScaleFactor * 4
-                                  : 20),
+                        decoration: TextDecoration.underline,
+                      ),
                     ),
                   ),
                   Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 20),
+                    alignment: Alignment.centerLeft,
+                    margin:
+                    EdgeInsets.only(top: 0, left: 10, right: 10),
                     width: MediaQuery.of(context).size.width,
-                    child: Text(
-                      widget.chucvu,
-                      style: TextStyle(color: Colors.white, fontSize: 16.0),
-                    ),
+                    child: MenuVBDT(),
                   ),
                 ],
               ),
+            ],
+          )
+              : Container(
+            alignment: Alignment.center,
+            margin: EdgeInsets.only(top: 10, left: 10, right: 10),
+            child: Text(
+              OrganName,
+              style: TextStyle(
+                color: Colors.black, fontSize: 14.0,
+                fontWeight: FontWeight.bold,
+                // decoration: TextDecoration.underline,
+              ),
             ),
-            lstThongTinGroup.length > 1
-                ? Column(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                        child: Text(
-                          OrganName,
-                          style: TextStyle(
-                            color: Colors.black, fontSize: 14.0,
-                            fontWeight: FontWeight.bold,
-                            // decoration: TextDecoration.underline,
-                          ),
-                        ),
-                      ),
-                      Column(
-                        children: [
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            margin: EdgeInsets.only(top: 10, left: 10),
-                            child: new Text(
-                              "- Chọn đơn vị khác để làm việc:",
-                              style: TextStyle(
-                                decoration: TextDecoration.underline,
-                              ),
-                            ),
-                          ),
-                          Container(
-                            alignment: Alignment.centerLeft,
-                            margin:
-                                EdgeInsets.only(top: 0, left: 10, right: 10),
-                            width: MediaQuery.of(context).size.width,
-                            child: MenuVBDT(),
-                          ),
-                        ],
-                      ),
-                    ],
-                  )
-                : Container(
-                    alignment: Alignment.center,
-                    margin: EdgeInsets.only(top: 10, left: 10, right: 10),
-                    child: Text(
-                      OrganName,
-                      style: TextStyle(
-                        color: Colors.black, fontSize: 14.0,
-                        fontWeight: FontWeight.bold,
-                        // decoration: TextDecoration.underline,
-                      ),
-                    ),
-                  ),
+          ),
 
-            ListTile(
-              title: new Text('Thông tin cá nhân'),
-              trailing: new IconButton(
-                icon: new Icon(Icons.supervised_user_circle_sharp),
-              ),
-              onTap: () {
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          ThongtinUser(username: widget.users),
-                    ));
-              },
+          ListTile(
+            title: new Text('Thông tin cá nhân'),
+            trailing: new IconButton(
+              icon: new Icon(Icons.supervised_user_circle_sharp),
             ),
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        ThongtinUser(username: widget.users),
+                  ));
+            },
+          ),
 
-            // ListTile(
-            //   title: new Text('Tạo chữ ký'),
-            //   // trailing: new Icon(Icons.exit_to_app),
-            //   trailing: new IconButton(
-            //     icon: new Icon(Icons.create_outlined),
-            //   ),
-            //   onTap: (){
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => QuanLyChuKy(),
-            //         ));
-            //   },
-            // ),
-            // new ListTile(
-            //   title: new Text('Tạo chữ bằng hình ảnh'),
-            //   // trailing: new Icon(Icons.exit_to_app),
-            //   trailing: new IconButton(
-            //     icon: new Icon(Icons.analytics_outlined),
-            //   ),
-            //   onTap: () {
-            //     Navigator.push(
-            //         context,
-            //         MaterialPageRoute(
-            //           builder: (context) => SignaturePicker(
-            //             title: 'Thêm chữ ký',
-            //           ), /*   AddImage(title: "Ảnh chữ ký",),*/
-            //         ));
-            //   },
-            // ),
-            ListTile(
-              title: new Text('Đổi mật khẩu'),
-              trailing: new IconButton(
-                icon: new Icon(Icons.lock_outline_rounded),
-              ),
-              onTap: () {
-                var tendangnhap1 = ten;
-                Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) =>
-                          EditPassWord(tendangnhap: widget.users),
-                    ));
-              },
+          // ListTile(
+          //   title: new Text('Tạo chữ ký'),
+          //   // trailing: new Icon(Icons.exit_to_app),
+          //   trailing: new IconButton(
+          //     icon: new Icon(Icons.create_outlined),
+          //   ),
+          //   onTap: (){
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => QuanLyChuKy(),
+          //         ));
+          //   },
+          // ),
+          // new ListTile(
+          //   title: new Text('Tạo chữ bằng hình ảnh'),
+          //   // trailing: new Icon(Icons.exit_to_app),
+          //   trailing: new IconButton(
+          //     icon: new Icon(Icons.analytics_outlined),
+          //   ),
+          //   onTap: () {
+          //     Navigator.push(
+          //         context,
+          //         MaterialPageRoute(
+          //           builder: (context) => SignaturePicker(
+          //             title: 'Thêm chữ ký',
+          //           ), /*   AddImage(title: "Ảnh chữ ký",),*/
+          //         ));
+          //   },
+          // ),
+          ListTile(
+            title: new Text('Đổi mật khẩu'),
+            trailing: new IconButton(
+              icon: new Icon(Icons.lock_outline_rounded),
             ),
-            ListTile(
-              title: new Text('Đăng xuất'),
-              trailing: new IconButton(
-                icon: new Icon(Icons.exit_to_app),
-              ),
-              onTap: () async {
-                // Navigator.pushReplacement(context,
-                //     MaterialPageRoute(builder: (BuildContext ctx) => LoginWidget()));
-                logOut(context);
-                Navigator.pop(context, true);
-              },
+            onTap: () {
+              var tendangnhap1 = ten;
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) =>
+                        EditPassWord(tendangnhap: widget.users),
+                  ));
+            },
+          ),
+          ListTile(
+            title: new Text('Đăng xuất'),
+            trailing: new IconButton(
+              icon: new Icon(Icons.exit_to_app),
             ),
-          ],
-        ),
+            onTap: () async {
+              // Navigator.pushReplacement(context,
+              //     MaterialPageRoute(builder: (BuildContext ctx) => LoginWidget()));
+              logOut(context);
+              Navigator.pop(context, true);
+            },
+          ),
+        ],
       ),
     );
   }

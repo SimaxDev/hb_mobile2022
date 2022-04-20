@@ -80,26 +80,7 @@ class _BottomNav extends State<BottomNav> {
   ];
 
   _BottomNav({this.id});
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:35), (_) {
-      //rester().logOutALL();
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -179,373 +160,369 @@ class _BottomNav extends State<BottomNav> {
   }
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:BottomAppBar(
+    return BottomAppBar(
       child:Container(
-        decoration: BoxDecoration(
-          border: Border.all(color: Colors.blueGrey[100]),
-          color: Colors.white,
-        ),
-        height: 56.0,
-        child:duThao!= null? ListView.builder(
-            scrollDirection: Axis.horizontal,
-            itemCount: 1,
-            itemBuilder: (context, index) {
-              return Row(
-                children: <Widget>[
-                  vbdiCurrentNguoiTrinhID == currentUserID
-                      && vbdiTrangThaiVB != 5 && vbdiTrangThaiVB != 8 
-                      && vbdiTrangThaiVB != 3
-                      && vbdiTrangThaiVB != 6 && vbdiTrangThaiVB != 1
-                      // && isThuHoi
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.keyboard_return),
-                            label: Text('Thu hồi'),
-                            onPressed: () => showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  AlertDialog(
-                                    title: const Text('Thu hồi văn bản'),
-                                    content: const Text(
-                                        'Bạn có chắc chắn muốn thu hồi văn bản?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () async {
-                                          var tendangnhap = sharedStorage
-                                              .getString("username");
-                                          EasyLoading.show();
-                                          var thanhcong = await posThuHoiVBDT(
-                                              tendangnhap,
-                                              widget.id,
-                                              'THUHOIDT',
-                                              widget.nam);
-                                          EasyLoading.dismiss();
-                                          Navigator.of(context).pop();
-                                          !isLoading
-                                              ? showAlertDialog(
-                                              context,
-                                              json.decode(
-                                                  thanhcong)['Message'])
-                                              : Center(
-                                              child:
-                                              CircularProgressIndicator());
-                                        },
-                                        child: const Text('Tiếp tục '),
-                                      ),
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context),
-                                        child: const Text('Huỷ'),
-                                      ),
-                                    ],
-                                  ),
-                            ),
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+          decoration: BoxDecoration(
+            border: Border.all(color: Colors.blueGrey[100]),
+            color: Colors.white,
+          ),
+          height: 56.0,
+          child:duThao!= null? ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: 1,
+              itemBuilder: (context, index) {
+                return Row(
+                  children: <Widget>[
+                    vbdiCurrentNguoiTrinhID == currentUserID
+                        && vbdiTrangThaiVB != 5 && vbdiTrangThaiVB != 8
+                        && vbdiTrangThaiVB != 3
+                        && vbdiTrangThaiVB != 6 && vbdiTrangThaiVB != 1
+                    // && isThuHoi
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.keyboard_return),
+                              label: Text('Thu hồi'),
+                              onPressed: () => showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                      title: const Text('Thu hồi văn bản'),
+                                      content: const Text(
+                                          'Bạn có chắc chắn muốn thu hồi văn bản?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () async {
+                                            var tendangnhap = sharedStorage
+                                                .getString("username");
+                                            EasyLoading.show();
+                                            var thanhcong = await posThuHoiVBDT(
+                                                tendangnhap,
+                                                widget.id,
+                                                'THUHOIDT',
+                                                widget.nam);
+                                            EasyLoading.dismiss();
+                                            Navigator.of(context).pop();
+                                            !isLoading
+                                                ? showAlertDialog(
+                                                context,
+                                                json.decode(
+                                                    thanhcong)['Message'])
+                                                : Center(
+                                                child:
+                                                CircularProgressIndicator());
+                                          },
+                                          child: const Text('Tiếp tục '),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('Huỷ'),
+                                        ),
+                                      ],
+                                    ),
+                              ),
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                      : SizedBox(),
-                  isDuyet && isDuyetTruongPhong
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.verified_outlined),
-                            label: Text('Duyệt'),
-                            onPressed: () {
-                              onPressButton(context, index + 1);
-                            },
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+                    )
+                        : SizedBox(),
+                    isDuyet && isDuyetTruongPhong
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.verified_outlined),
+                              label: Text('Duyệt'),
+                              onPressed: () {
+                                onPressButton(context, index + 1);
+                              },
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                      : SizedBox(),
+                    )
+                        : SizedBox(),
 
-                  isnguoiduyet > 0
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.verified_outlined),
-                            label: Text('Duyệt'),
-                            onPressed: () {
-                              onPressButton(context, index + 5);
-                            },
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+                    isnguoiduyet > 0
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.verified_outlined),
+                              label: Text('Duyệt'),
+                              onPressed: () {
+                                onPressButton(context, index + 5);
+                              },
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                      : SizedBox(),
+                    )
+                        : SizedBox(),
 
-                  isDuyet && kyVaPhatHanh
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.verified_outlined),
-                            label: Text('Duyệt'),
-                            onPressed: () {
-                              onPressButton(context, index + 2);
-                            },
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+                    isDuyet && kyVaPhatHanh
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.verified_outlined),
+                              label: Text('Duyệt'),
+                              onPressed: () {
+                                onPressButton(context, index + 2);
+                              },
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                      : SizedBox(),
+                    )
+                        : SizedBox(),
 //Chuyển  phát hành
-                  (vbdiNguoiSoanID == currentUserID && vbdiTrangThaiVB == 5) ||
-                      (vbdiNguoiKyID == currentUserID &&
-                          vbdiTrangThaiVB == 5)
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.assistant_direction),
-                            label: Text('Chuyển phát hành'),
-                            onPressed: () {
-                              onPressButton(context, index + 9);
-                            },
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+                    (vbdiNguoiSoanID == currentUserID && vbdiTrangThaiVB == 5) ||
+                        (vbdiNguoiKyID == currentUserID &&
+                            vbdiTrangThaiVB == 5)
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.assistant_direction),
+                              label: Text('Chuyển phát hành'),
+                              onPressed: () {
+                                onPressButton(context, index + 9);
+                              },
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                        : SizedBox(),
+
+                    //Trình Ký
+                    isTrinhKy == true
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.plumbing),
+                              label: Text(' Trình ký'),
+                              onPressed: () => showDialog<String>(
+                                context: context,
+                                builder: (BuildContext context) =>
+                                    AlertDialog(
+                                      title: const Text('Xác nhận'),
+                                      content: const Text(
+                                          'Bạn có chắc chắn muốn trình ký?'),
+                                      actions: <Widget>[
+                                        TextButton(
+                                          onPressed: () async {
+                                            var tendangnhap = sharedStorage
+                                                .getString("username");
+                                            EasyLoading.show();
+                                            var thanhcong = await posThuHoiVBDT(
+                                                tendangnhap,
+                                                widget.id,
+                                                'TRINHKY',
+                                                widget.nam);
+                                            EasyLoading.dismiss();
+                                            Navigator.of(context).pop();
+                                            !isLoading
+                                                ? showAlertDialog(
+                                                context,
+                                                json.decode(
+                                                    thanhcong)['Message'])
+                                                : Center(
+                                                child:
+                                                CircularProgressIndicator());
+                                          },
+                                          child: const Text('Tiếp tục '),
+                                        ),
+                                        TextButton(
+                                          onPressed: () =>
+                                              Navigator.pop(context),
+                                          child: const Text('Huỷ'),
+                                        ),
+                                      ],
+                                    ),
+                              ),
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                        : SizedBox(),
+
+                    isDuyetVaPhatHanh && chukyso == 1
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.next_week_outlined),
+                              label: Text('Duyệt và chuyển phát hành'),
+                              onPressed: () {
+                                onPressButton(context, index + 6);
+                              },
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
+                      ),
+                    )
+                        : SizedBox(),
+
+                    // vbdiTrangThaiVB != 1 && vbdiTrangThaiVB != 5 ?
+                    Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.comment),
+                              label: Text('Ý kiến'),
+                              onPressed: () {
+                                onPressButton(context, index + 8);
+                              },
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
                       ),
                     ),
-                  )
-                      : SizedBox(),
 
-                  //Trình Ký
-                  isTrinhKy == true
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.plumbing),
-                            label: Text(' Trình ký'),
-                            onPressed: () => showDialog<String>(
-                              context: context,
-                              builder: (BuildContext context) =>
-                                  AlertDialog(
-                                    title: const Text('Xác nhận'),
-                                    content: const Text(
-                                        'Bạn có chắc chắn muốn trình ký?'),
-                                    actions: <Widget>[
-                                      TextButton(
-                                        onPressed: () async {
-                                          var tendangnhap = sharedStorage
-                                              .getString("username");
-                                          EasyLoading.show();
-                                          var thanhcong = await posThuHoiVBDT(
-                                              tendangnhap,
-                                              widget.id,
-                                              'TRINHKY',
-                                              widget.nam);
-                                          EasyLoading.dismiss();
-                                          Navigator.of(context).pop();
-                                          !isLoading
-                                              ? showAlertDialog(
-                                              context,
-                                              json.decode(
-                                                  thanhcong)['Message'])
-                                              : Center(
-                                              child:
-                                              CircularProgressIndicator());
-                                        },
-                                        child: const Text('Tiếp tục '),
-                                      ),
-                                      TextButton(
-                                        onPressed: () =>
-                                            Navigator.pop(context),
-                                        child: const Text('Huỷ'),
-                                      ),
-                                    ],
-                                  ),
-                            ),
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+                    ((vbdiDSNguoiTrinhTiep.indexWhere(
+                            (x) => x["LookupId"] == currentUserID) >
+                        -1) &&
+                        (vbdiTrangThaiVB != 6 &&
+                            vbdiTrangThaiVB != 3 &&
+                            vbdiTrangThaiVB != 5 &&
+                            vbdiTrangThaiVB != 4 &&
+                            vbdiTrangThaiVB != 1)) ||
+                        (vbdiNguoiKy == currentUserID && vbdiTrangThaiVB == 4)
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            FlatButton.icon(
+                              icon: Icon(Icons.comment),
+                              label: Text('Trả về'),
+                              onPressed: () {
+                                onPressButton(context, index);
+                              },
+                              textTheme: ButtonTextTheme.primary,
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                      : SizedBox(),
+                    )
+                        : SizedBox(),
 
-                  isDuyetVaPhatHanh && chukyso == 1
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.next_week_outlined),
-                            label: Text('Duyệt và chuyển phát hành'),
-                            onPressed: () {
-                              onPressButton(context, index + 6);
-                            },
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+
+                    OldID2010 != 1 && (trinhDaCoNgDuyet == true || trinhLan2 ==
+                        true
+                        || vbdiTrangThaiVB == 6 )
+                        && vbdiNguoiSoanID == currentUserID
+                        && CurrentDonViID == 198
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                FlatButton.icon(
+                                  icon: Icon(Icons.next_plan_outlined),
+                                  label: Text('Trình tiếp'),
+                                  onPressed: () {
+                                    onPressButton(context, index + 7);
+                                  },
+                                  textTheme: ButtonTextTheme.primary,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  )
-                      : SizedBox(),
+                    )
+                        : SizedBox(),
 
-                  // vbdiTrangThaiVB != 1 && vbdiTrangThaiVB != 5 ?
-                  Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.comment),
-                            label: Text('Ý kiến'),
-                            onPressed: () {
-                              onPressButton(context, index + 8);
-                            },
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
+                    (trinhDaCoNgDuyet == true ||
+                        trinhLan2 == true ||
+                        vbdiTrangThaiVB == 6) &&
+                        vbdiNguoiSoanID == currentUserID &&
+                        CurrentDonViID == 198
+                        ? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                FlatButton.icon(
+                                  icon: Icon(Icons.undo_rounded),
+                                  label: Text('Trình lại'),
+                                  onPressed: () {
+                                    onPressButton(context, index + 3);
+                                  },
+                                  textTheme: ButtonTextTheme.primary,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
                       ),
-                    ),
-                  ),
-
-                  ((vbdiDSNguoiTrinhTiep.indexWhere(
-                          (x) => x["LookupId"] == currentUserID) >
-                      -1) &&
-                      (vbdiTrangThaiVB != 6 &&
-                          vbdiTrangThaiVB != 3 &&
-                          vbdiTrangThaiVB != 5 &&
-                          vbdiTrangThaiVB != 4 &&
-                          vbdiTrangThaiVB != 1)) ||
-                      (vbdiNguoiKy == currentUserID && vbdiTrangThaiVB == 4)
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          FlatButton.icon(
-                            icon: Icon(Icons.comment),
-                            label: Text('Trả về'),
-                            onPressed: () {
-                              onPressButton(context, index);
-                            },
-                            textTheme: ButtonTextTheme.primary,
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                      : SizedBox(),
-
-
-                  OldID2010 != 1 && (trinhDaCoNgDuyet == true || trinhLan2 ==
-                      true
-                      || vbdiTrangThaiVB == 6 )
-                      && vbdiNguoiSoanID == currentUserID
-                      && CurrentDonViID == 198
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              FlatButton.icon(
-                                icon: Icon(Icons.next_plan_outlined),
-                                label: Text('Trình tiếp'),
-                                onPressed: () {
-                                  onPressButton(context, index + 7);
-                                },
-                                textTheme: ButtonTextTheme.primary,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                      : SizedBox(),
-
-                  (trinhDaCoNgDuyet == true ||
-                      trinhLan2 == true ||
-                      vbdiTrangThaiVB == 6) &&
-                      vbdiNguoiSoanID == currentUserID &&
-                      CurrentDonViID == 198
-                      ? Container(
-                    child: InkWell(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          Column(
-                            children: <Widget>[
-                              FlatButton.icon(
-                                icon: Icon(Icons.undo_rounded),
-                                label: Text('Trình lại'),
-                                onPressed: () {
-                                  onPressButton(context, index + 3);
-                                },
-                                textTheme: ButtonTextTheme.primary,
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                      : SizedBox(),
-                  // Container(
-                  //   child: InkWell(
-                  //     child: Column(
-                  //       mainAxisAlignment: MainAxisAlignment.center,
-                  //       children: <Widget>[
-                  //         FlatButton.icon(
-                  //           icon: Icon(Icons.delete,),
-                  //           label: Text('Xoá'),
-                  //           onPressed: () {
-                  //             setState(() {
-                  //               List  data = [];
-                  //               data =  duthaoListXoa;
-                  //               for(int index  in data){
-                  //
-                  //               }
-                  //               data.indexOf(data[index]);
-                  //               data.removeAt(index);
-                  //             });
-                  //             Navigator.of(context).pop();
-                  //           },
-                  //           textTheme: ButtonTextTheme.primary,
-                  //         )
-                  //       ],
-                  //     ),
-                  //   ),
-                  // ),
-                ],
-              );
-            }):Center(child: CircularProgressIndicator(),)) ,),) ;
+                    )
+                        : SizedBox(),
+                    // Container(
+                    //   child: InkWell(
+                    //     child: Column(
+                    //       mainAxisAlignment: MainAxisAlignment.center,
+                    //       children: <Widget>[
+                    //         FlatButton.icon(
+                    //           icon: Icon(Icons.delete,),
+                    //           label: Text('Xoá'),
+                    //           onPressed: () {
+                    //             setState(() {
+                    //               List  data = [];
+                    //               data =  duthaoListXoa;
+                    //               for(int index  in data){
+                    //
+                    //               }
+                    //               data.indexOf(data[index]);
+                    //               data.removeAt(index);
+                    //             });
+                    //             Navigator.of(context).pop();
+                    //           },
+                    //           textTheme: ButtonTextTheme.primary,
+                    //         )
+                    //       ],
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
+                );
+              }):Center(child: CircularProgressIndicator(),)) ,);
   }
 
   List _myActivities = [];

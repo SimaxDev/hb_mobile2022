@@ -44,26 +44,7 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   var ay;
   double _height;
   int tongso = 0;
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer?.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer?.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -94,9 +75,6 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   @override
   void dispose(){
     super.dispose();
-    if(_timer != null){
-      _timer?.cancel();
-    }
     strListId;
     strListVanBanLienQuanID;
     strListVanBanDiLienQuan;
@@ -138,53 +116,49 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   @override
   Widget build(BuildContext context) {
     _height = MediaQuery.of(context).size.height;
-    return GestureDetector(
-      // onTap: _handleUserInteraction,
-      // onPanDown: _handleUserInteraction,
-      // onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
 
       body: new ListView(
         padding: const EdgeInsets.all(0.0),
         children: <Widget>[
-    SizedBox(height: 10,),
-        Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text(
-                  "Cây hồ sơ công việc",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-                ),
-              ),
+          SizedBox(height: 10,),
+          Container(
+            margin: EdgeInsets.only(left: 10),
+            child: Text(
+              "Cây hồ sơ công việc",
+              style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+            ),
+          ),
 
-         Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: MediaQuery.of(context).size.width*0.05 ,
-              child:  IconButton(
-                onPressed: ()=> onToggleShowPass(),
-                icon: checkedTree== true ?Icon(Icons.arrow_drop_down):Icon
-                  (Icons.arrow_right_outlined)
-                ,),
-            ),
-            Container(
-              width: MediaQuery.of(context).size.width*0.5 ,
-              child: ListTile(
-                title: Text(
-                  widget.title,style: TextStyle(color: Colors.red),
-                  maxLines: 2,
-                  textAlign: TextAlign.start,
-                ),
-                leading: Image( width: MediaQuery.of(context).size.width*0.1 ,
-                    alignment: Alignment.centerLeft,
-                    image: AssetImage('assets/logo_vb.png')),
-                onTap: () {
-                  Navigator.pop(context);
-                },
+          Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                width: MediaQuery.of(context).size.width*0.05 ,
+                child:  IconButton(
+                  onPressed: ()=> onToggleShowPass(),
+                  icon: checkedTree== true ?Icon(Icons.arrow_drop_down):Icon
+                    (Icons.arrow_right_outlined)
+                  ,),
               ),
-            ),
-          ],
-        ),
+              Container(
+                width: MediaQuery.of(context).size.width*0.5 ,
+                child: ListTile(
+                  title: Text(
+                    widget.title,style: TextStyle(color: Colors.red),
+                    maxLines: 2,
+                    textAlign: TextAlign.start,
+                  ),
+                  leading: Image( width: MediaQuery.of(context).size.width*0.1 ,
+                      alignment: Alignment.centerLeft,
+                      image: AssetImage('assets/logo_vb.png')),
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                ),
+              ),
+            ],
+          ),
 
 
           checkedTree == true && isLoading == true? Container(
@@ -194,28 +168,28 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
             child: buildTree(),
           ):SizedBox(),
 
-              Container(
-                  margin: EdgeInsets.only(left: 10),
-                  child: Row(
-                    children: [
-                      Text(
-                        "Các hồ sơ, văn bản liên quan ",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.bold),
-                      ),
-                      IconButton(
-                        icon: const Icon(
-                          Icons.add,
-                          color: Colors.greenAccent,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).push(MaterialPageRoute
-                            (builder: (context) =>ChiTietHSDuaVao()
-                          ));
-                        },
-                      ),
-                    ],
-                  )),
+          Container(
+              margin: EdgeInsets.only(left: 10),
+              child: Row(
+                children: [
+                  Text(
+                    "Các hồ sơ, văn bản liên quan ",
+                    style: TextStyle(
+                        fontSize: 16, fontWeight: FontWeight.bold),
+                  ),
+                  IconButton(
+                    icon: const Icon(
+                      Icons.add,
+                      color: Colors.greenAccent,
+                    ),
+                    onPressed: () {
+                      Navigator.of(context).push(MaterialPageRoute
+                        (builder: (context) =>ChiTietHSDuaVao()
+                      ));
+                    },
+                  ),
+                ],
+              )),
           Stack(children: [
             Container(
                 margin: EdgeInsets.only(left: 22),
@@ -279,26 +253,26 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
 
           ],),
 
-              InkWell(
-                onTap: (){
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => cacTaiLieuK(
-                          id: widget.idHS
-                      ),
-                    ),
-                  );
-
-                },
-                child: Container(
-                margin: EdgeInsets.only(left: 10),
-                child: Text(
-                  "Các tài liệu khác",
-                  style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,
-                    decoration: TextDecoration.underline,),
+          InkWell(
+            onTap: (){
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => cacTaiLieuK(
+                      id: widget.idHS,nam:widget.nam
+                  ),
                 ),
-              ) ,),
+              );
+
+            },
+            child: Container(
+              margin: EdgeInsets.only(left: 10),
+              child: Text(
+                "Các tài liệu khác",
+                style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold,
+                  decoration: TextDecoration.underline,),
+              ),
+            ) ,),
           InkWell(
             onTap: (){},
             child: Container(
@@ -313,7 +287,7 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
         ],
       ),
 
-    ),);
+    );
   }
 
   Widget buildTree() {

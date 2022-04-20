@@ -46,13 +46,14 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
   List<int> ListTT = [1,2];
   int dropdownValueTT =1 ;
   List<ListDataLinhVuc> vanbanListLinhVuc = [] ;
+  List dataLinhVuc = [];
+  String idLV;
   DateTime selectedDateBD = DateTime.now();
   TextEditingController _dateControllerBD = TextEditingController(); 
   DateTime selectedDateKT = DateTime.now();
   TextEditingController _dateControllerKT = TextEditingController();
   bool XemTT =  false;
   String mucDo = "";
-  Timer _timer;
   List chua = [];
   String base64PDF = "";
   _onDeleteItemPressed(item) {
@@ -70,27 +71,12 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
     // if (_timer != null) {
     //   _timer.cancel();
     // }
+
     isLoading = true;
     GetDataLinhVuc();
    // _initializeTimer();
   }
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      rester().logOutALL();
-      _timer.cancel();
-    });
 
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 // lấy file từ điện thoại
 //   selectFile() async {
 //     FilePickerResult result = await FilePicker.platform.pickFiles(
@@ -168,6 +154,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
     String Yearvb = DateFormat('yyyy').format(now);
     String detailVBDT = await getDataHomeHSCV1("GetLinhVuc",Yearvb);
     if (mounted) {setState(() {
+      dataLinhVuc =  json.decode(detailVBDT)['OData'];
       List vanban = [];
       //vanbanListLinhVuc = json.decode(detailVBDT)['OData'];
       vanban = json.decode(detailVBDT)['OData'].cast<Map<String, dynamic>>();
@@ -181,11 +168,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:DefaultTabController(length: 2,
+    return DefaultTabController(length: 2,
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
@@ -198,28 +181,370 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
           children: [
             Column(
               children: [
-                 Column(children: [
-                    SizedBox(height: 20,),
-                   Container(
-                     child: Text('Các trường có dấu * yêu cầu phải nhập',
-                       style: TextStyle(fontWeight: FontWeight.bold),),
-                   ),
-                    SizedBox(height: 20,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.3,
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Mã hồ sơ(*)',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                          ),
+                Column(children: [
+                  SizedBox(height: 20,),
+                  Container(
+                    child: Text('Các trường có dấu * yêu cầu phải nhập',
+                      style: TextStyle(fontWeight: FontWeight.bold),),
+                  ),
+                  SizedBox(height: 20,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Mã hồ sơ(*)',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                         ),
-                        Container(
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          validator: (value){
+                            if(value.isEmpty){
+                              return 'Yêu cầu nhập giá trị cho trường này';
+                            }
+
+                          },
+                          controller: _maHoSo,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Số hồ sơ(*)',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          validator: (value){
+
+                            if(value.isEmpty){
+                              return 'Yêu cầu nhập giá trị cho trường này';
+                            }
+
+                          },
+                          keyboardType: TextInputType.number,
+                          controller: _sohoSo,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              // labelText: 'Time',
+                              border: InputBorder.none,
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Mức độ',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+                        child: DropdownButton<int>(
+
+                          hint: Text("Chọn cơ quan"),
+                          value: dropdownValue,isExpanded: true,
+                          underline:Container(),
+                          style: const TextStyle(color: Colors.black,
+                              fontWeight: FontWeight.normal,fontSize: 14),
+
+                          onChanged: (int newValue) {
+                            if (mounted) {setState(() {
+                              dropdownValue = newValue;
+                              if(dropdownValue != null)
+                              {
+                                mucDo =dropdownValue.toString();
+                              }
+                            });}
+
+                          },
+                          items: Year.map<DropdownMenuItem<int>>((int
+                          value) {
+                            return DropdownMenuItem<int>(
+                                value: value,
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  child: Text(trangthai(value)),
+                                ));
+                          }).toList(),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Lĩnh vực',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+
+                        ),
+                        margin: EdgeInsets.only(right: 20),
+                        width: MediaQuery.of(context).size.width * 0.64,
+                        ///height: MediaQuery.of(context).size.height * 0.07,
+                        padding: EdgeInsets.only(left: 10),
+                       // alignment: Alignment.topLeft,
+                        child:
+                        DropdownButton(
+                          items: dataLinhVuc.map((item) {
+                            return  DropdownMenuItem(
+                              child:
+                              Container(
+                                margin: EdgeInsets.only(bottom: 5),
+                                child: Text(item['Title']),
+                              ),
+                              value: item['ID'].toString(),
+                            );
+                          }).toList(),
+                          onChanged: (newVal) {
+                            setState(() {
+                              idLV = newVal;
+
+                            });
+                          },
+                          hint:Text("Chọn lĩnh vực") ,
+                          isExpanded: true,
+                          underline:Container(),
+                          style: const TextStyle(color: Colors.black,
+                              fontWeight: FontWeight.normal,fontSize: 14),
+                          value: idLV,
+                        ),
+
+                        // child: linhVucHSCV(
+                        //   listDataLinhVuc: vanbanListLinhVuc,
+                        //   multipleSelection: true,
+                        //   // text: Text("Hya"),
+                        //   title:"Chọn lĩnh vực",
+                        //   // searchHintText: 'Tìm kiếm',
+                        //   onSaved: (value) {
+                        //
+                        //     for( var item in value)
+                        //       {
+                        //         listLV += item.toString();
+                        //       }
+                        //
+                        //
+                        //   },
+                        //
+                        // ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Tiêu đề hồ sơ(*)',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          validator: (value){
+                            if(value.isEmpty){
+                              return 'Yêu cầu nhập giá trị cho trường này';
+                            }
+
+                          },
+                          controller: _tenCongViec,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Nội dung công việc',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+                        ),
+                        // height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          controller: _noiDung,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          minLines: 6, // any number you need (It works as the rows for the textarea)
+                          keyboardType: TextInputType.multiline,
+                          maxLines: null,
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Ngày bắt đầu(*)',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _selectDateBD(context);
+                        },
+                        child:Container(
                           margin: EdgeInsets.only(right: 20),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -236,40 +561,51 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                               .width * 0.64,
                           padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                           child: TextFormField(
+                            enabled: false,
+                            keyboardType: TextInputType.text,
+                            controller: _dateControllerBD== null ?
+                            selectedDateBD : _dateControllerBD,
+                            // onSaved: (val) {
+                            //   _setDate1 = val;
+                            // },
+                            decoration: InputDecoration(
+                                disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                                // labelText: 'Time',
+                                contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
                             validator: (value){
                               if(value.isEmpty){
                                 return 'Yêu cầu nhập giá trị cho trường này';
                               }
 
                             },
-                            controller: _maHoSo,
                             autovalidateMode: AutovalidateMode.onUserInteraction,
                             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                            decoration: InputDecoration(
-                                disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                                border: InputBorder.none,
-                                // labelText: 'Time',
-                                contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+
                           ),
+                        ),),
+
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Ngày kết thúc',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.3,
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Số hồ sơ(*)',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                          ),
-                        ),
-                        Container(
+                      ),
+                      InkWell(
+                        onTap: () {
+                          _selectDateKT(context);
+                        },
+                        child:Container(
                           margin: EdgeInsets.only(right: 20),
                           decoration: BoxDecoration(
                             border: Border.all(
@@ -286,900 +622,581 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                               .width * 0.64,
                           padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                           child: TextFormField(
-                            validator: (value){
-
-                                if(value.isEmpty){
-                                  return 'Yêu cầu nhập giá trị cho trường này';
-                                }
-
-                            },
-                            keyboardType: TextInputType.number,
-                            controller: _sohoSo,
-                            autovalidateMode: AutovalidateMode.onUserInteraction,
-                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                            enabled: false,
+                            keyboardType: TextInputType.text,
+                            controller: _dateControllerKT == null ?
+                            selectedDateBD : _dateControllerKT,
+                            // onSaved: (val) {
+                            //   _setDate1 = val;
+                            // },
                             decoration: InputDecoration(
                                 disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
                                 // labelText: 'Time',
-                                border: InputBorder.none,
                                 contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                            autovalidateMode: AutovalidateMode.onUserInteraction,
+                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+
                           ),
+                        ),),
+
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Thời hạn bảo quản',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                         ),
-                      ],
-                    ),
-                    SizedBox(height: 5,),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Container(
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.3,
-                          padding: EdgeInsets.only(left: 15.0),
-                          child: Text(
-                            'Mức độ',
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
                           ),
+                          borderRadius: BorderRadius.circular(5),
+
                         ),
-                        Container(
-                          margin: EdgeInsets.only(right: 20),
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.black38 ,
-
-                            ),
-                            borderRadius: BorderRadius.circular(5),
-
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          controller: _thoiHanBH,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Số lượng tờ',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
 
                           ),
-                          height:MediaQuery.of(context).size.height * 0.05,
-                          width: MediaQuery
-                              .of(context)
-                              .size
-                              .width * 0.64,
-                          padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
-                          child: DropdownButton<int>(
+                          borderRadius: BorderRadius.circular(5),
 
-                            hint: Text("Chọn cơ quan"),
-                            value: dropdownValue,isExpanded: true,
-                            underline:Container(),
-                            style: const TextStyle(color: Colors.black,
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          controller: _soLuongTo,
+                          autovalidateMode: AutovalidateMode
+                              .onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Số lượng trang',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          controller: _soLuongTrang,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Tình trạng vật lý',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
+
+                          ),
+                          borderRadius: BorderRadius.circular(5),
+
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
+                        child: DropdownButton<int>(
+                          underline: Container(),
+                          value: dropdownValueTT,isExpanded: true,
+                          style: const TextStyle(color: Colors.black,
                               fontWeight: FontWeight.normal,fontSize: 14),
 
-                            onChanged: (int newValue) {
-                              if (mounted) {setState(() {
-                                dropdownValue = newValue;
-                                if(dropdownValue != null)
-                                {
-                                  mucDo =dropdownValue.toString();
-                                }
-                              });}
+                          onChanged: (int newValue) {
+                            if (mounted) { setState(() {
+                              dropdownValueTT = newValue;
+                            });}
 
-                            },
-                            items: Year.map<DropdownMenuItem<int>>((int
-                            value) {
-                              return DropdownMenuItem<int>(
-                                  value: value,
-                                  child: Container(
-                                    margin: EdgeInsets.only(bottom: 5),
-                                    child: Text(trangthai(value)),
-                                  ));
-                            }).toList(),
-                          ),
+                          },
+                          items: ListTT.map<DropdownMenuItem<int>>((int
+                          value) {
+                            return DropdownMenuItem<int>(
+                                value: value,
+                                child: Container(
+                                  margin: EdgeInsets.only(bottom: 5),
+                                  child: Text(tinhtrang(value)),
+                                ));
+                          }).toList(),
                         ),
-                      ],
-                    ),
-                   SizedBox(height: 5,),
-                   Row(
-                    // mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Lĩnh vực',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Ngôn ngữ',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
 
-                         width: MediaQuery.of(context).size.width * 0.65,
-                         ///height: MediaQuery.of(context).size.height * 0.07,
-                         padding: EdgeInsets.only(left: 10),
-                         alignment: Alignment.topLeft,
+                          ),
+                          borderRadius: BorderRadius.circular(5),
 
-                         child: linhVucHSCV(
-                           listDataLinhVuc: vanbanListLinhVuc,
-                           multipleSelection: true,
-                           // text: Text("Hya"),
-                           title:"Chọn lĩnh vực",
-                           // searchHintText: 'Tìm kiếm',
-                           onSaved: (value) {
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          controller: _ngonNgu,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Từ khoá',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 20),
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black38 ,
 
-                             for( var item in value)
-                               {
-                                 listLV += item.toString();
-                               }
+                          ),
+                          borderRadius: BorderRadius.circular(5),
 
-
-                           },
-
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Tiêu đề hồ sơ(*)',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         height:MediaQuery.of(context).size.height * 0.05,
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                         child: TextFormField(
-                           validator: (value){
-                             if(value.isEmpty){
-                               return 'Yêu cầu nhập giá trị cho trường này';
-                             }
-
-                           },
-                           controller: _tenCongViec,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                           decoration: InputDecoration(
-                               disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                               border: InputBorder.none,
-                               // labelText: 'Time',
-                               contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Nội dung công việc',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         // height:MediaQuery.of(context).size.height * 0.05,
-                          width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                         child: TextFormField(
-                           controller: _noiDung,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                           minLines: 6, // any number you need (It works as the rows for the textarea)
-                           keyboardType: TextInputType.multiline,
-                           maxLines: null,
-                           decoration: InputDecoration(
-                               disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                               border: InputBorder.none,
-                               // labelText: 'Time',
-                               contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Ngày bắt đầu(*)',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       InkWell(
-                         onTap: () {
-                           _selectDateBD(context);
-                         },
-                         child:Container(
-                           margin: EdgeInsets.only(right: 20),
-                           decoration: BoxDecoration(
-                             border: Border.all(
-                               color: Colors.black38 ,
-
-                             ),
-                             borderRadius: BorderRadius.circular(5),
-
-                           ),
-                           height:MediaQuery.of(context).size.height * 0.05,
-                           width: MediaQuery
-                               .of(context)
-                               .size
-                               .width * 0.64,
-                           padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                           child: TextFormField(
-                             enabled: false,
-                             keyboardType: TextInputType.text,
-                             controller: _dateControllerBD== null ?
-                             selectedDateBD : _dateControllerBD,
-                             // onSaved: (val) {
-                             //   _setDate1 = val;
-                             // },
-                             decoration: InputDecoration(
-                                 disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                                 // labelText: 'Time',
-                                 contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                             validator: (value){
-                               if(value.isEmpty){
-                                 return 'Yêu cầu nhập giá trị cho trường này';
-                               }
-
-                             },
-                             autovalidateMode: AutovalidateMode.onUserInteraction,
-                             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-
-                           ),
-                         ),),
-
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Ngày kết thúc',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       InkWell(
-                         onTap: () {
-                           _selectDateKT(context);
-                         },
-                         child:Container(
-                           margin: EdgeInsets.only(right: 20),
-                           decoration: BoxDecoration(
-                             border: Border.all(
-                               color: Colors.black38 ,
-
-                             ),
-                             borderRadius: BorderRadius.circular(5),
-
-                           ),
-                           height:MediaQuery.of(context).size.height * 0.05,
-                           width: MediaQuery
-                               .of(context)
-                               .size
-                               .width * 0.64,
-                           padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                           child: TextFormField(
-                             enabled: false,
-                             keyboardType: TextInputType.text,
-                             controller: _dateControllerKT == null ?
-                             selectedDateBD : _dateControllerKT,
-                             // onSaved: (val) {
-                             //   _setDate1 = val;
-                             // },
-                             decoration: InputDecoration(
-                                 disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                                 // labelText: 'Time',
-                                 contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                             autovalidateMode: AutovalidateMode.onUserInteraction,
-                             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-
-                           ),
-                         ),),
-
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Thời hạn bảo quản',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         height:MediaQuery.of(context).size.height * 0.05,
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                         child: TextFormField(
-                           controller: _thoiHanBH,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                           decoration: InputDecoration(
-                               disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                               border: InputBorder.none,
-                               // labelText: 'Time',
-                               contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Số lượng tờ',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         height:MediaQuery.of(context).size.height * 0.05,
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                         child: TextFormField(
-                           controller: _soLuongTo,
-                           autovalidateMode: AutovalidateMode
-                               .onUserInteraction,
-                           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                           decoration: InputDecoration(
-                               disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                               border: InputBorder.none,
-                               // labelText: 'Time',
-                               contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Số lượng trang',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         height:MediaQuery.of(context).size.height * 0.05,
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                         child: TextFormField(
-                           controller: _soLuongTrang,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                           decoration: InputDecoration(
-                               disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                               border: InputBorder.none,
-                               // labelText: 'Time',
-                               contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Tình trạng vật lý',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         height:MediaQuery.of(context).size.height * 0.05,
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
-                         child: DropdownButton<int>(
-                           underline: Container(),
-                           value: dropdownValueTT,isExpanded: true,
-                           style: const TextStyle(color: Colors.black,
-                               fontWeight: FontWeight.normal,fontSize: 14),
-
-                           onChanged: (int newValue) {
-                             if (mounted) { setState(() {
-                               dropdownValueTT = newValue;
-                             });}
-
-                           },
-                           items: ListTT.map<DropdownMenuItem<int>>((int
-                           value) {
-                             return DropdownMenuItem<int>(
-                                 value: value,
-                                 child: Container(
-                                   margin: EdgeInsets.only(bottom: 5),
-                                   child: Text(tinhtrang(value)),
-                                 ));
-                           }).toList(),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Ngôn ngữ',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         height:MediaQuery.of(context).size.height * 0.05,
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                         child: TextFormField(
-                           controller: _ngonNgu,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                           decoration: InputDecoration(
-                               disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                               border: InputBorder.none,
-                               // labelText: 'Time',
-                               contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Từ khoá',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 20),
-                         decoration: BoxDecoration(
-                           border: Border.all(
-                             color: Colors.black38 ,
-
-                           ),
-                           borderRadius: BorderRadius.circular(5),
-
-                         ),
-                         height:MediaQuery.of(context).size.height * 0.05,
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.64,
-                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                         child: TextFormField(
-                           controller: _tuKhoa,
-                           autovalidateMode: AutovalidateMode.onUserInteraction,
-                           style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                           decoration: InputDecoration(
-                               disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                               border: InputBorder.none,
-                               // labelText: 'Time',
-                               contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                         ),
-                       ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.start,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.3,
-                         padding: EdgeInsets.only(left: 15.0),
-                         child: Text(
-                           'Xem thông tin?',
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Checkbox(
-                           value: XemTT, onChanged: (val){
-                         if (mounted) {setState(() {
-                           XemTT= val;
-                         });}
+                        ),
+                        height:MediaQuery.of(context).size.height * 0.05,
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.64,
+                        padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                        child: TextFormField(
+                          controller: _tuKhoa,
+                          autovalidateMode: AutovalidateMode.onUserInteraction,
+                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                          decoration: InputDecoration(
+                              disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                              border: InputBorder.none,
+                              // labelText: 'Time',
+                              contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                        ),
+                      ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.3,
+                        padding: EdgeInsets.only(left: 15.0),
+                        child: Text(
+                          'Xem thông tin?',
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Checkbox(
+                          value: XemTT, onChanged: (val){
+                        if (mounted) {setState(() {
+                          XemTT= val;
+                        });}
 
 
-                       }),
-                       // Container(
-                       //   margin: EdgeInsets.only(right: 20),
-                       //   decoration: BoxDecoration(
-                       //     border: Border.all(
-                       //       color: Colors.black38 ,
-                       //
-                       //     ),
-                       //     borderRadius: BorderRadius.circular(5),
-                       //
-                       //   ),
-                       //   height:MediaQuery.of(context).size.height * 0.05,
-                       //   width: MediaQuery
-                       //       .of(context)
-                       //       .size
-                       //       .width * 0.64,
-                       //   padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                       //   child: TextFormField(
-                       //     controller: textEditingController,
-                       //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                       //     style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                       //     decoration: InputDecoration(
-                       //         disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                       //         // labelText: 'Time',
-                       //         contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                       //   ),
-                       // ),
-                     ],
-                   ),
-                   SizedBox(height: 5,),
+                      }),
+                      // Container(
+                      //   margin: EdgeInsets.only(right: 20),
+                      //   decoration: BoxDecoration(
+                      //     border: Border.all(
+                      //       color: Colors.black38 ,
+                      //
+                      //     ),
+                      //     borderRadius: BorderRadius.circular(5),
+                      //
+                      //   ),
+                      //   height:MediaQuery.of(context).size.height * 0.05,
+                      //   width: MediaQuery
+                      //       .of(context)
+                      //       .size
+                      //       .width * 0.64,
+                      //   padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
+                      //   child: TextFormField(
+                      //     controller: textEditingController,
+                      //     autovalidateMode: AutovalidateMode.onUserInteraction,
+                      //     style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                      //     decoration: InputDecoration(
+                      //         disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
+                      //         // labelText: 'Time',
+                      //         contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
+                      //   ),
+                      // ),
+                    ],
+                  ),
+                  SizedBox(height: 5,),
 
 
 
 
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                     children: [
-                       Container(
-                         width: MediaQuery
-                             .of(context)
-                             .size
-                             .width * 0.28,
-                         padding: EdgeInsets.only(left: 15.0,bottom: 20),
-                         child: Text(
-                           "File đính kèm",
-                           style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                         ),
-                       ),
-                       Container(
-                         margin: EdgeInsets.only(right: 12),
-                         padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Container(
+                        width: MediaQuery
+                            .of(context)
+                            .size
+                            .width * 0.28,
+                        padding: EdgeInsets.only(left: 15.0,bottom: 20),
+                        child: Text(
+                          "File đính kèm",
+                          style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        ),
+                      ),
+                      Container(
+                        margin: EdgeInsets.only(right: 12),
+                        padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
 
 
-                         child: Column(children: [
-                           Container(
-                             width: MediaQuery.of(context).size.width * 0.5,
+                        child: Column(children: [
+                          Container(
+                            width: MediaQuery.of(context).size.width * 0.5,
 
-                             child: FlatButton(
-                               child: Text('Đính kèm file...'),
-                               color: Colors.blueAccent,
-                               textColor: Colors.white,
-                               onPressed: () {
-                                 selectFile();
-                               },
-                             ),
-                           ),
-                           // Container(
-                           //   width: MediaQuery.of(context).size.width * 0.5,
-                           //   margin: EdgeInsets.all(10),
-                           //   //show file name here
-                           //   child:selectedfile != null?
-                           //   Text(basename(selectedfile.path)):
-                           //   Text("",
-                           //     maxLines: 2,
-                           //     overflow: TextOverflow.ellipsis,
-                           //     style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
-                           //         color: Colors.blue),),
-                           //   //basename is from path package, to get filename from path
-                           //   //check if file is selected, if yes then show file name
-                           // ),
+                            child: FlatButton(
+                              child: Text('Đính kèm file...'),
+                              color: Colors.blueAccent,
+                              textColor: Colors.white,
+                              onPressed: () {
+                                selectFile();
+                              },
+                            ),
+                          ),
+                          // Container(
+                          //   width: MediaQuery.of(context).size.width * 0.5,
+                          //   margin: EdgeInsets.all(10),
+                          //   //show file name here
+                          //   child:selectedfile != null?
+                          //   Text(basename(selectedfile.path)):
+                          //   Text("",
+                          //     maxLines: 2,
+                          //     overflow: TextOverflow.ellipsis,
+                          //     style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
+                          //         color: Colors.blue),),
+                          //   //basename is from path package, to get filename from path
+                          //   //check if file is selected, if yes then show file name
+                          // ),
 
-                         ],),
+                        ],),
 
-                       )
-                     ],
-                   ),
-                   Container(child: ListView.builder(
-                     shrinkWrap: true,
-                     itemCount: chua.length,
-                     itemBuilder: (context, index) {
-                       return ListTile(
-                         title: Text(chua[index],style: TextStyle(
-                             fontStyle: FontStyle.normal,
-                             fontWeight: FontWeight.w400,
-                             fontSize: 13),
-                           maxLines:2,),
-                         trailing: IconButton(
-                           icon: Icon(
-                             Icons.delete,
-                             size: 18.0,
-                             color: Color(0xffDE3E43),
-                           ),
-                           onPressed: () {
-                             _onDeleteItemPressed(index);
-                           },
-                         ),
-                       );
-                     },
-                   ),),
-                   // Container(
-                   //   padding: EdgeInsets.only(top: 8, left: 16),
-                   //   height: MediaQuery
-                   //       .of(context)
-                   //       .size.height*0.1,
-                   //   child: Row(
-                   //     mainAxisAlignment: MainAxisAlignment.start,
-                   //     crossAxisAlignment: CrossAxisAlignment.start,
-                   //     children: <Widget>[
-                   //       Flexible(
-                   //         flex: 5,
-                   //         child: Column(
-                   //           mainAxisAlignment: MainAxisAlignment.start,
-                   //           crossAxisAlignment: CrossAxisAlignment.start,
-                   //           children: [
-                   //             Container(
-                   //               child: Text(
-                   //                 "File đính kèm",textAlign: TextAlign.start,
-                   //                 style: TextStyle(
-                   //                     color: Color(0xff021029),
-                   //                     fontStyle: FontStyle.normal,
-                   //                     fontWeight: FontWeight.w400,
-                   //                     fontSize: 14),
-                   //               ),
-                   //             ),
-                   //             Container(
-                   //               padding: EdgeInsets.only(top: 8,  right: 16),
-                   //               child: FlatButton(
-                   //                 child: Text('Đính kèm file...'),
-                   //                 color: Colors.blueAccent,
-                   //                 textColor: Colors.white,
-                   //                 onPressed: () async {
-                   //                   selectFile();
-                   //                 },
-                   //               ),
-                   //             ),
-                   //           ],),),
-                   //       Flexible(
-                   //         flex:5,
-                   //         child:
-                   //       )
-                   //
-                   //
-                   //
-                   //     ],
-                   //   ),),
+                      )
+                    ],
+                  ),
+                  Container(child: ListView.builder(
+                    shrinkWrap: true,
+                    itemCount: chua.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text(chua[index],style: TextStyle(
+                            fontStyle: FontStyle.normal,
+                            fontWeight: FontWeight.w400,
+                            fontSize: 13),
+                          maxLines:2,),
+                        trailing: IconButton(
+                          icon: Icon(
+                            Icons.delete,
+                            size: 18.0,
+                            color: Color(0xffDE3E43),
+                          ),
+                          onPressed: () {
+                            _onDeleteItemPressed(index);
+                          },
+                        ),
+                      );
+                    },
+                  ),),
+                  // Container(
+                  //   padding: EdgeInsets.only(top: 8, left: 16),
+                  //   height: MediaQuery
+                  //       .of(context)
+                  //       .size.height*0.1,
+                  //   child: Row(
+                  //     mainAxisAlignment: MainAxisAlignment.start,
+                  //     crossAxisAlignment: CrossAxisAlignment.start,
+                  //     children: <Widget>[
+                  //       Flexible(
+                  //         flex: 5,
+                  //         child: Column(
+                  //           mainAxisAlignment: MainAxisAlignment.start,
+                  //           crossAxisAlignment: CrossAxisAlignment.start,
+                  //           children: [
+                  //             Container(
+                  //               child: Text(
+                  //                 "File đính kèm",textAlign: TextAlign.start,
+                  //                 style: TextStyle(
+                  //                     color: Color(0xff021029),
+                  //                     fontStyle: FontStyle.normal,
+                  //                     fontWeight: FontWeight.w400,
+                  //                     fontSize: 14),
+                  //               ),
+                  //             ),
+                  //             Container(
+                  //               padding: EdgeInsets.only(top: 8,  right: 16),
+                  //               child: FlatButton(
+                  //                 child: Text('Đính kèm file...'),
+                  //                 color: Colors.blueAccent,
+                  //                 textColor: Colors.white,
+                  //                 onPressed: () async {
+                  //                   selectFile();
+                  //                 },
+                  //               ),
+                  //             ),
+                  //           ],),),
+                  //       Flexible(
+                  //         flex:5,
+                  //         child:
+                  //       )
+                  //
+                  //
+                  //
+                  //     ],
+                  //   ),),
 
 
-                   SizedBox(height:15,),
-                   Row(
-                     mainAxisAlignment: MainAxisAlignment.center,
-                     children: [
+                  SizedBox(height:15,),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
 
-                       Padding(padding: EdgeInsets.only(left: 10,right: 10,
-                           bottom: 10),
-                         child:   TextButton.icon (
-                             icon: Icon(Icons.send_and_archive),
-                             label: Text("Ghi nhận",style: TextStyle
-                               (fontWeight:
-                             FontWeight.bold),),
-                             onPressed: ()  async {
+                      Padding(padding: EdgeInsets.only(left: 10,right: 10,
+                          bottom: 10),
+                        child:   TextButton.icon (
+                            icon: Icon(Icons.send_and_archive),
+                            label: Text("Ghi nhận",style: TextStyle
+                              (fontWeight:
+                            FontWeight.bold),),
+                            onPressed: ()  async {
 
-                               var thanhcong = null;
-                               bool isAllSpaces(String input) {
-                                 String output = input.replaceAll(' ', '');
-                                 if(output == '') {
-                                   return true;
-                                 }
-                                 return false;
-                               }
+                              var thanhcong = null;
+                              bool isAllSpaces(String input) {
+                                String output = input.replaceAll(' ', '');
+                                if(output == '') {
+                                  return true;
+                                }
+                                return false;
+                              }
 
-                               var tendangnhap = sharedStorage.getString("username");
-                               String iaa =  _maHoSo.text;
-                               // .trim();
-                               if(isAllSpaces(iaa)||isAllSpaces(_sohoSo.text)
-                                   ||isAllSpaces(_sohoSo.text)
-                                   ||isAllSpaces(_tenCongViec.text)
-                                   ||isAllSpaces(_dateControllerBD.text))
-                               {showAlertDialog(context,"Nhập trường bắt buộc"
-                                   "(*)");
-                               }
-                               else
-                               {
-                                 Container(
-                                   alignment: Alignment.center,
-                                   padding: const EdgeInsets.only(top: 10, ),
-                                   child: CircularProgressIndicator(
-                                     valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-                                   ),
-                                 )
-                                 ;
-                                 //setState(() async {
-                                 String base64PDF = "";
-                                 var ch ;
-                                 if (selectedfile != null) {
-                                   // var bytes1 = await rootBundle.load(selectedfile.path);
-                                   List<int> Bytes = await  selectedfile.readAsBytesSync();
-                                   print(Bytes);
-                                   base64PDF =await  base64Encode(Bytes);
-                                   print(base64PDF);
-                                 }
-                                 EasyLoading.show();
-                                 DateTime now = DateTime.now();
-                                 String Yearvb = DateFormat('yyyy').format(now);
-                               thanhcong=  await
+                              var tendangnhap = sharedStorage.getString("username");
+                              String iaa =  _maHoSo.text;
+                              // .trim();
+                              if(isAllSpaces(iaa)||isAllSpaces(_sohoSo.text)
+                                  ||isAllSpaces(_sohoSo.text)
+                                  ||isAllSpaces(_tenCongViec.text)
+                                  ||isAllSpaces(_dateControllerBD.text))
+                              {showAlertDialog(context,"Nhập trường bắt buộc"
+                                  "(*)");
+                              }
+                              else
+                              {
+                                Container(
+                                  alignment: Alignment.center,
+                                  padding: const EdgeInsets.only(top: 10, ),
+                                  child: CircularProgressIndicator(
+                                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
+                                  ),
+                                )
+                                ;
+                                //setState(() async {
+                                String base64PDF = "";
+                                var ch ;
+                                if (selectedfile != null) {
+                                  // var bytes1 = await rootBundle.load(selectedfile.path);
+                                  List<int> Bytes = await  selectedfile.readAsBytesSync();
+                                  print(Bytes);
+                                  base64PDF =await  base64Encode(Bytes);
+                                  print(base64PDF);
+                                }
+                                EasyLoading.show();
+                                DateTime now = DateTime.now();
+                                String Yearvb = DateFormat('yyyy').format(now);
+                                thanhcong=  await
                                 postThemHSCV
-                                   ("ThemMoiHSCV",_tenCongViec.text,tendangnhap,Yearvb,
+                                  ("ThemMoiHSCV",_tenCongViec.text,tendangnhap,Yearvb,
                                     XemTT.toString(),_sohoSo.text,_noiDung.text,_dateControllerBD.text,
-                                    _dateControllerKT.text,_maHoSo.text,listLV.toString(),_thoiHanBH.text,
+                                    _dateControllerKT.text,_maHoSo.text,idLV.toString(),_thoiHanBH.text,
                                     _soLuongTo.text,_soLuongTrang.text,dropdownValueTT.toString(),_ngonNgu.text,
                                     _tuKhoa.text,base64PDF,mucDo);
-                                 EasyLoading.dismiss();
+                                EasyLoading.dismiss();
                                 // reloadContacts();
 
-                                 Navigator.of(context).pop(true);
-                                 showAlertDialog(context, json.decode(thanhcong)['Message']);
+                                Navigator.of(context).pop(true);
+                                showAlertDialog(context, json.decode(thanhcong)['Message']);
 
 
-                                 //
-                                 //  Navigator.of(context).pop();
-                               }
+                                //
+                                //  Navigator.of(context).pop();
+                              }
 
 
-                             },
-                             style: ButtonStyle(
-                               backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
-                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                             )
-                         ),
-                       ),
-                       Padding(padding: EdgeInsets.only(left: 10,right: 10,
-                           bottom: 10),
-                         child:   TextButton.icon (
-                           // child: Text("Đóng lại",style: TextStyle(fontWeight: FontWeight.bold),),
-                             icon: Icon(Icons.clear),
-                             label: Text('Đóng lại',style: TextStyle(fontWeight: FontWeight.bold)),
-                             onPressed: () {
-                               Navigator.of(context).pop();
-                             },
-                             style: ButtonStyle(
-                               backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
-                               foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                             )
-                         ),
-                       ),
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                            )
+                        ),
+                      ),
+                      Padding(padding: EdgeInsets.only(left: 10,right: 10,
+                          bottom: 10),
+                        child:   TextButton.icon (
+                          // child: Text("Đóng lại",style: TextStyle(fontWeight: FontWeight.bold),),
+                            icon: Icon(Icons.clear),
+                            label: Text('Đóng lại',style: TextStyle(fontWeight: FontWeight.bold)),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                            )
+                        ),
+                      ),
 
-                     ],),
-                  ],),
+                    ],),
+                ],),
 
 
 
@@ -1189,7 +1206,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
         ),
 
       ),
-    ),);
+    );
   }
 
 

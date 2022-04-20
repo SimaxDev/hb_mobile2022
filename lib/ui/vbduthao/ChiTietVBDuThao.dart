@@ -65,31 +65,13 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
   double pdfWidth = 612.0;
   double pdfHeight = 792.0;
   String ActionXLPT = "GetToTrinh";
-  Timer _timer;
   String FileTaiLieu ="";
 
   List<String> _colors = <String>['', 'Văn bản 1', 'Văn bản 2', 'Văn bản 3', 'Văn bản 4'];
   String _color = '';
 
 
-  //
-  // void _initializeTimer() {
-  //   _timer = Timer.periodic(const Duration(minutes:5), (_) {
-  //     logOut(context);
-  //     _timer.cancel();
-  //   });
-  //
-  // }
-  //
-  // void _handleUserInteraction([_]) {
-  //   if (!_timer.isActive) {
-  //     // This means the user has been logged out
-  //     return;
-  //   }
-  //
-  //   _timer.cancel();
-  //   _initializeTimer();
-  // }
+
 
   @override
   void dispose(){
@@ -462,131 +444,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
           ),):SizedBox(),
       ),
     );
-    // return GestureDetector(
-    //   onTap: _handleUserInteraction,
-    //   onPanDown: _handleUserInteraction,
-    //   onScaleStart: _handleUserInteraction,
-    //   child:DefaultTabController(
-    //   length: 5,
-    //   child: Scaffold(
-    //     resizeToAvoidBottomInset: false,
-    //     appBar: PreferredSize(
-    //       preferredSize: Size.fromHeight(100.0),
-    //       child: AppBar(
-    //       automaticallyImplyLeading: true,
-    //       leading: IconButton(
-    //         icon: Icon(Icons.arrow_back),
-    //         onPressed: () => Navigator.pop(context, false),
-    //       ),
-    //       bottom: PreferredSize(
-    //         preferredSize: Size.fromHeight(50.0),
-    //         child:
-    //           TabBar(
-    //             indicatorSize: TabBarIndicatorSize.label,
-    //             tabs: [
-    //               Tab(
-    //                   child: Align(
-    //                     alignment: Alignment.center,
-    //
-    //                     child: Text(
-    //                       'Dự thảo',
-    //                       textAlign: TextAlign.center,
-    //                       style: TextStyle(fontSize: 13),
-    //                     ),
-    //                   )
-    //               ),
-    //               Tab(
-    //                   child: Align(
-    //
-    //                     alignment: Alignment.center,
-    //                     child: Text(
-    //                       'Phiếu trình',
-    //                       textAlign: TextAlign.center,
-    //                       style: TextStyle(fontSize: 13),
-    //                     ),
-    //                   )),
-    //               Tab(
-    //                   child: Align(
-    //
-    //                     alignment: Alignment.center,
-    //                     child: Text(
-    //                       'Toàn văn-DT',
-    //                       textAlign: TextAlign.center,
-    //                       style: TextStyle(fontSize: 13),
-    //                     ),
-    //                   )),
-    //               Tab(
-    //                   child: Align(
-    //
-    //                     alignment: Alignment.center,
-    //                     child: Text(
-    //                       'Toàn văn-PT',
-    //                       textAlign: TextAlign.center,
-    //                       style: TextStyle(fontSize: 13),
-    //                     ),
-    //                   )),
-    //               Tab(
-    //                   child: Align(
-    //
-    //                     alignment: Alignment.center,
-    //                     child: Text(
-    //                       'Gửi nhận',
-    //                       textAlign: TextAlign.center,
-    //                       style: TextStyle(fontSize: 13),
-    //                     ),
-    //                   )),
-    //             ],
-    //           ) ,
-    //       ),
-    //       title: Text('Chi tiết văn bản dự thảo'),
-    //     ),),
-    //     body: isLoading == true
-    //         ? TabBarView(
-    //             physics: NeverScrollableScrollPhysics(),
-    //             children: [
-    //               ThongTinVBDT(
-    //                 idDuThao: widget.idDuThao,nam:widget.nam,MaDonVi:widget
-    //                   .MaDonVi,ttDuThao :duThao
-    //               ),
-    //               ThongTinPhieuTrinh(
-    //                 idPhieuTrinh: widget.idDuThao,nam: widget.nam,duThaoPT:duThaoPT
-    //               ),
-    //               ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
-    //                   top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
-    //               ViewPDFPT(idDuThao: widget.idDuThao,nam: widget.nam,
-    //                   duThaoPT:duThaoPT),
-    //               // !isLoadingPDF
-    //               //     ? (remotePDFpath.value != '' && remotePDFpath.value.toLowerCase().contains(".pdf"))
-    //               //         ? Container(
-    //               //             child: PdfViewPage(
-    //               //               path: remotePDFpath,
-    //               //               // idDuThao: widget.idDuThao,
-    //               //               // token: AuthToken
-    //               //             ),
-    //               //           )
-    //               //         : Container(
-    //               //             child: Center(
-    //               //               child: Text('Không có file PDF đính kèm'),
-    //               //             ),
-    //               //           )
-    //               //     : Center(
-    //               //         child: CircularProgressIndicator(),
-    //               //       ),
-    //               NhatKyDuThao(
-    //                 idDuThao: widget.idDuThao,
-    //                 username:widget.users,nam:widget.nam
-    //               ),
-    //             ],
-    //           )
-    //         : Center(
-    //             child: CircularProgressIndicator(),
-    //           ),
-    //     bottomNavigationBar:isLoading == true?  PreferredSize(preferredSize: Size.fromHeight(50.0),
-    //     child: BottomNav(id:widget.idDuThao,username :  widget
-    //         .users,nam:year.toString(),MaDonVi:widget.MaDonVi,ttDuThao:duThao
-    //     ),):SizedBox(),
-    //   ),
-    // ),);
+
   }
 
   void _tapSign() {

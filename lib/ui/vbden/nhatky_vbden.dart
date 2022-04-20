@@ -28,16 +28,7 @@ class _NhatKyVBDen extends State<NhatKyVBDen> {
 String ActionXLGuiNhan = "GetThongTinGuiNhan";
   var tendangnhap = "";
   bool isLoading =  false;
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
   @override
   void dispose() {
 
@@ -46,15 +37,7 @@ String ActionXLGuiNhan = "GetThongTinGuiNhan";
     // }
     super.dispose();
   }
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
+
 
   @override
   void initState() {
@@ -399,26 +382,22 @@ String ActionXLGuiNhan = "GetThongTinGuiNhan";
   @override
   Widget build(BuildContext context) {
 
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
-      body:Builder(
-        builder: (BuildContext context){
-          return Container(
-            child:  isLoading == false ? Center(child:
-            CircularProgressIndicator
-              (valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue))) :
-            getBody(),
-          );
-        },
-      )
+    return Scaffold(
+        body:Builder(
+          builder: (BuildContext context){
+            return Container(
+              child:  isLoading == false ? Center(child:
+              CircularProgressIndicator
+                (valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue))) :
+              getBody(),
+            );
+          },
+        )
 
 
 
 
-    ),);
+    );
 
   }
 

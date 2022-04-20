@@ -28,27 +28,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   var users = null;
   var tendangnhap = "";
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   @override
   void dispose(){
     super.dispose();
@@ -103,11 +83,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:RefreshIndicator(child: Scaffold(
+    return RefreshIndicator(child: Scaffold(
       appBar: AppBar(title: Text('Thông tin cá nhân'),),
       body:users == null ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors
           .blue))) :
@@ -454,15 +430,15 @@ class _ThongtinUserState extends State<ThongtinUser> {
                   padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
 
 
-                     child:  Text(
-                       users.DiaChi,
+                  child:  Text(
+                    users.DiaChi,
 
-                       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                       textAlign: TextAlign.justify,
-                       maxLines: 100,
+                    style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    textAlign: TextAlign.justify,
+                    maxLines: 100,
 
 
-                     ),
+                  ),
 
                 )
               ],
@@ -602,7 +578,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
 
 
 
-    ), onRefresh: refreshList),);
+    ), onRefresh: refreshList);
 
   }
   String getTrangThai(int trangthai) {

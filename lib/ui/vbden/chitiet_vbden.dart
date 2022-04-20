@@ -45,26 +45,7 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
    String ActionXL = "GetVBDByIDMobile";
   int year = 2022;
   List FileTaiLieu =[];
-   Timer _timer;
 
-
-   void _initializeTimer() {
-     _timer = Timer.periodic(const Duration(minutes:5), (_) {
-       logOut(context);
-       _timer.cancel();
-     });
-
-   }
-
-   void _handleUserInteraction([_]) {
-     // if (!_timer.isActive) {
-     //   // This means the user has been logged out
-     //   return;
-     // }
-     //
-     // _timer.cancel();
-     // _initializeTimer();
-   }
    @override
    void dispose(){
      super.dispose();
@@ -269,52 +250,5 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
 
 
 
-    // return GestureDetector(
-    //   onTap: _handleUserInteraction,
-    //   onPanDown: _handleUserInteraction,
-    //   onScaleStart: _handleUserInteraction,
-    //   child:DefaultTabController(
-    //     length: 3,
-    //     child: Scaffold(
-    //       appBar: AppBar(
-    //         leading: IconButton(
-    //           icon: Icon(Icons.arrow_back),
-    //           onPressed: () => Navigator.pop(context, false),
-    //         ),
-    //         bottom: TabBar(
-    //           tabs: [
-    //             Tab(
-    //               text: 'Thông tin',
-    //             ),
-    //             Tab(
-    //               text: 'Toàn văn',
-    //             ),
-    //             Tab(
-    //               text: 'Gửi nhận',
-    //             ),
-    //           ],
-    //         ),
-    //         title: Text('Chi tiết văn bản đến'),
-    //       ),
-    //      body:  isLoading == true?TabBarView(
-    //        physics: NeverScrollableScrollPhysics(),
-    //        children: [
-    //          //ThongTinVBDen(id:widget.id,username:widget.username),
-    //          ThongTinVBDen(ttvbDen:ttduthao,id:widget.id, Yearvb: year),
-    //          ViewPDFVB(),
-    //          // Container(
-    //          //   child: PdfViewPage(
-    //          //     path: assetPDFPath,
-    //          //   ),
-    //          // ),
-    //          NhatKyVBDen(id: widget.id,nam: year,),
-    //        ],
-    //      ):Center(
-    //        child: CircularProgressIndicator(),
-    //      ),
-    //       bottomNavigationBar:isLoading == true? BottomNav(id  : ItemId,nam: year,
-    //           MaDonVi:widget.MaDonVi,ttvbDen:ttduthao):SizedBox(),
-    //     )
-    // ),);
   }
 }

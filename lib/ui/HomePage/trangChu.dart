@@ -73,24 +73,6 @@ class PageState extends State<trangChu> {
       fontStyle: FontStyle.normal);
   var tabStyleBlackIT = TextStyle(
       fontSize: 11, fontStyle: FontStyle.normal, color: Color(0xff232D35));
-  Timer _timer;
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   //initial
   @override
@@ -238,378 +220,373 @@ class PageState extends State<trangChu> {
   //body
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child: Scaffold(
-          appBar: new AppBar(
-            // automaticallyImplyLeading: false,
-            title: Transform.translate(
-              offset: Offset(-10, 0.0),
-              child: Text("Trang chủ"),
-            ),
-            actions: <Widget>[
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    user.ChucVu == null ? "" : user.ChucVu + ":",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 10,
-                    ),
-                    textAlign: TextAlign.center,
+    return Scaffold(
+        appBar: new AppBar(
+          // automaticallyImplyLeading: false,
+          title: Transform.translate(
+            offset: Offset(-10, 0.0),
+            child: Text("Trang chủ"),
+          ),
+          actions: <Widget>[
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  user.ChucVu == null ? "" : user.ChucVu + ":",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 10,
                   ),
-                  Text(
-                    user.Title != null ? user.Title : "",
-                    style: TextStyle(
-                      fontWeight: FontWeight.bold,
-                      fontSize: 13,
-                    ),
-                    textAlign: TextAlign.center,
-                  ),
-                ],
-              ),
-              Builder(
-                builder: (context) => IconButton(
-                  icon: Icon(Icons.person_outline),
-                  onPressed: () => Scaffold.of(context).openEndDrawer(),
-                  //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  textAlign: TextAlign.center,
                 ),
-              ),
-            ],
-          ),
-          endDrawer: MenuRight(
-            hoten: user.Title,
-            chucvu: user.ChucVu,
-            users: widget.username,
-          ),
-          endDrawerEnableOpenDragGesture: false,
-          drawer: Drawer(
-            child: Container(
-              height: MediaQuery.of(context).size.height,
-              child: MenuChinh(year: widget.nam),
+                Text(
+                  user.Title != null ? user.Title : "",
+                  style: TextStyle(
+                    fontWeight: FontWeight.bold,
+                    fontSize: 13,
+                  ),
+                  textAlign: TextAlign.center,
+                ),
+              ],
             ),
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.person_outline),
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+                //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
+            ),
+          ],
+        ),
+        endDrawer: MenuRight(
+          hoten: user.Title,
+          chucvu: user.ChucVu,
+          users: widget.username,
+        ),
+        endDrawerEnableOpenDragGesture: false,
+        drawer: Drawer(
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            child: MenuChinh(year: widget.nam),
           ),
-          body: Container(
-            //   decoration: new BoxDecoration(
-            //       color: Color(0xff0088ff)
-            //
-            //   ),
+        ),
+        body: Container(
+          //   decoration: new BoxDecoration(
+          //       color: Color(0xff0088ff)
+          //
+          //   ),
 
-            child: Padding(
-                padding: EdgeInsets.all(20),
-                child: Column(
-                  children: <Widget>[
-                    Expanded(
-                        child: GridView(
-                      // padding: EdgeInsets.all(5),
-                      // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      //     crossAxisCount: 2, mainAxisSpacing: 0,
-                      //     crossAxisSpacing: 0),
-                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 2,
-                        crossAxisSpacing: 0,
-                        mainAxisSpacing: 0,
-                        childAspectRatio: (2 / 1),
-                      ),
-                      children: <Widget>[
-                        itemVBD('assets/icon/vbden.png'),
+          child: Padding(
+              padding: EdgeInsets.all(20),
+              child: Column(
+                children: <Widget>[
+                  Expanded(
+                      child: GridView(
+                        // padding: EdgeInsets.all(5),
+                        // gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        //     crossAxisCount: 2, mainAxisSpacing: 0,
+                        //     crossAxisSpacing: 0),
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                          crossAxisSpacing: 0,
+                          mainAxisSpacing: 0,
+                          childAspectRatio: (2 / 1),
+                        ),
+                        children: <Widget>[
+                          itemVBD('assets/icon/vbden.png'),
 
-                        itemVBDi('assets/icon/vbdiApp'
-                            '.png'),
-                        itemVBDT('assets/icon/duthaoApp'
-                            '.png'),
+                          itemVBDi('assets/icon/vbdiApp'
+                              '.png'),
+                          itemVBDT('assets/icon/duthaoApp'
+                              '.png'),
 
-                        Container(
-                          margin: EdgeInsets.only(top: 10, left: 5),
-                          color: Color(0xffE57373),
-                          child: InkWell(
-                            onTap: () {
+                          Container(
+                            margin: EdgeInsets.only(top: 10, left: 5),
+                            color: Color(0xffE57373),
+                            child: InkWell(
+                              onTap: () {
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) => HomeHSCV(
-                                      username: widget.username,nam:widget.nam
-                                    ),
-                                  ));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                    'assets/icon/hscvApp'
-                                    '.png',
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    fit: BoxFit.fill),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Hồ sơ công việc",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleWhile),
-                                )
-                              ],
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                      builder: (context) => HomeHSCV(
+                                          username: widget.username,nam:widget.nam
+                                      ),
+                                    ));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                      'assets/icon/hscvApp'
+                                          '.png',
+                                      width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                      height: MediaQuery.of(context).size.height *
+                                          0.05,
+                                      fit: BoxFit.fill),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Text("Hồ sơ công việc",
+                                        textAlign: TextAlign.center,
+                                        style: tabStyleWhile),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 10, right: 5),
-                          color: Color(0xff43A047),
-                          child: InkWell(
-                            onTap: () {
+                          Container(
+                            margin: EdgeInsets.only(top: 10, right: 5),
+                            color: Color(0xff43A047),
+                            child: InkWell(
+                              onTap: () {
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => GiaoViec(
-                                            Yearvb: yeara,
-                                          )));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                    'assets/icon/giaoviecApp'
-                                    '.png',
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    fit: BoxFit.fill),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Giao việc",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleWhile),
-                                )
-                              ],
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => GiaoViec(
+                                          Yearvb: yeara,
+                                        )));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                      'assets/icon/giaoviecApp'
+                                          '.png',
+                                      width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                      height: MediaQuery.of(context).size.height *
+                                          0.05,
+                                      fit: BoxFit.fill),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Text("Giao việc",
+                                        textAlign: TextAlign.center,
+                                        style: tabStyleWhile),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 10, left: 5),
-                          color: Color(0xffFBA922),
-                          child: InkWell(
-                            onTap: () {
+                          Container(
+                            margin: EdgeInsets.only(top: 10, left: 5),
+                            color: Color(0xffFBA922),
+                            child: InkWell(
+                              onTap: () {
 
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => DynamicEvent(
-                                          username: widget.username,
-                                          nam: widget.nam)));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                    'assets/icon/lichld'
-                                    '.png',
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    fit: BoxFit.fill),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Lịch lãnh đạo",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleWhile),
-                                )
-                              ],
-                            ),
-                          ),
-                        ),
-                        Container(
-                          margin: EdgeInsets.only(top: 10, right: 5),
-                          color: Color(0xff54A88F),
-                          child: InkWell(
-                            onTap: () {
-
-                              Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                      builder: (context) => hoTro(
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => DynamicEvent(
                                             username: widget.username,
-                                          )));
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                Image.asset(
-                                    'assets/icon/hotroApp'
-                                    '.png',
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.1,
-                                    height: MediaQuery.of(context).size.height *
-                                        0.05,
-                                    fit: BoxFit.fill),
-                                Container(
-                                  alignment: Alignment.center,
-                                  child: Text("Hỗ trợ",
-                                      textAlign: TextAlign.center,
-                                      style: tabStyleWhile),
-                                )
-                              ],
+                                            nam: widget.nam)));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                      'assets/icon/lichld'
+                                          '.png',
+                                      width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                      height: MediaQuery.of(context).size.height *
+                                          0.05,
+                                      fit: BoxFit.fill),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Text("Lịch lãnh đạo",
+                                        textAlign: TextAlign.center,
+                                        style: tabStyleWhile),
+                                  )
+                                ],
+                              ),
                             ),
                           ),
-                        ),
-                      ],
-                    )),
-                    // Align(
-                    //   alignment: Alignment.bottomCenter,
-                    //   child: Row(
-                    //     children: <Widget>[
-                    //       Flexible(
-                    //           flex: 1,
-                    //           fit: FlexFit.loose,
-                    //           child: Text("Hệ thống dùng chung của tỉnh ",
-                    //               textAlign: TextAlign.center,
-                    //               style: TextStyle(
-                    //                   color: Color(0xff3064D0), fontSize: 11))
-                    //           //Container
-                    //           ),
-                    //       // SizedBox(
-                    //       //   width: 10,
-                    //       // ),
-                    //       // Flexible(
-                    //       //   flex: 1,
-                    //       //   fit: FlexFit.tight,
-                    //       //   child: InkWell(
-                    //       //     onTap: () {
-                    //       //       setState(() {
-                    //       //         String url =
-                    //       //             'https://dichvucong.hoabinh.gov.vn/hoabinh-portal/';
-                    //       //         _launchURL(url);
-                    //       //       });
-                    //       //     },
-                    //       //     child: Column(
-                    //       //       mainAxisAlignment: MainAxisAlignment.center,
-                    //       //       children: <Widget>[
-                    //       //         Image.asset('assets/icon/congtt.png',
-                    //       //             width: MediaQuery.of(context).size.width *
-                    //       //                 0.04,
-                    //       //             height:
-                    //       //                 MediaQuery.of(context).size.height *
-                    //       //                     0.02,
-                    //       //             fit: BoxFit.fill),
-                    //       //         Text("Dịch vụ công",
-                    //       //             textAlign: TextAlign.center,
-                    //       //             style: tabStyleBlackIT)
-                    //       //       ],
-                    //       //     ),
-                    //       //   ), //Container
-                    //       // ), //Flexible
-                    //       SizedBox(
-                    //         width: 10,
-                    //       ),
-                    //       Flexible(
-                    //         flex: 1,
-                    //         fit: FlexFit.tight,
-                    //         child: InkWell(
-                    //           onTap: () {
-                    //             setState(() {
-                    //               String url = 'http://hoabinh.gov.vn/';
-                    //               _launchURL(url);
-                    //             });
-                    //           },
-                    //           child: Column(
-                    //             mainAxisAlignment: MainAxisAlignment.center,
-                    //             children: <Widget>[
-                    //               Image.asset('assets/icon/congttApp.png',
-                    //                   width: MediaQuery.of(context).size.width *
-                    //                       0.04,
-                    //                   height:
-                    //                       MediaQuery.of(context).size.height *
-                    //                           0.02,
-                    //                   fit: BoxFit.fill),
-                    //               Text("Cổng thông tin",
-                    //                   textAlign: TextAlign.center,
-                    //                   style: tabStyleBlackIT)
-                    //             ],
-                    //           ),
-                    //         ), //Container
-                    //       ),
-                    //       SizedBox(
-                    //         width: 10,
-                    //       ), //SizedBox
-                    //       Flexible(
-                    //         flex: 1,
-                    //         fit: FlexFit.tight,
-                    //         child: InkWell(
-                    //           onTap: () {
-                    //             setState(() {
-                    //               String url =
-                    //                   'http://thongtinbaocao.hoabinh.gov.vn/';
-                    //               _launchURL(url);
-                    //             });
-                    //           },
-                    //           child: Column(
-                    //             mainAxisAlignment: MainAxisAlignment.center,
-                    //             children: <Widget>[
-                    //               Image.asset('assets/icon/baocaoApp.png',
-                    //                   color: Colors.black,
-                    //                   width: MediaQuery.of(context).size.width *
-                    //                       0.04,
-                    //                   height:
-                    //                       MediaQuery.of(context).size.height *
-                    //                           0.02,
-                    //                   fit: BoxFit.fill),
-                    //               Text("HT báo cáo",
-                    //                   textAlign: TextAlign.center,
-                    //                   style: tabStyleBlackIT)
-                    //             ],
-                    //           ),
-                    //         ), //Container
-                    //       ),
-                    //       SizedBox(
-                    //         width: 10,
-                    //       ), //SizedBox
-                    //       Flexible(
-                    //         flex: 1,
-                    //         fit: FlexFit.tight,
-                    //         child: InkWell(
-                    //           onTap: () {
-                    //             setState(() {
-                    //               String url = 'http://vpubnd.hoabinh.gov.vn/';
-                    //               _launchURL(url);
-                    //             });
-                    //           },
-                    //           child: Column(
-                    //             mainAxisAlignment: MainAxisAlignment.center,
-                    //             children: <Widget>[
-                    //               Image.asset(
-                    //                   'assets/icon/duthaoApp'
-                    //                   '.png',
-                    //                   color: Colors.black,
-                    //                   width: MediaQuery.of(context).size.width *
-                    //                       0.04,
-                    //                   height:
-                    //                       MediaQuery.of(context).size.height *
-                    //                           0.02,
-                    //                   fit: BoxFit.fill),
-                    //               Text("Thư điện tử ",
-                    //                   textAlign: TextAlign.center,
-                    //                   style: tabStyleBlackIT)
-                    //             ],
-                    //           ),
-                    //         ), //Container
-                    //       ),
-                    //
-                    //       //Flexible
-                    //     ], //<Widget>[]
-                    //     mainAxisAlignment: MainAxisAlignment.center,
-                    //   ),
-                    // )
-                  ],
-                )),
-          )),
-    );
+                          Container(
+                            margin: EdgeInsets.only(top: 10, right: 5),
+                            color: Color(0xff54A88F),
+                            child: InkWell(
+                              onTap: () {
+
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) => hoTro(
+                                          username: widget.username,
+                                        )));
+                              },
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  Image.asset(
+                                      'assets/icon/hotroApp'
+                                          '.png',
+                                      width:
+                                      MediaQuery.of(context).size.width * 0.1,
+                                      height: MediaQuery.of(context).size.height *
+                                          0.05,
+                                      fit: BoxFit.fill),
+                                  Container(
+                                    alignment: Alignment.center,
+                                    child: Text("Hỗ trợ",
+                                        textAlign: TextAlign.center,
+                                        style: tabStyleWhile),
+                                  )
+                                ],
+                              ),
+                            ),
+                          ),
+                        ],
+                      )),
+                  // Align(
+                  //   alignment: Alignment.bottomCenter,
+                  //   child: Row(
+                  //     children: <Widget>[
+                  //       Flexible(
+                  //           flex: 1,
+                  //           fit: FlexFit.loose,
+                  //           child: Text("Hệ thống dùng chung của tỉnh ",
+                  //               textAlign: TextAlign.center,
+                  //               style: TextStyle(
+                  //                   color: Color(0xff3064D0), fontSize: 11))
+                  //           //Container
+                  //           ),
+                  //       // SizedBox(
+                  //       //   width: 10,
+                  //       // ),
+                  //       // Flexible(
+                  //       //   flex: 1,
+                  //       //   fit: FlexFit.tight,
+                  //       //   child: InkWell(
+                  //       //     onTap: () {
+                  //       //       setState(() {
+                  //       //         String url =
+                  //       //             'https://dichvucong.hoabinh.gov.vn/hoabinh-portal/';
+                  //       //         _launchURL(url);
+                  //       //       });
+                  //       //     },
+                  //       //     child: Column(
+                  //       //       mainAxisAlignment: MainAxisAlignment.center,
+                  //       //       children: <Widget>[
+                  //       //         Image.asset('assets/icon/congtt.png',
+                  //       //             width: MediaQuery.of(context).size.width *
+                  //       //                 0.04,
+                  //       //             height:
+                  //       //                 MediaQuery.of(context).size.height *
+                  //       //                     0.02,
+                  //       //             fit: BoxFit.fill),
+                  //       //         Text("Dịch vụ công",
+                  //       //             textAlign: TextAlign.center,
+                  //       //             style: tabStyleBlackIT)
+                  //       //       ],
+                  //       //     ),
+                  //       //   ), //Container
+                  //       // ), //Flexible
+                  //       SizedBox(
+                  //         width: 10,
+                  //       ),
+                  //       Flexible(
+                  //         flex: 1,
+                  //         fit: FlexFit.tight,
+                  //         child: InkWell(
+                  //           onTap: () {
+                  //             setState(() {
+                  //               String url = 'http://hoabinh.gov.vn/';
+                  //               _launchURL(url);
+                  //             });
+                  //           },
+                  //           child: Column(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: <Widget>[
+                  //               Image.asset('assets/icon/congttApp.png',
+                  //                   width: MediaQuery.of(context).size.width *
+                  //                       0.04,
+                  //                   height:
+                  //                       MediaQuery.of(context).size.height *
+                  //                           0.02,
+                  //                   fit: BoxFit.fill),
+                  //               Text("Cổng thông tin",
+                  //                   textAlign: TextAlign.center,
+                  //                   style: tabStyleBlackIT)
+                  //             ],
+                  //           ),
+                  //         ), //Container
+                  //       ),
+                  //       SizedBox(
+                  //         width: 10,
+                  //       ), //SizedBox
+                  //       Flexible(
+                  //         flex: 1,
+                  //         fit: FlexFit.tight,
+                  //         child: InkWell(
+                  //           onTap: () {
+                  //             setState(() {
+                  //               String url =
+                  //                   'http://thongtinbaocao.hoabinh.gov.vn/';
+                  //               _launchURL(url);
+                  //             });
+                  //           },
+                  //           child: Column(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: <Widget>[
+                  //               Image.asset('assets/icon/baocaoApp.png',
+                  //                   color: Colors.black,
+                  //                   width: MediaQuery.of(context).size.width *
+                  //                       0.04,
+                  //                   height:
+                  //                       MediaQuery.of(context).size.height *
+                  //                           0.02,
+                  //                   fit: BoxFit.fill),
+                  //               Text("HT báo cáo",
+                  //                   textAlign: TextAlign.center,
+                  //                   style: tabStyleBlackIT)
+                  //             ],
+                  //           ),
+                  //         ), //Container
+                  //       ),
+                  //       SizedBox(
+                  //         width: 10,
+                  //       ), //SizedBox
+                  //       Flexible(
+                  //         flex: 1,
+                  //         fit: FlexFit.tight,
+                  //         child: InkWell(
+                  //           onTap: () {
+                  //             setState(() {
+                  //               String url = 'http://vpubnd.hoabinh.gov.vn/';
+                  //               _launchURL(url);
+                  //             });
+                  //           },
+                  //           child: Column(
+                  //             mainAxisAlignment: MainAxisAlignment.center,
+                  //             children: <Widget>[
+                  //               Image.asset(
+                  //                   'assets/icon/duthaoApp'
+                  //                   '.png',
+                  //                   color: Colors.black,
+                  //                   width: MediaQuery.of(context).size.width *
+                  //                       0.04,
+                  //                   height:
+                  //                       MediaQuery.of(context).size.height *
+                  //                           0.02,
+                  //                   fit: BoxFit.fill),
+                  //               Text("Thư điện tử ",
+                  //                   textAlign: TextAlign.center,
+                  //                   style: tabStyleBlackIT)
+                  //             ],
+                  //           ),
+                  //         ), //Container
+                  //       ),
+                  //
+                  //       //Flexible
+                  //     ], //<Widget>[]
+                  //     mainAxisAlignment: MainAxisAlignment.center,
+                  //   ),
+                  // )
+                ],
+              )),
+        ));
   }
 
   Widget itemVBD(String imagePath) {

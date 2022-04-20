@@ -63,30 +63,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   String cayXLC = "";
   String cayXDB = "";
   String selcb = "";
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      if(_timer != null){
-        _timer.cancel();
-      }
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // if(_timer != null){
-    //   _timer.cancel();
-    // }
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -98,7 +75,6 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   @override
   void dispose() {
     super.dispose();
-    _timer.cancel();
     currentUserID;
     lstUserXLC;
     lstUserXDB ;
@@ -157,12 +133,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: _handleUserInteraction,
-        onPanDown: _handleUserInteraction,
-        onScaleStart: _handleUserInteraction,
-        child:Row(crossAxisAlignment: CrossAxisAlignment.start, children:
-    <Widget>[buildTree()]));
+    return Row(crossAxisAlignment: CrossAxisAlignment.start, children:
+    <Widget>[buildTree()]);
   }
 
   Widget buildTreePT() {

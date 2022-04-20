@@ -68,7 +68,9 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   @override
   void dispose() {
     super.dispose();
-
+      vNguoiKy= "";
+      vNguoiTrinh= "";
+      toTrinh= "";
     EasyLoading.dismiss();
 
   }
@@ -128,34 +130,36 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
 
   Widget buildTreeCBC() {
       try {
-        if( widget.clickChon == true)
-        {
-          if(chitiet.length>0){
-            for(var item in chitiet)
-            {
-              if(item['title'] ==tenPhongBan)
-              {
-                var tendn1 = sharedStorage.getString("username");
-                chuListDT =  item['key'] ;
-                GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
-                parsedJson = chitiet1;
-              }
-
-            }
-          }
-          else {
-            return
-              Center(child:
-              CircularProgressIndicator());
-          }
-        }
-        else
-        {
+        // if( widget.clickChon == true)
+        // {
+        //
+        // }
+        // else
+        // {
+        //
+        //   parsedJson = chitiet;
+        //
+        // }
+        if(chitiet.length>0){
 
           parsedJson = chitiet;
+          for(var item in chitiet)
+          {
+            if(item['title'] ==tenPhongBan)
+            {
+              var tendn1 = sharedStorage.getString("username");
+              chuListDT =  item['key'] ;
+              GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+              parsedJson = chitiet1;
+            }
 
+          }
         }
-
+        else {
+          return
+            Center(child:
+            CircularProgressIndicator());
+        }
         return TreeView(
           nodes: toTreeNodesRadio(parsedJson),
           treeController: _treeController,
@@ -205,33 +209,57 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   }
   Widget buildTreeNK() {
     try {
-      if( widget.clickChon == true)
-      {
-        if(chitiet.length>0){
-          for(var item in chitiet)
-          {
-            if(item['title'] ==tenPhongBan)
-            {
-              var tendn1 = sharedStorage.getString("username");
-              chuListDT =  item['key'] ;
-              GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
-              parsedJson = chitiet1;
-            }
 
-          }
-        }
-        else {
-          return
-            Center(child:
-            CircularProgressIndicator());
-        }
-      }
-      else
-      {
 
+      if(chitiet.length>0){
         parsedJson = chitiet;
+        for(var item in chitiet)
+        {
+          if(item['title'] ==tenPhongBan)
+          {
+            var tendn1 = sharedStorage.getString("username");
+            chuListDT =  item['key'] ;
+            GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+            parsedJson = chitiet1;
+          }
 
+        }
       }
+      else {
+        return
+          Center(child:
+          CircularProgressIndicator());
+      }
+
+      // if( widget.clickChon == true)
+      // {
+      //   if(chitiet.length>0){
+      //     parsedJson = chitiet;
+      //     for(var item in chitiet)
+      //     {
+      //       if(item['title'] ==tenPhongBan)
+      //       {
+      //         var tendn1 = sharedStorage.getString("username");
+      //         chuListDT =  item['key'] ;
+      //         GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+      //         parsedJson = chitiet1;
+      //       }
+      //
+      //     }
+      //   }
+      //   else {
+      //     return
+      //       Center(child:
+      //       CircularProgressIndicator());
+      //   }
+      // }
+      // else
+      // {
+      //
+      //   parsedJson = chitiet;
+      //
+      // }
+
       return TreeView(
         nodes: toTreeNodesRadioNK(parsedJson),
         treeController: _treeController,
@@ -295,9 +323,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
 
                               ) :
                               Text(textXLC,
-                                style: TextStyle(
-                                    color: Colors.black45
-                                ),
+
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
 
@@ -355,9 +381,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
 
                               ) :
                               Text(textXNK,
-                                style: TextStyle(
-                                    color: Colors.black45
-                                ),
+
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,
 
@@ -430,8 +454,9 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                         setState(() {
                           radioItemHolder = element['title'] ;
                           tti = element['key'];
-                          vNguoiKy = tti;
+                          toTrinh = tti;
                           textXLC =  radioItemHolder;
+                          isClick = true;
                         });
                         print(radioItemHolder);
                         print("tit" + tti);
@@ -501,6 +526,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                         radioItemHolder1 = element['title'] ;
                         tti1 = element['key'];
                         textPD2 =  radioItemHolder1;
+
                       });
                       print(radioItemHolder1);
                       print("tit" + tti);
@@ -565,11 +591,15 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                         radioItemHolder2 = element['title'] ;
                         tti2 = element['key'];
                         textXNK =  radioItemHolder2;
+                        isClick2 = true;
+                        lstUserNK =   element["key"] + ";|" + element["title"];
+                        cayXNK = element["key"];
+                        vNguoiKy =   cayXNK;
                       });
-                      print(radioItemHolder2);
-                      print("tit" + tti);
-                      lstUserNK =   element["key"] + ";|" + element["title"];
-                      cayXNK = element["key"];
+                      // print(radioItemHolder2);
+                      // print("tit" + tti);
+
+
                     },
                   )
                       : SizedBox(),

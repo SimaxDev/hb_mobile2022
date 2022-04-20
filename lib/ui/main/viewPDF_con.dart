@@ -35,30 +35,13 @@ class _ViewPDF extends State<ViewPDFVB_con> {
   var url;
   List<ListDataP>  ListDataPDF = [];
   SharedPreferences sharedStorage;
-  Timer _timer;
   String downloadMessage = "Initalizing...";
   bool _isDownloading = false;
   bool percentageBool = false;
   double percentage = 0;
 
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
 
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
 
   Future<String> loadPDF( String urlPDF) async {
@@ -163,148 +146,144 @@ class _ViewPDF extends State<ViewPDFVB_con> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
       body:
-          Stack(children: [
-            file!= null? PDFView(filePath: file.path,
-                ):Center(child: CircularProgressIndicator()),
-      Row(children: [Container(alignment: Alignment.topRight,
-        width: MediaQuery.of(context).size.width *0.75,
-        height: MediaQuery.of(context).size.height /15,
-        // padding: EdgeInsets.all(10),
-        margin:  EdgeInsets.only(left: 10,right: 0,top:0),
-        // decoration: BoxDecoration(
-        //     color: Colors.white,
-        //     borderRadius: BorderRadius.all(Radius
-        //         .circular(8))
-        // ),
+      Stack(children: [
+        file!= null? PDFView(filePath: file.path,
+        ):Center(child: CircularProgressIndicator()),
+        Row(children: [Container(alignment: Alignment.topRight,
+          width: MediaQuery.of(context).size.width *0.75,
+          height: MediaQuery.of(context).size.height /15,
+          // padding: EdgeInsets.all(10),
+          margin:  EdgeInsets.only(left: 10,right: 0,top:0),
+          // decoration: BoxDecoration(
+          //     color: Colors.white,
+          //     borderRadius: BorderRadius.all(Radius
+          //         .circular(8))
+          // ),
 
-        child:FormField<String>(
-          builder: (FormFieldState<String> state) {
-            return DropdownButtonHideUnderline(
-              child: DropdownButton<String>(
-                hint: Text("Chọn bản ghi khác"),
-                style: TextStyle(fontSize: 14,color: Colors.black),
-                value: PDF,
-                isDense: false,
-                isExpanded: true,
-                onChanged: (newValue) {
-                  if(mounted){
-                    setState(() {
-                      PDF=newValue;
+          child:FormField<String>(
+            builder: (FormFieldState<String> state) {
+              return DropdownButtonHideUnderline(
+                child: DropdownButton<String>(
+                  hint: Text("Chọn bản ghi khác"),
+                  style: TextStyle(fontSize: 14,color: Colors.black),
+                  value: PDF,
+                  isDense: false,
+                  isExpanded: true,
+                  onChanged: (newValue) {
+                    if(mounted){
+                      setState(() {
+                        PDF=newValue;
 
-                      Navigator.of(context).pushAndRemoveUntil(
-                          MaterialPageRoute(
-                              builder: (BuildContext context) => ViewPDFVB_con(viewPDF:newValue)),
-                              (Route<dynamic> route) => true);
+                        Navigator.of(context).pushAndRemoveUntil(
+                            MaterialPageRoute(
+                                builder: (BuildContext context) => ViewPDFVB_con(viewPDF:newValue)),
+                                (Route<dynamic> route) => true);
 
 
-                      // Navigator.push(
-                      //         context,
-                      //         MaterialPageRoute(
-                      //             builder: (context) => ViewPDFVB_con(viewPDF:newValue)
-                      //         ),
-                      //       );
+                        // Navigator.push(
+                        //         context,
+                        //         MaterialPageRoute(
+                        //             builder: (context) => ViewPDFVB_con(viewPDF:newValue)
+                        //         ),
+                        //       );
 
-                      // GetDataKeyWord("","","",IDCoQuan);
-                    });
-                  }
-                },
-                items: ListDataPDF.map((value) {
-                  return DropdownMenuItem<String>(
-                      value: value.Url,
-                      child:RichText(
-                        text: TextSpan(
-                          children: [
+                        // GetDataKeyWord("","","",IDCoQuan);
+                      });
+                    }
+                  },
+                  items: ListDataPDF.map((value) {
+                    return DropdownMenuItem<String>(
+                        value: value.Url,
+                        child:RichText(
+                          text: TextSpan(
+                            children: [
 
-                            WidgetSpan(
-                              child: Image(
-                                height: 30,
-                                width:20,
-                                image: value.Name != null ?value.Name.contains("pdf")
-                                    ?AssetImage('assets/pdf.png'):(value.Name
-                                    .contains("doc")?AssetImage('assets/doc'
-                                    '.png'):(value.Name
-                                    .contains("docx")?AssetImage('assets/docx'
-                                    '.png'): AssetImage('assets/logo_vb.png'))): AssetImage('assets/logo_vb.png'),
+                              WidgetSpan(
+                                child: Image(
+                                  height: 30,
+                                  width:20,
+                                  image: value.Name != null ?value.Name.contains("pdf")
+                                      ?AssetImage('assets/pdf.png'):(value.Name
+                                      .contains("doc")?AssetImage('assets/doc'
+                                      '.png'):(value.Name
+                                      .contains("docx")?AssetImage('assets/docx'
+                                      '.png'): AssetImage('assets/logo_vb.png'))): AssetImage('assets/logo_vb.png'),
+
+                                ),
+                              ),
+                              TextSpan(text:value.Name, style: TextStyle(
+                                  color: Colors.black.withOpacity(0.75),
+                                  fontStyle: FontStyle.normal,
+                                  fontWeight: FontWeight.w400,
+                                  fontSize: 13),
 
                               ),
-                            ),
-                            TextSpan(text:value.Name, style: TextStyle(
-                                color: Colors.black.withOpacity(0.75),
-                                fontStyle: FontStyle.normal,
-                                fontWeight: FontWeight.w400,
-                                fontSize: 13),
-
-                            ),
-                          ],
-                        ),
-                      )
-                  );
-                }).toList(),
-              ),
-            );
-          },
-        ),
-      ),
-        Container(
-          width: MediaQuery.of(context).size.width *0.1,
-          height: MediaQuery.of(context).size.height /15,
-          margin: EdgeInsets.only(left: 10,top:20),
-          alignment: Alignment.topCenter,
-          child: IconButton(
-            icon:Icon(Icons.download_sharp) ,
-            onPressed: () async {
-
-
-              setState(() {
-                _isDownloading = !_isDownloading;
-
-              });
-              var dir = await getExternalStorageDirectory();
-
-              Dio dio = Dio();
-              dio.download(PDF_URL,
-                  '${dir.path}/$namepdf',onReceiveProgress: (actualbytes,
-                      totalbytes){
-                    percentage =  actualbytes/totalbytes*100;
-
-                    setState(() {
-                      percentageBool = true;
-                      downloadMessage =  'Downloading... ${percentage.floor()}'
-                          ' %';
-                      if(percentage <100){
-
-                      }
-                      else{
-                        setState(() {
-                          percentageBool = false;
-                        });
-                      }
-                    });
-                  });
-              print(downloadMessage??'');
+                            ],
+                          ),
+                        )
+                    );
+                  }).toList(),
+                ),
+              );
             },
           ),
+        ),
+          Container(
+            width: MediaQuery.of(context).size.width *0.1,
+            height: MediaQuery.of(context).size.height /15,
+            margin: EdgeInsets.only(left: 10,top:20),
+            alignment: Alignment.topCenter,
+            child: IconButton(
+              icon:Icon(Icons.download_sharp) ,
+              onPressed: () async {
 
-        ),],),
+
+                setState(() {
+                  _isDownloading = !_isDownloading;
+
+                });
+                var dir = await getExternalStorageDirectory();
+
+                Dio dio = Dio();
+                dio.download(PDF_URL,
+                    '${dir.path}/$namepdf',onReceiveProgress: (actualbytes,
+                        totalbytes){
+                      percentage =  actualbytes/totalbytes*100;
+
+                      setState(() {
+                        percentageBool = true;
+                        downloadMessage =  'Downloading... ${percentage.floor()}'
+                            ' %';
+                        if(percentage <100){
+
+                        }
+                        else{
+                          setState(() {
+                            percentageBool = false;
+                          });
+                        }
+                      });
+                    });
+                print(downloadMessage??'');
+              },
+            ),
+
+          ),],),
 
 
-          percentageBool == true ?  Center(
-              child: CircularPercentIndicator(
-                  radius: 60.0,
-                  lineWidth: 5.0,
-                  percent: 0.75,
-                  center: new Text(downloadMessage, style: TextStyle(color: Color(0xFF535355))),
-                  linearGradient: LinearGradient(begin: Alignment.topRight,end:Alignment.bottomLeft, colors: <Color>    [Color(0xFF1AB600),Color(0xFF6DD400)]),rotateLinearGradient: true,
-                  circularStrokeCap: CircularStrokeCap.round)):SizedBox(),
-          ],),
+        percentageBool == true ?  Center(
+            child: CircularPercentIndicator(
+                radius: 60.0,
+                lineWidth: 5.0,
+                percent: 0.75,
+                center: new Text(downloadMessage, style: TextStyle(color: Color(0xFF535355))),
+                linearGradient: LinearGradient(begin: Alignment.topRight,end:Alignment.bottomLeft, colors: <Color>    [Color(0xFF1AB600),Color(0xFF6DD400)]),rotateLinearGradient: true,
+                circularStrokeCap: CircularStrokeCap.round)):SizedBox(),
+      ],),
 
-    ),);
+    );
   }
 }
 class ListDataP {

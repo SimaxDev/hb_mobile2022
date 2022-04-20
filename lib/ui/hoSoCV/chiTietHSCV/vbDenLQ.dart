@@ -52,24 +52,6 @@ class _vbDenLQState extends State<vbDenLQ> {
   //   JsonTableColumn("hscvTrangThaiXuLy", label: "Trạng thái xử lý",valueBuilder:ttHoSo),
   // ];
   //
-  Timer _timer;
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   Future<Null> onRefresh() async {
     refreshKey.currentState?.show(atTop: false);
@@ -146,159 +128,154 @@ class _vbDenLQState extends State<vbDenLQ> {
     double _height = MediaQuery.of(context).size.height;
     Size size = MediaQuery.of(context).size;
     double _width = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Thông tin chi tiết hồ sơ công việc"),
-          //automaticallyImplyLeading: false
-        ),
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Thông tin chi tiết hồ sơ công việc"),
+        //automaticallyImplyLeading: false
+      ),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            TextField(
+              autofocus: true,
+              controller: searchController,
+              cursorColor: Colors.black45,
+              style: TextStyle(
+                color: Colors.black,
               ),
-              TextField(
-                autofocus: true,
-                controller: searchController,
-                cursorColor: Colors.black45,
-                style: TextStyle(
-                  color: Colors.black,
+              decoration: new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Nhập từ khoá tìm kiếm',
+                hintStyle: TextStyle(
+                  color: Color(0xffC0C0C0),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
                 ),
-                decoration: new InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintText: 'Nhập từ khoá tìm kiếm',
-                  hintStyle: TextStyle(
-                    color: Color(0xffC0C0C0),
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
-                  ),
-                  contentPadding:
-                      const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
+                contentPadding:
+                const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black45),
+                  borderRadius: BorderRadius.circular(2),
                 ),
-                onChanged: (value) {
-                  if (mounted) {
-                    setState(() {
-                      GetDataHSCV1(value, "", "");
-                    });
-                  }
-                },
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black45),
+                  borderRadius: BorderRadius.circular(2),
+                ),
               ),
-              SizedBox(
-                height: 10,
-              ),
-              Row(
-                children: [
-                  Flexible(
-                    flex: 1,
-                    fit: FlexFit.tight,
-                    child: InkWell(
-                      onTap: () {
-                        //_selectDateTN(context);
-                      },
-                      child: Container(
-                        width: size.width / 3,
-                        height: size.height / 18,
-                        margin: EdgeInsets.only(right: 10),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.black38,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(8),
-                            )),
-                        child: loaiVB(
-                          listData: vanbanList,
-                          title: 'Chọn loại văn bản',
-                          searchHintText: 'Tìm kiếm',
-                          onSaved: (value) {
-                            setState(() {
-                              GetDataHSCV1("", value[0].toString(), "");
-                            });
-                            ;
-                          },
-                        ),
+              onChanged: (value) {
+                if (mounted) {
+                  setState(() {
+                    GetDataHSCV1(value, "", "");
+                  });
+                }
+              },
+            ),
+            SizedBox(
+              height: 10,
+            ),
+            Row(
+              children: [
+                Flexible(
+                  flex: 1,
+                  fit: FlexFit.tight,
+                  child: InkWell(
+                    onTap: () {
+                      //_selectDateTN(context);
+                    },
+                    child: Container(
+                      width: size.width / 3,
+                      height: size.height / 18,
+                      margin: EdgeInsets.only(right: 10),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black38,
+                          ),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          )),
+                      child: loaiVB(
+                        listData: vanbanList,
+                        title: 'Chọn loại văn bản',
+                        searchHintText: 'Tìm kiếm',
+                        onSaved: (value) {
+                          setState(() {
+                            GetDataHSCV1("", value[0].toString(), "");
+                          });
+                          ;
+                        },
                       ),
                     ),
                   ),
-                  Flexible(
-                    fit: FlexFit.tight,
-                    child: InkWell(
-                      onTap: () {
-                        // _selectDateDN(context);
-                      },
-                      child: Container(
-                        width: size.width / 3,
-                        height: size.height / 18,
-                        margin: EdgeInsets.only(left: 10),
-                        // margin:  EdgeInsets.only(left: 20,right: 20),
-                        decoration: BoxDecoration(
-                            color: Colors.white,
-                            border: Border.all(
-                              color: Colors.black38,
-                            ),
-                            borderRadius: BorderRadius.all(
-                              Radius.circular(8),
-                            )),
-                        child: coQuanBH(
-                          listData: vanbanListCQ,
-                          title: 'Chọn cơ quan ban hành',
-                          searchHintText: 'Tìm kiếm',
-                          onSaved: (value) {
-                            setState(() {
-                              GetDataHSCV1("", "", value[0].toString());
-                            });
-                          },
-                        ),
+                ),
+                Flexible(
+                  fit: FlexFit.tight,
+                  child: InkWell(
+                    onTap: () {
+                      // _selectDateDN(context);
+                    },
+                    child: Container(
+                      width: size.width / 3,
+                      height: size.height / 18,
+                      margin: EdgeInsets.only(left: 10),
+                      // margin:  EdgeInsets.only(left: 20,right: 20),
+                      decoration: BoxDecoration(
+                          color: Colors.white,
+                          border: Border.all(
+                            color: Colors.black38,
+                          ),
+                          borderRadius: BorderRadius.all(
+                            Radius.circular(8),
+                          )),
+                      child: coQuanBH(
+                        listData: vanbanListCQ,
+                        title: 'Chọn CQ ban hành',
+                        searchHintText: 'Tìm kiếm',
+                        onSaved: (value) {
+                          setState(() {
+                            GetDataHSCV1("", "", value[0].toString());
+                          });
+                        },
                       ),
                     ),
                   ),
-                ],
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: _width * 0.3,
-                    alignment: Alignment.center,
-                    height: _height * 0.05,
-                    child: Text("Số ký hiệu",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Container(
+                  width: _width * 0.3,
+                  alignment: Alignment.center,
+                  height: _height * 0.05,
+                  child: Text("Số ký hiệu",
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500)),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: _width * 0.6,
+                  height: _height * 0.05,
+                  child: Text(
+                    "Trích yếu",
+                    style:
+                    TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: _width * 0.6,
-                    height: _height * 0.05,
-                    child: Text(
-                      "Trích yếu",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
-              ),
-              Divider(),
-              Expanded(child: buildTree())
-            ],
-          ),
+                ),
+              ],
+            ),
+            Divider(),
+            Expanded(child: buildTree())
+          ],
         ),
       ),
     );
@@ -431,14 +408,25 @@ class _vbDenLQState extends State<vbDenLQ> {
                 ? Row(
                     children: [
                       Text(
-                        "Cơ quan ban hành: ",
+                        "CQ ban hành: ",
                         style: TextStyle(
-                            fontSize: 12,
+                            fontSize: 14,
                             fontWeight: FontWeight.w500,
                             color: Colors.red),
                         maxLines: 1,
                       ),
-                      Container(
+                      (vbdiDoKhan != "Thượng khẩn" ||
+                          vbdiDoKhan != "Khẩn" ||
+                          vbdiDoKhan != "Hỏa tốc")?    Container(
+                          width: MediaQuery.of(context).size.width * 0.25,
+                          child: Text(
+                            vbdCoQuanBanHanh,
+                            style: TextStyle(
+                                fontSize: 12,
+                                fontStyle: FontStyle.italic,
+                                color: Colors.red),
+                            maxLines: 2,
+                          )):  Container(
                           width: MediaQuery.of(context).size.width * 0.23,
                           child: Text(
                             vbdCoQuanBanHanh,
@@ -459,14 +447,25 @@ class _vbDenLQState extends State<vbDenLQ> {
                     ? Row(
                         children: [
                           Text(
-                            "Cơ quan ban hành: ",
+                            "CQ ban hành: ",
                             style: TextStyle(
-                                fontSize: 12,
+                                fontSize: 14,
                                 fontWeight: FontWeight.w500,
                                 color: Colors.red),
                             maxLines: 1,
                           ),
-                          Container(
+                          (vbdiDoKhan != "Thượng khẩn" ||
+                              vbdiDoKhan != "Khẩn" ||
+                              vbdiDoKhan != "Hỏa tốc")?    Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: Text(
+                                vbdCoQuanBanHanh,
+                                style: TextStyle(
+                                    fontSize: 12,
+                                    fontStyle: FontStyle.italic,
+                                    color: Colors.red),
+                                maxLines: 2,
+                              )):Container(
                               width: MediaQuery.of(context).size.width * 0.23,
                               child: Text(
                                 vbdCoQuanBanHanh,
@@ -481,12 +480,21 @@ class _vbDenLQState extends State<vbDenLQ> {
                     : Row(
                         children: [
                           Text(
-                            "Cơ quan ban hành: ",
+                            "CQ ban hành: ",
                             style: TextStyle(
-                                fontSize: 12, fontWeight: FontWeight.w500),
+                                fontSize: 14, fontWeight: FontWeight.w500),
                             maxLines: 1,
                           ),
-                          Container(
+                          (vbdiDoKhan != "Thượng khẩn" ||
+                              vbdiDoKhan != "Khẩn" ||
+                              vbdiDoKhan != "Hỏa tốc")?  Container(
+                              width: MediaQuery.of(context).size.width * 0.25,
+                              child: Text(
+                                vbdCoQuanBanHanh,
+                                style: TextStyle(
+                                    fontSize: 12, fontStyle: FontStyle.italic),
+                                maxLines: 2,
+                              )):Container(
                               width: MediaQuery.of(context).size.width * 0.23,
                               child: Text(
                                 vbdCoQuanBanHanh,

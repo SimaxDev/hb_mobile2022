@@ -417,7 +417,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
   Widget getCard(item) {
     var hscvNguoiLap = item['hscvNguoiLap']['Title'] != null
         ? item['hscvNguoiLap']['Title']
-        : 0;
+        :"";
     var Title = item['Title'] != null ? item['Title'] : "";
     var sMIDField = item['ID'] != null ? item['ID'] : 0;
     var temp = DateFormat("yyyy-MM-dd").parse(item['hscvNgayMoHoSo']) != null
@@ -479,6 +479,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
           setState(() {
             selectedIndex = sMIDField;
             hosoid=sMIDField;
+            print( " id:   " + hosoid.toString());
           });
         },
       ),

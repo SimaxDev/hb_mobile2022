@@ -87,24 +87,6 @@ class HSCVState extends State<HSCVWidget> {
   int _user = 6;
   final DataController product = Get.put(DataController());
 
-  Timer _timer;
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -149,9 +131,7 @@ class HSCVState extends State<HSCVWidget> {
   @override
   void dispose() {
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
     // HoSoList.clear();
     GetDataHSCV();
   }
@@ -321,495 +301,486 @@ class HSCVState extends State<HSCVWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child: Scaffold(
-        appBar: new AppBar(
-          title: Row(
-            // crossAxisAlignment: CrossAxisAlignment.center,
-            // mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Transform.translate(
-                offset: Offset(-15.0, 0.0),
-                child: Container(
-                  width: MediaQuery.of(context).size.width * 0.37,
-                  decoration: BoxDecoration(
-                    border: Border.all(
-                      color: Colors.white, // Set border color
-                    ), // Set border width
-                    borderRadius: BorderRadius.all(
-                        Radius.circular(10.0)), // Set rounded corner radius
-                    // Make rounded corner of border
-                  ),
-                  child: Row(
-                    children: [
-                      Container(
-                        alignment: Alignment.center,
-                        width: MediaQuery.of(context).size.width * 0.25,
-                        child: TextField(
-                          autofocus: false,
-                          cursorColor: Colors.white,
-                          style: TextStyle(color: Colors.white),
-                          controller: _titleController,
-                          decoration: InputDecoration(
-                            hintStyle: TextStyle(fontSize: 17),
-                            hintText: 'Tìm kiếm',
-                            prefixIcon: Icon(Icons.search,
-                                color: Colors.white, size: 20.0),
-                            border: InputBorder.none,
-                            // contentPadding: EdgeInsets.only(left: 0.0,
-                            //  top: 5.0,),
-                          ),
-                          onChanged: (val) {
-                            setState(() {
-                              showD = false;
-                              testthuhomerxoa = val;
+    return Scaffold(
+      appBar: new AppBar(
+        title: Row(
+          // crossAxisAlignment: CrossAxisAlignment.center,
+          // mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Transform.translate(
+              offset: Offset(-15.0, 0.0),
+              child: Container(
+                width: MediaQuery.of(context).size.width * 0.37,
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white, // Set border color
+                  ), // Set border width
+                  borderRadius: BorderRadius.all(
+                      Radius.circular(10.0)), // Set rounded corner radius
+                  // Make rounded corner of border
+                ),
+                child: Row(
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * 0.25,
+                      child: TextField(
+                        autofocus: false,
+                        cursorColor: Colors.white,
+                        style: TextStyle(color: Colors.white),
+                        controller: _titleController,
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(fontSize: 17),
+                          hintText: 'Tìm kiếm',
+                          prefixIcon: Icon(Icons.search,
+                              color: Colors.white, size: 20.0),
+                          border: InputBorder.none,
+                          // contentPadding: EdgeInsets.only(left: 0.0,
+                          //  top: 5.0,),
+                        ),
+                        onChanged: (val) {
+                          setState(() {
+                            showD = false;
+                            testthuhomerxoa = val;
 
-                              GetDataByKeyWordVBDT(testthuhomerxoa);
-                            });
-                          },
+                            GetDataByKeyWordVBDT(testthuhomerxoa);
+                          });
+                        },
+                      ),
+                    ),
+                    !showD
+                        ? InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.05,
+                        child: Text(
+                          "X",
+                          style: TextStyle(
+                              fontSize: 16,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold),
                         ),
                       ),
-                      !showD
-                          ? InkWell(
-                              child: Container(
-                                width: MediaQuery.of(context).size.width * 0.05,
-                                child: Text(
-                                  "X",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.bold),
-                                ),
-                              ),
-                              onTap: () {
-                                setState(() {
-                                  _titleController.text = "";
-                                  testthuhomerxoa = "";
-                                  //GetDataVBDen();
-                                  showD = true;
-                                  GetDataByKeyWordVBDT(testthuhomerxoa);
-                                });
-                              },
-                            )
-                          : SizedBox()
-                    ],
-                  ),
+                      onTap: () {
+                        setState(() {
+                          _titleController.text = "";
+                          testthuhomerxoa = "";
+                          //GetDataVBDen();
+                          showD = true;
+                          GetDataByKeyWordVBDT(testthuhomerxoa);
+                        });
+                      },
+                    )
+                        : SizedBox()
+                  ],
                 ),
               ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.152,
-                child: DropdownButton<String>(
-                  value: dropdownValue,
-                  isExpanded: true,
-                  // icon: const Icon(Icons.arrow_downward),
-                  // iconSize: 24,
-                  //elevation: 16,
-                  style: const TextStyle(
-                      color: Colors.black, fontWeight: FontWeight.normal),
-                  underline: Container(
-                    height: 1,
-                    color: Colors.white70,
-                  ),
-                  onChanged: (String newValue) {
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.152,
+              child: DropdownButton<String>(
+                value: dropdownValue,
+                isExpanded: true,
+                // icon: const Icon(Icons.arrow_downward),
+                // iconSize: 24,
+                //elevation: 16,
+                style: const TextStyle(
+                    color: Colors.black, fontWeight: FontWeight.normal),
+                underline: Container(
+                  height: 1,
+                  color: Colors.white70,
+                ),
+                onChanged: (String newValue) {
+                  setState(() {
+                    _user = Year.indexOf(newValue);
+                    dropdownValue = ttHoSo(_user);
+                    GetDataByKeyYearVBDi(_user.toString(), dropdownValueYear);
+                  });
+                },
+                items: Year.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 5),
+                        child: Text(
+                          value,
+                          maxLines: 1,
+                          style: TextStyle(fontSize: 13),
+                        ),
+                      ));
+                }).toList(),
+              ),
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.03,
+            ),
+            Container(
+              width: MediaQuery.of(context).size.width * 0.15,
+              child: DropdownButton<String>(
+                value: dropdownValueYear,
+                // icon: const Icon(Icons.arrow_downward),
+                // iconSize: 24,
+                //elevation: 16,
+                style: const TextStyle(
+                    color: Colors.black,
+                    fontWeight: FontWeight.normal,
+                    fontSize: 13),
+                underline: Container(
+                  height: 2,
+                  color: Colors.white70,
+                  width: 50,
+                ),
+                onChanged: (String newValue) {
+                  if (mounted) {
                     setState(() {
-                      _user = Year.indexOf(newValue);
-                      dropdownValue = ttHoSo(_user);
-                      GetDataByKeyYearVBDi(_user.toString(), dropdownValueYear);
+                      dropdownValueYear = newValue;
+                      GetDataByKeyYearVBDi(
+                          _user.toString(), dropdownValueYear);
                     });
-                  },
-                  items: Year.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value,
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text(
-                            value,
-                            maxLines: 1,
-                            style: TextStyle(fontSize: 13),
-                          ),
-                        ));
-                  }).toList(),
-                ),
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.03,
-              ),
-              Container(
-                width: MediaQuery.of(context).size.width * 0.15,
-                child: DropdownButton<String>(
-                  value: dropdownValueYear,
-                  // icon: const Icon(Icons.arrow_downward),
-                  // iconSize: 24,
-                  //elevation: 16,
-                  style: const TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.normal,
-                      fontSize: 13),
-                  underline: Container(
-                    height: 2,
-                    color: Colors.white70,
-                    width: 50,
-                  ),
-                  onChanged: (String newValue) {
-                    if (mounted) {
-                      setState(() {
-                        dropdownValueYear = newValue;
-                        GetDataByKeyYearVBDi(
-                            _user.toString(), dropdownValueYear);
-                      });
-                    }
-                  },
-                  items: Years.map<DropdownMenuItem<String>>((String value) {
-                    return DropdownMenuItem<String>(
-                        value: value,
-                        child: Container(
-                          margin: EdgeInsets.only(bottom: 5),
-                          child: Text(value),
-                        ));
-                  }).toList(),
-                ),
-              ),
-            ],
-          ),
-          // title: Transform.translate(
-          //   offset: Offset(-25.0, 0.0),
-          //   child: Theme(
-          //     data: Theme.of(context).copyWith(splashColor: Colors.transparent),
-          //     child: Row(
-          //       mainAxisAlignment: MainAxisAlignment.start,
-          //       crossAxisAlignment: CrossAxisAlignment.start,
-          //       children: [
-          //         Container(
-          //             width: MediaQuery.of(context).size.width * 0.4,
-          //             height: MediaQuery.of(context).size.height * 0.06,
-          //             margin: EdgeInsets.all(10),
-          //             // padding: EdgeInsets.all(10),
-          //             alignment: Alignment.center,
-          //             decoration: BoxDecoration(
-          //               border: Border.all(
-          //                 color: Colors.white, // Set border color
-          //               ), // Set border width
-          //               borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
-          //               // Make rounded corner of border
-          //             ),
-          //             child: Row(
-          //               children: [
-          //                 Container(
-          //                   alignment: Alignment.center,
-          //                   width: MediaQuery.of(context).size.width * 0.4,
-          //                   child: TextField(
-          //                     autofocus: false,
-          //                     cursorColor: Colors.white,
-          //                     style: TextStyle(color: Colors.white),
-          //                     controller: _titleController,
-          //                     decoration: InputDecoration(
-          //                       hintStyle: TextStyle(fontSize: 17),
-          //                       hintText: 'Tìm kiếm',
-          //                       prefixIcon: Icon(Icons.search, color: Colors.white, size: 20.0),
-          //                       border: InputBorder.none,
-          //                       // contentPadding: EdgeInsets.only(left: 0.0,
-          //                       //   top: 5.0,),
-          //                     ),
-          //                     onChanged: (val) {
-          //                       setState(() {
-          //
-          //                         showD = false;
-          //                         testthuhomerxoa = val;
-          //
-          //                         GetDataByKeyWordVBDT(testthuhomerxoa);
-          //                       });
-          //                     },
-          //                   ),
-          //                 ),
-          //                 !showD
-          //                     ? InkWell(
-          //                   child: Container(
-          //                     width: MediaQuery.of(context).size.width * 0.05,
-          //                     child: Text(
-          //                       "X",
-          //                       style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-          //                     ),
-          //                   ),
-          //                   onTap: () {
-          //                     setState(() {
-          //                       _titleController.text = "";
-          //                       testthuhomerxoa = "";
-          //                       // GetDataVBDi();
-          //                       showD = true;
-          //                     });
-          //                   },
-          //                 )
-          //                     : SizedBox()
-          //               ],
-          //             )),
-          //         Container(
-          //             margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
-          //             alignment: Alignment.center,
-          //             width: MediaQuery.of(context).size.width * 0.3,
-          //             child: )
-          //       ],
-          //     ),
-          //   ),
-          // ),
-          actions: <Widget>[
-            Builder(
-              builder: (context) => IconButton(
-                icon: Icon(Icons.person_outline),
-                onPressed: () => Scaffold.of(context).openEndDrawer(),
-                //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+                  }
+                },
+                items: Years.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 5),
+                        child: Text(value),
+                      ));
+                }).toList(),
               ),
             ),
           ],
         ),
-        endDrawerEnableOpenDragGesture: false,
-        endDrawer: MenuRight(
-          users: widget.username,
-          hoten: user.Title,
-          chucvu: user.ChucVu,
-        ),
-        body: Column(children: <Widget>[
-          Row(
-            mainAxisAlignment: MainAxisAlignment.start,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Container(
-                //alignment: Alignment.topLeft,
-                width: MediaQuery.of(context).size.width * 0.1,
-                child: IconButton(
-                  icon:
-                      Icon(const IconData(0xe164, fontFamily: 'MaterialIcons')),
-                  onPressed: () {},
-                ),
+        // title: Transform.translate(
+        //   offset: Offset(-25.0, 0.0),
+        //   child: Theme(
+        //     data: Theme.of(context).copyWith(splashColor: Colors.transparent),
+        //     child: Row(
+        //       mainAxisAlignment: MainAxisAlignment.start,
+        //       crossAxisAlignment: CrossAxisAlignment.start,
+        //       children: [
+        //         Container(
+        //             width: MediaQuery.of(context).size.width * 0.4,
+        //             height: MediaQuery.of(context).size.height * 0.06,
+        //             margin: EdgeInsets.all(10),
+        //             // padding: EdgeInsets.all(10),
+        //             alignment: Alignment.center,
+        //             decoration: BoxDecoration(
+        //               border: Border.all(
+        //                 color: Colors.white, // Set border color
+        //               ), // Set border width
+        //               borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+        //               // Make rounded corner of border
+        //             ),
+        //             child: Row(
+        //               children: [
+        //                 Container(
+        //                   alignment: Alignment.center,
+        //                   width: MediaQuery.of(context).size.width * 0.4,
+        //                   child: TextField(
+        //                     autofocus: false,
+        //                     cursorColor: Colors.white,
+        //                     style: TextStyle(color: Colors.white),
+        //                     controller: _titleController,
+        //                     decoration: InputDecoration(
+        //                       hintStyle: TextStyle(fontSize: 17),
+        //                       hintText: 'Tìm kiếm',
+        //                       prefixIcon: Icon(Icons.search, color: Colors.white, size: 20.0),
+        //                       border: InputBorder.none,
+        //                       // contentPadding: EdgeInsets.only(left: 0.0,
+        //                       //   top: 5.0,),
+        //                     ),
+        //                     onChanged: (val) {
+        //                       setState(() {
+        //
+        //                         showD = false;
+        //                         testthuhomerxoa = val;
+        //
+        //                         GetDataByKeyWordVBDT(testthuhomerxoa);
+        //                       });
+        //                     },
+        //                   ),
+        //                 ),
+        //                 !showD
+        //                     ? InkWell(
+        //                   child: Container(
+        //                     width: MediaQuery.of(context).size.width * 0.05,
+        //                     child: Text(
+        //                       "X",
+        //                       style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+        //                     ),
+        //                   ),
+        //                   onTap: () {
+        //                     setState(() {
+        //                       _titleController.text = "";
+        //                       testthuhomerxoa = "";
+        //                       // GetDataVBDi();
+        //                       showD = true;
+        //                     });
+        //                   },
+        //                 )
+        //                     : SizedBox()
+        //               ],
+        //             )),
+        //         Container(
+        //             margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
+        //             alignment: Alignment.center,
+        //             width: MediaQuery.of(context).size.width * 0.3,
+        //             child: )
+        //       ],
+        //     ),
+        //   ),
+        // ),
+        actions: <Widget>[
+          Builder(
+            builder: (context) => IconButton(
+              icon: Icon(Icons.person_outline),
+              onPressed: () => Scaffold.of(context).openEndDrawer(),
+              //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+            ),
+          ),
+        ],
+      ),
+      endDrawerEnableOpenDragGesture: false,
+      endDrawer: MenuRight(
+        users: widget.username,
+        hoten: user.Title,
+        chucvu: user.ChucVu,
+      ),
+      body: Column(children: <Widget>[
+        Row(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Container(
+              //alignment: Alignment.topLeft,
+              width: MediaQuery.of(context).size.width * 0.1,
+              child: IconButton(
+                icon:
+                Icon(const IconData(0xe164, fontFamily: 'MaterialIcons')),
+                onPressed: () {},
               ),
-              Container(
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  child: showEge1 == true
-                      ? GestureDetector(
-                          onTap: onToggleNgayMo,
-                          child: Container(
-                              padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text('Ngày mở',
-
-                                        //overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        )),
-                                  ),
-                                  Image(
-                                    height: 30,
-                                    width: 10,
-                                    image: _showPass1
-                                        ? AssetImage(
-                                            'assets/logo_down_arrow.png')
-                                        : AssetImage(
-                                            'assets/logo_up_arrow.png'),
-                                  ),
-                                ],
-                              )),
-                        )
-                      : GestureDetector(
-                          onTap: onToggleNgayMo,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15, left: 10),
-                            alignment: Alignment.bottomLeft,
+            ),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: showEge1 == true
+                    ? GestureDetector(
+                  onTap: onToggleNgayMo,
+                  child: Container(
+                      padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
+                      child: Row(
+                        children: [
+                          Container(
                             child: Text('Ngày mở',
+
                                 //overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.bold)),
-                          ))),
-              Container(
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  child: showEge2 == true
-                      ? GestureDetector(
-                          onTap: onToggleHanXuLy,
-                          child: Container(
-                              padding: const EdgeInsets.fromLTRB(5, 7, 0, 0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text('Hạn xử lý',
-                                        //overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        )),
-                                  ),
-                                  Image(
-                                    height: 30,
-                                    width: 10,
-                                    image: _showPass2
-                                        ? AssetImage(
-                                            'assets/logo_down_arrow.png')
-                                        : AssetImage(
-                                            'assets/logo_up_arrow.png'),
-                                  ),
-                                ],
-                              )),
-                        )
-                      : GestureDetector(
-                          onTap: onToggleHanXuLy,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15, left: 5),
-                            alignment: Alignment.bottomLeft,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                )),
+                          ),
+                          Image(
+                            height: 30,
+                            width: 10,
+                            image: _showPass1
+                                ? AssetImage(
+                                'assets/logo_down_arrow.png')
+                                : AssetImage(
+                                'assets/logo_up_arrow.png'),
+                          ),
+                        ],
+                      )),
+                )
+                    : GestureDetector(
+                    onTap: onToggleNgayMo,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15, left: 10),
+                      alignment: Alignment.bottomLeft,
+                      child: Text('Ngày mở',
+                          //overflow: TextOverflow.clip,
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold)),
+                    ))),
+            Container(
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: showEge2 == true
+                    ? GestureDetector(
+                  onTap: onToggleHanXuLy,
+                  child: Container(
+                      padding: const EdgeInsets.fromLTRB(5, 7, 0, 0),
+                      child: Row(
+                        children: [
+                          Container(
                             child: Text('Hạn xử lý',
                                 //overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.bold)),
-                          ))),
-              Container(
-                  // width: MediaQuery.of(context).size.width * 0.25,
-                  width: MediaQuery.of(context).size.width * 0.25,
-                  child: showEge3 == true
-                      ? GestureDetector(
-                          onTap: onToggleNguoiLap,
-                          child: Container(
-                              padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text('Người lập',
-                                        //overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        )),
-                                  ),
-                                  Image(
-                                    height: 30,
-                                    width: 10,
-                                    image: _showPass3
-                                        ? AssetImage(
-                                            'assets/logo_down_arrow.png')
-                                        : AssetImage(
-                                            'assets/logo_up_arrow.png'),
-                                  ),
-                                ],
-                              )),
-                        )
-                      : GestureDetector(
-                          onTap: onToggleNguoiLap,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15),
-                            alignment: Alignment.bottomLeft,
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                )),
+                          ),
+                          Image(
+                            height: 30,
+                            width: 10,
+                            image: _showPass2
+                                ? AssetImage(
+                                'assets/logo_down_arrow.png')
+                                : AssetImage(
+                                'assets/logo_up_arrow.png'),
+                          ),
+                        ],
+                      )),
+                )
+                    : GestureDetector(
+                    onTap: onToggleHanXuLy,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15, left: 5),
+                      alignment: Alignment.bottomLeft,
+                      child: Text('Hạn xử lý',
+                          //overflow: TextOverflow.clip,
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold)),
+                    ))),
+            Container(
+              // width: MediaQuery.of(context).size.width * 0.25,
+                width: MediaQuery.of(context).size.width * 0.25,
+                child: showEge3 == true
+                    ? GestureDetector(
+                  onTap: onToggleNguoiLap,
+                  child: Container(
+                      padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+                      child: Row(
+                        children: [
+                          Container(
                             child: Text('Người lập',
                                 //overflow: TextOverflow.clip,
                                 style: TextStyle(
-                                    fontSize: 13, fontWeight: FontWeight.bold)),
-                          ))),
-              Container(
-                //alignment: Alignment(-10.0, -1.0),
-                width: MediaQuery.of(context).size.width * 0.15,
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Container(
-                      // alignment: Alignment(-50.0, 0),
-                      margin: EdgeInsets.only(
-                        top: 15,
-                      ),
-                      child: Text(
-                        'Tổng số:',
-                        style: TextStyle(
-                            fontSize: 10,
-                            color: Colors.black38,
-                            fontStyle: FontStyle.italic),
-                      ),
-                    ),
-                    SizedBox(
-                      height: 3,
-                    ),
-                    Container(
-                      alignment: Alignment.center,
-                      child: Text(
-                        tongso == null ? "0" : tongso.toString(),
-                        textAlign: TextAlign.center,
-                        style: TextStyle(
-                          color: Colors.black38,
-                          fontSize: 12,
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              )
-            ],
-          ),
-          Expanded(
-            child: Container(
-              child: getBody(),
-            ),
-          ),
-        ]),
-        floatingActionButton: FloatingActionButton(
-          backgroundColor: Colors.blue,
-          child: Icon(Icons.add),
-          onPressed: () {
-            setState(() {
-              if(_timer != null){
-                _timer?.cancel();
-              }
-            });
-
-            Navigator.of(context).pushAndRemoveUntil(
-                MaterialPageRoute(
-                    builder: (BuildContext context) => ThemMoiHS()),
-                (Route<dynamic> route) => true);
-          },
-        ),
-        drawer: new Drawer(
-          child: new ListView(
-            children: <Widget>[
-              Container(
-                color: Color(0xff2196F3),
-                alignment: Alignment.center,
-                height: MediaQuery.of(context).size.height / 15,
-                child: DrawerHeader(
-                    child: Container(
-                        child: Row(
-                  children: [
-                    Flexible(
-                        flex: 1,
-                        child: InkWell(
-                          onTap: () => Navigator.of(context).pop(),
-                          child: Text(
-                            "X",
-                            style: TextStyle(fontSize: 20, color: Colors.white),
+                                  fontSize: 13,
+                                  fontWeight: FontWeight.bold,
+                                  decoration: TextDecoration.underline,
+                                )),
                           ),
-                        )),
-                    Flexible(
-                      flex: 8,
-                      child: Container(
-                        alignment: Alignment.center,
-                        child: Text(
-                          "Hồ sơ công việc",
-                          style: TextStyle(fontSize: 20, color: Colors.white),
-                        ),
+                          Image(
+                            height: 30,
+                            width: 10,
+                            image: _showPass3
+                                ? AssetImage(
+                                'assets/logo_down_arrow.png')
+                                : AssetImage(
+                                'assets/logo_up_arrow.png'),
+                          ),
+                        ],
+                      )),
+                )
+                    : GestureDetector(
+                    onTap: onToggleNguoiLap,
+                    child: Container(
+                      margin: EdgeInsets.only(top: 15),
+                      alignment: Alignment.bottomLeft,
+                      child: Text('Người lập',
+                          //overflow: TextOverflow.clip,
+                          style: TextStyle(
+                              fontSize: 13, fontWeight: FontWeight.bold)),
+                    ))),
+            Container(
+              //alignment: Alignment(-10.0, -1.0),
+              width: MediaQuery.of(context).size.width * 0.15,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Container(
+                    // alignment: Alignment(-50.0, 0),
+                    margin: EdgeInsets.only(
+                      top: 15,
+                    ),
+                    child: Text(
+                      'Tổng số:',
+                      style: TextStyle(
+                          fontSize: 10,
+                          color: Colors.black38,
+                          fontStyle: FontStyle.italic),
+                    ),
+                  ),
+                  SizedBox(
+                    height: 3,
+                  ),
+                  Container(
+                    alignment: Alignment.center,
+                    child: Text(
+                      tongso == null ? "0" : tongso.toString(),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        color: Colors.black38,
+                        fontSize: 12,
                       ),
                     ),
-                  ],
-                ))),
+                  ),
+                ],
               ),
-              Container(
-                height: MediaQuery.of(context).size.height,
-                child: MenuLeft(
-                  page: 4,
-                  username: widget.username,
-                  year: nam1,
-                  queryID: IDTT,
-                ),
-              )
-            ],
+            )
+          ],
+        ),
+        Expanded(
+          child: Container(
+            child: getBody(),
           ),
+        ),
+      ]),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.blue,
+        child: Icon(Icons.add),
+        onPressed: () {
+
+
+          Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                  builder: (BuildContext context) => ThemMoiHS()),
+                  (Route<dynamic> route) => true);
+        },
+      ),
+      drawer: new Drawer(
+        child: new ListView(
+          children: <Widget>[
+            Container(
+              color: Color(0xff2196F3),
+              alignment: Alignment.center,
+              height: MediaQuery.of(context).size.height / 15,
+              child: DrawerHeader(
+                  child: Container(
+                      child: Row(
+                        children: [
+                          Flexible(
+                              flex: 1,
+                              child: InkWell(
+                                onTap: () => Navigator.of(context).pop(),
+                                child: Text(
+                                  "X",
+                                  style: TextStyle(fontSize: 20, color: Colors.white),
+                                ),
+                              )),
+                          Flexible(
+                            flex: 8,
+                            child: Container(
+                              alignment: Alignment.center,
+                              child: Text(
+                                "Hồ sơ công việc",
+                                style: TextStyle(fontSize: 20, color: Colors.white),
+                              ),
+                            ),
+                          ),
+                        ],
+                      ))),
+            ),
+            Container(
+              height: MediaQuery.of(context).size.height,
+              child: MenuLeft(
+                page: 4,
+                username: widget.username,
+                year: nam1,
+                queryID: IDTT,
+              ),
+            )
+          ],
         ),
       ),
     );
@@ -884,10 +855,6 @@ class HSCVState extends State<HSCVWidget> {
         elevation: 1.5,
         child: InkWell(
           onTap: () {
-            if (_timer != null) {
-              _timer.cancel();
-            }
-
             // isyKienField == false ?
             Navigator.push(
               context,

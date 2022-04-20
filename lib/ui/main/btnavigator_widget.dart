@@ -52,26 +52,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
   int  indexVBLeft ;
 
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   getTTVBDen() async {
     DateTime now = DateTime.now();
     String Yearvb = DateFormat('yyyy').format(now);

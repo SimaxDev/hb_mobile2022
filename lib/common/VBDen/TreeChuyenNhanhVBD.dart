@@ -61,26 +61,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
   String cayXLC = "";
   String cayXDB = "";
   String selcb = "";
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:30), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -92,7 +73,6 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
   @override
   void dispose(){
     super.dispose();
-    _timer.cancel();
    tti ="";
     ttPH ="";
     ttXDB ="";
@@ -154,23 +134,18 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: _handleUserInteraction,
-        onPanDown: _handleUserInteraction,
-        onScaleStart: _handleUserInteraction,
-        child:
-      Row(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          Container(
-            width: MediaQuery.of(context).size.width ,
-            child: buildTree(),
-          )
+    return  Row(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        Container(
+          width: MediaQuery.of(context).size.width ,
+          child: buildTree(),
+        )
 
 
-        ]
-        ,
-      ));
+      ]
+      ,
+    );
 
 
   }

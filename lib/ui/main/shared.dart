@@ -123,7 +123,7 @@ void logOut(BuildContext context) async {
          TrichYeuDT = "";
          loaivbDT =  "";
          vbdiSoKyHieu = "";
-         vNguoiKy = "";
+        vNguoiKy = "";
          vNguoiTrinh= "";
          toTrinh= "";
          ls="";
@@ -254,7 +254,7 @@ void logOut(BuildContext context) async {
        TrichYeuDT = "";
        loaivbDT =  "";
        vbdiSoKyHieu = "";
-       vNguoiKy = "";
+        vNguoiKy= "";
        vNguoiTrinh= "";
        toTrinh= "";
        ls="";

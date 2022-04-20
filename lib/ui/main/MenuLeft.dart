@@ -41,26 +41,7 @@ class _Menuleft extends State<MenuLeft>  {
   SharedPreferences sharedStorage;
   SharedPreferences viTriHienTai;
 
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
 
   @override
@@ -111,11 +92,7 @@ class _Menuleft extends State<MenuLeft>  {
 
   @override
   Widget build(BuildContext context) {
-    return  GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:MenuLeftData(),);
+    return  MenuLeftData();
   }
 
   Widget MenuLeftData() {

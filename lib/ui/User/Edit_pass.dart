@@ -27,26 +27,7 @@ class _EditPassWordState extends State<EditPassWord> {
 TextEditingController matKhauCu =  new TextEditingController();
 TextEditingController matKhauMoi =  new TextEditingController();
 TextEditingController nhapLaiMatKhau =  new TextEditingController();
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState(){
@@ -63,11 +44,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
         appBar: AppBar(title: Text('Đổi password truy cập')),
         body:
         SingleChildScrollView(
@@ -100,7 +77,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
                       borderRadius: BorderRadius.circular(10),
 
                     ),
-                      height:MediaQuery.of(context).size.height * 0.04,
+                    height:MediaQuery.of(context).size.height * 0.04,
                     width: MediaQuery
                         .of(context)
                         .size
@@ -279,39 +256,39 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
                         {
                           showAlertDialog(context, 'Yêu cầu nhập đúng mật khẩu' );
                         }else
-                          if(nhapLaiMatKhau.text  != matKhauMoi.text )
-                            {
-                              showAlertDialog(context, 'Nhập lại mật khẩu không đúng' );
-                            }
-                          else if(matKhauMoi.text.isEmpty || nhapLaiMatKhau.text.isEmpty)
-                            {
-                              showAlertDialog(context, 'Yêu cầu các trường không được để trống' );
+                        if(nhapLaiMatKhau.text  != matKhauMoi.text )
+                        {
+                          showAlertDialog(context, 'Nhập lại mật khẩu không đúng' );
+                        }
+                        else if(matKhauMoi.text.isEmpty || nhapLaiMatKhau.text.isEmpty)
+                        {
+                          showAlertDialog(context, 'Yêu cầu các trường không được để trống' );
+                        }
+                        else
+                        {
+                          var thanhcong =  null;
+                          String tendangnhap = tendangnhapAll;
+                          //update data
+                          EasyLoading.show();
+                          thanhcong=  await postResset(tendangnhap,
+                              matKhauMoi.text);
+                          EasyLoading.dismiss();
+                          showAlertDialog(context, json.decode(thanhcong)['Message']);
+                          if( json.decode(thanhcong)['Message'].contains('Ðổi mật khẩu thành công'))
+                          {
+                            Navigator.push(
+                                context,
+                                MaterialPageRoute(
+                                  builder: (context) => LoginWidget(),
+                                ));
                           }
                           else
-                            {
-                              var thanhcong =  null;
-                              String tendangnhap = tendangnhapAll;
-                              //update data
-                              EasyLoading.show();
-                              thanhcong=  await postResset(tendangnhap,
-                                  matKhauMoi.text);
-                              EasyLoading.dismiss();
-                              showAlertDialog(context, json.decode(thanhcong)['Message']);
-                              if( json.decode(thanhcong)['Message'].contains('Ðổi mật khẩu thành công'))
-                                {
-                                  Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => LoginWidget(),
-                                      ));
-                                }
-                              else
-                                Navigator.of(context).pop();
+                            Navigator.of(context).pop();
 
 
 
 
-                            }
+                        }
 
 
                         isLoading = true;
@@ -327,6 +304,6 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
         )
 
 
-    ),);
+    );
   }
 }

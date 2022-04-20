@@ -53,26 +53,7 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
 
     return null;
   }
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   @override
   void initState() {
    // _initializeTimer();
@@ -87,7 +68,7 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
 
   GetDataHSCV1() async {
   hscv = await getDataDetailHSCV1(ActionXL,"intType=3&lstIDhoSo=56"
-      "",widget.id,widget.nam);
+      "",widget.id,widget.nam,"");
   if (mounted) {
     setState(() {
       isLoading = true;
@@ -104,13 +85,9 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
   Widget build(BuildContext context) {
     double  _height = MediaQuery.of(context).size.height;
     double  _width = MediaQuery.of(context).size.width;
-    return GestureDetector(
-        onTap: _handleUserInteraction,
-        onPanDown: _handleUserInteraction,
-        onScaleStart: _handleUserInteraction,
-        child:Scaffold(
+    return Scaffold(
       appBar: AppBar(title: Text("Thông tin chi tiết hồ sơ công việc"),
-          //automaticallyImplyLeading: false
+        //automaticallyImplyLeading: false
       ),
       body: Column(
         children: [
@@ -135,7 +112,7 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
 
         ],
       ),
-    ));
+    );
   }
 
   Widget buildTree() {
@@ -237,13 +214,41 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
     var Title = item['Title'] != null ?item['Title'] :"" ;
     var hscvMaHoSo = item['hscvMaHoSo'] != null ?item['hscvMaHoSo'] :"" ;
     var sMIDField = item['ID'] != null ? item['ID']: 0;
-
+    var hscvNguoiLap = item['hscvNguoiLap']['Title'] != null
+        ? item['hscvNguoiLap']['Title']
+        :"";
     return Column(children: [
 
       ListTile(
 
-          leading: Container(width: MediaQuery.of(context).size.width*0.25,child: Text(hscvMaHoSo),),
-          title: Text(Title,maxLines: 2,),
+          leading: Container(width: MediaQuery.of(context).size.width*0.25,
+            child: Text(hscvMaHoSo,),),
+          title: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+            Text(Title,maxLines: 2,style: TextStyle(
+              fontWeight: FontWeight.w500,
+
+            )),
+           Row(children: [
+             Text('Người lập:',
+                 //overflow: TextOverflow.clip,
+                 style: TextStyle(
+                   fontSize: 14,
+                   fontWeight: FontWeight.normal,
+                     fontStyle: FontStyle.italic
+                 )),
+             Text(hscvNguoiLap,
+                 //overflow: TextOverflow.clip,
+                 style: TextStyle(
+                   fontSize: 12,
+                   fontWeight: FontWeight.normal,
+                   fontStyle: FontStyle.italic,
+                   color: Colors.red
+
+                 )),
+           ],)
+          ],),
 
           trailing: Icon(Icons.arrow_right),
           onTap: () {Navigator.push(

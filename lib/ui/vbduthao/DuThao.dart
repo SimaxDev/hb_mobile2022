@@ -58,30 +58,7 @@ class DuThaoState extends State<DuThaoWidget> {
   String nam = "";
   List<String> Year = ["2022","2021", "2020", "2019", "2018", "2017"];
   String dropdownValue  = "";
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
- //    _timer = Timer.periodic(const Duration(seconds: 10), (_) {
- // print("loaiaiaiaiaiaijkaiaa");
- //      _timer.cancel();
- //    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   @override
   void initState() {
     //_initializeTimer();
@@ -282,11 +259,7 @@ class DuThaoState extends State<DuThaoWidget> {
   }
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
       appBar: AppBar(
         title: Row(
           // crossAxisAlignment: CrossAxisAlignment.center,
@@ -632,7 +605,7 @@ class DuThaoState extends State<DuThaoWidget> {
           ],
         ),
       ),
-    ),);
+    );
   }
 
   Widget getBody() {

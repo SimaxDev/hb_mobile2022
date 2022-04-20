@@ -28,10 +28,12 @@ class hoSoCVJson{
   final bool checkChuyenVaoHS;
   final bool checkKetThucHSCV;
   final bool checkSoanVBDT;
+  final bool isInHoSo;
   final String hscvCongViecLienQuanText;
   final List hscvCongViecLienQuan;
   final List hscvVanBanDenLienQuan;
   final List hscvVanBanDiLienQuan;
+   var hscvParentID;
 
 
 
@@ -65,6 +67,8 @@ class hoSoCVJson{
     this.checkSoanVBDT,
     this.hscvVanBanDenLienQuan,
     this.hscvVanBanDiLienQuan,
+    this.isInHoSo,
+    this.hscvParentID,
   }
      );
 
@@ -72,6 +76,7 @@ class hoSoCVJson{
     return  hoSoCVJson(
       tenHoSo: json['Title'] != null ? json['Title']  : "",
       soHoSo: json['SoHoSo'] != null ? json['SoHoSo']  :"",
+      hscvParentID: json['hscvParentID'] != null ? json['hscvParentID']  :"",
       ngonNgu: json['NgonNgu'] != null ? json['NgonNgu']  : "",
       kyHieuTT: json['KyHieuThongTin'] != null ? json['KyHieuThongTin']  : "",
       noiDung: json['hscvNoiDungXuLy'] != null ? json['hscvNoiDungXuLy']  : "",
@@ -89,6 +94,7 @@ class hoSoCVJson{
       ChuyenVT: json['ChuyenVT'] != null ? json['ChuyenVT']  : false,
       checkKetThucHSCV: json['checkKetThucHSCV'] != null ? json['checkKetThucHSCV']  : false,
       checkChuyenVaoHS: json['checkChuyenVaoHS'] != null ? json['checkChuyenVaoHS']  : false,
+      isInHoSo: json['isInHoSo'] != null ? json['isInHoSo']  : false,
       checkSoanVBDT: json['checkSoanVBDT'] != null ? json['checkSoanVBDT']  : false,
       soLuongTo: json['SoTo'] != null ? json['SoTo']  :0,
       hscvTrangThaiXuLy: json['hscvTrangThaiXuLy'] != null ? json['hscvTrangThaiXuLy']  :0,

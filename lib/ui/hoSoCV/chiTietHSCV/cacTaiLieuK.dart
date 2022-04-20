@@ -51,23 +51,6 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
   Timer _timer;
 
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   Future<Null> onRefresh() async {
     refreshKey.currentState?.show(atTop: false);
@@ -82,7 +65,6 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
 
   @override
   void initState() {
-    //_initializeTimer();
     super.initState();
     if (mounted) {  setState(() {
 
@@ -93,7 +75,7 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
   }
 
   GetDataHSCV1() async {
-    hscv = await getDataDetailHSCV1(ActionXL,"",widget.id,widget.nam);
+    hscv = await getDataDetailHSCV1(ActionXL,"",widget.id,widget.nam,"");
 
     setState(() {
       dataListThayThe = jsonDecode(hscv)['OData'];
@@ -113,11 +95,7 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
     double  _height = MediaQuery.of(context).size.height;
     Size  size = MediaQuery.of(context).size;
     double  _width = MediaQuery.of(context).size.width;
-    return GestureDetector(
-        onTap: _handleUserInteraction,
-        onPanDown: _handleUserInteraction,
-        onScaleStart: _handleUserInteraction,
-        child:Scaffold(
+    return Scaffold(
       appBar: AppBar(title: Text("Thông tin chi tiết hồ sơ công việc"),
         //automaticallyImplyLeading: false
       ),
@@ -146,7 +124,7 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
           ],
         ),),
 
-    ));
+    );
   }
 
   Widget buildTree() {

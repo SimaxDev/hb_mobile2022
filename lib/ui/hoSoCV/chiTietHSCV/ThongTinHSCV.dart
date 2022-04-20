@@ -19,7 +19,7 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 class thongTinHSCV extends StatefulWidget {
   thongTinHSCV({Key key, this.idHS,this.nam}) : super(key: key);
   final int idHS;
-  final String nam;
+  String nam;
 
   @override
   _thongTinHSCV createState() => _thongTinHSCV();
@@ -51,7 +51,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
     if((widget.idHS != null || widget.idHS != ""))
     {
       GetDataDetailHSCV(widget.idHS);
-      this.GetYkienDataHSCV(widget.idHS);
+      this.GetallYKien(widget.idHS);
     }
 
 
@@ -84,11 +84,26 @@ class _thongTinHSCV extends State<thongTinHSCV> {
 
   }
 //lấy danh sách ý kiến hồ sơ công việc
-  GetYkienDataHSCV(int idHS) async {
+  GetallYKien(int idHS)async{
+
+    if (widget.nam == null) {
+      DateTime now = DateTime.now();
+      String  nam1 =  DateFormat('yyyy').format(now) ;
+      widget.nam = nam1;
+    }
 
     String data = await getYkienDataHSCV(idHS,ActionXLYKien);
+    setState(() {
+      isLoading = false;
+      yKienitems = json.decode(data)['OData'];
+    });
     isLoading = false;
-    yKienitems = json.decode(data)['OData'];
+
+    GetYkienDataHSCV();
+  }
+  GetYkienDataHSCV() async {
+
+
     for (var it in yKienitems) {
       lstYKien.add(
           new Row(
@@ -161,8 +176,13 @@ class _thongTinHSCV extends State<thongTinHSCV> {
   //tạo list view
   Widget getBody() {
     hoSoCVJson hsCV = hoSoCV;
+    bool isInHoSo = false;
+
+    var hscvParentID = null;
     if( hsCV != null){
       titleDrawer =  hsCV.tenHoSo;
+      isInHoSo =  hsCV.isInHoSo;
+      hscvParentID =  hsCV.hscvParentID;
       hscvNguoiPhuTrach =  hsCV.hscvNguoiPhuTrach;
       checkSoanVBDT =  hsCV.checkSoanVBDT;
       ChuyenVT = hsCV.ChuyenVT;
@@ -709,41 +729,48 @@ class _thongTinHSCV extends State<thongTinHSCV> {
                 ],
               ),
               Divider(),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    padding: EdgeInsets.only(left: 20.0),
-                    child: Text('Nội dung',
-                      style: TextStyle(
-                          fontSize: 14,
-                          fontWeight:  FontWeight.bold
-                      ),
+              (!hsCV.noiDung?.isEmpty ?? true)?
+                  Column(children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.4,
+                          padding: EdgeInsets.only(left: 20.0),
+                          child: Text('Nội dung',
+                            style: TextStyle(
+                                fontSize: 14,
+                                fontWeight:  FontWeight.bold
+                            ),
+                          ),
+                        ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 0.6,
+                          padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
+                          child: Text( hsCV.noiDung,
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 14
+                            ),
+                            textAlign: TextAlign.justify,
+                          ),
+
+                        ),
+
+
+                        //),
+                      ],
                     ),
-                  ),
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.6,
-                    padding: EdgeInsets.fromLTRB(15, 15, 10, 10),
-                    child: Text( hsCV.noiDung,
-                      style: TextStyle(
-                          fontWeight: FontWeight.normal,
-                          fontSize: 14
-                      ),
-                      textAlign: TextAlign.justify,
-                    ),
+                    Divider(),
+                  ],):SizedBox(),
 
-                  ),
-
-
-                  //),
-                ],
-              ),
-              Divider(),
                 //
                 // ((!boolChuyenSangHSCV) && (itemHosoContainHS != null &&
                 //   itemHosoContainHS.Count > 0 ))
-    hsCV.hscvCongViecLienQuan  !=""? Row(
+              (!isInHoSo && hscvParentID?.isEmpty ?? true)&&
+    hsCV.hscvCongViecLienQuan  !=""?
+            Column(children: [
+              Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: <Widget>[
                   Container(
@@ -763,7 +790,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
                       style: TextStyle(
                           fontWeight: FontWeight.normal,
                           fontSize: 14,
-                        color: Colors.blue
+                          color: Colors.blue
                       ),
                       textAlign: TextAlign.justify,
                     ),
@@ -773,12 +800,13 @@ class _thongTinHSCV extends State<thongTinHSCV> {
 
                   //),
                 ],
-              ) : SizedBox(),
+              ),
               Divider(),
+            ],) : SizedBox()
 
             ],
           ),
-          yKienitems == null || yKienitems.length == 0 ? SizedBox():
+          lstYKien == null || lstYKien.length == 0  ? Container():
           Column(
             children: [
               Container(
@@ -810,7 +838,8 @@ class _thongTinHSCV extends State<thongTinHSCV> {
       appBar: AppBar(title: Text("Chi tiết hồ sơ công việc"),
        ),
       body: isLoading ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue))) :  getBody(),
-      bottomNavigationBar: BottomNavHSCV(id  : widget.idHS,nam: widget.nam),
+      bottomNavigationBar:hoSoCV!= null ? BottomNavHSCV(id  : widget.idHS,
+          nam: widget.nam):Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue))) ,
       drawer:new Drawer(
         child: new ListView(
           children: <Widget>[

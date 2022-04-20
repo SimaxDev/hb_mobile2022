@@ -28,26 +28,8 @@ class _ChiTietVBDen extends State<ChiTietHSDuaVao> {
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
 
   int year = 0;
-  Timer _timer;
 
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   @override
   void dispose(){
     super.dispose();
@@ -67,11 +49,7 @@ class _ChiTietVBDen extends State<ChiTietHSDuaVao> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:DefaultTabController(
+    return DefaultTabController(
         length: 4,
         child: Scaffold(
           appBar: AppBar(
@@ -136,6 +114,6 @@ class _ChiTietVBDen extends State<ChiTietHSDuaVao> {
             child: CircularProgressIndicator(),
           ),
         )
-    ),);
+    );
   }
 }

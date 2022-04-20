@@ -210,11 +210,12 @@ Future<String>posChuyenLienThong( username,id, ActionXL,String  noidungykien,
   }
 }
 
-Future<String>posTraVeVBDi( username,id, ActionXL,String  noidungykien,) async {
+Future<String>posTraVeVBDi( username,id, ActionXL,String  noidungykien,SYear) async {
   var parts = [];
   parts.add('TenDangNhap=' + username.toString());
   parts.add('ItemID=' + id.toString());
   parts.add('ActionXL=' + ActionXL);
+  parts.add('SYear=' + SYear.toString());
   parts.add('YKienTraVe=' + noidungykien);
   var formData = parts.join('&');
   String url = "/api/ServicesVBDi/XuLyVBDi";

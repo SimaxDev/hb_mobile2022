@@ -65,26 +65,7 @@ class _VanBanDi extends State<VanBanDi> {
   String nam = "";
   List<String> Year = ["2022","2021", "2020", "2019", "2018", "2017"];
   String dropdownValue = "";
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
 
   @override
@@ -260,11 +241,7 @@ class _VanBanDi extends State<VanBanDi> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
       appBar: new AppBar(
         title: Row(
           // crossAxisAlignment: CrossAxisAlignment.center,
@@ -597,7 +574,7 @@ class _VanBanDi extends State<VanBanDi> {
           ],
         ),
       ),
-    ),);
+    );
   }
 
   void onToggleNgayBanHanh() {

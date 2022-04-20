@@ -20,16 +20,7 @@ class ThemMoiDT extends StatefulWidget {
 
 class _ThemMoiDTState extends State<ThemMoiDT> {
   bool isLoading = false;
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
 
   @override
   void dipose(){
@@ -37,15 +28,7 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
     super.dispose();
   }
 
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
+
   @override
   void initState() {
 
@@ -56,42 +39,38 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:DefaultTabController(length: 2,
-        child: Scaffold(
-          appBar: AppBar(
-            leading: IconButton(
-              icon: Icon(Icons.arrow_back),
-              onPressed: () => Navigator.pop(context, false),
-            ),
-            bottom: TabBar(
-              tabs: [
-                Tab(
-                  text: 'Dự thảo',
-                ),
-                Tab(
-                  text: 'Phiếu trình',
-                ),
+    return DefaultTabController(length: 2,
+      child: Scaffold(
+        appBar: AppBar(
+          leading: IconButton(
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.pop(context, false),
+          ),
+          bottom: TabBar(
+            tabs: [
+              Tab(
+                text: 'Dự thảo',
+              ),
+              Tab(
+                text: 'Phiếu trình',
+              ),
 
-              ],
-            ),
-            title: Text('Thêm mới dự thảo'),
-          ),
-          body: !isLoading
-              ? TabBarView(
-            physics: NeverScrollableScrollPhysics(),
-            children: [
-              ThemDT(),
-              ThemPT(),
             ],
-          )
-              : Center(
-            child: CircularProgressIndicator(),
           ),
+          title: Text('Thêm mới dự thảo'),
         ),
-      ),);
+        body: !isLoading
+            ? TabBarView(
+          physics: NeverScrollableScrollPhysics(),
+          children: [
+            ThemDT(),
+            ThemPT(),
+          ],
+        )
+            : Center(
+          child: CircularProgressIndicator(),
+        ),
+      ),
+    );
   }
 }

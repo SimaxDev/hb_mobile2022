@@ -38,11 +38,12 @@ class ThuHoiVbDiState extends State<ThuHoiVbDi> {
   Map<String, bool> valuesPH = new Map<String, bool>();
   List _selecteCategorys = List();
   TextEditingController yKienController =  TextEditingController();
-
+  int tti1;
   @override
   void initState() {
     super.initState();
     GetData();
+    tti1=0;
   }
   @override
   void dispose(){
@@ -238,7 +239,7 @@ class ThuHoiVbDiState extends State<ThuHoiVbDi> {
   }
 
   Widget getCard(item) {
-String tti1;
+
     var nguoinhan = "";
     var hscvNgayMoHoSo = "";
     bool infoSentByEmail = false;
@@ -299,12 +300,12 @@ String tti1;
                   ,
                   Flexible(flex: 1,
                     child: Radio(
-                      value:(item['ID'].toString()) ,
+                      value:item['ID'] ,
                       groupValue:tti1,
                       onChanged: ( _value) {
                         setState(() {
                           // radioItemHolder1 = element['title'] ;
-                          tti1=  item['ID'].toString();
+                          tti1=  _value;
                           // textPD2 =  radioItemHolder1;
                         });
                       },

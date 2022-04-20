@@ -95,26 +95,7 @@ class _ViewPDF extends State<ViewPDFPT_con> {
   var PDF;
   var url;
   List<ListDataP>  ListDataPDF = [];
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   GetPDF(String PDFD) async {
 
     loadPDF(PDFD).then((value) {
@@ -217,11 +198,7 @@ class _ViewPDF extends State<ViewPDFPT_con> {
   @override
   Widget build(BuildContext context) {
     Size siz = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
         body:Stack(
           key: stackKey, // 3.
           //fit: StackFit.expand,
@@ -410,7 +387,7 @@ class _ViewPDF extends State<ViewPDFPT_con> {
                       },
                       items: ListDataPDF.map((value) {
                         return DropdownMenuItem<String>(
-                          value: value.Url,
+                            value: value.Url,
                             child:RichText(
                               text: TextSpan(
                                 children: [
@@ -505,7 +482,7 @@ class _ViewPDF extends State<ViewPDFPT_con> {
               //_enableSwipe = !_enableSwipe;
             });
           },
-        )),);
+        ));
   }
 }
 class ListDataP {

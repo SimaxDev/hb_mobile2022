@@ -94,26 +94,7 @@ class _ViewPDF extends State<ViewPDF_con> {
   var url;
   List<ListDataP>  ListDataPDF = [];
 
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   GetPDF(String PDFD) async {
 
     loadPDF(PDFD).then((value) {
@@ -179,7 +160,6 @@ class _ViewPDF extends State<ViewPDF_con> {
   @override
   Future<void> initState() {
     // TODO: implement initState
-    _initializeTimer();
     super.initState();
     PDF_URL=  pdf;
     if(widget.viewPDF != null ){
@@ -216,11 +196,7 @@ class _ViewPDF extends State<ViewPDF_con> {
   @override
   Widget build(BuildContext context) {
     Size siz = MediaQuery.of(context).size;
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
         body:Stack(
           key: stackKey, // 3.
           //fit: StackFit.expand,
@@ -301,10 +277,10 @@ class _ViewPDF extends State<ViewPDF_con> {
                   onDragEnd: (drag) async {
                     final parentPos = stickyKeyPdf_con.globalPaintBounds;
                     setState(() {
-                    if (parentPos == null) return;
-                    left = drag.offset.dx - parentPos.left; // 11.
-                    top = drag.offset.dy - parentPos.top;
-                  });
+                      if (parentPos == null) return;
+                      left = drag.offset.dx - parentPos.left; // 11.
+                      top = drag.offset.dy - parentPos.top;
+                    });
                     final keyContext = stickyKeyPdf_con.currentContext;
                     final box = keyContext.findRenderObject() as RenderBox;
                     final pos = box.localToGlobal(Offset.zero);
@@ -408,7 +384,7 @@ class _ViewPDF extends State<ViewPDF_con> {
                       },
                       items: ListDataPDF.map((value) {
                         return DropdownMenuItem<String>(
-                          value: value.Url,
+                            value: value.Url,
                             child:RichText(
                               text: TextSpan(
                                 children: [
@@ -447,63 +423,63 @@ class _ViewPDF extends State<ViewPDF_con> {
         ),
         floatingActionButton: _visibleSign
             ? Row(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                mainAxisSize: MainAxisSize.max,
-                children: <Widget>[
-                  FloatingActionButton(
-                    heroTag: "btnCancel",
-                    child: const Icon(Icons.cancel),
-                    backgroundColor: Colors.blue.shade800,
-                    onPressed: () {
-                      setState(() {
-                        _visibleSign = !_visibleSign;
-                        EasyLoading.dismiss();
-                      });
-                    },
-                  ),
-                  FloatingActionButton(
-                    heroTag: "btnSign",
-                    child: const Icon(Icons.done),
-                    backgroundColor: Colors.blue.shade800,
-                    onPressed: chekKy == true
-                        ? () async {
-                            if (_visibleSign) {
-                              EasyLoading.show();
-                              String pdf = "";
-                              PDF_URL.substring(0, 38);
-                              pdf = PDF_URL.substring(36, PDF_URL.length);
-                              var thanhcong = await postKySimOK(
-                                  widget.idDuThao,
-                                  "UpdateFileS"
-                                  "ignal",
-                                  widget.nam,
-                                  namefile,
-                                  NameMoi,
-                                  UrlMoi);
-                              Navigator.of(context).pop();
-                              EasyLoading.dismiss();
-                              await showAlertDialog(
-                                  context, json.decode(thanhcong)['Message']);
-                              //_getSignMessage(context);
-                              _visibleSign = !_visibleSign;
-                            }
-                          }
-                        : null,
-                  ),
-                ],
-              )
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisSize: MainAxisSize.max,
+          children: <Widget>[
+            FloatingActionButton(
+              heroTag: "btnCancel",
+              child: const Icon(Icons.cancel),
+              backgroundColor: Colors.blue.shade800,
+              onPressed: () {
+                setState(() {
+                  _visibleSign = !_visibleSign;
+                  EasyLoading.dismiss();
+                });
+              },
+            ),
+            FloatingActionButton(
+              heroTag: "btnSign",
+              child: const Icon(Icons.done),
+              backgroundColor: Colors.blue.shade800,
+              onPressed: chekKy == true
+                  ? () async {
+                if (_visibleSign) {
+                  EasyLoading.show();
+                  String pdf = "";
+                  PDF_URL.substring(0, 38);
+                  pdf = PDF_URL.substring(36, PDF_URL.length);
+                  var thanhcong = await postKySimOK(
+                      widget.idDuThao,
+                      "UpdateFileS"
+                          "ignal",
+                      widget.nam,
+                      namefile,
+                      NameMoi,
+                      UrlMoi);
+                  Navigator.of(context).pop();
+                  EasyLoading.dismiss();
+                  await showAlertDialog(
+                      context, json.decode(thanhcong)['Message']);
+                  //_getSignMessage(context);
+                  _visibleSign = !_visibleSign;
+                }
+              }
+                  : null,
+            ),
+          ],
+        )
             : FloatingActionButton.extended(
-                icon: const Icon(Icons.edit),
-                label: Text("Ký"),
-                backgroundColor: Colors.blue.shade800,
-                onPressed: () {
-                  setState(() {
+          icon: const Icon(Icons.edit),
+          label: Text("Ký"),
+          backgroundColor: Colors.blue.shade800,
+          onPressed: () {
+            setState(() {
 
-                    _visibleSign = !_visibleSign;
-                    //_enableSwipe = !_enableSwipe;
-                  });
-                },
-              )),);
+              _visibleSign = !_visibleSign;
+              //_enableSwipe = !_enableSwipe;
+            });
+          },
+        ));
   }
 }
 class ListDataP {

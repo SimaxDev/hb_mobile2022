@@ -43,7 +43,6 @@ class _ViewPDF extends State<ViewPDFVB> {
   int currentPage = 0;
   final Completer<PDFViewController> _controller =
       Completer<PDFViewController>();
-  Timer _timer;
   String downloadMessage = "Initalizing...";
   bool _isDownloading = false;
   bool percentageBool = false;
@@ -60,25 +59,7 @@ class _ViewPDF extends State<ViewPDFVB> {
     sendPort.send([id, status, progress]);
   }
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      if (mounted) {
-        logOut(context);
-      }
 
-      _timer.cancel();
-    });
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   Future<String> loadPDF(String urlPDF) async {
     url = Uri.parse(urlPDF);
@@ -421,165 +402,7 @@ class _ViewPDF extends State<ViewPDFVB> {
       ],
     );
 
-    // return GestureDetector(
-    //     onTap: _handleUserInteraction,
-    //     onPanDown: _handleUserInteraction,
-    //     onScaleStart: _handleUserInteraction,
-    //     child:Stack(children: [
-    //   PDF_URL!= null?Container(
-    //
-    //       margin: EdgeInsets.only(top:MediaQuery.of(context).size.height /25,),
-    //       child: PDF().fromUrl(
-    //         PDF_URL, //duration of cache
-    //         placeholder: (progress) => Center(child: Text('$progress %')),
-    //         //errorWidget: (error) => Center(child: Text(error.toString())),
-    //       )
-    //   ):Center(child: CircularProgressIndicator()),
-    //   Row(
-    //     crossAxisAlignment: CrossAxisAlignment.start,
-    //     // mainAxisAlignment: MainAxisAlignment.center,
-    //     children: [
-    //       Container(
-    //         width: MediaQuery.of(context).size.width *0.85,
-    //         height: MediaQuery.of(context).size.height /15,
-    //         padding: EdgeInsets.only(left: 10),
-    //         // decoration: BoxDecoration(
-    //         //     color: Colors.white,
-    //         //     borderRadius: BorderRadius.all(Radius
-    //         //         .circular(8))
-    //         // ),
-    //
-    //         child:FormField<String>(
-    //           builder: (FormFieldState<String> state) {
-    //             return DropdownButtonHideUnderline(
-    //               child: DropdownButton<String>(
-    //                 hint: Text("Chọn bản ghi khác"),
-    //                 style: TextStyle(fontSize: 14,color: Colors.black),
-    //                 value: PDF_URL  ,
-    //                 isDense: false,
-    //                 isExpanded: true,
-    //                 onChanged: (newValue) async {
-    //                   //  OpenFile.open(files.path);
-    //                   if(mounted){
-    //                     setState(() {
-    //
-    //                       PDF_URL=newValue;
-    //                       // createFileOfPdfUrl();
-    //                       // final filename = newValue.substring(newValue
-    //                       //  .lastIndexOf("/") + 1);
-    //
-    //
-    //
-    //
-    //                       // Navigator.of(context).pushAndRemoveUntil(
-    //                       //     MaterialPageRoute(
-    //                       //         builder: (BuildContext context) => ViewPDFVB_con(viewPDF:newValue)),
-    //                       //         (Route<dynamic> route) => true);
-    //
-    //                       //
-    //                       // Navigator.push(
-    //                       //   context,
-    //                       //   MaterialPageRoute(
-    //                       //       builder: (context) => viewDoc(viewPDF:newValue)
-    //                       //   ),
-    //                       // );
-    //
-    //                       // GetDataKeyWord("","","",IDCoQuan);
-    //                     });
-    //                   }
-    //                 },
-    //                 items:
-    //                 ListDataPDF.map((value) {
-    //                   return DropdownMenuItem<String>(
-    //                       value: value.Url,
-    //                       child:RichText(
-    //                         text: TextSpan(
-    //                           children: [
-    //
-    //                             // WidgetSpan(
-    //                             //   child: Image(
-    //                             //     height: 30,
-    //                             //     width:20,
-    //                             //     image: value.Name != null &&value.Name != ""
-    //                             //         ?value.Name
-    //                             //         .contains("pdf")
-    //                             //         ?AssetImage('assets/pdf.png'):(value.Name
-    //                             //         .contains("doc")?AssetImage('assets/doc'
-    //                             //         '.png'):(value.Name
-    //                             //         .contains("docx")?AssetImage('assets/docx'
-    //                             //         '.png'): AssetImage('assets/logo_vb.png'))): AssetImage('assets/logo_vb.png'),
-    //                             //
-    //                             //   ),
-    //                             // ),
-    //                             TextSpan(text:value.Name, style: TextStyle(
-    //                                 color: Colors.black.withOpacity(0.75),
-    //                                 fontStyle: FontStyle.normal,
-    //                                 fontWeight: FontWeight.w400,
-    //                                 fontSize: 13),
-    //
-    //                             ),
-    //                           ],
-    //                         ),
-    //                       )
-    //
-    //                   );
-    //                 }).toList(),
-    //               ),
-    //             );
-    //           },
-    //         ),
-    //       ),
-    //       Align(
-    // alignment: Alignment.topRight,
-    //         child: IconButton(iconSize: 17,
-    //           icon:Icon(Icons.download_sharp) ,
-    //           onPressed: () async {
-    //
-    //
-    //             setState(() {
-    //               _isDownloading = !_isDownloading;
-    //
-    //             });
-    //             var dir = await getExternalStorageDirectory();
-    //
-    //             Dio dio = Dio();
-    //             dio.download(PDF_URL,
-    //                 '${dir.path}/$namepdf',onReceiveProgress: (actualbytes,
-    //                     totalbytes){
-    //                   percentage =  actualbytes/totalbytes*100;
-    //
-    //                   setState(() {
-    //                     percentageBool = true;
-    //                     downloadMessage =  'Downloading... ${percentage.floor()}'
-    //                         ' %';
-    //                     if(percentage <100){
-    //
-    //                     }
-    //                     else{
-    //                       setState(() {
-    //                         percentageBool = false;
-    //                       });
-    //                     }
-    //                   });
-    //                 });
-    //             print(downloadMessage??'');
-    //             print('dio  '+ dio.toString());
-    //           },
-    //         ),
-    //       )
-    //
-    //     ],),
-    //   percentageBool == true ?  Center(
-    //       child: CircularPercentIndicator(
-    //           radius: 60.0,
-    //           lineWidth: 5.0,
-    //           percent: 0.75,
-    //           center: new Text(downloadMessage, style: TextStyle(color: Color(0xFF535355))),
-    //           linearGradient: LinearGradient(begin: Alignment.topRight,end:Alignment.bottomLeft, colors: <Color>    [Color(0xFF1AB600),Color(0xFF6DD400)]),rotateLinearGradient: true,
-    //           circularStrokeCap: CircularStrokeCap.round)):SizedBox(),
-    //
-    //
-    // ],));
+
   }
 }
 

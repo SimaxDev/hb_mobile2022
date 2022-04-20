@@ -44,7 +44,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   ValueNotifier<String> assetPDFPath = ValueNotifier<String>('');
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
   String FileTaiLieu ="";
-  Timer _timer;
+
 
   Future<File> createFileOfPdfUrl(String filePath) async {
     Completer<File> completer = Completer();
@@ -105,23 +105,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
 
 
 
-  // void _initializeTimer() {
-  //   _timer = Timer.periodic(const Duration(minutes:5), (_) {
-  //     logOut(context);
-  //     _timer.cancel();
-  //   });
-  //
-  // }
-  //
-  // void _handleUserInteraction([_]) {
-  //   if (!_timer.isActive) {
-  //     // This means the user has been logged out
-  //     return;
-  //   }
-  //
-  //   _timer.cancel();
-  //   _initializeTimer();
-  // }
+
 
   @override
   void initState() {
@@ -346,71 +330,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
 
 
 
-    // return GestureDetector(
-    //   onTap: _handleUserInteraction,
-    //   onPanDown: _handleUserInteraction,
-    //   onScaleStart: _handleUserInteraction,
-    //   child:DefaultTabController(
-    //   length: 3,
-    //   child: Scaffold(
-    //     appBar: AppBar(
-    //       leading: IconButton(
-    //         icon: Icon(Icons.arrow_back),
-    //         onPressed: () => Navigator.pop(context, false),
-    //       ),
-    //       bottom: TabBar(
-    //         tabs: [
-    //           Tab(
-    //             text: 'Thông tin',
-    //           ),
-    //           Tab(
-    //             text: 'Toàn văn',
-    //           ),
-    //           Tab(
-    //             text: 'Gửi nhận',
-    //           ),
-    //         ],
-    //       ),
-    //       title: Text('Chi tiết văn bản đi'),
-    //     ),
-    //     body: isLoading == true
-    //         ? TabBarView(
-    //             physics: NeverScrollableScrollPhysics(),
-    //             children: [
-    //               ThongTinVBDi(id: widget.id,nam: year,MaDonVi:widget
-    //                   .MaDonVi,ttVbanDi:duthao),
-    //               //!isLoadingPDF?
-    //               //      (remotePDFpath.value != '' &&
-    //               //     remotePDFpath.value
-    //               //         .toLowerCase()
-    //               //         .contains(".pdf")) ?
-    //               // Container(
-    //               //   child: PdfViewPage(
-    //               //     path: assetPDFPath,
-    //               //   ),
-    //               // )
-    //               //     : Container(
-    //               //   child: Center(
-    //               //     child: Text('Không có file PDF đính kèm'),
-    //               //   ),
-    //               // )
-    //               //     : Center(
-    //               //   child: CircularProgressIndicator(),
-    //               // )
-    //
-    //              // ViewPDF(idDuThao:widget.id,nam:year.toString()),
-    //               ViewPDFVB(),
-    //               NhatKyVBDi(id: widget.id,username:widget.username,
-    //                   nam:year),
-    //             ],
-    //           )
-    //         : Center(
-    //             child: CircularProgressIndicator(),
-    //           ),
-    //     bottomNavigationBar: BottomNav(id : widget.id,nam:year,
-    //         MaDonVi:widget.MaDonVi),
-    //   ),
-    // ),);
+
   }
 }
 

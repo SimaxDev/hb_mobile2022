@@ -23,24 +23,6 @@ class _NhatKyVBDi extends State<NhatKyVBDi> {
   RxBool isLoading = false.obs;
   String ActionXLGuiNhan = "GetGuiNhanVBDi";
   var tendangnhap = "";
-  Timer _timer;
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -325,22 +307,17 @@ class _NhatKyVBDi extends State<NhatKyVBDi> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child: Scaffold(
-        body: Obx(() => isLoading == true && listNhatKy != null ||
-                    listNhatKy.length != 0
-                ? getBody()
-                : Center(
-                    child: CircularProgressIndicator(
-                        valueColor:
-                            new AlwaysStoppedAnimation<Color>(Colors.blue)))
-            /* Center(
+    return Scaffold(
+      body: Obx(() => isLoading == true && listNhatKy != null ||
+          listNhatKy.length != 0
+          ? getBody()
+          : Center(
+          child: CircularProgressIndicator(
+              valueColor:
+              new AlwaysStoppedAnimation<Color>(Colors.blue)))
+        /* Center(
                 child: Text("Không có bản ghi"),
               )*/
-            ),
       ),
     );
   }

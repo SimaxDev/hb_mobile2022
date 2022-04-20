@@ -66,28 +66,7 @@ class ListVBDen1 extends State<ListVBDen> {
   String nam = "";
   List<String> Year = ["2022","2021", "2020", "2019", "2018", "2017"];
   String dropdownValue = "";
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -274,11 +253,7 @@ class ListVBDen1 extends State<ListVBDen> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
       resizeToAvoidBottomInset: false,
       appBar: new AppBar(
         title: Row(
@@ -288,106 +263,106 @@ class ListVBDen1 extends State<ListVBDen> {
             Transform.translate(
               offset: Offset(-15.0, 0.0),
               child: Container(
-              width: MediaQuery.of(context).size.width * 0.47,
+                width: MediaQuery.of(context).size.width * 0.47,
 
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Colors.white, // Set border color
-                ), // Set border width
-                borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
-                // Make rounded corner of border
-              ),
-              child: Row(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: Colors.white, // Set border color
+                  ), // Set border width
+                  borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
+                  // Make rounded corner of border
+                ),
+                child: Row(
 
-                children: [
-                  Container(
-                    alignment: Alignment.center,
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: TextField(
-                      autofocus: false,
-                      cursorColor: Colors.white,
-                      style: TextStyle(color: Colors.white),
-                      controller: _titleController,
-                      decoration: InputDecoration(
-                        hintStyle: TextStyle(fontSize: 17),
-                        hintText: 'Tìm kiếm',
-                        prefixIcon: Icon(Icons.search, color: Colors.white, size: 20.0),
-                        border: InputBorder.none,
-                        // contentPadding: EdgeInsets.only(left: 0.0,
-                        //  top: 5.0,),
+                  children: [
+                    Container(
+                      alignment: Alignment.center,
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: TextField(
+                        autofocus: false,
+                        cursorColor: Colors.white,
+                        style: TextStyle(color: Colors.white),
+                        controller: _titleController,
+                        decoration: InputDecoration(
+                          hintStyle: TextStyle(fontSize: 17),
+                          hintText: 'Tìm kiếm',
+                          prefixIcon: Icon(Icons.search, color: Colors.white, size: 20.0),
+                          border: InputBorder.none,
+                          // contentPadding: EdgeInsets.only(left: 0.0,
+                          //  top: 5.0,),
+                        ),
+                        onChanged: (val) {
+                          setState(() {
+
+                            showD = false;
+                            testthuhomerxoa = val;
+
+                            GetDataByKeyWordVBDen(testthuhomerxoa);
+                          });
+                        },
                       ),
-                      onChanged: (val) {
+                    ),
+                    !showD
+                        ? InkWell(
+                      child: Container(
+                        width: MediaQuery.of(context).size.width * 0.05,
+                        child: Text(
+                          "X",
+                          style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
+                        ),
+                      ),
+                      onTap: () {
                         setState(() {
-
-                          showD = false;
-                          testthuhomerxoa = val;
-
-                          GetDataByKeyWordVBDen(testthuhomerxoa);
+                          _titleController.text = "";
+                          testthuhomerxoa = "";
+                          showD = true;
                         });
                       },
-                    ),
-                  ),
-                  !showD
-                      ? InkWell(
-                    child: Container(
-                      width: MediaQuery.of(context).size.width * 0.05,
-                      child: Text(
-                        "X",
-                        style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                    onTap: () {
-                      setState(() {
-                        _titleController.text = "";
-                        testthuhomerxoa = "";
-                        showD = true;
-                      });
-                    },
-                  )
-                      : SizedBox()
+                    )
+                        : SizedBox()
 
-                ],
-              ),),),
+                  ],
+                ),),),
 
 
-          Container(
-            width: MediaQuery.of(context).size.width *
-                0.15,
-            child:   DropdownButton<String>(
-            value: dropdownValue,
-            // icon: const Icon(Icons.arrow_downward),
-            // iconSize: 24,
-            //elevation: 16,
-            style: const TextStyle(color: Colors.black, fontWeight:
-            FontWeight.normal,fontSize: 13),
-            underline: Container(
-              height: 2,
-              color: Colors.white70,
-              width: 50,
-            ),
-            onChanged: (String newValue) {
-              if (mounted) {setState(() {
-                skip =1;
-                skippage =0;
-                dropdownValue = newValue;
-                dataList.clear();
-                isLoading = true;
-               // GetDataByKeyYearVBDen(dropdownValue);
-                GetDataVBDen(dropdownValue);
+            Container(
+              width: MediaQuery.of(context).size.width *
+                  0.15,
+              child:   DropdownButton<String>(
+                value: dropdownValue,
+                // icon: const Icon(Icons.arrow_downward),
+                // iconSize: 24,
+                //elevation: 16,
+                style: const TextStyle(color: Colors.black, fontWeight:
+                FontWeight.normal,fontSize: 13),
+                underline: Container(
+                  height: 2,
+                  color: Colors.white70,
+                  width: 50,
+                ),
+                onChanged: (String newValue) {
+                  if (mounted) {setState(() {
+                    skip =1;
+                    skippage =0;
+                    dropdownValue = newValue;
+                    dataList.clear();
+                    isLoading = true;
+                    // GetDataByKeyYearVBDen(dropdownValue);
+                    GetDataVBDen(dropdownValue);
 
 
-              });}
+                  });}
 
-            },
-            items: Year.map<DropdownMenuItem<String>>((String value) {
-              return DropdownMenuItem<String>(
-                  value: value,
-                  child: Container(
-                    margin: EdgeInsets.only(bottom: 5),
-                    child: Text(value),
-                  ));
-            }).toList(),
-          ),)
+                },
+                items: Year.map<DropdownMenuItem<String>>((String value) {
+                  return DropdownMenuItem<String>(
+                      value: value,
+                      child: Container(
+                        margin: EdgeInsets.only(bottom: 5),
+                        child: Text(value),
+                      ));
+                }).toList(),
+              ),)
 
           ],
         ),
@@ -427,115 +402,115 @@ class ListVBDen1 extends State<ListVBDen> {
                   width: MediaQuery.of(context).size.width * 0.23,
                   child: showEge1 == true
                       ? GestureDetector(
-                          onTap: onToggleNgayDen,
-                          child: Container(
-                              padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text('Ngày đến',
+                    onTap: onToggleNgayDen,
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text('Ngày đến',
 
-                                        //overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        )),
-                                  ),
-                                  Image(
-                                    height: 30,
-                                    width: 10,
-                                    image: _showPass1
-                                        ? AssetImage('assets/logo_down_arrow.png')
-                                        : AssetImage('assets/logo_up_arrow.png'),
-                                  ),
-                                ],
-                              )),
-                        )
+                                  //overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  )),
+                            ),
+                            Image(
+                              height: 30,
+                              width: 10,
+                              image: _showPass1
+                                  ? AssetImage('assets/logo_down_arrow.png')
+                                  : AssetImage('assets/logo_up_arrow.png'),
+                            ),
+                          ],
+                        )),
+                  )
                       : GestureDetector(
-                          onTap: onToggleNgayDen,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15, left: 10),
-                            alignment: Alignment.bottomLeft,
-                            child: Text('Ngày đến',
-                                //overflow: TextOverflow.clip,
-                                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                          ))),
+                      onTap: onToggleNgayDen,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 15, left: 10),
+                        alignment: Alignment.bottomLeft,
+                        child: Text('Ngày đến',
+                            //overflow: TextOverflow.clip,
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                      ))),
               Container(
                   width: MediaQuery.of(context).size.width * 0.28,
                   child: showEge2 == true
                       ? GestureDetector(
-                          onTap: onToggleSKH,
-                          child: Container(
-                              padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text('Số ký hiệu',
-                                        //overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        )),
-                                  ),
-                                  Image(
-                                    height: 30,
-                                    width: 10,
-                                    image: _showPass2
-                                        ? AssetImage('assets/logo_down_arrow.png')
-                                        : AssetImage('assets/logo_up_arrow.png'),
-                                  ),
-                                ],
-                              )),
-                        )
+                    onTap: onToggleSKH,
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(10, 7, 0, 0),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text('Số ký hiệu',
+                                  //overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  )),
+                            ),
+                            Image(
+                              height: 30,
+                              width: 10,
+                              image: _showPass2
+                                  ? AssetImage('assets/logo_down_arrow.png')
+                                  : AssetImage('assets/logo_up_arrow.png'),
+                            ),
+                          ],
+                        )),
+                  )
                       : GestureDetector(
-                          onTap: onToggleSKH,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15, left: 10),
-                            alignment: Alignment.bottomLeft,
-                            child: Text('Số ký hiệu',
-                                //overflow: TextOverflow.clip,
-                                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                          ))),
+                      onTap: onToggleSKH,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 15, left: 10),
+                        alignment: Alignment.bottomLeft,
+                        child: Text('Số ký hiệu',
+                            //overflow: TextOverflow.clip,
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                      ))),
               Container(
-                  // width: MediaQuery.of(context).size.width * 0.25,
+                // width: MediaQuery.of(context).size.width * 0.25,
                   width: MediaQuery.of(context).size.width * 0.23,
                   child: showEge3 == true
                       ? GestureDetector(
-                          onTap: onToggleTrichYeu,
-                          child: Container(
-                              padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    child: Text('Trích yếu',
-                                        //overflow: TextOverflow.clip,
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.bold,
-                                          decoration: TextDecoration.underline,
-                                        )),
-                                  ),
-                                  Image(
-                                    height: 30,
-                                    width: 10,
-                                    image: _showPass3
-                                        ? AssetImage('assets/logo_down_arrow.png')
-                                        : AssetImage('assets/logo_up_arrow.png'),
-                                  ),
-                                ],
-                              )),
-                        )
+                    onTap: onToggleTrichYeu,
+                    child: Container(
+                        padding: const EdgeInsets.fromLTRB(0, 7, 0, 0),
+                        child: Row(
+                          children: [
+                            Container(
+                              child: Text('Trích yếu',
+                                  //overflow: TextOverflow.clip,
+                                  style: TextStyle(
+                                    fontSize: 13,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  )),
+                            ),
+                            Image(
+                              height: 30,
+                              width: 10,
+                              image: _showPass3
+                                  ? AssetImage('assets/logo_down_arrow.png')
+                                  : AssetImage('assets/logo_up_arrow.png'),
+                            ),
+                          ],
+                        )),
+                  )
                       : GestureDetector(
-                          onTap: onToggleTrichYeu,
-                          child: Container(
-                            margin: EdgeInsets.only(top: 15),
-                            alignment: Alignment.bottomLeft,
-                            child: Text('Trích yếu',
-                                //overflow: TextOverflow.clip,
-                                style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
-                          ))),
+                      onTap: onToggleTrichYeu,
+                      child: Container(
+                        margin: EdgeInsets.only(top: 15),
+                        alignment: Alignment.bottomLeft,
+                        child: Text('Trích yếu',
+                            //overflow: TextOverflow.clip,
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.bold)),
+                      ))),
               Container(
                 //alignment: Alignment(-10.0, -1.0),
                 width: MediaQuery.of(context).size.width * 0.15,
@@ -594,31 +569,31 @@ class ListVBDen1 extends State<ListVBDen> {
               height: MediaQuery.of(context).size.height / 15,
               child: DrawerHeader(
                   child: Container(
-                child: Row(children: [
-                  Flexible(flex:1 ,
-                    child: InkWell(
-                      onTap: ()=>Navigator.of(context).pop(),
-                      child: Text(
-                        "X",
-                        style: TextStyle(
-                            fontSize: 16,
-                            color: Colors.white
-                        ),
-                      ),
-                    )),
-                  Flexible(flex:8 ,
-                    child: Container(
-                      alignment: Alignment.center,
-                      child:Text(
-                        "Văn bản đến",
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white
-                        ),
-                      ) ,),),
+                      child: Row(children: [
+                        Flexible(flex:1 ,
+                            child: InkWell(
+                              onTap: ()=>Navigator.of(context).pop(),
+                              child: Text(
+                                "X",
+                                style: TextStyle(
+                                    fontSize: 16,
+                                    color: Colors.white
+                                ),
+                              ),
+                            )),
+                        Flexible(flex:8 ,
+                          child: Container(
+                            alignment: Alignment.center,
+                            child:Text(
+                              "Văn bản đến",
+                              style: TextStyle(
+                                  fontSize: 20,
+                                  color: Colors.white
+                              ),
+                            ) ,),),
 
-                ],)
-              )),
+                      ],)
+                  )),
             ),
             Container(
               height: MediaQuery.of(context).size.height,
@@ -628,7 +603,7 @@ class ListVBDen1 extends State<ListVBDen> {
           ],
         ),
       ),
-    ),);
+    );
   }
 
   Widget UiGetData() {

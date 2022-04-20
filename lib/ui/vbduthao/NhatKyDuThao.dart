@@ -23,16 +23,7 @@ class _NhatKyDuThao extends State<NhatKyDuThao> {
   bool isLoading = false;
   String ActionXLGuiNhan = "GetGuiNhanVBDT";
   var tendangnhap = "";
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:35), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
   @override void dispose() {
     // TODO: implement dispose
     super.dispose();
@@ -41,15 +32,7 @@ class _NhatKyDuThao extends State<NhatKyDuThao> {
 
   }
 
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
+
 
   @override
   void initState() {
@@ -197,15 +180,11 @@ class _NhatKyDuThao extends State<NhatKyDuThao> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
       body: isLoading
           ? Center(child: CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue)))
           : getBody(),
-    ),);
+    );
   }
 
   String getTrangThai(int trangthai) {

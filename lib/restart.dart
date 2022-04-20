@@ -115,7 +115,7 @@ class rester {
       TrichYeuDT = "";
       loaivbDT = "";
       vbdiSoKyHieu = "";
-      vNguoiKy = "";
+      vNguoiKy= "";
       vNguoiTrinh = "";
       toTrinh = "";
       ls = "";

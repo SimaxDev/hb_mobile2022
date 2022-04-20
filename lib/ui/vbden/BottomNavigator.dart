@@ -102,26 +102,8 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
     });}
 
   }
-  Timer _timer;
 
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      // logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -300,8 +282,6 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
 
-
-
     return Container(
       decoration: BoxDecoration(
         border: Border.all(color: Colors.blueGrey[100]),
@@ -454,12 +434,18 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
 //từ chối
-                (ThemVanBanDen == true
-                    || lstPhongBanLaVanThuVBDEN.length == 0)
-                    && vbdPhuongThuc !=0
-                    && !(vbdSoVanBan > 0) && (vbdTTXuLyVanBanLT != 17
-                    && vbdTTXuLyVanBanLT != 28
-                    && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
+//                 (ThemVanBanDen == true
+//                     || lstPhongBanLaVanThuVBDEN.length == 0)
+//                     && vbdPhuongThuc !=0
+//                     && !(vbdSoVanBan > 0) && (vbdTTXuLyVanBanLT != 17
+//                     && vbdTTXuLyVanBanLT != 28
+//                     && vbdTTXuLyVanBanLT != 24 && vbdTTXuLyVanBanLT != 26)
+
+                isTraCuu && !vbdIsSentVanBan && (ThemVanBanDen
+                    || lstPhongBanLaVanThuVBDEN.length == 0)/*&&vbdPhuongThuc!=2*/
+                    && vbdPhuongThuc !=0 && !(vbdSoVanBan > 0) && (vbdTTXuLyVanBanLT != 17 && vbdTTXuLyVanBanLT != 28
+                    && vbdTTXuLyVanBanLT != 24 && (vbdTTXuLyVanBanLT != 26 || ID == 2507))
+                
                     ? Container(
                   child: InkWell(
                     child: Column(

@@ -68,9 +68,9 @@ class _TreeThemDTState extends State<TreeThemDT> {
   }
   @override
   void dispose() {
-    if(_timer != null){
-      _timer?.cancel();
-    }
+    vNguoiKy= "";
+    vNguoiTrinh= "";
+    toTrinh= "";
     super.dispose();
     EasyLoading.dismiss();
 
@@ -471,19 +471,23 @@ class _TreeThemDTState extends State<TreeThemDT> {
                       value:element['key'],
                       onChanged: ( _value) {
 
-                        setState(() {
-                          radioItemHolder = element['title'] ;
-                          tti = element['key'];
-                          textXLC =  radioItemHolder;
-                          isClick = true;
+                        if(mounted){
+                          setState(() {
+                            isClick = true;
+                            radioItemHolder = element['title'] ;
+                            tti = element['key'];
+                            textXLC =  radioItemHolder;
 
-                        });
+
+                          });
+                        }
+
                         print(radioItemHolder);
                         print("tit" + tti);
                         lstUserXLC =   element["key"] + ";#" + element["title"];
                         ls =   lstUserXLC;
                         cayXLC = element["key"];
-                        vNguoiKy =   cayXLC;
+                        toTrinh =   cayXLC;
                       },
                     )
                         : SizedBox(),
@@ -622,7 +626,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
                           lstUserNK =   element["key"] + ";#" + element["title"];
                           ls2 =  lstUserNK;
                           cayXNK = element["key"];
-                          toTrinh=  tti2;
+                          vNguoiKy=  tti2;
                         },
                       )
                           : SizedBox(),

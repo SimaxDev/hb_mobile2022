@@ -28,26 +28,7 @@ class _themMoiHTState extends State<themMoiHT> {
   TextEditingController NoiDung =  new TextEditingController();
   TextEditingController email =  new TextEditingController();
   TextEditingController SDT =  new TextEditingController();
-  Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
   @override
   void initState() {
     // TODO: implement initState
@@ -63,11 +44,7 @@ class _themMoiHTState extends State<themMoiHT> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
         appBar: AppBar(title: Text('Thêm mới yêu cầu hỗ trợ')),
         body:
         SingleChildScrollView(
@@ -103,14 +80,14 @@ class _themMoiHTState extends State<themMoiHT> {
                     child: TextFormField(
                       controller: NoiDung,style: TextStyle(fontSize: 14),
 
-                     // onChanged: (newValue) => this.utser.DiaChi =  newValue,
+                      // onChanged: (newValue) => this.utser.DiaChi =  newValue,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
 
                       maxLines: 100,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderSide: new BorderSide(color: Colors
-                                .lightBlue),borderRadius: BorderRadius.circular(10),),
+                          borderSide: new BorderSide(color: Colors
+                              .lightBlue),borderRadius: BorderRadius.circular(10),),
                         contentPadding:
                         EdgeInsets.only(top: 10,left: 10,right: 10),
                       ),
@@ -155,8 +132,8 @@ class _themMoiHTState extends State<themMoiHT> {
                       maxLines: 100,
                       decoration: InputDecoration(
                         border: OutlineInputBorder(
-                            borderSide: new BorderSide(color: Colors
-                                .lightBlue),borderRadius: BorderRadius.circular(10),),
+                          borderSide: new BorderSide(color: Colors
+                              .lightBlue),borderRadius: BorderRadius.circular(10),),
                         contentPadding:
                         EdgeInsets.only(top: 10,left: 10,right: 10),
                       ),
@@ -265,6 +242,6 @@ class _themMoiHTState extends State<themMoiHT> {
         )
 
 
-    ),);
+    );
   }
 }

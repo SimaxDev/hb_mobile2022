@@ -119,23 +119,7 @@ class _ViewPDF extends State<ViewPDF> {
   String tenPDF = "";
   String urlPDF = "";
 
-  // void _initializeTimer() {
-  //   _timer = Timer.periodic(const Duration(minutes:5), (_) {
-  //     logOut(context);
-  //     _timer.cancel();
-  //   });
-  //
-  // }
-  //
-  // void _handleUserInteraction([_]) {
-  //   if (!_timer.isActive) {
-  //     // This means the user has been logged out
-  //     return;
-  //   }
-  //
-  //   _timer.cancel();
-  //   _initializeTimer();
-  // }
+
   GetPDF(String PDFD) async {
     loadPDF(PDFD).then((value) {
       if (mounted) {

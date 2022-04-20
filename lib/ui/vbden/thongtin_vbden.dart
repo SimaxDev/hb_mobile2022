@@ -40,24 +40,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
   String yKienThuHoi = "";
 
   final DataController input = Get.put(DataController());
-  Timer _timer;
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void dispose() {
@@ -272,17 +255,12 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child: Scaffold(
-        body: ttduthao == null
-            ? Center(
-                child: CircularProgressIndicator(
-                    valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue)))
-            : getBody(),
-      ),
+    return Scaffold(
+      body: ttduthao == null
+          ? Center(
+          child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue)))
+          : getBody(),
     );
   }
 

@@ -33,26 +33,10 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
   String ActionXLYKien = "GetButPhe";
   String donViNhan="";
   String LogxulyText="";
-  Timer _timer;
 
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
 
-  }
 
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -174,17 +158,13 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Scaffold(
+    return Scaffold(
       body: duthao == null
           ? Center(
-              child: CircularProgressIndicator(
-                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue)))
+          child: CircularProgressIndicator(
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.blue)))
           : getBody(),
-    ),);
+    );
   }
 
   //UI

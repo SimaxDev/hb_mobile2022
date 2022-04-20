@@ -42,24 +42,7 @@ class _vbDiLQState extends State<vbDiLQ> {
   int nam = 2022;
   String testthuhomerxoa;
   String ActionXL = "GetVBDiLienQuan";
-  Timer _timer;
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   // List<dynamic> dataListThayThe = [];
   // var columns = [
@@ -97,7 +80,7 @@ class _vbDiLQState extends State<vbDiLQ> {
 
   GetDataHSCV1(String query) async {
 
-    hscv = await getDataDetailHSCV1(ActionXL, query, widget.id,nam);
+    hscv = await getDataDetailHSCV1(ActionXL, "", widget.id,nam,query);
 
     setState(() {
       dataListThayThe = jsonDecode(hscv)['OData'];
@@ -110,86 +93,81 @@ class _vbDiLQState extends State<vbDiLQ> {
     double _height = MediaQuery.of(context).size.height;
     Size size = MediaQuery.of(context).size;
     double _width = MediaQuery.of(context).size.width;
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child: Scaffold(
-        appBar: AppBar(
-          title: Text("Thông tin chi tiết hồ sơ công việc"),
-          //automaticallyImplyLeading: false
-        ),
-        body: Container(
-          padding: EdgeInsets.all(20),
-          child: Column(
-            children: [
-              SizedBox(
-                height: 20,
+    return Scaffold(
+      appBar: AppBar(
+        title: Text("Thông tin chi tiết hồ sơ công việc"),
+        //automaticallyImplyLeading: false
+      ),
+      body: Container(
+        padding: EdgeInsets.all(20),
+        child: Column(
+          children: [
+            SizedBox(
+              height: 20,
+            ),
+            TextField(
+              autofocus: true,
+              // controller: usernameController,
+              cursorColor: Colors.black45,
+              style: TextStyle(
+                color: Colors.black,
               ),
-              TextField(
-                autofocus: true,
-                // controller: usernameController,
-                cursorColor: Colors.black45,
-                style: TextStyle(
-                  color: Colors.black,
+              decoration: new InputDecoration(
+                filled: true,
+                fillColor: Colors.white,
+                hintText: 'Nhập từ khoá tìm kiếm',
+                hintStyle: TextStyle(
+                  color: Color(0xffC0C0C0),
+                  fontSize: 15,
+                  fontWeight: FontWeight.w400,
+                  fontStyle: FontStyle.normal,
                 ),
-                decoration: new InputDecoration(
-                  filled: true,
-                  fillColor: Colors.white,
-                  hintText: 'Nhập từ khoá tìm kiếm',
-                  hintStyle: TextStyle(
-                    color: Color(0xffC0C0C0),
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                    fontStyle: FontStyle.normal,
+                contentPadding:
+                const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
+                focusedBorder: OutlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black45),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(color: Colors.black45),
+                  borderRadius: BorderRadius.circular(2),
+                ),
+              ),  onChanged: (value) {
+              if (mounted) {
+                setState(() {
+                  GetDataHSCV1(value);
+                });
+              }
+            },
+            ),
+            SizedBox(
+              height: 30,
+            ),
+            Row(
+              children: [
+                Container(
+                  width: _width * 0.3,
+                  alignment: Alignment.center,
+                  height: _height * 0.05,
+                  child: Text("Số ký hiệu",
+                      style: TextStyle(
+                          fontSize: 16, fontWeight: FontWeight.w500)),
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  width: _width * 0.6,
+                  height: _height * 0.05,
+                  child: Text(
+                    "Trích yếu",
+                    style:
+                    TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
                   ),
-                  contentPadding:
-                      const EdgeInsets.only(left: 14.0, bottom: 8.0, top: 8.0),
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                  enabledBorder: UnderlineInputBorder(
-                    borderSide: BorderSide(color: Colors.black45),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),  onChanged: (value) {
-                if (mounted) {
-                  setState(() {
-                    GetDataHSCV1(value); 
-                  });
-                }
-              },
-              ),
-              SizedBox(
-                height: 30,
-              ),
-              Row(
-                children: [
-                  Container(
-                    width: _width * 0.3,
-                    alignment: Alignment.center,
-                    height: _height * 0.05,
-                    child: Text("Số ký hiệu",
-                        style: TextStyle(
-                            fontSize: 16, fontWeight: FontWeight.w500)),
-                  ),
-                  Container(
-                    alignment: Alignment.center,
-                    width: _width * 0.6,
-                    height: _height * 0.05,
-                    child: Text(
-                      "Trích yếu",
-                      style:
-                          TextStyle(fontSize: 16, fontWeight: FontWeight.w500),
-                    ),
-                  ),
-                ],
-              ),
-              Divider(),
-              Expanded(child: buildTree())
-            ],
-          ),
+                ),
+              ],
+            ),
+            Divider(),
+            Expanded(child: buildTree())
+          ],
         ),
       ),
     );

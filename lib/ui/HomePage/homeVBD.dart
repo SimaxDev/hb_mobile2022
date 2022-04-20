@@ -42,23 +42,7 @@ class PageState extends State<HomeVBDen> {
   String queryDTV = "";
   int indexTT = 4;
   int tong = 0;
-  Timer _timer;
-  void _handleUserInteraction([_]) {
-   //  if (!_timer.isActive) {
-   //    // This means the user has been logged out
-   //    return;
-   //  }
-   //
-   //  _timer?.cancel();
-   // _initializeTimer();
-  }
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
 
-  }
   //initial
   @override
   void initState() {
@@ -105,43 +89,36 @@ class PageState extends State<HomeVBDen> {
   @override
   void dispose() {
     super.dispose();
-    if(_timer != null){
-      _timer.cancel();
-    }
+
   }
 
   //body
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-        onTap: _handleUserInteraction,
-        onPanDown: _handleUserInteraction,
-        onScaleStart:_handleUserInteraction,
-        child:Scaffold(
-            appBar: new AppBar(
-              automaticallyImplyLeading: false,
-              title: Text('Văn bản đến'),
-              actions: <Widget>[
-                Builder(
-                  builder: (context) => IconButton(
-                    icon: Icon(Icons.person_outline),
-                    onPressed: () => Scaffold.of(context).openEndDrawer(),
-                    //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
-                  ),
-                ),
-              ],
+    return Scaffold(
+        appBar: new AppBar(
+          automaticallyImplyLeading: false,
+          title: Text('Văn bản đến'),
+          actions: <Widget>[
+            Builder(
+              builder: (context) => IconButton(
+                icon: Icon(Icons.person_outline),
+                onPressed: () => Scaffold.of(context).openEndDrawer(),
+                //tooltip: MaterialLocalizations.of(context).openAppDrawerTooltip,
+              ),
             ),
-            endDrawer: MenuRight(hoten: user.Title,chucvu: user.ChucVu, users: widget.username,),
-            endDrawerEnableOpenDragGesture: false,
-            body: Column(
-              children: [
-                Expanded(child: Container(
-                  child: GetDataVbDen(),
-                ))
-              ],
-            )
-
+          ],
+        ),
+        endDrawer: MenuRight(hoten: user.Title,chucvu: user.ChucVu, users: widget.username,),
+        endDrawerEnableOpenDragGesture: false,
+        body: Column(
+          children: [
+            Expanded(child: Container(
+              child: GetDataVbDen(),
+            ))
+          ],
         )
+
     )
       ;
   }

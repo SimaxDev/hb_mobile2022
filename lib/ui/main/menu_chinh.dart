@@ -35,26 +35,6 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
   int tappedIndexVBDT;
 
   ScrollController _sc = new ScrollController();
-  Timer _timer;
-
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes:5), (_) {
-      logOut(context);
-      _timer.cancel();
-    });
-
-  }
-
-  void _handleUserInteraction([_]) {
-    // if (!_timer.isActive) {
-    //   // This means the user has been logged out
-    //   return;
-    // }
-    //
-    // _timer.cancel();
-    // _initializeTimer();
-  }
 
   @override
   void initState() {
@@ -357,83 +337,79 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: _handleUserInteraction,
-      onPanDown: _handleUserInteraction,
-      onScaleStart: _handleUserInteraction,
-      child:Theme(
+    return Theme(
       data: Theme.of(context).copyWith(
         canvasColor: Colors
             .white, //This will change the drawer background to blue.
         //other styles
       ),
-        child: ListView(
-          scrollDirection: Axis.vertical,
-          children: <Widget>[
-            // Container(
-            //   color: Colors.white12,
-            //   alignment: Alignment.center,
-            //   height: MediaQuery.of(context).size.height / 8,
-            //   child: DrawerHeader(
-            //       child: Container(
-            //         child: Text(
-            //           "Menu trang chủ".toUpperCase(),
-            //           style: TextStyle(
-            //             fontSize: 20,
-            //           ),
-            //         ),
-            //       )),
-            // ),
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: <Widget>[
+          // Container(
+          //   color: Colors.white12,
+          //   alignment: Alignment.center,
+          //   height: MediaQuery.of(context).size.height / 8,
+          //   child: DrawerHeader(
+          //       child: Container(
+          //         child: Text(
+          //           "Menu trang chủ".toUpperCase(),
+          //           style: TextStyle(
+          //             fontSize: 20,
+          //           ),
+          //         ),
+          //       )),
+          // ),
 
 
-                SizedBox(
-                  width: 10,
-                ),
+          SizedBox(
+            width: 10,
+          ),
 
-                Container(
-                  color: Color(0xff2196F3),
-                  alignment: Alignment.center,
-                  height: MediaQuery.of(context).size.height / 20,
-                  width: MediaQuery.of(context).size.width ,
-                  child: Text(
-                    "Văn bản đến".toUpperCase(),
-                    style: TextStyle(color: Colors.white, fontWeight: FontWeight
-                        .w600, fontSize:
-                    16),
-                  ),
-                ),
-
-            MenuLeftData(),
-            Container(
-              color: Color(0xff2196F3),
-              alignment: Alignment.center,
-              height: MediaQuery.of(context).size.height / 20,
-              width: MediaQuery.of(context).size.width ,
-              child: Text(
-                "Văn bản đi".toUpperCase(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight
-                    .w600, fontSize:
-                16),
-              ),
+          Container(
+            color: Color(0xff2196F3),
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height / 20,
+            width: MediaQuery.of(context).size.width ,
+            child: Text(
+              "Văn bản đến".toUpperCase(),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight
+                  .w600, fontSize:
+              16),
             ),
-            MenuVBDi(),
-            Container(
-              color: Color(0xff2196F3),
-              alignment: Alignment.center,
-              height: MediaQuery.of(context).size.height / 20,
-              width: MediaQuery.of(context).size.width ,
-              child: Text(
-                "Văn bản dự thảo".toUpperCase(),
-                style: TextStyle(color: Colors.white, fontWeight: FontWeight
-                    .w600, fontSize:
-                16),
-              ),
-            ),
-            MenuVBDT(),
-          ],
-        ),
+          ),
 
-    ),);
+          MenuLeftData(),
+          Container(
+            color: Color(0xff2196F3),
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height / 20,
+            width: MediaQuery.of(context).size.width ,
+            child: Text(
+              "Văn bản đi".toUpperCase(),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight
+                  .w600, fontSize:
+              16),
+            ),
+          ),
+          MenuVBDi(),
+          Container(
+            color: Color(0xff2196F3),
+            alignment: Alignment.center,
+            height: MediaQuery.of(context).size.height / 20,
+            width: MediaQuery.of(context).size.width ,
+            child: Text(
+              "Văn bản dự thảo".toUpperCase(),
+              style: TextStyle(color: Colors.white, fontWeight: FontWeight
+                  .w600, fontSize:
+              16),
+            ),
+          ),
+          MenuVBDT(),
+        ],
+      ),
+
+    );
   }
 
 }
