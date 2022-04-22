@@ -58,7 +58,7 @@ class rester {
       chukyso = 0;
       vbdiNguoiTrinhTiep = "";
       vbdiDSNguoiTrinhTiep = [];
-      vbdiNguoiKy = "";
+      vbdiNguoiKy = 0;
       hoVaTen = "";
       tenPhongBan = "";
       CurrentTenDonVi = "";
@@ -186,7 +186,7 @@ class rester {
       chukyso = 0;
       vbdiNguoiTrinhTiep = "";
       vbdiDSNguoiTrinhTiep = [];
-      vbdiNguoiKy = "";
+      vbdiNguoiKy = 0;
       hoVaTen = "";
       tenPhongBan = "";
       CurrentTenDonVi = "";

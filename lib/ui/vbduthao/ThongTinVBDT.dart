@@ -196,7 +196,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     lanhDao4 =  vbDT.lanhDao4;
     vbdiNguoiKyID =  vbDT.vbdiNguoiKyIDDT;
     vbdiCurrentNguoiTrinhID = vbDT.vbdiCurrentNguoiTrinhIDDT;
-    vbdiNguoiKy = lanhDao4;
+    vbdiNguoiKy = vbDT.vbdiNguoiKyIDDT;
     trangThaiLD  =  vbDT.trangThaiLD;
        vbdiTrangThaiVB = vbDT.trangThaiLD;
      trangThai =  vbDT.trangThai;

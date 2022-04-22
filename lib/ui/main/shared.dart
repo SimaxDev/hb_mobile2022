@@ -65,7 +65,7 @@ void logOut(BuildContext context) async {
          chukyso= 0;
          vbdiNguoiTrinhTiep= "";
          vbdiDSNguoiTrinhTiep=[];
-         vbdiNguoiKy= "";
+         vbdiNguoiKy= 0;
          hoVaTen = "";
          tenPhongBan = "";
          CurrentTenDonVi = "";
@@ -196,7 +196,7 @@ void logOut(BuildContext context) async {
     chukyso= 0;
     vbdiNguoiTrinhTiep= "";
     vbdiDSNguoiTrinhTiep=[];
-    vbdiNguoiKy= "";
+    vbdiNguoiKy= 0;
     hoVaTen = "";
     tenPhongBan = "";
     CurrentTenDonVi = "";

@@ -82,7 +82,8 @@ class HSCVState extends State<HSCVWidget> {
   String dropdownValue = "";
   String nam1 = "2021";
 
-  List<String> Years = ["2022", "2021", "2020", "2019", "2018", "2017"];
+  List<String> Years = ["2024","2023","2022","2021", "2020", "2019", "2018",
+    "2017"];
   String dropdownValueYear = "";
   int _user = 6;
   final DataController product = Get.put(DataController());
@@ -109,17 +110,7 @@ class HSCVState extends State<HSCVWidget> {
     //   }
     // });
     setState(() {
-      if (widget.nam == null || widget.nam == "") {
-        DateTime now = DateTime.now();
-        nam1 = DateFormat('yyyy').format(now);
-        dropdownValueYear = nam1;
-      } else {
-        dropdownValueYear = widget.nam;
-      }
-      if (widget.urlLoaiVB == "") {
-        widget.urlLoaiVB = "intType=-4&hscvTrangThaiXuLy=-1&isHoSocongviec"
-            "=true";
-      }
+
       GetDataHSCV();
       IDT = IDTT;
       isLoading = true;

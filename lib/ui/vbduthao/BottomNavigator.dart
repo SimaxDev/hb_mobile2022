@@ -92,7 +92,7 @@ class _BottomNav extends State<BottomNav> {
      // vbdiTrangThaiVB = trangThaiVB;
       NguoiSoan = vbdiNguoiSoan;
       NguoiTrinhTiep = vbdiNguoiTrinhTiep;
-      NguoiKy = vbdiNguoiKy;
+      // NguoiKy = vbdiNguoiKy;
 
       //lstCheck =  lstChiTietDt;
 
@@ -425,7 +425,7 @@ class _BottomNav extends State<BottomNav> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             FlatButton.icon(
-                              icon: Icon(Icons.comment),
+                              icon: Icon(Icons.assignment_return_rounded),
                               label: Text('Trả về'),
                               onPressed: () {
                                 onPressButton(context, index);

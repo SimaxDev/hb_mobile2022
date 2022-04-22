@@ -40,7 +40,7 @@ import 'package:http/http.dart' as http;
   int chukyso= 0;
   String vbdiNguoiTrinhTiep= "";
   List vbdiDSNguoiTrinhTiep=[];
-  String vbdiNguoiKy= "";
+  int vbdiNguoiKy= 0;
   String hoVaTen = "";
   String tenPhongBan = "";
   String OrganName = "";
