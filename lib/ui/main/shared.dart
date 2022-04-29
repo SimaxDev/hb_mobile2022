@@ -150,6 +150,7 @@ void logOut(BuildContext context) async {
          idNTD = "";
          IDTT ;
         OldID2010 = 0;
+        IDGroup = 0;
         ThemMoiVanBanDuThao = false;
          chuaPDF = [];
          tenPDFTruyen ="";
@@ -248,6 +249,7 @@ void logOut(BuildContext context) async {
     ID=0;
     DonViInSiteID=0;
     userHasQuyenKyVB = [];
+    IDGroup = 0;
     groupID = 0;
     //duthaoXoa = [];
 //thêm mới dự thảo

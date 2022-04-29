@@ -155,7 +155,7 @@ class _thietLapHBVBDiState extends State<thietLapHBVBDi> {
                     children: [
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                        child: Text("Hạn hồi báo"),
+                        child: Text("Hạn hồi báo", style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
                       Padding(
                         padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
@@ -232,7 +232,7 @@ class _thietLapHBVBDiState extends State<thietLapHBVBDi> {
                               ) :
                               Text(textXLC,
                                 style: TextStyle(
-                                    color: Colors.black45
+                                    color: Colors.black
                                 ),
                                 maxLines: 2,
                                 overflow: TextOverflow.ellipsis,

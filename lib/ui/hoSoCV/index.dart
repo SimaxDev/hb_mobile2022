@@ -95,6 +95,7 @@ class HSCVState extends State<HSCVWidget> {
     // TODO: implement initState
     DateTime now = DateTime.now();
     nam1 = DateFormat('yyyy').format(now);
+    dropdownValueYear=nam1;
     //  if(getString("username"))
     GetInfoUserNew();
     GetInfoUser();

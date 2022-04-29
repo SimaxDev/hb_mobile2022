@@ -584,7 +584,7 @@ if(item == null){
         }
 
        await GetInfoUser(username);
-print("tenPhongBan "+tenPhongBan);
+// print("tenPhongBan "+tenPhongBan);
         sharedToken.setString("expires_in", expiresOut.toString());
         // await updateTokenFirebase(getToken);
         if (mounted) {

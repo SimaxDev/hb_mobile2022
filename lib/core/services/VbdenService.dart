@@ -137,6 +137,20 @@ Future<String> getDataCVBD(String username,String ActionXL) async {
     return items;
   }
 }
+Future<String> getDataCVBDen(String username,String ActionXL,int parentID)
+async {
+  var parts = [];
+  parts.add('TenDangNhap=' + username.toString());
+  parts.add('ActionXL=' + ActionXL);
+  parts.add('parentID=' + parentID.toString());
+  var formData = parts.join('&');
+  String url = "/api/ServicesVBD/GetData";
+  var response = await responseDataPost(url, formData);
+  if (response.statusCode == 200) {
+    var items = (response.body);
+    return items;
+  }
+}
 
 Future<String> getDataCVBD1(String ActionXL) async {
   var parts = [];

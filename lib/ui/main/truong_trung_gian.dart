@@ -126,6 +126,7 @@ import 'package:http/http.dart' as http;
   String idNTD = "";
   int IDTT ;
   int OldID2010 =0 ;
+  int IDGroup =0 ;
   List chuaPDF = [];
   String tenPDFTruyen ="";
   String imageCK ="";

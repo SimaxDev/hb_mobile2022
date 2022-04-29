@@ -211,6 +211,8 @@ class _MenuRightState extends State<MenuRight> {
   Widget GetBodyMenuVBDDT(item) {
     var title = item['TenGroup'] != null ? item['TenGroup'] : "";
     int IDVBDT = item['IDGroup'] != null ? item['IDGroup'] : 0;
+
+
     return OrganName == title
         ? Container()
         : ListTile(
@@ -222,7 +224,7 @@ class _MenuRightState extends State<MenuRight> {
             onTap: () {
               // setState(() {
               // GetInfoUserDonVi(IDVBDT);
-
+              IDGroup = IDVBDT;
               GetInfoUser(widget.users, IDVBDT);
 
               EasyLoading.show();
@@ -233,7 +235,9 @@ class _MenuRightState extends State<MenuRight> {
   @override
   Widget build(BuildContext context) {
     return  new Drawer(
-      child: ListView(
+      child: Container(
+        color: Colors.white,
+        child: ListView(
         children: <Widget>[
           Container(
             padding: EdgeInsets.only(top: 25.0, left: 5.0),
@@ -410,7 +414,7 @@ class _MenuRightState extends State<MenuRight> {
             },
           ),
         ],
-      ),
+      ),)
     );
   }
 }

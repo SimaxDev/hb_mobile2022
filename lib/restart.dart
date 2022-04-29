@@ -142,6 +142,7 @@ class rester {
       idNTD = "";
       IDTT;
       OldID2010 = 0;
+      IDGroup = 0;
       chuaPDF = [];
       tenPDFTruyen = "";
       imageCK ="";
@@ -271,6 +272,7 @@ class rester {
       ThemMoiVanBanDuThao = false;
       IDTT;
       OldID2010 = 0;
+      IDGroup = 0;
       chuaPDF = [];
       tenPDFTruyen = "";
       imageCK ="";
