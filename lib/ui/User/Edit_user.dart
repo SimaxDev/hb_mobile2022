@@ -71,7 +71,7 @@ class _EditUserState extends State<EditUser>  {
   void dispose() {
     // Clean up the focus node when the Form is disposed.
     myFocusNode.dispose();
-
+    EasyLoading.dismiss();
     super.dispose();
   }
   Future pickDate(BuildContext context) async {

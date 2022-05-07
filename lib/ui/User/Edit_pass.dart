@@ -133,6 +133,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
 
                       },
                       controller: matKhauCu,
+                      obscureText: true,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
 
@@ -178,6 +179,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
                         }
                         return null;
                       },
+                      obscureText: true,
                       controller: matKhauMoi,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
@@ -226,6 +228,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
                         }
                         return null;
                       },
+                      obscureText: true,
                       controller: nhapLaiMatKhau,
                       autovalidateMode: AutovalidateMode.onUserInteraction,
                       style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
