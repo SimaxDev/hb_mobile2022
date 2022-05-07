@@ -990,410 +990,392 @@ bool isLoading = false;
 
         ),
         );*/
-        return DefaultTabController(
-            length: 2,
-            child: Scaffold(
+        return Scaffold(
                 appBar: PreferredSize(
                   preferredSize: Size.fromHeight(50.0),
                   child: AppBar(
                     automaticallyImplyLeading: false,
-                    bottom: TabBar(
-                      tabs: [
-                        Tab(
-                          text: 'Chuyển liên thông',
-                        ),
-                        Tab(
-                          text: 'PDF',
-                        ),
-                      ],
-                    ),
+                   title:Center(child:Text('Chuyển liên thông'),) ,
                   ),
                 ),
-                body: TabBarView(
-                  children: [
-                    SingleChildScrollView(
-                      child: Column(
+                body:   SingleChildScrollView(
+                  child: Column(
 
-                        children: [
+                    children: [
 
-                          Container(
+                      Container(
 
-                              child: Column(
+                          child: Column(
+                              mainAxisAlignment: MainAxisAlignment.start,
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                SizedBox(
+                                  height: 20,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.3,
+                                      padding: EdgeInsets.only(left: 10.0),
+                                      child: Text(
+                                        'Đơn vị gửi',
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.7,
+                                      // padding: EdgeInsets.only(left: 22.0),
+                                      padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
+                                      child: Text(
+                                        DonViGui,
+                                        style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                                        textAlign: TextAlign.justify,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  height: 0,
+                                ),
+
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.3,
+                                      padding: EdgeInsets.only(left: 10.0),
+                                      child: Text(
+                                        'Tiêu đề(*)',
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.7,
+                                      //height: MediaQuery.of(context).size.height * 0.06,
+                                      // padding: EdgeInsets.only(left: 22.0),
+                                      padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
+                                      child: ConstrainedBox(
+                                        constraints: BoxConstraints(
+                                          // minWidth: MediaQuery.of(context).size.width,
+                                        ),
+                                        child:new TextField(
+                                          controller: TextEditingController(text:  '[VBDH]'+"["+ LoaiVanBan +"]" +"["+ SoKyHieu
+                                              +"]"+"["+ TrichYeu +"]"),
+                                          decoration: new InputDecoration(
+                                            border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black12)),
+                                          ),
+                                          style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                                          textAlign: TextAlign.justify,
+                                          minLines: 1,
+                                          maxLines: 5,
+                                          onChanged: (text) {
+                                            if(mounted){
+                                              setState(() {});
+                                            }
+
+                                          },
+                                        ),),
+                                    )
+                                  ],
+                                ),
+                                Divider(
+                                  height: 0,
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.3,
+                                      padding: EdgeInsets.only(left: 10.0),
+                                      child: Text(
+                                        'Đơn vị nhận(*)',
+                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                      ),
+                                    ),
+                                    Container(
+                                      width: MediaQuery.of(context).size.width * 0.7,
+                                      ///height: MediaQuery.of(context).size.height * 0.07,
+                                      padding: EdgeInsets.only(left: 15.0),
+                                      child: SearchServer(
+                                        listData: vanbanList,
+                                        multipleSelection: true,
+                                        // text: Text("Hya"),
+                                        title:"Hãy chọn đơn vị",
+                                        // searchHintText: 'Tìm kiếm',
+                                        onSaved: (value) {
+                                          if (mounted) {setState(() {
+                                            for(var item in value){
+                                              if(idLoaiVBN != null){
+                                                idLoaiVBN += (item.toString()) +"," ;
+                                              }
+                                            }
+                                            if(idLoaiVBN != null && idLoaiVBN.length>0)
+                                              idLoaiVBN =  idLoaiVBN.substring(0,idLoaiVBN.length-1);
+                                          });}
+                                        },
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                                Divider(
+                                  height: 0,
+                                ),
+                                Padding(padding: EdgeInsets.all(10.0),
+                                  child: Text(
+                                    'Nội dung văn bản',
+                                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                  ),
+                                ),
+                                Column
+
+                                  (
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   crossAxisAlignment: CrossAxisAlignment.center,
-                                  children: <Widget>[
-                                    SizedBox(
-                                      height: 20,
-                                    ),
+                                  children:  <Widget>[
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
+                                      children: <Widget>[
                                         Container(
                                           width: MediaQuery.of(context).size.width * 0.3,
-                                          padding: EdgeInsets.only(left: 10.0),
-                                          child: Text(
-                                            'Đơn vị gửi',
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                          padding: EdgeInsets.only(left: 20.0),
+                                          child: Text('Loại văn bản',
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 14
+                                            ),
                                           ),
                                         ),
                                         Container(
                                           width: MediaQuery.of(context).size.width * 0.7,
                                           // padding: EdgeInsets.only(left: 22.0),
                                           padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
-                                          child: Text(
-                                            DonViGui,
-                                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                                          child: Text(LoaiVanBan,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14
+                                            ),
                                             textAlign: TextAlign.justify,
                                           ),
                                         ),
                                       ],
                                     ),
-                                    Divider(
-                                      height: 0,
-                                    ),
-
+                                    Divider(height: 0,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-
-                                      children: [
+                                      children: <Widget>[
                                         Container(
                                           width: MediaQuery.of(context).size.width * 0.3,
-                                          padding: EdgeInsets.only(left: 10.0),
-                                          child: Text(
-                                            'Tiêu đề(*)',
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                          padding: EdgeInsets.only(left: 20.0),
+                                          child: Text('Số ký hiệu',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight:  FontWeight.bold
+                                            ),
                                           ),
                                         ),
                                         Container(
                                           width: MediaQuery.of(context).size.width * 0.7,
-                                          //height: MediaQuery.of(context).size.height * 0.06,
-                                          // padding: EdgeInsets.only(left: 22.0),
-                                          padding: EdgeInsets.fromLTRB(15, 0, 0, 0),
-                                          child: ConstrainedBox(
-                                            constraints: BoxConstraints(
-                                              // minWidth: MediaQuery.of(context).size.width,
+                                          padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
+                                          child: Text(SoKyHieu,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14
                                             ),
-                                            child:new TextField(
-                                              controller: TextEditingController(text:  '[VBDH]'+"["+ LoaiVanBan +"]" +"["+ SoKyHieu
-                                                  +"]"+"["+ TrichYeu +"]"),
-                                              decoration: new InputDecoration(
-                                                border: new OutlineInputBorder(borderSide: new BorderSide(color: Colors.black12)),
-                                              ),
-                                              style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                                              textAlign: TextAlign.justify,
-                                              minLines: 1,
-                                              maxLines: 5,
-                                              onChanged: (text) {
-                                                if(mounted){
-                                                  setState(() {});
-                                                }
-
-                                              },
-                                            ),),
-                                        )
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ),
                                       ],
                                     ),
-                                    Divider(
-                                      height: 0,
-                                    ),
+                                    Divider(height: 0,),
                                     Row(
                                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                      children: [
+                                      children: <Widget>[
                                         Container(
+                                          padding: EdgeInsets.only(left: 20.0),
                                           width: MediaQuery.of(context).size.width * 0.3,
-                                          padding: EdgeInsets.only(left: 10.0),
-                                          child: Text(
-                                            'Đơn vị nhận(*)',
-                                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                                          child: Text('Trích yếu',
+                                            style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
                                           ),
                                         ),
                                         Container(
                                           width: MediaQuery.of(context).size.width * 0.7,
-                                          ///height: MediaQuery.of(context).size.height * 0.07,
-                                          padding: EdgeInsets.only(left: 15.0),
-                                          child: SearchServer(
-                                            listData: vanbanList,
-                                            multipleSelection: true,
-                                            // text: Text("Hya"),
-                                            title:"Hãy chọn đơn vị",
-                                            // searchHintText: 'Tìm kiếm',
-                                            onSaved: (value) {
-                                              if (mounted) {setState(() {
-                                                for(var item in value){
-                                                  if(idLoaiVBN != null){
-                                                    idLoaiVBN += (item.toString()) +"," ;
-                                                  }
-                                                }
-                                                if(idLoaiVBN != null && idLoaiVBN.length>0)
-                                                  idLoaiVBN =  idLoaiVBN.substring(0,idLoaiVBN.length-1);
-                                              });}
+                                          padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
+                                          child: Text(TrichYeu,
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.normal
+                                            ),
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(height: 0,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                          padding: EdgeInsets.only(left: 20.0),
+                                          width: MediaQuery.of(context).size.width * 0.3,
+                                          child: Text('Người ký',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width * 0.7,
+                                          padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
+                                          child: Text(NguoiKy,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14
+                                            ),
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(height: 0,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                          width: MediaQuery.of(context).size.width * 0.3,
+                                          padding: EdgeInsets.only(left: 20.0),
+                                          child: Text('Ngày ký',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight:  FontWeight.bold
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width * 0.7,
+                                          padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
+                                          child: Text(NgayKy,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14
+                                            ),
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(height: 0,),
+                                    Row(
+                                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                      children: <Widget>[
+                                        Container(
+                                          width: MediaQuery.of(context).size.width * 0.3,
+                                          padding: EdgeInsets.only(left: 20.0),
+                                          child: Text('Ngày ban hành',
+                                            style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.bold
+                                            ),
+                                          ),
+                                        ),
+                                        Container(
+                                          width: MediaQuery.of(context).size.width * 0.7,
+                                          padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
+                                          child: Text(NgayBanHanh,
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 14
+                                            ),
+                                            textAlign: TextAlign.justify,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Divider(height: 0,),
+
+
+
+                                  ],
+                                ),
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    Padding(padding: EdgeInsets.only(top: 10,bottom: 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                                          borderRadius: BorderRadius.circular(10),
+                                        ),
+                                        width: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .width * 0.6,
+                                        height: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.06,
+                                        child:TextButton.icon (
+                                            icon: Icon(Icons.send_outlined),
+                                            label: Text("Chuyển liên thông",style: TextStyle(fontWeight: FontWeight.bold,
+                                              fontSize:
+                                              16,),
+                                              textAlign:
+                                              TextAlign.center,),
+                                            onPressed: () async {
+                                              var ida="";
+                                              ida = vanbanList[0].ID.toString();
+                                              var tendangnhap = sharedStorage.getString("username");
+                                              EasyLoading.show();
+                                              var thanhcong =   await posChuyenLienThong(tendangnhap, widget.id, 'ChuyenLienThong',
+                                                  idLoaiVBN,widget.nam);
+                                              _titleController.text = "";
+                                              EasyLoading.dismiss();
+                                              Navigator.of(context).pop();
+                                              showAlertDialog(context, json.decode(thanhcong)['Message']);
                                             },
-                                          ),
-                                        ),
-                                      ],
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                                              foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
+                                            )
+                                        ),),
                                     ),
-                                    Divider(
-                                      height: 0,
+                                    Padding(padding: EdgeInsets.only(top: 10,left: 20,
+                                        bottom: 10),
+                                      child: Container(
+                                        decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                                          borderRadius: BorderRadius.circular(15),
+                                        ),
+                                        width: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .width * 0.25,
+                                        height: MediaQuery
+                                            .of(context)
+                                            .size
+                                            .height * 0.06,
+                                        child:TextButton.icon (
+                                            icon: Icon(Icons.delete_forever_outlined),
+                                            label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
+                                            TextAlign.center,),
+                                            onPressed: ()  {
+                                              Navigator.of(context).pop();
+                                            },
+                                            style: ButtonStyle(
+                                              backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
+                                              foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                                            )
+                                        ),),
                                     ),
-                                    Padding(padding: EdgeInsets.all(10.0),
-                                      child: Text(
-                                        'Nội dung văn bản',
-                                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
-                                      ),
-                                    ),
-                                    Column
 
-                                      (
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.center,
-                                      children:  <Widget>[
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.3,
-                                              padding: EdgeInsets.only(left: 20.0),
-                                              child: Text('Loại văn bản',
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.bold,
-                                                    fontSize: 14
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.7,
-                                              // padding: EdgeInsets.only(left: 22.0),
-                                              padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
-                                              child: Text(LoaiVanBan,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.normal,
-                                                    fontSize: 14
-                                                ),
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(height: 0,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.3,
-                                              padding: EdgeInsets.only(left: 20.0),
-                                              child: Text('Số ký hiệu',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight:  FontWeight.bold
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.7,
-                                              padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
-                                              child: Text(SoKyHieu,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.normal,
-                                                    fontSize: 14
-                                                ),
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(height: 0,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(left: 20.0),
-                                              width: MediaQuery.of(context).size.width * 0.3,
-                                              child: Text('Trích yếu',
-                                                style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.7,
-                                              padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
-                                              child: Text(TrichYeu,
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.normal
-                                                ),
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(height: 0,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              padding: EdgeInsets.only(left: 20.0),
-                                              width: MediaQuery.of(context).size.width * 0.3,
-                                              child: Text('Người ký',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.7,
-                                              padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
-                                              child: Text(NguoiKy,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.normal,
-                                                    fontSize: 14
-                                                ),
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(height: 0,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.3,
-                                              padding: EdgeInsets.only(left: 20.0),
-                                              child: Text('Ngày ký',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight:  FontWeight.bold
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.7,
-                                              padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
-                                              child: Text(NgayKy,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.normal,
-                                                    fontSize: 14
-                                                ),
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(height: 0,),
-                                        Row(
-                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                          children: <Widget>[
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.3,
-                                              padding: EdgeInsets.only(left: 20.0),
-                                              child: Text('Ngày ban hành',
-                                                style: TextStyle(
-                                                    fontSize: 14,
-                                                    fontWeight: FontWeight.bold
-                                                ),
-                                              ),
-                                            ),
-                                            Container(
-                                              width: MediaQuery.of(context).size.width * 0.7,
-                                              padding: EdgeInsets.fromLTRB(15, 15, 0, 10),
-                                              child: Text(NgayBanHanh,
-                                                style: TextStyle(
-                                                    fontWeight: FontWeight.normal,
-                                                    fontSize: 14
-                                                ),
-                                                textAlign: TextAlign.justify,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                        Divider(height: 0,),
-                                     
+                                  ],),
 
-
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Padding(padding: EdgeInsets.only(top: 10,bottom: 10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.lightBlue[50], width: 2),
-                                              borderRadius: BorderRadius.circular(10),
-                                            ),
-                                            width: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width * 0.6,
-                                            height: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height * 0.06,
-                                            child:TextButton.icon (
-                                                icon: Icon(Icons.send_outlined),
-                                                label: Text("Chuyển liên thông",style: TextStyle(fontWeight: FontWeight.bold,
-                                                  fontSize:
-                                                  16,),
-                                                  textAlign:
-                                                  TextAlign.center,),
-                                                onPressed: () async {
-                                                  var ida="";
-                                                  ida = vanbanList[0].ID.toString();
-                                                  var tendangnhap = sharedStorage.getString("username");
-                                                  EasyLoading.show();
-                                                  var thanhcong =   await posChuyenLienThong(tendangnhap, widget.id, 'ChuyenLienThong',
-                                                      idLoaiVBN,widget.nam);
-                                                  _titleController.text = "";
-                                                  EasyLoading.dismiss();
-                                                  Navigator.of(context).pop();
-                                                  showAlertDialog(context, json.decode(thanhcong)['Message']);
-                                                },
-                                                style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
-                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-                                                )
-                                            ),),
-                                        ),
-                                        Padding(padding: EdgeInsets.only(top: 10,left: 20,
-                                            bottom: 10),
-                                          child: Container(
-                                            decoration: BoxDecoration(
-                                              border: Border.all(color: Colors.lightBlue[50], width: 2),
-                                              borderRadius: BorderRadius.circular(15),
-                                            ),
-                                            width: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width * 0.25,
-                                            height: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .height * 0.06,
-                                            child:TextButton.icon (
-                                                icon: Icon(Icons.delete_forever_outlined),
-                                                label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
-                                                TextAlign.center,),
-                                                onPressed: ()  {
-                                                  Navigator.of(context).pop();
-                                                },
-                                                style: ButtonStyle(
-                                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
-                                                  foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                                                )
-                                            ),),
-                                        ),
-
-                                      ],),
-
-                                  ])),
-                        ],
-                      ),
-                    ),
-
-                    ViewPDFLT(),
-                    
-                  ],
-                )));
+                              ])),
+                    ],
+                  ),
+                ),);
         break;
       case 1:
         return Container(

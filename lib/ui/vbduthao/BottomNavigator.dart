@@ -314,6 +314,9 @@ class _BottomNav extends State<BottomNav> {
                     )
                         : SizedBox(),
 
+
+
+
                     //Trình Ký
                     isTrinhKy == true
                         ? Container(
@@ -437,6 +440,100 @@ class _BottomNav extends State<BottomNav> {
                       ),
                     )
                         : SizedBox(),
+
+
+                    (vbdiTrangThaiVB == 2 || vbdiTrangThaiVB == 3 
+                        || vbdiTrangThaiVB == 6) && isTrinhTiep && isQTNew ?
+                    (SiteAction.contains("vpubhb")? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                FlatButton.icon(
+                                  icon: Icon(Icons.undo_rounded),
+                                  label: Text('Trình lại'),
+                                  onPressed: () {
+                                    onPressButton(context, index + 3);
+                                  },
+                                  textTheme: ButtonTextTheme.primary,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ):Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                FlatButton.icon(
+                                  icon: Icon(Icons.next_plan_outlined),
+                                  label: Text('Trình tiếp'),
+                                  onPressed: () {
+                                    onPressButton(context, index + 7);
+                                  },
+                                  textTheme: ButtonTextTheme.primary,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )) :SizedBox(),
+
+                    ((vbdiTrangThaiVB == 2 || vbdiTrangThaiVB == 3
+                        || vbdiTrangThaiVB == 6) && isTrinhTiep && notIsQuanTriNew) 
+                        || (notIsQuanTriNew && isTrinhTiep && vbdiTrangThaiVB == 3 
+                        && vbdiDSNguoiTrinhTiep.length>0 &&
+                        vbdiDSNguoiTrinhTiep[0].LookupId == currentUserID)
+                        || (notIsQuanTriNew && isTrinhTiep && vbdiTrangThaiVB == 2
+                        && vbdiNguoiSoanID == currentUserID) ?
+                    (SiteAction.contains("vpubhb")? Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                FlatButton.icon(
+                                  icon: Icon(Icons.undo_rounded),
+                                  label: Text('Trình lại'),
+                                  onPressed: () {
+                                    onPressButton(context, index + 3);
+                                  },
+                                  textTheme: ButtonTextTheme.primary,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    ):Container(
+                      child: InkWell(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: <Widget>[
+                            Column(
+                              children: <Widget>[
+                                FlatButton.icon(
+                                  icon: Icon(Icons.next_plan_outlined),
+                                  label: Text('Trình tiếp'),
+                                  onPressed: () {
+                                    onPressButton(context, index + 7);
+                                  },
+                                  textTheme: ButtonTextTheme.primary,
+                                )
+                              ],
+                            )
+                          ],
+                        ),
+                      ),
+                    )) :SizedBox(),
 
 
                     OldID2010 != 1 && (trinhDaCoNgDuyet == true || trinhLan2 ==

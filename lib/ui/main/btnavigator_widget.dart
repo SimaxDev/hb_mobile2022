@@ -50,6 +50,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
   String chucvu = "";
   SharedPreferences sharedStorage;
   int  indexVBLeft ;
+  String namVB = '2022';
 
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
@@ -66,7 +67,18 @@ class BottomNavigatorState extends State<BottomNavigator> {
   @override
   void initState() {
     super.initState();
+    setState(() {
+      if(widget.year == null){
+        DateTime now = DateTime.now();
+        String Yearvb = DateFormat('yyyy').format(now);
+        namVB  =  Yearvb;
+      }
 
+      else{
+        namVB = widget.year;
+      }
+
+    });
 
     EasyLoading.dismiss();
     //getUserInfor();
@@ -291,7 +303,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
     switch (_currentIndex) {
       case 0:
         return WillPopScope(
-            child:  trangChu(returnData: trangthaiVB, username: widget.username,nam:widget.year
+            child:  trangChu(returnData: trangthaiVB, username: widget.username,nam:namVB
             ),
             onWillPop:  () async {
               logOut(context);
@@ -303,7 +315,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
       case 1:
         return WillPopScope(
           child: ListVBDen(urlttVB : urlttVB, val: indexVBLeft, username:
-          widget.username,nam:widget.year),
+          widget.username,nam:namVB),
           onWillPop:  () async {
             trangthaiVB("",0);
           }
@@ -314,7 +326,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
 
         return WillPopScope(
             child: VanBanDi(urlttVB : urlttVB, currentIndex: _currentIndex,
-                username: widget.username,nam:widget.year),
+                username: widget.username,nam:namVB),
             onWillPop:  () async {
               trangthaiVB("",0);
             }
@@ -324,7 +336,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
       case 3:
         return WillPopScope(
             child: DuThaoWidget(urlLoaiVB : urlttVB, val: _currentIndex, username: widget.username, pageindex:13,
-                nam:widget.year),
+                nam:namVB),
             onWillPop:  () async {
               trangthaiVB("",0);
             }
@@ -334,7 +346,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
       case 4:
         return WillPopScope(
             child:  HSCVWidget(urlLoaiVB : urlttVB, val: _currentIndex,
-                username: widget.username,nam:widget.year),
+                username: widget.username,nam:namVB),
             onWillPop:  () async {
               trangthaiVB("",0);
             }
@@ -342,9 +354,6 @@ class BottomNavigatorState extends State<BottomNavigator> {
         );
 
         break;
-
-
-
 
 
     }

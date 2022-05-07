@@ -278,7 +278,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                 // Container()
               ],
             ),
-            Column(
+            CurrentDonViID == 198?   Column(
               children: [
                 Row(
                   children: [
@@ -341,7 +341,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
 
                 // Container()
               ],
-            ),
+            ):SizedBox(),
             Column(
               children: [
                 Row(

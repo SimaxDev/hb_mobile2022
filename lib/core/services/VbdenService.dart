@@ -137,11 +137,13 @@ Future<String> getDataCVBD(String username,String ActionXL) async {
     return items;
   }
 }
-Future<String> getDataCVBDen(String username,String ActionXL,int parentID)
+Future<String> getDataCVBDen(String username,String ActionXL,int parentID,
+    int nam)
 async {
   var parts = [];
   parts.add('TenDangNhap=' + username.toString());
   parts.add('ActionXL=' + ActionXL);
+  parts.add('SYear=' + nam.toString());
   parts.add('parentID=' + parentID.toString());
   var formData = parts.join('&');
   String url = "/api/ServicesVBD/GetData";
@@ -208,17 +210,20 @@ Future<String> getDataTreeDT(String username,String ActionXL,String group) async
   }
 }
 
-Future<String> getDataHoTro(String ActionXL,String username,int id) async {
+Future<String> getDataHoTro(String ActionXL,String username,int id,namVB)
+async {
 
-  String nam =  "2022";
-  DateTime now = DateTime.now();
-  nam =  DateFormat('yyyy').format(now) ;
+  if(namVB == null){
+    DateTime now = DateTime.now();
+    namVB =  DateFormat('yyyy').format(now) ;
+  }
+
 
   var parts = [];
   parts.add('TenDangNhap=' + username.toString());
   parts.add('ActionXL=' + ActionXL);
   parts.add('isYKienHoTro=true' );
-  parts.add('sYear=' + nam );
+  parts.add('sYear=' + namVB );
   parts.add('IdUser=' + id.toString());
   var formData = parts.join('&');
   String url = "/api/ServicesVBD/GetData";

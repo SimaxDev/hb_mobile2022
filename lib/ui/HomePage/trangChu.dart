@@ -413,7 +413,7 @@ class PageState extends State<trangChu> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => hoTro(
-                                          username: widget.username,
+                                          username: widget.username,nam:widget.nam
                                         )));
                               },
                               child: Column(

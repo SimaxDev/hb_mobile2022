@@ -30,6 +30,7 @@ class VanBanDuThaoJson {
   final int chukysoDT;
   final List vbdiDSNguoiTrinhTiepDT;
   final   bool isDuyetVaPhatHanhDT;
+  final   bool isTrinhTiep;
   final bool isDuyetDT;
   final bool kyVaPhatHanhDT;
   final  int isnguoiduyetDT;
@@ -43,6 +44,7 @@ class VanBanDuThaoJson {
   VanBanDuThaoJson(
       {
         this.TrangThaiVB,
+        this.isTrinhTiep,
         this.trichYeu,
         this.ldKyVB,
         this.checkThuHoi1,
@@ -114,6 +116,10 @@ class VanBanDuThaoJson {
     isDuyetDT :
     json['isDuyet'] != null
         ? json['isDuyet']
+        : false,
+      isTrinhTiep :
+    json['isTrinhTiep'] != null
+        ? json['isTrinhTiep']
         : false,
     kyVaPhatHanhDT :
     json['kyVaPhatHanh'] != null

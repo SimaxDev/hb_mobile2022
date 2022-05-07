@@ -88,6 +88,7 @@ import 'package:http/http.dart' as http;
   bool vbdiDSNguoiTrinhTiepKy = false;
   bool isQTNew = false;
   bool notIsQuanTriNew = false;
+  bool isTrinhTiep = false;
   bool ispGuiXuLyChinh = false;
   int ID=0;
   int DonViInSiteID=0;

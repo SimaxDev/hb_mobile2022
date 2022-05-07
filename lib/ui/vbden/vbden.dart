@@ -66,7 +66,7 @@ class ListVBDen1 extends State<ListVBDen> {
   String nam = "";
   List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
   String dropdownValue = "";
-
+  int namYB = 2022;
 
   @override
   void initState() {
@@ -77,6 +77,7 @@ class ListVBDen1 extends State<ListVBDen> {
     isLoading = true;
     chckSwitch = false;
     if (mounted) {setState(() {
+      namYB =  int.parse(widget.nam);
       if(widget.nam == null || widget.nam ==  ""){
         DateTime now = DateTime.now();
         nam =  DateFormat('yyyy').format(now) ;
@@ -682,7 +683,8 @@ class ListVBDen1 extends State<ListVBDen> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => ChiTietVBDen(id: id,MaDonVi:MaDonVi),
+                    builder: (context) => ChiTietVBDen(id: id,
+                      MaDonVi:MaDonVi,Yearvb:namYB ,),
                   ),
                 );
               },

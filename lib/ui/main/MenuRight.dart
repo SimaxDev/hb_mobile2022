@@ -270,6 +270,7 @@ class _MenuRightState extends State<MenuRight> {
                   width: MediaQuery.of(context).size.width,
                   child: Text(
                     widget.hoten,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(
                         color: Colors.white,
                         fontSize:
@@ -284,6 +285,7 @@ class _MenuRightState extends State<MenuRight> {
                   width: MediaQuery.of(context).size.width,
                   child: Text(
                     widget.chucvu,
+                    overflow: TextOverflow.ellipsis,
                     style: TextStyle(color: Colors.white, fontSize: 16.0),
                   ),
                 ),

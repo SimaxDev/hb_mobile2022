@@ -871,12 +871,102 @@ class _ThemDTState extends State<ThemDT> {
                           "Cập nhật/Xin ý kiến dự thảo",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        onPressed: () {
-                        if(vNguoiKy != null){
-                          showAlertDialog(context,"Yêu cầu trình ký văn bản dự "
-                              "thảo!");
-                        }
+                        onPressed:
+
+                            () async {
+                              if(vNguoiKy != null){
+                                showAlertDialog(context,"Yêu cầu trình ký văn bản dự "
+                                    "thảo!");
+                              }
+                              else{
+                                var thanhcong = null;
+                                bool isAllSpaces(String input) {
+                                  String output = input.replaceAll(' ', '');
+                                  if (output == '') {
+                                    return true;
+                                  }
+                                  return false;
+                                }
+                                // print(vNguoiKy.value);
+                                var tendangnhap =
+                                sharedStorage.getString("username");
+                                String iaa =
+                                textEditingController.text.trim();
+                                if (isAllSpaces(iaa)) {
+                                  showAlertDialog(context, "Nhập trích yếu");
+                                } else if(vNguoiKy != "")
+                                {
+                                  String base64PDF = "";
+                                  String base64PDF1 = "";
+                                  var ch;
+                                  if (selectedfile != null) {
+                                    // var bytes1 = await rootBundle.load(selectedfile.path);
+                                    List<int> Bytes =
+                                    await selectedfile.readAsBytesSync();
+
+                                    base64PDF = await base64Encode(Bytes);
+                                  }
+                                  if (selectedfile1 != null) {
+                                    List<int> Bytes =
+                                    await selectedfile1.readAsBytesSync();
+
+                                    base64PDF1 = await base64Encode(Bytes);
+
+                                    // ch = await MultipartFile.fromFile(
+                                    //     selectedfile1?.path,
+                                    //     filename: selectedfile1.path
+                                    //         .split('/')
+                                    //         .last ??
+                                    //         'image.jpeg');
+                                  }
+
+                                  if (!userDuocCHon.contains(ls))
+                                    userDuocCHon += ls + "^";
+                                  for (var item in ls1.split("^"))
+                                    if (!userDuocCHon.contains(item))
+                                      userDuocCHon += item + "^";
+                                  for (var item in ls2.split("^"))
+                                    if (!userDuocCHon.contains(item))
+                                      userDuocCHon += item + "^";
+                                  if (userDuocCHon != null &&
+                                      userDuocCHon != "")
+                                    userDuocCHon = userDuocCHon.substring(
+                                        0, userDuocCHon.length - 1);
+
+                                  EasyLoading.show();
+                                  thanhcong = await postThemDT(
+                                      textEditingController.text,
+                                      idLoaiVB.toString(),
+                                      cbKy,
+                                      cbDuyet,
+                                      cbHoaToc,
+                                      vNguoiKy.toString(),
+                                      vNguoiTrinh.toString(),
+                                      toTrinh.toString(),
+                                      userDuocCHon,
+                                      base64PDF1,
+                                      base64PDF);
+                                  EasyLoading.dismiss();
+                                  Navigator.of(context).pop();
+                                  textEditingController.text = "";
+                                  userDuocCHon= "";
+                                  vNguoiKy= "";
+                                  vNguoiTrinh= "";
+                                  toTrinh= "";
+                                  base64PDF1= "";
+                                  base64PDF= "";
+                                  showAlertDialog(context,
+                                      json.decode(thanhcong)['Message']);
+
+
+                                }else{
+                                  showAlertDialog(context,"Yêu cầu lựa chọn lãnh "
+                                      "đạo ký văn bản!");
+                                }
+                              }
+
                         },
+
                         style: ButtonStyle(
                           // backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent),
                           // foregroundColor: MaterialStateProperty.all<Color>(Colors.red),

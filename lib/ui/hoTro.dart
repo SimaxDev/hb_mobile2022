@@ -18,8 +18,9 @@ import 'package:url_launcher/url_launcher.dart';
 
 
 class hoTro extends StatefulWidget {
-  const hoTro({Key key,this.username}) : super(key: key);
+  const hoTro({Key key,this.username,this.nam}) : super(key: key);
   final String username;
+  final String nam;
   @override
   _hoTroState createState() => _hoTroState();
 }
@@ -58,7 +59,8 @@ class _hoTroState extends State<hoTro> {
     // }
     // else
 
-   String vbdt= await getDataHoTro("GetYKien",widget.username,currentUserID);
+   String vbdt= await getDataHoTro("GetYKien",widget.username,currentUserID,
+       widget.nam);
     if (mounted) {
       setState(() {
       // dataList += json.decode(vbden)['OData'];

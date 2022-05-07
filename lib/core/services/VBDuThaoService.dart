@@ -58,20 +58,44 @@ async {
  //  parts.add('listValueFileAttach10=' + pdf1.toString());
  //  parts.add('userChoosenTrinhDuthao=' + userChoosen);
  //  var formData = parts.join(',');
-  final formData = {
-    "ActionXL":"DUTHAOUPDATE",
-    "vbdiTrichYeu": "$noidungykien",
-    "vbdiLoaiVanBan":vbdiLoaiVB,
-    "cbKy":cbKy ,
-    "cbDuyet":cbDyet ,
-    "cbHoaToc": cbHoaToc,
-    "vbdiNguoiKy": vbdiNguoiKy,
-    "vbdiDSNguoiTrinhTiep": vbdiNguoiTrinhTiep,
-    "totrinhCurrentNguoiDuyet2": totrinhNguoiDuyet2,
-    "listValueFileAttach10": "$pdf1",
-    "listValueFileAttach": "$pdf",
-    "userChoosenTrinhDuthao":"$userChoosen" ,
-  };
+  var formData;
+  if(vbdiNguoiKy != null  && vbdiNguoiKy !="" ){
+    formData = {
+      "ActionXL":"DUTHAOUPDATE",
+      "vbdiTrangThaiVB":"4",
+      "vbdiTrichYeu": "$noidungykien",
+      "vbdiLoaiVanBan":vbdiLoaiVB,
+      "cbKy":cbKy ,
+      "cbDuyet":cbDyet ,
+      "cbHoaToc": cbHoaToc,
+      "vbdiNguoiKy": vbdiNguoiKy,
+      "vbdiDSNguoiTrinhTiep": vbdiNguoiTrinhTiep,
+      "totrinhCurrentNguoiDuyet2": totrinhNguoiDuyet2,
+      "listValueFileAttach10": "$pdf1",
+      "listValueFileAttach": "$pdf",
+      "userChoosenTrinhDuthao":"$userChoosen" ,
+
+    };
+  }
+  else{
+     formData = {
+      "ActionXL":"DUTHAOUPDATE",
+      "vbdiTrichYeu": "$noidungykien",
+      "vbdiLoaiVanBan":vbdiLoaiVB,
+      "cbKy":cbKy ,
+      "cbDuyet":cbDyet ,
+      "cbHoaToc": cbHoaToc,
+      "vbdiNguoiKy": vbdiNguoiKy,
+      "vbdiDSNguoiTrinhTiep": vbdiNguoiTrinhTiep,
+      "totrinhCurrentNguoiDuyet2": totrinhNguoiDuyet2,
+      "listValueFileAttach10": "$pdf1",
+      "listValueFileAttach": "$pdf",
+      "userChoosenTrinhDuthao":"$userChoosen" ,
+    };
+  }
+
+
+
 
 
 

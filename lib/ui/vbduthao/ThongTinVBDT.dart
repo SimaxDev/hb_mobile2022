@@ -163,6 +163,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     vanbanDT =  duThao;
     if(vbDT != null){
        trichYeu =  vbDT.trichYeu;
+       isTrinhTiep =  vbDT.isTrinhTiep;
        ldKyVB =  vbDT.ldKyVB;
       vbdiCurrentUserReceived = vbDT.vbdiCurrentUserReceivedDT;
      checkThuHoi1 =  vbDT.checkThuHoi1 ;

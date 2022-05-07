@@ -12,6 +12,7 @@ import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
 
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
+import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 class TreeTrinhTiepPT extends StatefulWidget {
   final int id;
@@ -306,7 +307,7 @@ class _TreeTrinhTiepPTState extends State<TreeTrinhTiepPT> {
                 // Container()
               ],
             ),
-            Column(
+            CurrentDonViID == 198?   Column(
               children: [
                 Row(
                   children: [
@@ -369,7 +370,7 @@ class _TreeTrinhTiepPTState extends State<TreeTrinhTiepPT> {
 
                 // Container()
               ],
-            ),
+            ):SizedBox(),
             Column(
               children: [
                 Row(

@@ -120,7 +120,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   }
 
   Future GetDataDetailVBDi(String tendangnhap) async {
-    String detailVBDi = await getDataCVBDen(tendangnhap, ActionXL1,IDGroup);
+    String detailVBDi = await getDataCVBDen(tendangnhap, ActionXL1,IDGroup,
+        widget.nam);
     if (mounted) { setState(() {
       chitiet = json.decode(detailVBDi)['OData'][0]['children'];
       values = GetTT(chitiet);
