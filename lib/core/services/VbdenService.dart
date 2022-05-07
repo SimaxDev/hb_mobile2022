@@ -222,7 +222,7 @@ async {
   var parts = [];
   parts.add('TenDangNhap=' + username.toString());
   parts.add('ActionXL=' + ActionXL);
-  parts.add('isYKienHoTro=true' );
+  parts.add('isYKienHoTro=true&isGuiHoTro=true' );
   parts.add('sYear=' + namVB );
   parts.add('IdUser=' + id.toString());
   var formData = parts.join('&');

@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:date_time_picker/date_time_picker.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
@@ -107,10 +108,15 @@ Future<UserJson> getDataPut(String tendangnhap, String ActionXL,
     bool cbSMS
     )
 async {
+  String namVB ='2022';
+    DateTime now = DateTime.now();
+    namVB =  DateFormat('yyyy').format(now) ;
+
   String url = "/api/ServiceUser/ActionXuLy";
   var parts = [];
   parts.add('tendangnhap=' + tendangnhap.toString());
   parts.add('ActionXL=' + ActionXL);
+  parts.add('SYear=' + namVB);
   parts.add('Title=' + title);
   parts.add('userNgaySinh=' + ngaysinh);
   parts.add('userGioiTinh=' + userGioiTinh.toString());
