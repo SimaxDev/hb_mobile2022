@@ -329,13 +329,12 @@ witdh, String height,
    int page,namefile)
 
 async {
-
+//Andorid
   if(nam == null){
     DateTime now = DateTime.now();
     nam =  DateFormat('yyyy').format(now) ;
   };
 var pagesize =  page +1;
-
   var parts = [];
   parts.add('ItemID=' + id.toString());
   parts.add('ActionXL=' + ActionXL);
@@ -356,6 +355,40 @@ var pagesize =  page +1;
   var formData = parts.join('&');
   String url = "/api/ServicesVBDT/XuLyDuThao";
   var response = await responseDataPostVBDen(url, formData);
+
+  ////IOS
+
+  // if(nam == null){
+  //   DateTime now = DateTime.now();
+  //   nam =  DateFormat('yyyy').format(now) ;
+  // };
+  // var pagesize =  page ;
+  //
+  //
+  // if(page>=1){
+  //   page = page+1;
+  // }else
+  // if(page==0){
+  //   page =1;
+  // }
+  // print(("page  "+page.toString()));
+  // var parts = [];
+  // parts.add('ItemID=' + id.toString());
+  // parts.add('ActionXL=' + ActionXL);
+  // parts.add('relX=' + _x.toString());
+  // parts.add('relY=' + _y.toString());
+  // parts.add('width=' + witdh.toString());
+  // parts.add('height=' + height.toString());
+  // parts.add('pdfpage=' + page.toString());
+  // parts.add('urlfile=' + linkpdf.toString());
+  // parts.add('SYear=' + nam.toString());
+  // parts.add('namefile=' + namefile.toString());
+  // var formData = parts.join('&');
+  // String url = "/api/ServicesVBDT/XuLyDuThao";
+  // var response = await responseDataPostVBDen(url, formData);
+
+
+
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
