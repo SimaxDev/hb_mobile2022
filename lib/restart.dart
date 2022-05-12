@@ -45,6 +45,7 @@ class rester {
       isTrinhKy = false;
       trinhDaCoNgDuyet = false;
       trinhLan2 = false;
+      isThuHoi = false;
       ChuyenVT = false;
       SiteAction = "";
       userTenTruyCap = "";
@@ -174,6 +175,7 @@ class rester {
       isGuiVanban = false;
       ThemMoiVanBanDuThao = false;
       trinhLan2 = false;
+      isThuHoi = false;
       ChuyenVT = false;
       SiteAction = "";
       userTenTruyCap = "";

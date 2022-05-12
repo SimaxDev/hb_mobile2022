@@ -86,10 +86,11 @@ class _BottomNav extends State<BottomNav> {
   void initState() {
   // GetDataDetailVBDT();
     //_initializeTimer();
-    duThao = widget.ttDuThao;
+
     if (mounted) {  setState(() {
       // GetIdUser(widget.username);
      // vbdiTrangThaiVB = trangThaiVB;
+      duThao = widget.ttDuThao;
       NguoiSoan = vbdiNguoiSoan;
       NguoiTrinhTiep = vbdiNguoiTrinhTiep;
       // NguoiKy = vbdiNguoiKy;
@@ -167,7 +168,7 @@ class _BottomNav extends State<BottomNav> {
             color: Colors.white,
           ),
           height: 56.0,
-          child:duThao!= null? ListView.builder(
+          child: widget.ttDuThao != null ? ListView.builder(
               scrollDirection: Axis.horizontal,
               itemCount: 1,
               itemBuilder: (context, index) {
@@ -177,7 +178,7 @@ class _BottomNav extends State<BottomNav> {
                         && vbdiTrangThaiVB != 5 && vbdiTrangThaiVB != 8
                         && vbdiTrangThaiVB != 3
                         && vbdiTrangThaiVB != 6 && vbdiTrangThaiVB != 1
-                    // && isThuHoi
+                     && isThuHoi == true
                         ? Container(
                       child: InkWell(
                         child: Column(
@@ -318,7 +319,11 @@ class _BottomNav extends State<BottomNav> {
 
 
                     //Trình Ký
-                    isTrinhKy == true
+                    // isTrinhKy == true
+                    vbdiNguoiKyID > 0 && vbdiNguoiKyID!= currentUserID
+                        && vbdiNguoiSoanID == currentUserID
+                        && vbdiTrangThaiVB != 4
+                        && vbdiTrangThaiVB != 1 && vbdiTrangThaiVB != 5
                         ? Container(
                       child: InkWell(
                         child: Column(
@@ -790,7 +795,6 @@ class _BottomNav extends State<BottomNav> {
                                   showAlertDialog(
                                       context, "Nhập ý kiến trả về");
                                 } else {
-                                  if (mounted) {    setState(() async {
                                     EasyLoading.show();
                                     var tendangnhap =
                                     sharedStorage.getString("username");
@@ -811,7 +815,7 @@ class _BottomNav extends State<BottomNav> {
                                     Navigator.of(context).pop();
                                     showAlertDialog(context,
                                         json.decode(thanhcong)['Message']);
-                                  });}
+
 
                                 }
                               },

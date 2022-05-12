@@ -302,7 +302,7 @@ class HSCVState extends State<HSCVWidget> {
             Transform.translate(
               offset: Offset(-15.0, 0.0),
               child: Container(
-                width: MediaQuery.of(context).size.width * 0.37,
+                width: MediaQuery.of(context).size.width * 0.3,
                 decoration: BoxDecoration(
                   border: Border.all(
                     color: Colors.white, // Set border color
@@ -368,7 +368,7 @@ class HSCVState extends State<HSCVWidget> {
               ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.152,
+              width: MediaQuery.of(context).size.width * 0.15,
               child: DropdownButton<String>(
                 value: dropdownValue,
                 isExpanded: true,
@@ -403,7 +403,7 @@ class HSCVState extends State<HSCVWidget> {
               ),
             ),
             Container(
-              width: MediaQuery.of(context).size.width * 0.03,
+              width: MediaQuery.of(context).size.width * 0.01,
             ),
             Container(
               width: MediaQuery.of(context).size.width * 0.15,

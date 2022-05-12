@@ -52,6 +52,7 @@ void logOut(BuildContext context) async {
          isTrinhKy= false;
          trinhDaCoNgDuyet= false;
          trinhLan2= false;
+        isThuHoi= false;
          ChuyenVT= false;
          SiteAction= "";
          userTenTruyCap= "";
@@ -184,6 +185,7 @@ void logOut(BuildContext context) async {
     isTrinhKy= false;
     trinhDaCoNgDuyet= false;
     trinhLan2= false;
+    isThuHoi= false;
     ChuyenVT= false;
     SiteAction= "";
     userTenTruyCap= "";

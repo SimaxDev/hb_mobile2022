@@ -27,6 +27,7 @@ import 'package:http/http.dart' as http;
   bool isTrinhKy= false;
   bool trinhDaCoNgDuyet= false;
   bool trinhLan2= false;
+  bool isThuHoi= false;
   bool ChuyenVT= false;
   String SiteAction= "";
   String userTenTruyCap= "";

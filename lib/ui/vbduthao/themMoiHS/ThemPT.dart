@@ -365,7 +365,8 @@ class _ThemPTState extends State<ThemPT> {
                           "Trình ký",
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
-                        onPressed: ()  async {
+                        onPressed: ()  async
+                        {
 
                           var thanhcong = null;
                           bool isAllSpaces(String input) {
@@ -382,14 +383,6 @@ class _ThemPTState extends State<ThemPT> {
                           }
                           else
                           {
-                            Container(
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.only(top: 10),
-                              child: CircularProgressIndicator(
-                                valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-                              ),
-                            )
-                            ;
                             //setState(() async {
                             String base64PDF = "";
                             String base64PDF1 = "";

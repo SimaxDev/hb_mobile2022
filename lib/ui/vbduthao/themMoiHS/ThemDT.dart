@@ -387,7 +387,7 @@ class _ThemDTState extends State<ThemDT> {
                           padding:
                           EdgeInsets.only(left: 15.0, bottom: 20),
                           child: Text(
-                            "Chọn văn bản dự thảo",
+                            "Chọn văn bản dự thảo(*)",
                             style: TextStyle(
                                 fontWeight: FontWeight.bold,
                                 fontSize: 14),
@@ -722,75 +722,86 @@ class _ThemDTState extends State<ThemDT> {
                           textEditingController.text.trim();
                           if (isAllSpaces(iaa)) {
                             showAlertDialog(context, "Nhập trích yếu");
-                          } else if(vNguoiKy != "")
-                          {
-                            String base64PDF = "";
-                            String base64PDF1 = "";
-                            var ch;
-                            if (selectedfile != null) {
-                              // var bytes1 = await rootBundle.load(selectedfile.path);
-                              List<int> Bytes =
-                              await selectedfile.readAsBytesSync();
+                          } else
+                          if(idLoaiVB != null && idLoaiVB!= "")  {
+                            if(vNguoiKy != ""){
+                              if(chua!= null && chua !=[]&&chua.length >0){
+                                String base64PDF = "";
+                                String base64PDF1 = "";
+                                var ch;
+                                if (selectedfile != null) {
+                                  // var bytes1 = await rootBundle.load(selectedfile.path);
+                                  List<int> Bytes =
+                                  await selectedfile.readAsBytesSync();
 
-                              base64PDF = await base64Encode(Bytes);
+                                  base64PDF = await base64Encode(Bytes);
+                                }
+                                if (selectedfile1 != null) {
+                                  List<int> Bytes =
+                                  await selectedfile1.readAsBytesSync();
+
+                                  base64PDF1 = await base64Encode(Bytes);
+
+                                  // ch = await MultipartFile.fromFile(
+                                  //     selectedfile1?.path,
+                                  //     filename: selectedfile1.path
+                                  //         .split('/')
+                                  //         .last ??
+                                  //         'image.jpeg');
+                                }
+
+                                if (!userDuocCHon.contains(ls))
+                                  userDuocCHon += ls + "^";
+                                for (var item in ls1.split("^"))
+                                  if (!userDuocCHon.contains(item))
+                                    userDuocCHon += item + "^";
+                                for (var item in ls2.split("^"))
+                                  if (!userDuocCHon.contains(item))
+                                    userDuocCHon += item + "^";
+                                if (userDuocCHon != null &&
+                                    userDuocCHon != "")
+                                  userDuocCHon = userDuocCHon.substring(
+                                      0, userDuocCHon.length - 1);
+
+                                EasyLoading.show();
+                                thanhcong = await postThemDT(
+                                    textEditingController.text,
+                                    idLoaiVB.toString(),
+                                    cbKy,
+                                    cbDuyet,
+                                    cbHoaToc,
+                                    vNguoiKy.toString(),
+                                    vNguoiTrinh.toString(),
+                                    toTrinh.toString(),
+                                    userDuocCHon,
+                                    base64PDF1,
+                                    base64PDF);
+                                EasyLoading.dismiss();
+                                Navigator.of(context).pop();
+                                textEditingController.text = "";
+                                userDuocCHon= "";
+                                vNguoiKy= "";
+                                vNguoiTrinh= "";
+                                toTrinh= "";
+                                base64PDF1= "";
+                                base64PDF= "";
+                                showAlertDialog(context,
+                                    json.decode(thanhcong)['Message']);
+
+
+                              }else{
+                                showAlertDialog(context,"Chọn văn bản dự thảo!");
+                              }
                             }
-                            if (selectedfile1 != null) {
-                              List<int> Bytes =
-                              await selectedfile1.readAsBytesSync();
 
-                              base64PDF1 = await base64Encode(Bytes);
-
-                              // ch = await MultipartFile.fromFile(
-                              //     selectedfile1?.path,
-                              //     filename: selectedfile1.path
-                              //         .split('/')
-                              //         .last ??
-                              //         'image.jpeg');
+                            else{
+                              showAlertDialog(context,"Yêu cầu lựa chọn lãnh "
+                                  "đạo ký văn bản!");
                             }
-
-                            if (!userDuocCHon.contains(ls))
-                              userDuocCHon += ls + "^";
-                            for (var item in ls1.split("^"))
-                              if (!userDuocCHon.contains(item))
-                                userDuocCHon += item + "^";
-                            for (var item in ls2.split("^"))
-                              if (!userDuocCHon.contains(item))
-                                userDuocCHon += item + "^";
-                            if (userDuocCHon != null &&
-                                userDuocCHon != "")
-                              userDuocCHon = userDuocCHon.substring(
-                                  0, userDuocCHon.length - 1);
-
-                            EasyLoading.show();
-                            thanhcong = await postThemDT(
-                                textEditingController.text,
-                                idLoaiVB.toString(),
-                                cbKy,
-                                cbDuyet,
-                                cbHoaToc,
-                                vNguoiKy.toString(),
-                                vNguoiTrinh.toString(),
-                                toTrinh.toString(),
-                                userDuocCHon,
-                                base64PDF1,
-                                base64PDF);
-                            EasyLoading.dismiss();
-                            Navigator.of(context).pop();
-                            textEditingController.text = "";
-                            userDuocCHon= "";
-                            vNguoiKy= "";
-                            vNguoiTrinh= "";
-                            toTrinh= "";
-                            base64PDF1= "";
-                            base64PDF= "";
-                            showAlertDialog(context,
-                                json.decode(thanhcong)['Message']);
-
-
-                          }else{
-                            showAlertDialog(context,"Yêu cầu lựa chọn lãnh "
-                                "đạo ký văn bản!");
+                            }else{
+                            showAlertDialog(context, "Lựa chọn loại văn bản");
                           }
+
                         },
                         style: ButtonStyle(
                           backgroundColor:
@@ -874,11 +885,13 @@ class _ThemDTState extends State<ThemDT> {
                         onPressed:
 
                             () async {
-                              if(vNguoiKy != null){
+                              if(vNguoiKy != null && vNguoiKy != "" ){
                                 showAlertDialog(context,"Yêu cầu trình ký văn bản dự "
                                     "thảo!");
                               }
-                              else{
+                              else
+
+                              {
                                 var thanhcong = null;
                                 bool isAllSpaces(String input) {
                                   String output = input.replaceAll(' ', '');
@@ -894,74 +907,93 @@ class _ThemDTState extends State<ThemDT> {
                                 textEditingController.text.trim();
                                 if (isAllSpaces(iaa)) {
                                   showAlertDialog(context, "Nhập trích yếu");
-                                } else if(vNguoiKy != "")
-                                {
-                                  String base64PDF = "";
-                                  String base64PDF1 = "";
-                                  var ch;
-                                  if (selectedfile != null) {
-                                    // var bytes1 = await rootBundle.load(selectedfile.path);
-                                    List<int> Bytes =
-                                    await selectedfile.readAsBytesSync();
+                                } else  if(idLoaiVB != null && idLoaiVB!= "")
+                                  {
+                                    if(chua!= null && chua !=[]&&chua.length >0)
+                                    {
+                                      if((vNguoiTrinh!= null&& vNguoiTrinh
+                                          != "")||(toTrinh!= null&&
+                                          toTrinh
+                                          != "") ){
+                                        {
+                                          String base64PDF = "";
+                                          String base64PDF1 = "";
+                                          var ch;
+                                          if (selectedfile != null) {
+                                            // var bytes1 = await rootBundle.load(selectedfile.path);
+                                            List<int> Bytes =
+                                            await selectedfile.readAsBytesSync();
 
-                                    base64PDF = await base64Encode(Bytes);
+                                            base64PDF = await base64Encode(Bytes);
+                                          }
+                                          if (selectedfile1 != null) {
+                                            List<int> Bytes =
+                                            await selectedfile1.readAsBytesSync();
+
+                                            base64PDF1 = await base64Encode(Bytes);
+
+                                            // ch = await MultipartFile.fromFile(
+                                            //     selectedfile1?.path,
+                                            //     filename: selectedfile1.path
+                                            //         .split('/')
+                                            //         .last ??
+                                            //         'image.jpeg');
+                                          }
+
+                                          if (!userDuocCHon.contains(ls))
+                                            userDuocCHon += ls + "^";
+                                          for (var item in ls1.split("^"))
+                                            if (!userDuocCHon.contains(item))
+                                              userDuocCHon += item + "^";
+                                          for (var item in ls2.split("^"))
+                                            if (!userDuocCHon.contains(item))
+                                              userDuocCHon += item + "^";
+                                          if (userDuocCHon != null &&
+                                              userDuocCHon != "")
+                                            userDuocCHon = userDuocCHon.substring(
+                                                0, userDuocCHon.length - 1);
+
+                                          EasyLoading.show();
+                                          thanhcong = await postThemDT(
+                                              textEditingController.text,
+                                              idLoaiVB.toString(),
+                                              cbKy,
+                                              cbDuyet,
+                                              cbHoaToc,
+                                              vNguoiKy.toString(),
+                                              vNguoiTrinh.toString(),
+                                              toTrinh.toString(),
+                                              userDuocCHon,
+                                              base64PDF1,
+                                              base64PDF);
+                                          EasyLoading.dismiss();
+                                          Navigator.of(context).pop();
+                                          textEditingController.text = "";
+                                          userDuocCHon= "";
+                                          vNguoiKy= "";
+                                          vNguoiTrinh= "";
+                                          toTrinh= "";
+                                          base64PDF1= "";
+                                          base64PDF= "";
+                                          showAlertDialog(context,
+                                              json.decode(thanhcong)['Message']);
+
+
+                                        }
+                                      }else{
+                                        showAlertDialog(context,"Bạn chưa "
+                                            "chọn cán bộ để trình!");
+                                      }
+                                    }
+
+                                    else{
+                                      showAlertDialog(context,"Chọn văn bản dự thảo!");
+                                    }
                                   }
-                                  if (selectedfile1 != null) {
-                                    List<int> Bytes =
-                                    await selectedfile1.readAsBytesSync();
-
-                                    base64PDF1 = await base64Encode(Bytes);
-
-                                    // ch = await MultipartFile.fromFile(
-                                    //     selectedfile1?.path,
-                                    //     filename: selectedfile1.path
-                                    //         .split('/')
-                                    //         .last ??
-                                    //         'image.jpeg');
-                                  }
-
-                                  if (!userDuocCHon.contains(ls))
-                                    userDuocCHon += ls + "^";
-                                  for (var item in ls1.split("^"))
-                                    if (!userDuocCHon.contains(item))
-                                      userDuocCHon += item + "^";
-                                  for (var item in ls2.split("^"))
-                                    if (!userDuocCHon.contains(item))
-                                      userDuocCHon += item + "^";
-                                  if (userDuocCHon != null &&
-                                      userDuocCHon != "")
-                                    userDuocCHon = userDuocCHon.substring(
-                                        0, userDuocCHon.length - 1);
-
-                                  EasyLoading.show();
-                                  thanhcong = await postThemDT(
-                                      textEditingController.text,
-                                      idLoaiVB.toString(),
-                                      cbKy,
-                                      cbDuyet,
-                                      cbHoaToc,
-                                      vNguoiKy.toString(),
-                                      vNguoiTrinh.toString(),
-                                      toTrinh.toString(),
-                                      userDuocCHon,
-                                      base64PDF1,
-                                      base64PDF);
-                                  EasyLoading.dismiss();
-                                  Navigator.of(context).pop();
-                                  textEditingController.text = "";
-                                  userDuocCHon= "";
-                                  vNguoiKy= "";
-                                  vNguoiTrinh= "";
-                                  toTrinh= "";
-                                  base64PDF1= "";
-                                  base64PDF= "";
-                                  showAlertDialog(context,
-                                      json.decode(thanhcong)['Message']);
 
 
-                                }else{
-                                  showAlertDialog(context,"Yêu cầu lựa chọn lãnh "
-                                      "đạo ký văn bản!");
+                                else{
+                                  showAlertDialog(context, "Lựa chọn loại văn bản");
                                 }
                               }
 

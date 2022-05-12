@@ -80,6 +80,7 @@ async {
   else{
      formData = {
       "ActionXL":"DUTHAOUPDATE",
+       "vbdiTrangThaiVB":"2",
       "vbdiTrichYeu": "$noidungykien",
       "vbdiLoaiVanBan":vbdiLoaiVB,
       "cbKy":cbKy ,
@@ -490,6 +491,7 @@ async {
   parts.add('TenDangNhap=' + username.toString());
   parts.add('ItemID=' + id.toString());
   parts.add('ActionXL=' + ActionXL.toString());
+  parts.add('vbdiTrangThaiVB=4');
   parts.add('userChoosenTrinhDuthao=' + CBChon.toString());
   parts.add('vbdiDSNguoiTrinhTiep=' + cayPD.toString());
   parts.add('totrinhCurrentNguoiDuyet2=' + cayPD2.toString());

@@ -35,6 +35,8 @@ class VanBanDuThaoJson {
   final bool kyVaPhatHanhDT;
   final  int isnguoiduyetDT;
   final  bool isDuyetTruongPhongDT;
+  final  bool isThuHoi;
+  final  bool isTrinhKy;
   final  int vbdiNguoiKyIDDT;
   final int vbdiCurrentNguoiTrinhIDDT;
   final int OldID2010;
@@ -72,7 +74,9 @@ class VanBanDuThaoJson {
         this.vbdiCurrentNguoiTrinhIDDT,
         this.pdfDT,
         this.pdfDK,
+        this.isThuHoi,
         this.OldID2010,
+        this.isTrinhKy,
 
 
       });
@@ -86,6 +90,8 @@ class VanBanDuThaoJson {
         null?json["vbdiCurrentUserReceived"]:[],
 
     checkThuHoi1 :  json["checkThuHoi"] != null ?json["checkThuHoi"] :false ,
+      isTrinhKy :  json["isTrinhKy"] != null ?json["isTrinhKy"] :false ,
+      isThuHoi :  json["isThuHoi"] != null ?json["isThuHoi"] :false ,
     trinhDaCoNgDuyetDT :  json["trinhDaCoNgDuyet"] != null?
     json["trinhDaCoNgDuyet"] : false ,
     trinhLan2DT : json["trinhLan2"]!= null?json["trinhLan2"] : false,
