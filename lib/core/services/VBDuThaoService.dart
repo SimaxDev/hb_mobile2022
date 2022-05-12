@@ -41,8 +41,15 @@ query,String nam,int skippage) async {
 
 
 Future<String>postThemDT(   noidungykien,vbdiLoaiVB,cbKy,cbDyet,cbHoaToc,vbdiNguoiKy,
-    vbdiNguoiTrinhTiep,totrinhNguoiDuyet2,userChoosen,pdf1,pdf)
+    vbdiNguoiTrinhTiep,totrinhNguoiDuyet2,userChoosen,tenPDF,base64,tenPDF1,
+    base641,nam)
 async {
+  String SYear = "2022";
+  if (nam == null) {
+    DateTime now = DateTime.now();
+    String  nam1 =  DateFormat('yyyy').format(now) ;
+    SYear = nam1;
+  }
  //  var parts = [];
  //
  //  //parts.add('ActionXL=' + ActionXL);
@@ -71,9 +78,12 @@ async {
       "vbdiNguoiKy": vbdiNguoiKy,
       "vbdiDSNguoiTrinhTiep": vbdiNguoiTrinhTiep,
       "totrinhCurrentNguoiDuyet2": totrinhNguoiDuyet2,
-      "listValueFileAttach10": "$pdf1",
-      "listValueFileAttach": "$pdf",
+      "listValueFileAttach10Name": "$tenPDF1",
+      "listValueFileAttach10DataFile": "$base641",
+      "listValueFileAttachName": "$tenPDF",
+      "listValueFileAttachDataFile": "$base64",
       "userChoosenTrinhDuthao":"$userChoosen" ,
+      "SYear":"$SYear" ,
 
     };
   }
@@ -89,9 +99,12 @@ async {
       "vbdiNguoiKy": vbdiNguoiKy,
       "vbdiDSNguoiTrinhTiep": vbdiNguoiTrinhTiep,
       "totrinhCurrentNguoiDuyet2": totrinhNguoiDuyet2,
-      "listValueFileAttach10": "$pdf1",
-      "listValueFileAttach": "$pdf",
+       "listValueFileAttach10Name": "$tenPDF1",
+       "listValueFileAttach10DataFile": "$base641",
+       "listValueFileAttachName": "$tenPDF",
+       "listValueFileAttachDataFile": "$base64",
       "userChoosenTrinhDuthao":"$userChoosen" ,
+       "SYear":"$SYear" ,
     };
   }
 

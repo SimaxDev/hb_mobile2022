@@ -558,7 +558,7 @@ class DuThaoState extends State<DuThaoWidget> {
 
           Navigator.of(context).pushAndRemoveUntil(
               MaterialPageRoute(
-                  builder: (BuildContext context) => ThemMoiDT()),
+                  builder: (BuildContext context) => ThemMoiDT(nam:dropdownValue)),
                   (Route<dynamic> route) => true);
         },
       ),

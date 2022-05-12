@@ -12,7 +12,8 @@ import 'ThemDT.dart';
 
 
 class ThemMoiDT extends StatefulWidget {
-  ThemMoiDT({Key key}) : super(key: key);
+  String nam;
+  ThemMoiDT({Key key,this.nam}) : super(key: key);
 
   @override
   _ThemMoiDTState createState() => _ThemMoiDTState();
@@ -63,7 +64,7 @@ class _ThemMoiDTState extends State<ThemMoiDT> {
             ? TabBarView(
           physics: NeverScrollableScrollPhysics(),
           children: [
-            ThemDT(),
+            ThemDT( nam: widget.nam,),
             ThemPT(),
           ],
         )

@@ -24,7 +24,8 @@ import 'package:flutter/services.dart' show rootBundle;
 import 'package:http/http.dart' as http;
 
 class ThemDT extends StatefulWidget {
-  const ThemDT({Key key}) : super(key: key);
+  String nam;
+   ThemDT({Key key, this.nam}) : super(key: key);
 
   @override
   _ThemDTState createState() => _ThemDTState();
@@ -56,6 +57,10 @@ class _ThemDTState extends State<ThemDT> {
   List chua1 = [];
   String base64PDF1 = "";
   List chua = [];
+  List ChuaBase64 = [];
+  List ChuaBase64PDF1 = [];
+  List ChuaTenBase64 = [];
+  List ChuaTenBase64PDF1 = [];
   String base64PDF = "";
   var userDuocCHon = "";
   _onDeleteItemPressed(item) {
@@ -136,6 +141,9 @@ class _ThemDTState extends State<ThemDT> {
         base64PDF1 = await base64Encode(Bytes);
         print("hdaf  " + base64PDF1);
         chua1.add(basename(selectedfile1.path));
+        ChuaBase64PDF1.add(base64PDF1);
+        ChuaTenBase64PDF1.add(basename(selectedfile1.path));
+
       }
     }
     setState(() {});
@@ -158,6 +166,9 @@ class _ThemDTState extends State<ThemDT> {
         base64PDF = await base64Encode(Bytes);
         print("hdaf  " + base64PDF);
         chua.add(basename(selectedfile.path));
+        ChuaBase64.add(base64PDF);
+        ChuaTenBase64.add(basename(selectedfile.path));
+
       }
     }
     setState(() {});
@@ -774,8 +785,10 @@ class _ThemDTState extends State<ThemDT> {
                                     vNguoiTrinh.toString(),
                                     toTrinh.toString(),
                                     userDuocCHon,
-                                    base64PDF1,
-                                    base64PDF);
+                                    ChuaTenBase64,
+                                    ChuaBase64,
+                                    ChuaTenBase64PDF1,
+                                    ChuaBase64PDF1,widget.nam);
                                 EasyLoading.dismiss();
                                 Navigator.of(context).pop();
                                 textEditingController.text = "";
@@ -783,6 +796,7 @@ class _ThemDTState extends State<ThemDT> {
                                 vNguoiKy= "";
                                 vNguoiTrinh= "";
                                 toTrinh= "";
+                                base64PDF1= "";
                                 base64PDF1= "";
                                 base64PDF= "";
                                 showAlertDialog(context,
@@ -821,6 +835,12 @@ class _ThemDTState extends State<ThemDT> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                         onPressed: () {
+                          print("ChuaBase64 "+ ChuaBase64.toString());
+                          print("ChuaTenBase64 "+ ChuaTenBase64.toString());
+                          print("vNguoiKy "+ vNguoiKy.toString());
+
+                          print("ChuaBase64PDF1 "+ ChuaBase64PDF1.toString());
+                          print("ChuaTenBase64PDF1 "+ ChuaTenBase64PDF1.toString());
                           setState(() {
                             textEditingController.text = "";
                             daKy = false;
@@ -964,8 +984,10 @@ class _ThemDTState extends State<ThemDT> {
                                               vNguoiTrinh.toString(),
                                               toTrinh.toString(),
                                               userDuocCHon,
-                                              base64PDF1,
-                                              base64PDF);
+                                              ChuaTenBase64,
+                                              ChuaBase64,
+                                              ChuaTenBase64PDF1,
+                                              ChuaBase64PDF1,widget.nam);
                                           EasyLoading.dismiss();
                                           Navigator.of(context).pop();
                                           textEditingController.text = "";
