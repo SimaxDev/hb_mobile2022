@@ -7,9 +7,9 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-const String DOMAIN = "http://AppMobile.ungdungtructuyen.vn";
+//const String DOMAIN = "http://AppMobile.ungdungtructuyen.vn";
 
-//const String DOMAIN = "http://apimobile.hoabinh.gov.vn";
+const String DOMAIN = "http://apimobile.hoabinh.gov.vn";
 
 
 
