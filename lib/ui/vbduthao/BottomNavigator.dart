@@ -1615,7 +1615,7 @@ class _BottomNav extends State<BottomNav> {
                                   var thanhcong = await postChuyenPhatHanh(
                                       tendangnhap,
                                       widget.id,
-                                      'DUYETVAPHATHANH',
+                                      'DUYETVAPHATHANHV2',
                                       _titleController.text,
                                       widget.nam,
                                      pdfStringDuyet.toString(),
@@ -2024,7 +2024,7 @@ class _BottomNav extends State<BottomNav> {
                                   var thanhcong = await postChuyenPhatHanh(
                                       tendangnhap,
                                       widget.id,
-                                      'DUYETVAPHATHANH',
+                                      'DUYETVAPHATHANHV2',
                                       _titleController.text,
                                       widget.nam,
                                       "",
