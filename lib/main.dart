@@ -9,6 +9,7 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
+import 'package:hb_mobile2021/firebase_options.dart';
 import 'package:hb_mobile2021/local_notification_service.dart';
 import 'package:hb_mobile2021/restart.dart';
 import 'package:hb_mobile2021/ui/Login/splash.dart';
@@ -33,7 +34,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 Future<void> backgroundHandler(RemoteMessage message) async{
   print(message.data.toString());
   print(message.notification.title);
-  // await Firebase.initializeApp(options: DefaultFirebaseConfig.platformOptions);
+  await Firebase.initializeApp();
 }
 const debug = true;
 Future<void> main() async{
@@ -41,6 +42,8 @@ Future<void> main() async{
   await FlutterDownloader.initialize(debug: debug);
   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
   await Firebase.initializeApp();
+  //await Firebase.initializeApp(options: DefaultFirebaseOptions
+    //  .currentPlatform,);
   FirebaseMessaging.onBackgroundMessage(backgroundHandler);
 
   SharedPreferences sharedStorage = await SharedPreferences.getInstance();
@@ -231,6 +234,20 @@ class _NotificationState extends State<Notification> {
         print("token key =" + value.toString());
         tokenDevice = value.toString();
       });
+    }
+
+
+    if (Platform.isIOS) {
+      FirebaseMessaging.instance.requestPermission(
+        alert: true,
+        announcement: false,
+        badge: true,
+        carPlay: false,
+        criticalAlert: false,
+        provisional: false,
+        sound: true,
+      );
+
     }
   }
 

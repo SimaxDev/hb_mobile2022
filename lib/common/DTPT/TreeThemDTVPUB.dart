@@ -110,7 +110,8 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   Future GetDataDTPB(String tendangnhap,String Action,String grop) async {
     String detailVBDi = await getDataTreeDT(tendangnhap, Action,grop);
     setState(() {
-      chitiet1 = json.decode(detailVBDi)['OData'][0]['children'];
+      chitiet1 = json.decode(detailVBDi)['OData'];
+     // chitiet1 = json.decode(detailVBDi)['OData'][0]['children'];
       values1 = GetTT(chitiet1);
     });
   }
@@ -118,7 +119,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   Future GetDataDetailVBDi(String tendangnhap) async {
     String detailVBDi = await getDataCVBD(tendangnhap, ActionXL1);
     setState(() {
-      chitiet = json.decode(detailVBDi)['OData'][0]['children'];
+      chitiet = json.decode(detailVBDi)['OData'];
       values = GetTT(chitiet);
     });
   }
