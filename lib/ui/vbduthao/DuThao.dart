@@ -796,33 +796,33 @@ class DuThaoState extends State<DuThaoWidget> {
   }
 }
 
-String ttDuthao(id) {
-  String tt;
-  switch (id) {
-    case 0:
-      tt = "Đã thu hồi";
-      break;
-    case 1:
-      tt = "Đã chuyển phát hành";
-      break;
-    case 2:
-      tt = "Đang soạn thảo/Xin ý kiến";
-      break;
-    case 3:
-      tt = "Đã phê duyệt";
-      break;
-    case 4:
-      tt = "Đang trình ký";
-      break;
-    case 5:
-      tt = "Đã ký";
-      break;
-    case 6:
-      tt = "Đang  làm lại";
-      break;
-    case 8:
-      tt = "Chờ xác nhận thu hồi";
-      break;
-  }
-  return tt;
+String ttDuthao(id) {  String tt;
+switch (id) {
+  case 0:
+    tt = "Đã thu hồi";
+    break;
+  case 1:
+    tt = "Đã chuyển phát hành";
+    break;
+  case 2:
+    tt = "Đang soạn thảo/Xin ý kiến";
+    break;
+  case 3:
+    tt = "Đã phê duyệt";
+    break;
+  case 4:
+    tt = "Đang trình ký";
+    break;
+  case 5:
+    tt = "Đã ký";
+    break;
+  case 6:
+    tt = "Đang  làm lại";
+    break;
+  case 8:
+    tt = "Chờ xác nhận thu hồi";
+    break;
 }
+return tt;
+}
+
