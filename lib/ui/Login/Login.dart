@@ -540,7 +540,7 @@ if(item == null){
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
     // var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
-  var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
+  var url = Uri.parse("https://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,
         'password': password,
@@ -555,17 +555,17 @@ if(item == null){
       var formData = parts.join('&'); //nối đường dẫnf
       var response = await http.post(
         url,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
+        // headers: {
+        //   'Accept': 'application/json',
+        //   'Content-Type': 'application/x-www-form-urlencoded',
+        // },
         body: formData,
       );
 
       var getToken, expires_in;
       SharedPreferences sharedToken = await SharedPreferences.getInstance();
       DateTime now = DateTime.now();
-      if (response.statusCode == 200) {
+      if (response.statusCode == 200  ) {
         getToken = json.decode(response.body)['access_token'];
 
         expires_in = json.decode(response.body)['expires_in'];
