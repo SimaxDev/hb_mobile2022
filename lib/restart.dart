@@ -8,8 +8,9 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 import 'core/services/callApi.dart';
 
+
 class rester {
-  Timer _timer;
+  late Timer _timer;
 
   void initializeTimer() {
     _timer = Timer.periodic(const Duration(seconds: 10), (_) {
@@ -20,10 +21,10 @@ class rester {
 
   void logOutALL() async {
     sharedStorage = await SharedPreferences.getInstance();
-    if (!sharedStorage.getBool("rememberme")) {
-      sharedStorage.remove("password");
-      sharedStorage.remove("expires_in");
-      sharedStorage.remove("token");
+    if (sharedStorage!.getBool("rememberme") == false) {
+      sharedStorage!.remove("password");
+      sharedStorage!.remove("expires_in");
+      sharedStorage!.remove("token");
       tendangnhapAll = "";
       ten;
       datavb = "";
@@ -150,8 +151,8 @@ class rester {
       widthKy = 75.0;
       heightKy = 150.0;
     } else {
-      sharedStorage.remove("expires_in");
-      sharedStorage.remove("token");
+      sharedStorage!.remove("expires_in");
+      sharedStorage!.remove("token");
 
       tendangnhapAll = "";
       ten;

@@ -2,9 +2,6 @@ import 'dart:async';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
-import 'package:hb_mobile2021/core/services/DataControllerGetxx.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
@@ -15,7 +12,7 @@ class NhatKyVBDen extends StatefulWidget
   final int nam;
 
 
-  NhatKyVBDen({this.id,this.nam});
+  NhatKyVBDen({required this.id,required this.nam});
   @override
   _NhatKyVBDen createState() =>_NhatKyVBDen();
 
@@ -23,7 +20,7 @@ class NhatKyVBDen extends StatefulWidget
 
 
 class _NhatKyVBDen extends State<NhatKyVBDen> {
-  List<Widget> listNhatKy = new List<Widget>();
+  List<Widget> listNhatKy = <Widget>[];
   //RxBool isLoading = false.obs;
 String ActionXLGuiNhan = "GetThongTinGuiNhan";
   var tendangnhap = "";
@@ -373,9 +370,8 @@ String ActionXLGuiNhan = "GetThongTinGuiNhan";
       setState(() {
         isLoading = false;
       });
-      listNhatKy = null;
+      listNhatKy = [];
 
-      print('fail');
     }
   }
 
@@ -404,11 +400,8 @@ String ActionXLGuiNhan = "GetThongTinGuiNhan";
   Widget getBody() {
     if(listNhatKy ==null || listNhatKy.length ==0 )
       {
-        SizedBox();
-    // {
-    //   return Center(
-    //     child: Text("Không có bản ghi nào"),
-    //   );
+        return   SizedBox();
+
     }
     else
     {

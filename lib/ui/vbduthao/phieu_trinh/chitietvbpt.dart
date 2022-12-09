@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/DataControllerGetxx.dart';
@@ -12,7 +12,7 @@ import 'dart:convert';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 
 class ThongTinPhieuTrinh extends StatefulWidget {
-  ThongTinPhieuTrinh({Key key, this.idPhieuTrinh, this.nam,this.duThaoPT})
+  ThongTinPhieuTrinh({Key? key, required this.idPhieuTrinh, required this.nam,this.duThaoPT})
       : super(key: key);
   final int idPhieuTrinh;
   String nam;
@@ -28,8 +28,8 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
   var duThao;
 
   bool isLoading = false;
-  List<dynamic> yKienitems;
-  List<Widget> lstYKien = new List<Widget>();
+  late List<dynamic> yKienitems;
+  List<Widget> lstYKien = <Widget>[];
 
   String mesDuThao = "";
   String tenDsYKien="";
@@ -72,39 +72,39 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
     vandetrinh = duThao['Titles'] != null ? duThao['Titles']  : "" ;
     nguoitrinh = duThao['totrinhNguoiTrinh_x003a_Title'] != null ?
     duThao['totrinhNguoiTrinh_x003a_Title']['LookupValue']  : "" ;
-    nguoiKy = duThao['totrinhNguoiDuyetCuoi'] != null ?
+    nguoiKy = duThao['totrinhNguoiDuyetCuoi'] != null && duThao['totrinhNguoiDuyetCuoi']['LookupValue'] != null ?
     duThao['totrinhNguoiDuyetCuoi']['LookupValue']  : "" ;
     nguoiDuyet = duThao['totrinhCurrentNguoiDuyet'] != null ?
     duThao['totrinhCurrentNguoiDuyet']['LookupValue']  : "" ;
     tomtatnd = duThao['totrinhNoiDung'] != null ? duThao['totrinhNoiDung']  : "";
-   List pdfPT1 = [];
-    pdfPT1  = duThao['ListFileAttach'] != null &&duThao['ListFileAttach']
-        .length >0 ? duThao['ListFileAttach'] :[];
-    ListpdfPT = pdfPT1;
-
-
-    List chuaPDF = [];
-    for (var i in pdfPT1) {
-      if (i['ExtenFile'].contains("pdf")) {
-
-        chuaPDF.add(i);
-        // pdf2 = i['Url'];
-        if(chuaPDF != null && chuaPDF !=[]&& chuaPDF.length >0){
-          dynamic max = chuaPDF.first;
-          // print(max);
-          chuaPDF.forEach((e) {
-            if (e['Name'].length > max['Name'].length) max = e;
-          });
-          pdfPT = max['Url'];
-          namepdf=max['Name'];
-
-        }
-      }
-      else
-        {
-          pdfPT = i['Url'];
-        }
-    }
+   // List pdfPT1 = [];
+   //  pdfPT1  = duThao['ListFileAttach'] != null &&duThao['ListFileAttach']
+   //      .length >0 ? duThao['ListFileAttach'] :[];
+   //  ListpdfPT = pdfPT1;
+   //
+   //
+   //  List chuaPDF = [];
+   //  for (var i in pdfPT1) {
+   //    if (i['ExtenFile'].contains("pdf")) {
+   //
+   //      chuaPDF.add(i);
+   //      // pdf2 = i['Url'];
+   //      if(chuaPDF != null && chuaPDF !=[]&& chuaPDF.length >0){
+   //        dynamic max = chuaPDF.first;
+   //        // print(max);
+   //        chuaPDF.forEach((e) {
+   //          if (e['Name'].length > max['Name'].length) max = e;
+   //        });
+   //        pdfPT = max['Url'];
+   //        namepdf=max['Name'];
+   //
+   //      }
+   //    }
+   //    else
+   //      {
+   //        pdfPT = i['Url'];
+   //      }
+   //  }
 
 
 
@@ -327,7 +327,7 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
 }
 
 String ttDuthao(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đã thu hồi";

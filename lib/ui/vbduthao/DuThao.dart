@@ -6,7 +6,6 @@ import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemMoiDT.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'ChiTietVBDuThao.dart';
@@ -21,7 +20,7 @@ class DuThaoWidget extends StatefulWidget {
    final String username;
    String nam;
 
-  DuThaoWidget({Key key, this.urlLoaiVB,this.val,this.username, this.pageindex,this.nam }) : super(key: key);
+  DuThaoWidget({Key? key, required this.urlLoaiVB,required this.val,required this.username, required this.pageindex,required this.nam }) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -38,11 +37,11 @@ class DuThaoState extends State<DuThaoWidget> {
   int skip = 1;
   int pageZ = 10;
   int skippage = 0;
-  String hoten, chucvu;
-  String testthuhomerxoa;
+  late String hoten, chucvu;
+  late String testthuhomerxoa;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   String ActionXL = "GetListVBDT";
-  String tendangnhap;
+  late String tendangnhap;
   int IDT = 0;
   String vbdt = "";
   var tongso = 0;
@@ -106,17 +105,17 @@ class DuThaoState extends State<DuThaoWidget> {
   }
 
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
   GetInfoUser() async {
-    var TenDangNhap = sharedStorage.getString("username");
+    var TenDangNhap = sharedStorage!.getString("username");
     if (sharedStorage != null){
       isLoading = false;
-      var item = await GetInfoUserService(TenDangNhap);
+      var item = await GetInfoUserService(TenDangNhap!);
 
       // user = jsonToUserJson(item);
       user = UserJson.fromJson(item);
-      sharedStorage.setString("hoten", user.Title);
-      sharedStorage.setString("chucvu", user.ChucVu);
+      sharedStorage!.setString("hoten", user.Title);
+      sharedStorage!.setString("chucvu", user.ChucVu);
     }
   }
   Future<Null> refreshList() async {
@@ -134,12 +133,12 @@ class DuThaoState extends State<DuThaoWidget> {
   GetInfoUserNew() async{
     sharedStorage = await SharedPreferences.getInstance();
     setState(() {
-      user.Title = sharedStorage.getString("hoten");
+      user.Title = sharedStorage!.getString("hoten")!;
       hoVaTen = user.Title;
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.ChucVu = sharedStorage!.getString("chucvu")!;
     });
-    var tendangnhap = sharedStorage.getString("username");
-    ten = tendangnhap;
+    var tendangnhap = sharedStorage!.getString("username");
+    ten = tendangnhap!;
 
   }
   //lay data vbdt
@@ -199,7 +198,7 @@ class DuThaoState extends State<DuThaoWidget> {
 
   //tim kiem van ban
   GetDataByKeyWordVBDT(String text) async {
-    var tendangnhap = sharedStorage.getString("username");
+    var tendangnhap = sharedStorage!.getString("username");
     String vbtimkiem = await getDataByKeyWordVBDT( ActionXL,
       text,dropdownValue,widget.urlLoaiVB);
     setState(() {
@@ -210,8 +209,8 @@ class DuThaoState extends State<DuThaoWidget> {
   }
 
   GetDataByKeyYearVBDuThao(String year) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String yeartimkiem = await getDataByKeyYearVBDuThao(tendangnhap,widget
+    var tendangnhap = sharedStorage!.getString("username");
+    String yeartimkiem = await getDataByKeyYearVBDuThao(tendangnhap!,widget
         .urlLoaiVB, ActionXL, year,skip,pageZ);
     setState(() {
       duthaoList = json.decode(yeartimkiem)['OData'];
@@ -346,12 +345,12 @@ class DuThaoState extends State<DuThaoWidget> {
                   color: Colors.white70,
                   width: 50,
                 ),
-                onChanged: (String newValue) {
+                onChanged: ( newValue) {
                   if(mounted){
                     setState(() {
                       skip =1;
                       skippage =0;
-                      dropdownValue = newValue;
+                      dropdownValue = newValue!;
                       duthaoList.clear();
                       isLoading = true;
                       // GetDataByKeyYearVBDen(dropdownValue);
@@ -630,7 +629,7 @@ class DuThaoState extends State<DuThaoWidget> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
             if(index == tongso){
-              _buildProgressIndicator();
+              return  _buildProgressIndicator();
             }else{
               return getCard(duthaoList[index]);
             }
@@ -796,7 +795,7 @@ class DuThaoState extends State<DuThaoWidget> {
   }
 }
 
-String ttDuthao(id) {  String tt;
+String ttDuthao(id) {  String tt='';
 switch (id) {
   case 0:
     tt = "Đã thu hồi";

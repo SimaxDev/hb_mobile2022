@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 
 String mesDT = "";
@@ -19,6 +19,9 @@ Future<String> getDataVBDT(int skip, int pageSize, String ActionXL,String year) 
 
     return items;
   }
+  else {
+    throw Exception('Failed to load album');
+  }
 }
 Future<String> getDataHomeVBDT(int skip, int pageSize, String ActionXL,String
 query,String nam,int skippage) async {
@@ -36,6 +39,8 @@ query,String nam,int skippage) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -119,6 +124,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -140,6 +147,8 @@ text,String year,query) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -160,6 +169,8 @@ ActionXL,String year,int skip, int pageS) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -192,6 +203,8 @@ ActionXL,nam,MaDonVi) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 getDataLoaiVB(String username,String ActionXL) async {
@@ -204,6 +217,8 @@ getDataLoaiVB(String username,String ActionXL) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posYKienVBDT( username,id, ActionXL,String  noidungykien,
@@ -225,8 +240,8 @@ Future<String>posYKienVBDT( username,id, ActionXL,String  noidungykien,
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -244,8 +259,8 @@ Future<String>posDuyetVBDT( username,id, ActionXL,String  noidungykien,DaDuyet) 
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posTrinhlaiVBDT( username,id, ActionXL,String  noidungykien,nam)
@@ -268,7 +283,7 @@ async {
     return items;
   }
   else {
-    return "";
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posTraVeVBDT( username,id, ActionXL,String  noidungykien,nam,
@@ -292,8 +307,8 @@ async {
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postChuyenPhatHanh( username,id, ActionXL,String  noidungykien,
@@ -317,8 +332,8 @@ async {
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posTrinhKyVBDT( username,id, ActionXL,String  noidungykien,nam)
@@ -341,8 +356,8 @@ async {
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posThuHoiVBDT( username,id, ActionXL,nam) async {
@@ -362,8 +377,8 @@ Future<String>posThuHoiVBDT( username,id, ActionXL,nam) async {
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posTrinhLaiVBDT( username,id, ActionXL,String  noidungykien,) async {
@@ -379,8 +394,8 @@ Future<String>posTrinhLaiVBDT( username,id, ActionXL,String  noidungykien,) asyn
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posBanHanhVBDT( username,id, ActionXL,String  noidungykien,) async {
@@ -396,8 +411,8 @@ Future<String>posBanHanhVBDT( username,id, ActionXL,String  noidungykien,) async
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>posTrinhTiepVBDT( username,id, ActionXL,String  noidungykien,) async {
@@ -413,8 +428,8 @@ Future<String>posTrinhTiepVBDT( username,id, ActionXL,String  noidungykien,) asy
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -431,6 +446,8 @@ nam) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -443,6 +460,8 @@ Future<String> getButPheDataVBDT(int id) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -464,6 +483,8 @@ Future<String> getDataDetailVBPT(int idPhieuTrinh,String ActionXL,nam) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -479,6 +500,8 @@ Future<String> getYkienDataVBPT(String username,int idPhieuTrinh,String ActionXL
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataCVB(String username,String ActionXL) async {
@@ -491,6 +514,8 @@ Future<String> getDataCVB(String username,String ActionXL) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> postTrinhTiepDT( username,id, ActionXL,CBChon,cayPD,cayPD2,cayNK,
@@ -517,6 +542,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 

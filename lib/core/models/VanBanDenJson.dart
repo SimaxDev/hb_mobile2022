@@ -10,7 +10,6 @@ class VanBanDenJson {
   int ID;
   String soCongVan;
   int soCongVanID;
-  String Title;
   String LoaiVanBan;
   int LoaiVanBanID;
   String ChucVuNK;
@@ -21,14 +20,12 @@ class VanBanDenJson {
   int CoQuanBanHanhID;
   String NgayDen;
   String NgayVaoSo;
-  String CBXuLy;
   String CBPhoiHop;
   String DoKhan;
   String NguoiKy;
   String MaDinhDanhDonVi;
   String DoMat;
   String XuLyChinh;
-  String PhuTrach;
   String NgayBanHanh;
   String MaDinhDanhVB;
   String CBXemDeBiet;
@@ -60,7 +57,6 @@ class VanBanDenJson {
   int vbdPhongBanPT;
   int vbdNguoiDungPT;
   int vbdUserXuLyC;
-  int ttThuHoi;
   int vbdiXuatPhatTuVBDuTHao;
 
 
@@ -68,62 +64,60 @@ class VanBanDenJson {
 
   VanBanDenJson(
       {
-        this.ID,
-        this.Title,
-        this.LoaiVanBan,
-        this.LoaiVanBanID,
-        this.SoKyHieu,
+        required this.ID,
 
-        this.TrichYeu,
-        this.SoDen,
-        this.CoQuanBanHanh,
-        this.CoQuanBanHanhID,
-        this.NgayDen,
-        this.NgayVaoSo,
-        this.CBXuLy,
-        this.CBPhoiHop,
-        this.DoKhan,
-        this.NguoiKy,
-        this.NguoiKyID,
-        this.vanbandenCapNhat,
-        this.MaDinhDanhDonVi,
-        this.DoMat,
-        this.XuLyChinh,
-        this.PhuTrach,
-        this.NgayBanHanh,
-        this.MaDinhDanhVB,
-        this.CBXemDeBiet,
-        this.CBChuaXuLy,
-        this.CBPhuTrach,
-        this.ThoiGianNhan,
-        this.VBNhanLT,
-        this.ThuHoi,
-        this.checkThuHoi1,
-        this.UserChuaXL,
-        this.vbdTTXuLyVBLT,
-        this.vbdPT,
-        this.vbdSVB,
-        this.vbdIsSentVB,
-        this.UserChuaXLID,
-        this.LogxulyText,
-        this.NhanVB,
-        this.checkbtnXDB1,
-        this.vbdTrangThaiXuLyVanBan,
-        this.HanXL,
-        this.yKienThuHoi,
-        this.ChucVuNK,
-        this.ChucVuNKID,
-        this.pdf1,
-        this.pdfDK,
-        this.vbdPhongBanPT,
-        this.vbdNguoiDungPT,
-        this.vbdUserXuLyC,
-        this.strUserPH,
-        this.soCongVan,
-        this.soCongVanID,
-        this.isTraCuu,
-        this.ttThuHoi,
-        this.vbdiXuatPhatTuVBDuTHao,
+        required this.LoaiVanBan,
+        required  this.LoaiVanBanID,
+        required  this.SoKyHieu,
+
+        required  this.TrichYeu,
+        required  this.SoDen,
+        required  this.CoQuanBanHanh,
+        required  this.CoQuanBanHanhID,
+        required   this.NgayDen,
+        required  this.NgayVaoSo,
+        required  this.CBPhoiHop,
+        required  this.DoKhan,
+        required   this.NguoiKy,
+        required  this.NguoiKyID,
+        required  this.vanbandenCapNhat,
+        required  this.MaDinhDanhDonVi,
+        required  this.DoMat,
+        required  this.XuLyChinh,
+        required  this.NgayBanHanh,
+        required  this.MaDinhDanhVB,
+        required  this.CBXemDeBiet,
+        required  this.CBChuaXuLy,
+        required  this.CBPhuTrach,
+        required  this.ThoiGianNhan,
+        required this.VBNhanLT,
+        required this.ThuHoi,
+        required  this.checkThuHoi1,
+        required this.UserChuaXL,
+        required this.vbdTTXuLyVBLT,
+        required  this.vbdPT,
+        required this.vbdSVB,
+        required  this.vbdIsSentVB,
+        required  this.UserChuaXLID,
+        required  this.LogxulyText,
+        required  this.NhanVB,
+        required  this.checkbtnXDB1,
+        required  this.vbdTrangThaiXuLyVanBan,
+        required  this.HanXL,
+        required this.yKienThuHoi,
+        required this.ChucVuNK,
+        required  this.ChucVuNKID,
+        required  this.pdf1,
+        required this.pdfDK,
+        required this.vbdPhongBanPT,
+        required  this.vbdNguoiDungPT,
+        required this.vbdUserXuLyC,
+        required  this.strUserPH,
+        required  this.soCongVan,
+        required  this.soCongVanID,
+        required  this.isTraCuu,
+
+        required  this.vbdiXuatPhatTuVBDuTHao,
 
       });
   //factory convert json['vanBanDen'] to model

@@ -1,16 +1,10 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/HoSoCV/coQuanBH.dart';
 import 'package:hb_mobile2021/common/HoSoCV/loaiVB.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
-import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/ThongTinHSCV.dart';
-import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbdi/ThongTinVBDi.dart';
 import 'package:hb_mobile2021/ui/vbdi/chi_tiet_van_ban_di.dart';
 import 'dart:convert';
 import 'package:json_table/json_table.dart';
@@ -19,7 +13,7 @@ class vbDiLQ extends StatefulWidget {
   final int id;
   final String nam;
 
-  vbDiLQ({this.id, this.nam});
+  vbDiLQ({required this.id, required this.nam});
 
   @override
   _vbDiLQState createState() => _vbDiLQState();
@@ -38,9 +32,9 @@ class _vbDiLQState extends State<vbDiLQ> {
   List<ListDataCQ> vanbanListCQ = [];
   var idLoaiVB;
   bool showD = true;
-  int hosoid;
+  late int hosoid;
   int nam = 2022;
-  String testthuhomerxoa;
+  late String testthuhomerxoa;
   String ActionXL = "GetVBDiLienQuan";
 
 
@@ -252,7 +246,7 @@ class _vbDiLQState extends State<vbDiLQ> {
                 MaterialPageRoute(
                   builder: (context) => ChiTietVanBanDi(
                     id: sMIDField,
-                    nam: widget.nam,
+                    nam: widget.nam, username: '', MaDonVi: '',
                   ),
                 ),
               );
@@ -270,7 +264,7 @@ String formatDOB(value) {
 }
 
 String ttHoSo(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đang xử lý";

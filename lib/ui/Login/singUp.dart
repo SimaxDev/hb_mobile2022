@@ -8,7 +8,7 @@ import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 
 
 class singUp extends StatefulWidget {
-  const singUp({Key key}) : super(key: key);
+  const singUp({Key? key}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -334,15 +334,14 @@ class LoginState extends State<singUp> {
                             width: MediaQuery.of(context).size.width * 0.885,
                             height: 72,
                             padding: EdgeInsets.fromLTRB(10, 10, 10, 0),
-                            child: RaisedButton(
-                              color:Color(0xff3064D0),
-                              shape: RoundedRectangleBorder(
-                                  side: new BorderSide(
-                                    color: Color(0xff3064D0),
-                                  ),
-                                  //the outline color
-                                  borderRadius: new BorderRadius.all(
-                                      new Radius.circular(10))),
+                            child: ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  backgroundColor: Color(0xff3064D0),// background (button) color
+                                foregroundColor: Colors.white,  // foreground (text) color
+                                shape:  RoundedRectangleBorder(
+                                  side:new  BorderSide(color: Colors.blue,), //the outline color
+                                borderRadius: new BorderRadius.all(new Radius.circular(10))),
+        ),
                               child: Text('Đăng ký',
                                   style: TextStyle(
                                     fontSize: 16,

@@ -64,7 +64,7 @@
     <dict>
       <key>NSExceptionDomains</key>
       <dict>
-        <key>http://apimobile.hoabinh.gov.vn</key>
+        <key>https://apimobile.hoabinh.gov.vn</key>
         <dict>
           <!-- add this key to enable subdomains such as sub.yourserver.com -->
           <key>NSIncludesSubdomains</key>

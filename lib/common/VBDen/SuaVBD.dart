@@ -2,7 +2,7 @@
 import 'dart:async';
 import 'dart:io';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -12,20 +12,15 @@ import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
-import 'package:hb_mobile2021/restart.dart';
-import 'package:hb_mobile2021/ui/hoSoCV/index.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'dart:convert';
-
-import 'package:path/path.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 
 
 class SuaVBD extends StatefulWidget {
-  SuaVBD({Key key, this.id,this.Yearvb,this.MaDonVi}) ;
+  SuaVBD({Key? key, required this.id,required this.Yearvb,required this.MaDonVi}) ;
   final int id;
   final int Yearvb;
   final String MaDonVi;
@@ -35,12 +30,10 @@ class SuaVBD extends StatefulWidget {
 }
 
 class _ThemMoiHSState extends State<SuaVBD> {
-  DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   bool isLoading = false;
-  double _height;
-  double _width;
-  String _setDate;
+  late double _height;
+  late double _width;
   TextEditingController _dateController = TextEditingController();
   TextEditingController soDen =  new TextEditingController();
   TextEditingController ngayDen =  new TextEditingController();
@@ -49,20 +42,17 @@ class _ThemMoiHSState extends State<SuaVBD> {
   TextEditingController trichYeu =  new TextEditingController();
   TextEditingController nguoiKy =  new TextEditingController();
   TextEditingController GhiChu =  new TextEditingController();
-  TextEditingController _ngonNgu =  new TextEditingController();
-  TextEditingController _tuKhoa =  new TextEditingController();
-  File selectedfile;
+  late File selectedfile;
   List<int> Year = [1,2,3];
   String listLV = "";
   int SoDen =0;
-  int dropdownValue ;
+  late int dropdownValue ;
   List<int> ListTT = [1,2];
   int dropdownValueTT =1 ;
   List<ListDataLinhVuc> vanbanListLinhVuc = [] ;
   DateTime selectedDateBD = DateTime.now();
   TextEditingController _dateControllerBD = TextEditingController();
   DateTime selectedDateKT = DateTime.now();
-  TextEditingController _dateControllerKT = TextEditingController();
   bool XemTT =  false;
   String mucDo = "";
   String ActionXL = "GetVBDByIDMobile";
@@ -73,13 +63,12 @@ class _ThemMoiHSState extends State<SuaVBD> {
   List dataLVB = [];
   List dataDoMat = [];
   List dataDoKhan= [];
-  String idSCV;
-  String idLVB;
-  String idLVBS;
-  String idDoMat;
-  String idDoKhan;
-  String idCQBH;
-  Timer _timer;
+   String? idSCV;
+   String? idLVB;
+   String? idLVBS;
+   String? idDoMat;
+   String? idDoKhan;
+   String? idCQBH;
   List<ListDataCQBH> coquanBHlist = [];
   String idCQBHlist = "";
 
@@ -106,7 +95,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
   @override
   void dispose(){
     super.dispose();
-    _timer?.cancel();
+
     EasyLoading.dismiss();
   }
   GetDataSoCV() async {
@@ -163,7 +152,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
       dataCQBH =  data4;
       // ttduthao =  VanBanDenJson.fromJson(data);
       var lstData = (data4).map((e) => ListDataCQBH.fromJson(e)).toList();
-      List<ListDataCQBH> lstDataSearch = List<ListDataCQBH>();
+      List<ListDataCQBH> lstDataSearch = <ListDataCQBH>[];
       lstData.forEach((element) {
         lstDataSearch.add(element);
         coquanBHlist = lstDataSearch;
@@ -185,7 +174,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
   }
 // lấy file từ điện thoại
   selectFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4','doc'],
       //allowed extension to choose
@@ -193,7 +182,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
 
     if (result != null) {
       //if there is selected file
-      selectedfile = File(result.files.single.path);
+      selectedfile = File(result.files.single.path!);
     }
   }
 
@@ -202,7 +191,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
     VanBanDenJson vbDen = vanbanDen ;
     String dv1 =  vbDen.NgayBanHanh;
     DateTime dateTime1 = DateFormat('d-M-yyyy').parse(dv1);
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: dateTime1,
         initialDatePickerMode: DatePickerMode.day,
@@ -221,7 +210,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
     VanBanDenJson vbDen = vanbanDen ;
     String dv =  vbDen.NgayDen;
     DateTime dateTime1 = DateFormat('d-M-yyyy').parse(dv);
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: dateTime1,
         initialDatePickerMode: DatePickerMode.day,
@@ -350,9 +339,9 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                   }).toList(),
                                   onChanged: (newVal) {
                                     setState(() {
-                                      idSCV = newVal;
+                                      idSCV = newVal as String;
                                       print(newVal);
-                                      GetNum(idSCV);
+                                      GetNum(idSCV!);
                                     });
                                   },
 
@@ -423,8 +412,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                   }).toList(),
                                   onChanged: (newVal) {
                                     setState(() {
-                                      idLVB = newVal;
-                                      print(newVal);
+                                      idLVB = newVal as String;
                                     });
                                   },
                                   hint:Text("Chọn loại văn bản") ,
@@ -717,53 +705,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                   style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                                 ),
                               ),
-                              /*Container(
-                                    margin: EdgeInsets.only(right: 20),
-                                    decoration: BoxDecoration(
-                                      border: Border.all(
-                                        color: Colors.black38 ,
 
-                                      ),
-                                      borderRadius: BorderRadius.circular(5),
-
-
-                                    ),
-                                    height:MediaQuery.of(context).size.height * 0.05,
-                                    width: MediaQuery
-                                        .of(context)
-                                        .size
-                                        .width * 0.64,
-                                    padding: EdgeInsets.fromLTRB(10, 5, 0, 5),
-                                    child:dataCQBH != null? new DropdownButton(
-                                      items: dataCQBH.map((item) {
-                                        return new DropdownMenuItem(
-                                          child: Container(
-                                            width: MediaQuery
-                                                .of(context)
-                                                .size
-                                                .width * 0.55,
-                                            child: Text(item['Title'],maxLines: 1,),
-                                          ),
-                                          value: item['ID'].toString(),
-                                        );
-                                      }).toList(),
-                                      onChanged: (newVal) {
-                                        setState(() {
-                                          idCQBH = newVal;
-                                          print(newVal);
-                                        });
-                                      },
-                                      hint:Text("Chọn cơ quan BH") ,
-                                      underline:Container(),
-                                      style: const TextStyle(color: Colors.black,
-                                          fontWeight: FontWeight.normal,fontSize: 14),
-                                      value: vbDen.CoQuanBanHanhID != null &&  idCQBH == null ? vbDen.CoQuanBanHanhID.toString() : idCQBH,
-                                    ):Text(
-                                      "Chọn cơ quan BH",style: const TextStyle (color:
-                                    Colors.black54,
-                                        fontWeight: FontWeight.normal,fontSize: 14),
-                                    ),
-                                  ),*/
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.64,
                                 ///height: MediaQuery.of(context).size.height * 0.07,
@@ -781,7 +723,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                       print(idCQBH);
 
                                     });}
-                                  },
+                                  }, searchHintText: '', selectedValueServer: [],
                                 ),
                               ),
                             ],
@@ -950,8 +892,8 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                   }).toList(),
                                   onChanged: (newVal) {
                                     setState(() {
-                                      idDoMat = newVal;
-                                      print(newVal);
+                                      idDoMat = newVal as String;
+
                                     });
                                   },
                                   hint:Text("Chọn ") ,
@@ -1014,8 +956,8 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                   }).toList(),
                                   onChanged: (newVal) {
                                     setState(() {
-                                      idDoKhan = newVal;
-                                      print(newVal);
+                                      idDoKhan = newVal as String;
+
                                     });
                                   },
                                   hint:Text("Chọn ") ,
@@ -1088,7 +1030,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                         }
                                         return false;
                                       }
-                                      var tendangnhap = sharedStorage.getString("username");
+                                      var tendangnhap = sharedStorage!.getString("username");
 
                                       if(_dateController.text != null&& _dateController.text!= ""
                                           &&vbDen.SoKyHieu!= null&& vbDen.SoKyHieu!= ""
@@ -1097,16 +1039,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                           &&vbDen.TrichYeu!= null && vbDen.TrichYeu!= ""
 
                                       )
-                                        // String iaa =  _maHoSo.text;
-                                        // // .trim();
-                                        // if(isAllSpaces(iaa)||isAllSpaces(_sohoSo.text)
-                                        //     ||isAllSpaces(_sohoSo.text)
-                                        //     ||isAllSpaces(_tenCongViec.text)
-                                        //     ||isAllSpaces(_dateControllerBD.text))
-                                        // {showAlertDialog(context,"Nhập trường bắt buộc"
-                                        //     "(*)");
-                                        // }
-                                        // else
+
                                           {
                                         Container(
                                           alignment: Alignment.center,
@@ -1116,7 +1049,6 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                           ),
                                         )
                                         ;
-                                        //setState(() async {
 
                                         var ch ;
                                         EasyLoading.show();
@@ -1147,12 +1079,12 @@ class _ThemMoiHSState extends State<SuaVBD> {
                                         }
                                         thanhcong=  await
                                         postSuaVBD
-                                          ("UPDATE",widget.id.toString(),tendangnhap,
-                                            widget.Yearvb,idSCV,SoDen.toString(),idLVB,
+                                          ("UPDATE",widget.id.toString(),tendangnhap!,
+                                            widget.Yearvb,idSCV!,SoDen.toString(),idLVB!,
                                             _dateController.text,vbDen
                                                 .SoKyHieu,_dateControllerBD.text,vbDen
-                                                .TrichYeu,idCQBH,GhiChu.text,
-                                            idDoKhan, idDoMat,vbDen.NguoiKyID,
+                                                .TrichYeu,idCQBH!,GhiChu.text,
+                                            idDoKhan!, idDoMat!,vbDen.NguoiKyID,
                                             vbDen.ChucVuNKID,vbDen.MaDinhDanhVB);
                                         EasyLoading.dismiss();
 
@@ -1171,7 +1103,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
 
                                     },
                                     style: ButtonStyle(
-                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                                      backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                                       foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                     )
                                 ),
@@ -1218,7 +1150,7 @@ class _ThemMoiHSState extends State<SuaVBD> {
 
 }
 String trangthai(id){
-  String tt ;
+  String tt="" ;
   switch(id){
     case 1:
       tt = "Thường";
@@ -1234,7 +1166,7 @@ String trangthai(id){
   return tt;
 }
 String tinhtrang(id){
-  String tt ;
+  String tt="" ;
   switch(id){
     case 1:
       tt = "Chưa tạo";

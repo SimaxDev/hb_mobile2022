@@ -3,13 +3,10 @@
 
 import 'dart:convert';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
-import 'package:hb_mobile2021/core/services/VbdenService.dart';
-import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:multi_select_item/multi_select_item.dart';
 
@@ -17,7 +14,7 @@ class ThuHoiVbDi extends StatefulWidget {
   final int id;
   final int nam;
 
-  ThuHoiVbDi({this.id, this.nam});
+  ThuHoiVbDi({required this.id, required this.nam});
 
   final String title = "Thu hồi văn bản";
 
@@ -26,8 +23,8 @@ class ThuHoiVbDi extends StatefulWidget {
 }
 
 class ThuHoiVbDiState extends State<ThuHoiVbDi> {
-  bool sort;
-  int selectedIndex;
+  late bool sort;
+  late int selectedIndex;
   List listThuHoi = [];
   List listID = [];
   String ActionXL = "GetGuiNhanVBDi";
@@ -36,9 +33,9 @@ class ThuHoiVbDiState extends State<ThuHoiVbDi> {
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   bool _checkbox = false;
   Map<String, bool> valuesPH = new Map<String, bool>();
-  List _selecteCategorys = List();
+  List _selecteCategorys = [];
   TextEditingController yKienController =  TextEditingController();
-  int tti1;
+  late int tti1;
   @override
   void initState() {
     super.initState();
@@ -70,7 +67,6 @@ class ThuHoiVbDiState extends State<ThuHoiVbDi> {
   Future GetData() async {
     String vbhs = "";
     vbhs = await GetHomeThuHoiVBDi(ActionXL, widget.nam, widget.id);
-    // vbhs = await getDataHomeVBDT(skip, pageSize, ActionXL,widget.urlLoaiVB,year);
     if (mounted) {
       setState(() {
         listThuHoi.addAll(json.decode(vbhs)['OData']);
@@ -299,14 +295,12 @@ class ThuHoiVbDiState extends State<ThuHoiVbDi> {
                     ],),)
                   ,
                   Flexible(flex: 1,
-                    child: Radio(
+                    child: Radio<int>(
                       value:item['ID'] ,
                       groupValue:tti1,
                       onChanged: ( _value) {
                         setState(() {
-                          // radioItemHolder1 = element['title'] ;
-                          tti1=  _value;
-                          // textPD2 =  radioItemHolder1;
+                          tti1=  _value as int;
                         });
                       },
                     ),

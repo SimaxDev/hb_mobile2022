@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
 
 var styleDropDownItem = TextStyle(fontSize: 15);
 
@@ -9,19 +8,19 @@ class linhVucHSCV extends StatefulWidget {
   final String title;
   final String searchHintText;
   List<ListDataLinhVuc> listDataLinhVuc;
-  ListDataLinhVuc listSelect;
+  ListDataLinhVuc? listSelect;
   ValueChanged<List<int>> onSaved;
   List<int> selectedValueServer;
   bool multipleSelection;
 
   linhVucHSCV({
-    this.title,
-    this.searchHintText,
-    this.listSelect,
-    this.listDataLinhVuc,
-    this.onSaved,
-    this.selectedValueServer,
-    this.multipleSelection});
+    required this.title,
+    required this.searchHintText,
+     this.listSelect,
+    required this.listDataLinhVuc,
+    required this.onSaved,
+    required this.selectedValueServer,
+    required this.multipleSelection});
 
   @override
   linhVucHSCVState createState() => linhVucHSCVState();
@@ -73,8 +72,8 @@ class linhVucHSCVState extends State<linhVucHSCV> {
   checkExist(List<int> select){
     List<ListDataLinhVuc> selectedItem = [];
     for(int i = 0; i < select.length ; i ++ ){
-      var getItem = widget.listDataLinhVuc.firstWhere((itemToCheck) => itemToCheck.ID == select[i], orElse: () => null);
-      getItem != null ? selectedItem.add(getItem) : selectedItem.add(null);
+      var getItem = widget.listDataLinhVuc.firstWhere((itemToCheck) => itemToCheck.ID == select[i], orElse: () => []as ListDataLinhVuc);
+      getItem != null ? selectedItem.add(getItem) : selectedItem.add([]as ListDataLinhVuc);
     }
     return selectedItem;
   }
@@ -115,6 +114,7 @@ class linhVucHSCVState extends State<linhVucHSCV> {
                         child: Container(
                           padding: EdgeInsets.fromLTRB(0, 3, 0, 0),
                           child: MaterialButton(
+                            onPressed: () {  },
                             child: Center(
                               child: Text(checkExist(selectedItem)[index].text, style: TextStyle(color: Colors.white),
                               ),
@@ -170,9 +170,9 @@ class DropDownListItem extends StatefulWidget {
 
   DropDownListItem({
     this.customFunction,
-    this.searchHintText,
-    this.listDataLinhVuc,
-    this.selectedValue, this.multipleSelection});
+    required this.searchHintText,
+    required this.listDataLinhVuc,
+    required this.selectedValue, required this.multipleSelection});
 
   @override
   State<StatefulWidget> createState() {
@@ -275,7 +275,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                       ),
                       Container(
                         alignment: Alignment.centerRight,
-                        child: FlatButton(
+                        child: TextButton(
                           child: Container(
                               child: Text(
                                 'X Bỏ chọn tất cả',
@@ -295,7 +295,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            FlatButton(
+                            TextButton(
                               onPressed: () {
                                 widget.customFunction(widget.selectedValue);
                                Navigator.of(context).pop();
@@ -344,11 +344,11 @@ class DropDownListItemState extends State<DropDownListItem> {
     var title = item.text;
     var existingItem = widget.selectedValue.firstWhere(
             (itemToCheck) => itemToCheck == item.ID,
-        orElse: () => null);
+        orElse: () => -1);
     return InkWell(
         onTap: () {
           if (widget.multipleSelection) {
-            if (existingItem != null) {
+            if (existingItem != -1) {
               setState(() {
                 widget.selectedValue.removeWhere((i) => i == item.ID);
               });
@@ -373,7 +373,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                 ? Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Icon(existingItem != null
+                Icon(existingItem != -1
                     ?
                 Icons.check_box
                     : Icons.check_box_outline_blank,
@@ -409,7 +409,7 @@ class ListDataLinhVuc {
   String text;
   int ID;
 
-  ListDataLinhVuc({@required this.text, @required this.ID});
+  ListDataLinhVuc({required this.text, required this.ID});
 
   factory ListDataLinhVuc.fromJson(Map<String, dynamic> json) {
     return ListDataLinhVuc(ID: (json['ID']), text: json['Title']);

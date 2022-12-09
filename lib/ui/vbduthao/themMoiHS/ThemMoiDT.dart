@@ -1,19 +1,14 @@
-import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
+
 import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemPT.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
-import 'package:intl/intl.dart';
-
 import 'ThemDT.dart';
 
 
 class ThemMoiDT extends StatefulWidget {
   String nam;
-  ThemMoiDT({Key key,this.nam}) : super(key: key);
+  ThemMoiDT({Key? key,required this.nam}) : super(key: key);
 
   @override
   _ThemMoiDTState createState() => _ThemMoiDTState();

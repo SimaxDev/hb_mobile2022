@@ -1,6 +1,5 @@
 import 'dart:async';
-
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
@@ -16,7 +15,7 @@ class TreeThemDT extends StatefulWidget {
   final String tenLoaiChon;
   final bool clickChon;
 
-  TreeThemDT({this.id,this.tenLoaiChon,this.clickChon});
+  TreeThemDT({required this.id,required this.tenLoaiChon,required this.clickChon});
 
   @override
   _TreeThemDTState createState() => _TreeThemDTState();
@@ -27,7 +26,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
   String ActionXL1 = "GetTreeDonViV2";
   List chitiet = [];
   List chitiet1 = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
@@ -37,9 +36,9 @@ class _TreeThemDTState extends State<TreeThemDT> {
   String textXLC = "";
   String textPD2 = "";
   String textXNK = "";
-  String lst;
-  double _height;
-  double _width;
+   String? lst;
+   double? _height;
+   double? _width;
   bool PH = false;
   bool isClick = true;
   bool isClick1 = true;
@@ -55,14 +54,14 @@ class _TreeThemDTState extends State<TreeThemDT> {
   String selcb = "";
   var parsedJson;
   var chuListDT;
-  Timer _timer;
+
 
 
   @override
   void initState() {
     super.initState();
-    var tendangnhap = sharedStorage.getString("username");
-    GetDataDetailVBDi(tendangnhap);
+    var tendangnhap = sharedStorage!.getString("username");
+    GetDataDetailVBDi(tendangnhap!);
 
 
   }
@@ -124,9 +123,9 @@ class _TreeThemDTState extends State<TreeThemDT> {
           {
             if(item['title'] ==tenPhongBan)
             {
-              var tendn1 = sharedStorage.getString("username");
+              var tendn1 = sharedStorage!.getString("username");
               chuListDT =  item['key'] ;
-              GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+              GetDataDTPB(tendn1!,"GetTreeDonVi",chuListDT);
               parsedJson = chitiet1;
 
             }
@@ -158,9 +157,9 @@ class _TreeThemDTState extends State<TreeThemDT> {
           {
             if(item['title'] ==tenPhongBan)
             {
-              var tendn1 = sharedStorage.getString("username");
+              var tendn1 = sharedStorage!.getString("username");
               chuListDT =  item['key'] ;
-              GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+              GetDataDTPB(tendn1!,"GetTreeDonVi",chuListDT);
               parsedJson = chitiet1;
 
             }
@@ -195,9 +194,9 @@ class _TreeThemDTState extends State<TreeThemDT> {
           {
             if(item['title'] ==tenPhongBan)
             {
-              var tendn1 = sharedStorage.getString("username");
+              var tendn1 = sharedStorage!.getString("username");
               chuListDT =  item['key'] ;
-              GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+              GetDataDTPB(tendn1!,"GetTreeDonVi",chuListDT);
               parsedJson = chitiet1;
 
             }
@@ -242,7 +241,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('PD/TT:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    ElevatedButton(
                       onPressed: () {
                         setState(() {
                           isClick = !isClick;
@@ -306,7 +305,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    ElevatedButton(
                       onPressed: () {
                         setState(() {
                           isClick1 = !isClick1;
@@ -367,7 +366,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('NK:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    ElevatedButton(
                       onPressed: () {
                         setState(() {
                           isClick2 = !isClick2;
@@ -428,12 +427,12 @@ class _TreeThemDTState extends State<TreeThemDT> {
     }
   }
 
-  String tti ;
-  String tti1 ;
-  String tti2 ;
-  String radioItemHolder;
-  String radioItemHolder1;
-  String radioItemHolder2;
+   String? tti ;
+   String? tti1 ;
+   String? tti2 ;
+   String? radioItemHolder;
+   String? radioItemHolder1;
+   String? radioItemHolder2;
 
 
   List<TreeNode> toTreeNodesRadio(dynamic parsedJson) {
@@ -467,7 +466,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
                 children: [
                   Center(
                     child: element['isUser']
-                        ? Radio(
+                        ? Radio<String>(
                       groupValue:tti ,
                       value:element['key'],
                       onChanged: ( _value) {
@@ -477,14 +476,13 @@ class _TreeThemDTState extends State<TreeThemDT> {
                             isClick = true;
                             radioItemHolder = element['title'] ;
                             tti = element['key'];
-                            textXLC =  radioItemHolder;
+                            textXLC =  radioItemHolder!;
 
 
                           });
                         }
 
                         print(radioItemHolder);
-                        print("tit" + tti);
                         lstUserXLC =   element["key"] + ";#" + element["title"];
                         ls =   lstUserXLC;
                         cayXLC = element["key"];
@@ -543,19 +541,18 @@ class _TreeThemDTState extends State<TreeThemDT> {
                   children: [
                     Center(
                       child: element['isUser']
-                          ? Radio(
+                          ? Radio<String>(
                         groupValue: tti1,
                         value: element['key'],
                         onChanged: (_value) {
                           setState(() {
                             radioItemHolder1 = element['title'];
                             tti1 = element['key'];
-                            textPD2 = radioItemHolder1;
+                            textPD2 = radioItemHolder1!;
                             isClick1 = true;
 
                           });
                           print(radioItemHolder1);
-                          print("tit" + tti);
                           lstUserPD2 = element["key"] + ";#" + element["title"];
                           ls1 = lstUserPD2;
                           cayPD2 = element["key"];
@@ -611,14 +608,14 @@ class _TreeThemDTState extends State<TreeThemDT> {
                   children: [
                     Center(
                       child: element['isUser']
-                          ? Radio(
+                          ? Radio<String>(
                         groupValue:tti2 ,
                         value:element['key'],
                         onChanged: ( _value) {
                           setState(() {
                             radioItemHolder2 = element['title'] ;
                             tti2 = element['key'];
-                            textXNK =  radioItemHolder2;
+                            textXNK =  radioItemHolder2!;
                             isClick2 = true;
 
                           });
@@ -627,7 +624,7 @@ class _TreeThemDTState extends State<TreeThemDT> {
                           lstUserNK =   element["key"] + ";#" + element["title"];
                           ls2 =  lstUserNK;
                           cayXNK = element["key"];
-                          vNguoiKy=  tti2;
+                          vNguoiKy=  tti2!;
                         },
                       )
                           : SizedBox(),
@@ -662,7 +659,7 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 
   factory ListData1.fromJson(Map<String, dynamic> json) {
     return ListData1(ID: (json['key']), text: json['title']);

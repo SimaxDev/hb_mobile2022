@@ -7,20 +7,20 @@ var styleDropDownItem = TextStyle(fontSize: 15);
 class coQuanBH extends StatefulWidget {
   final String title;
   final String searchHintText;
-  List<ListDataCQ> listData;
-  ListDataCQ listSelect;
+  List<ListDataCQ>? listData;
+  ListDataCQ? listSelect;
   ValueChanged<List<int>> onSaved;
   List<int> selectedValueServer;
   bool multipleSelection;
 
   coQuanBH(
-      {this.title,
-        this.searchHintText,
-        this.listSelect,
-        this.listData,
-        this.onSaved,
-        this.selectedValueServer,
-        this.multipleSelection});
+      {required this.title,
+        required this.searchHintText,
+         this.listSelect,
+         this.listData,
+        required this.onSaved,
+        required this.selectedValueServer,
+        required this.multipleSelection});
 
   @override
   _coQuanBH createState() => _coQuanBH();
@@ -58,7 +58,7 @@ class _coQuanBH extends State<coQuanBH> {
           return DropDownListItem(
             customFunction: parentChange,
             searchHintText: widget.searchHintText,
-            listData: widget.listData,
+            listData: widget.listData!,
             selectedValue: selectedItem,
           );
         });
@@ -73,10 +73,10 @@ class _coQuanBH extends State<coQuanBH> {
   checkExist(List<int> select) {
     List<ListDataCQ> selectedItem = [];
     for (int i = 0; i < select.length; i++) {
-      var getItem = widget.listData.firstWhere(
+      var getItem = widget.listData!.firstWhere(
               (itemToCheck) => itemToCheck.ID == select[i],
-          orElse: () => null);
-      getItem != null ? selectedItem.add(getItem) : selectedItem.add(null);
+          orElse: () => []as ListDataCQ);
+      getItem != null ? selectedItem.add(getItem) : selectedItem.add([]as ListDataCQ);
     }
     return selectedItem;
   }
@@ -123,6 +123,7 @@ class _coQuanBH extends State<coQuanBH> {
                           child: Container(
                             padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
                             child: MaterialButton(
+                              onPressed: () {  },
                               child: Center(
                                 child: Text(
                                   checkExist(selectedItem)[index].text,
@@ -176,9 +177,9 @@ class DropDownListItem extends StatefulWidget {
 
   DropDownListItem(
       {this.customFunction,
-        this.searchHintText,
-        this.listData,
-        this.selectedValue});
+        required this.searchHintText,
+        required this.listData,
+        required this.selectedValue});
 
   @override
   State<StatefulWidget> createState() {
@@ -305,7 +306,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            FlatButton(
+                            TextButton(
                               onPressed: () {
                                 //widget.customFunction(widget.selectedValue);
                                 Navigator.of(context).pop();
@@ -351,9 +352,7 @@ class DropDownListItemState extends State<DropDownListItem> {
 
   Widget getCard(item) {
     var title = item.text;
-    var existingItem = widget.selectedValue.firstWhere(
-            (itemToCheck) => itemToCheck == item.ID,
-        orElse: () => null);
+
     return InkWell(
         onTap: () {
           if (mounted) {
@@ -379,7 +378,7 @@ class ListDataCQ {
   String text;
   int ID;
 
-  ListDataCQ({@required this.text, @required this.ID});
+  ListDataCQ({required this.text, required this.ID});
 
   factory ListDataCQ.fromJson(Map<String, dynamic> json) {
     return ListDataCQ(ID: (json['ID']), text: json['Title']);

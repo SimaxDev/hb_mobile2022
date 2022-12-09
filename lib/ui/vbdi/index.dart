@@ -1,10 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hb_mobile2021/core/services/MenuLeftService.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:http/http.dart' as http;
-import 'package:provider/provider.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
@@ -18,15 +15,13 @@ import 'package:hb_mobile2021/core/services/VBDiService.dart';
 
 class VanBanDi extends StatefulWidget {
    String urlttVB;
-  final String created;
   final int currentIndex;
-  final int val;
   final String username;
   String nam;
 
 
   //VanBanDi({this.urlttVB});
-  VanBanDi({Key key, this.urlttVB, this.created, this.val, this.currentIndex,this.username,this.nam}) : super(key: key);
+  VanBanDi({Key? key, required this.urlttVB, required this.currentIndex,required this.username,required this.nam}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -39,13 +34,13 @@ class _VanBanDi extends State<VanBanDi> {
   List dataList = [];
   List dataDisplay = [];
   bool isLoading = false;
-  String hoten, chucvu;
+  late String hoten, chucvu;
   int skip = 1;
   int pageSize = 10;
   int skippage = 0;
   ScrollController _scrollerController = new ScrollController();
   bool button = true;
-  String testthuhomerxoa;
+  late String testthuhomerxoa;
   String ActionXL = "GetListVBDi";
   var tendangnhap;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -56,7 +51,7 @@ class _VanBanDi extends State<VanBanDi> {
   bool _showPass3 = true;
   bool showEge1 = false;
   bool showEge2 = false;
-  int IDT = 0;
+  int IDT =0;
   bool showEge3 = false;
   String vanbandi = "";
   bool chckSwitch = false;
@@ -65,7 +60,7 @@ class _VanBanDi extends State<VanBanDi> {
   String nam = "";
   List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", ""
       "2017"];
-  String dropdownValue = "";
+  String? dropdownValue ;
 
 
 
@@ -88,15 +83,15 @@ class _VanBanDi extends State<VanBanDi> {
       else
       {
         dropdownValue = widget.nam.toString();
-
       }
+
       IDT=IDTT ;
 
 
       GetInfoUserNew();
       refreshList();
     });
-    GetDataVBDi(dropdownValue);
+    GetDataVBDi(dropdownValue!);
   }
 
   @override
@@ -115,28 +110,28 @@ class _VanBanDi extends State<VanBanDi> {
 
 
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUser() async {
-    //sharedStorage = await SharedPreferences.getInstance();
-    tendangnhap = sharedStorage.getString("username");
+    //sharedStorage! = await SharedPreferences.getInstance();
+    tendangnhap = sharedStorage!.getString("username");
 
-    if (sharedStorage != null) {
+    if (sharedStorage! != null) {
       isLoading = false;
       var item = await GetInfoUserService(tendangnhap);
       // user = jsonToUserJson(item);
       user = UserJson.fromJson(item);
-      sharedStorage.setString("hoten", user.Title);
-      sharedStorage.setString("chucvu", user.ChucVu);
+      sharedStorage!.setString("hoten", user.Title);
+      sharedStorage!.setString("chucvu", user.ChucVu);
     }
   }
 
   //api mưới gethomevbden
   GetInfoUserNew() async {
-    // sharedStorage = await SharedPreferences.getInstance();
+    // sharedStorage! = await SharedPreferences.getInstance();
     setState(() {
-      user.Title = sharedStorage.getString("hoten");
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.Title = sharedStorage!.getString("hoten")!;
+      user.ChucVu = sharedStorage!.getString("chucvu")!;
     });
   }
 
@@ -180,7 +175,7 @@ class _VanBanDi extends State<VanBanDi> {
       _scrollerController.addListener(() {
         if(chckSwitch != true){
           if (_scrollerController.position.pixels == _scrollerController.position.maxScrollExtent) {
-            GetDataVBDi(dropdownValue);
+            GetDataVBDi(dropdownValue!);
             // GetDataByKeyYearVBDen(dropdownValue);
             dataList;
           }
@@ -215,9 +210,9 @@ class _VanBanDi extends State<VanBanDi> {
 
 //tim kiem van ban
   GetDataByKeyWordVBDi(String text) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String vbtimkiem = await getDataByKeyWordVBDi(tendangnhap, ActionXL,
-      text,dropdownValue,widget.urlttVB,);
+    var tendangnhap = sharedStorage!.getString("username");
+    String vbtimkiem = await getDataByKeyWordVBDi(tendangnhap!, ActionXL,
+      text,dropdownValue!,widget.urlttVB,);
     setState(() {
       dataList = json.decode(vbtimkiem)['OData'];
       tongso = json.decode(vbtimkiem)['TotalCount'];
@@ -225,8 +220,8 @@ class _VanBanDi extends State<VanBanDi> {
   }
 
   GetDataByKeyYearVBDi(String year) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String yeartimkiem = await getDataByKeyYearVBDi(tendangnhap, ActionXL,
+    var tendangnhap = sharedStorage!.getString("username");
+    String yeartimkiem = await getDataByKeyYearVBDi(tendangnhap!, ActionXL,
         year,widget.urlttVB,skip,pageSize);
     setState(() {
       dataList = json.decode(yeartimkiem)['OData'];
@@ -329,15 +324,15 @@ class _VanBanDi extends State<VanBanDi> {
                   color: Colors.white70,
                   width: 50,
                 ),
-                onChanged: (String newValue) {
+                onChanged: ( newValue) {
                   if(mounted){
                     setState(() {
                       skip =1;
                       skippage =0;
-                      dropdownValue = newValue;dataList.clear();
+                      dropdownValue = newValue!;dataList.clear();
                       isLoading = true;
                       // GetDataByKeyYearVBDen(dropdownValue);
-                      GetDataVBDi(dropdownValue);
+                      GetDataVBDi(dropdownValue!);
                     });
                   }
 
@@ -570,7 +565,7 @@ class _VanBanDi extends State<VanBanDi> {
             Container(
               height: MediaQuery.of(context).size.height,
               child: MenuLeft(page: 2,username:widget.username,year:
-              dropdownValue,queryLeft: widget.urlttVB,queryID: IDT,),
+              dropdownValue!,queryLeft: widget.urlttVB,queryID: IDT,),
             )
           ],
         ),
@@ -637,9 +632,11 @@ class _VanBanDi extends State<VanBanDi> {
         scrollDirection: Axis.vertical,
         shrinkWrap: true,
         itemBuilder: (context, index) {
-         if(index == tongso){
-              _buildProgressIndicator();
-            }else{
+         if(index == tongso)
+         {
+           return  _buildProgressIndicator();
+            }
+         else{
              return getBody(dataList[index]);
             }
 
@@ -678,7 +675,7 @@ class _VanBanDi extends State<VanBanDi> {
         context,
         MaterialPageRoute(
           builder: (context) => ChiTietVanBanDi(id: id,username:widget
-              .username,nam:dropdownValue,MaDonVi:MaDonVi),
+              .username,nam:dropdownValue!,MaDonVi:MaDonVi),
         ),
       );
     }

@@ -1,17 +1,14 @@
 
 import 'dart:async';
 import 'dart:io';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/HoSoCV/linhVucThemMoi.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
-import 'package:hb_mobile2021/restart.dart';
-import 'package:hb_mobile2021/ui/hoSoCV/index.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'dart:convert';
 
 import 'package:path/path.dart';
@@ -22,7 +19,7 @@ import 'package:path/path.dart';
 
 
 class ThemMoiHS extends StatefulWidget {
-  ThemMoiHS({Key key}) : super(key: key);
+  ThemMoiHS({Key? key}) : super(key: key);
 
   @override
   _ThemMoiHSState createState() => _ThemMoiHSState();
@@ -39,15 +36,15 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
   TextEditingController _soLuongTrang =  new TextEditingController();
   TextEditingController _ngonNgu =  new TextEditingController();
   TextEditingController _tuKhoa =  new TextEditingController();
-  File selectedfile;
+  late File selectedfile;
   List<int> Year = [1,2,3];
   String listLV = "";
-  int dropdownValue ;
+   int? dropdownValue ;
   List<int> ListTT = [1,2];
   int dropdownValueTT =1 ;
   List<ListDataLinhVuc> vanbanListLinhVuc = [] ;
   List dataLinhVuc = [];
-  String idLV;
+   String? idLV;
   DateTime selectedDateBD = DateTime.now();
   TextEditingController _dateControllerBD = TextEditingController(); 
   DateTime selectedDateKT = DateTime.now();
@@ -77,24 +74,9 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
    // _initializeTimer();
   }
 
-// lấy file từ điện thoại
-//   selectFile() async {
-//     FilePickerResult result = await FilePicker.platform.pickFiles(
-//       type: FileType.custom,
-//       allowedExtensions: ['jpg', 'pdf', 'mp4','doc'],
-//       //allowed extension to choose
-//     );
-//
-//     if (result != null) {
-//       //if there is selected file
-//       setState(() {
-//         selectedfile = File(result.files.single.path);
-//       });
-//
-//     }
-//   }
+
   selectFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
@@ -102,7 +84,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
 
     if (result != null) {
       //if there is selected file
-      selectedfile = File(result.files.single.path);
+      selectedfile = File(result.files.single.path!);
 
       if (selectedfile != null) {
         // var bytes1 = await rootBundle.load(selectedfile.path);
@@ -118,7 +100,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
 
   // thời gian bắt đầu
   Future<Null> _selectDateBD(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDateBD,
         initialDatePickerMode: DatePickerMode.day,
@@ -135,7 +117,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
 
   // thời gian kết thức
   Future<Null> _selectDateKT(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDateKT,
         initialDatePickerMode: DatePickerMode.day,
@@ -220,7 +202,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                         child: TextFormField(
                           validator: (value){
-                            if(value.isEmpty){
+                            if(value!.isEmpty){
                               return 'Yêu cầu nhập giá trị cho trường này';
                             }
 
@@ -271,7 +253,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                         child: TextFormField(
                           validator: (value){
 
-                            if(value.isEmpty){
+                            if(value!.isEmpty){
                               return 'Yêu cầu nhập giá trị cho trường này';
                             }
 
@@ -329,9 +311,9 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                           style: const TextStyle(color: Colors.black,
                               fontWeight: FontWeight.normal,fontSize: 14),
 
-                          onChanged: (int newValue) {
+                          onChanged: ( newValue) {
                             if (mounted) {setState(() {
-                              dropdownValue = newValue;
+                              dropdownValue = newValue!;
                               if(dropdownValue != null)
                               {
                                 mucDo =dropdownValue.toString();
@@ -396,7 +378,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                           }).toList(),
                           onChanged: (newVal) {
                             setState(() {
-                              idLV = newVal;
+                              idLV = newVal as String;
 
                             });
                           },
@@ -461,7 +443,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                         padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
                         child: TextFormField(
                           validator: (value){
-                            if(value.isEmpty){
+                            if(value!.isEmpty){
                               return 'Yêu cầu nhập giá trị cho trường này';
                             }
 
@@ -564,7 +546,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                             enabled: false,
                             keyboardType: TextInputType.text,
                             controller: _dateControllerBD== null ?
-                            selectedDateBD : _dateControllerBD,
+                            selectedDateBD  as TextEditingController: _dateControllerBD,
                             // onSaved: (val) {
                             //   _setDate1 = val;
                             // },
@@ -573,7 +555,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                                 // labelText: 'Time',
                                 contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
                             validator: (value){
-                              if(value.isEmpty){
+                              if(value!.isEmpty){
                                 return 'Yêu cầu nhập giá trị cho trường này';
                               }
 
@@ -625,7 +607,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                             enabled: false,
                             keyboardType: TextInputType.text,
                             controller: _dateControllerKT == null ?
-                            selectedDateBD : _dateControllerKT,
+                            selectedDateBD as TextEditingController : _dateControllerKT,
                             // onSaved: (val) {
                             //   _setDate1 = val;
                             // },
@@ -811,9 +793,9 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                           style: const TextStyle(color: Colors.black,
                               fontWeight: FontWeight.normal,fontSize: 14),
 
-                          onChanged: (int newValue) {
+                          onChanged: ( newValue) {
                             if (mounted) { setState(() {
-                              dropdownValueTT = newValue;
+                              dropdownValueTT = newValue!;
                             });}
 
                           },
@@ -936,37 +918,12 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                       Checkbox(
                           value: XemTT, onChanged: (val){
                         if (mounted) {setState(() {
-                          XemTT= val;
+                          XemTT= val!;
                         });}
 
 
                       }),
-                      // Container(
-                      //   margin: EdgeInsets.only(right: 20),
-                      //   decoration: BoxDecoration(
-                      //     border: Border.all(
-                      //       color: Colors.black38 ,
-                      //
-                      //     ),
-                      //     borderRadius: BorderRadius.circular(5),
-                      //
-                      //   ),
-                      //   height:MediaQuery.of(context).size.height * 0.05,
-                      //   width: MediaQuery
-                      //       .of(context)
-                      //       .size
-                      //       .width * 0.64,
-                      //   padding: EdgeInsets.fromLTRB(5, 5, 0, 0),
-                      //   child: TextFormField(
-                      //     controller: textEditingController,
-                      //     autovalidateMode: AutovalidateMode.onUserInteraction,
-                      //     style: TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
-                      //     decoration: InputDecoration(
-                      //         disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
-                      //         // labelText: 'Time',
-                      //         contentPadding: EdgeInsets.only(bottom: 20.0, left: 5)),
-                      //   ),
-                      // ),
+
                     ],
                   ),
                   SizedBox(height: 5,),
@@ -991,35 +948,23 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                       Container(
                         margin: EdgeInsets.only(right: 12),
                         padding: EdgeInsets.fromLTRB(10, 5, 10, 5),
-
-
                         child: Column(children: [
                           Container(
                             width: MediaQuery.of(context).size.width * 0.5,
 
-                            child: FlatButton(
+                            child: ElevatedButton(
                               child: Text('Đính kèm file...'),
-                              color: Colors.blueAccent,
-                              textColor: Colors.white,
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: Colors.blueAccent, // background (button) color
+                                foregroundColor: Colors.white,  // foreground (text) color
+
+                              ),
                               onPressed: () {
                                 selectFile();
                               },
                             ),
                           ),
-                          // Container(
-                          //   width: MediaQuery.of(context).size.width * 0.5,
-                          //   margin: EdgeInsets.all(10),
-                          //   //show file name here
-                          //   child:selectedfile != null?
-                          //   Text(basename(selectedfile.path)):
-                          //   Text("",
-                          //     maxLines: 2,
-                          //     overflow: TextOverflow.ellipsis,
-                          //     style: TextStyle(fontSize: 12,fontStyle: FontStyle.italic,
-                          //         color: Colors.blue),),
-                          //   //basename is from path package, to get filename from path
-                          //   //check if file is selected, if yes then show file name
-                          // ),
+
 
                         ],),
 
@@ -1049,52 +994,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                       );
                     },
                   ),),
-                  // Container(
-                  //   padding: EdgeInsets.only(top: 8, left: 16),
-                  //   height: MediaQuery
-                  //       .of(context)
-                  //       .size.height*0.1,
-                  //   child: Row(
-                  //     mainAxisAlignment: MainAxisAlignment.start,
-                  //     crossAxisAlignment: CrossAxisAlignment.start,
-                  //     children: <Widget>[
-                  //       Flexible(
-                  //         flex: 5,
-                  //         child: Column(
-                  //           mainAxisAlignment: MainAxisAlignment.start,
-                  //           crossAxisAlignment: CrossAxisAlignment.start,
-                  //           children: [
-                  //             Container(
-                  //               child: Text(
-                  //                 "File đính kèm",textAlign: TextAlign.start,
-                  //                 style: TextStyle(
-                  //                     color: Color(0xff021029),
-                  //                     fontStyle: FontStyle.normal,
-                  //                     fontWeight: FontWeight.w400,
-                  //                     fontSize: 14),
-                  //               ),
-                  //             ),
-                  //             Container(
-                  //               padding: EdgeInsets.only(top: 8,  right: 16),
-                  //               child: FlatButton(
-                  //                 child: Text('Đính kèm file...'),
-                  //                 color: Colors.blueAccent,
-                  //                 textColor: Colors.white,
-                  //                 onPressed: () async {
-                  //                   selectFile();
-                  //                 },
-                  //               ),
-                  //             ),
-                  //           ],),),
-                  //       Flexible(
-                  //         flex:5,
-                  //         child:
-                  //       )
-                  //
-                  //
-                  //
-                  //     ],
-                  //   ),),
+
 
 
                   SizedBox(height:15,),
@@ -1120,7 +1020,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                                 return false;
                               }
 
-                              var tendangnhap = sharedStorage.getString("username");
+                              var tendangnhap = sharedStorage!.getString("username");
                               String iaa =  _maHoSo.text;
                               // .trim();
                               if(isAllSpaces(iaa)||isAllSpaces(_sohoSo.text)
@@ -1155,7 +1055,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
                                 String Yearvb = DateFormat('yyyy').format(now);
                                 thanhcong=  await
                                 postThemHSCV
-                                  ("ThemMoiHSCV",_tenCongViec.text,tendangnhap,Yearvb,
+                                  ("ThemMoiHSCV",_tenCongViec.text,tendangnhap!,Yearvb,
                                     XemTT.toString(),_sohoSo.text,_noiDung.text,_dateControllerBD.text,
                                     _dateControllerKT.text,_maHoSo.text,idLV.toString(),_thoiHanBH.text,
                                     _soLuongTo.text,_soLuongTrang.text,dropdownValueTT.toString(),_ngonNgu.text,
@@ -1174,7 +1074,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
 
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             )
                         ),
@@ -1216,7 +1116,7 @@ class _ThemMoiHSState extends State<ThemMoiHS> {
 
 }
 String trangthai(id){
-  String tt ;
+  String tt='' ;
   switch(id){
     case 1:
       tt = "Thường";
@@ -1232,7 +1132,7 @@ String trangthai(id){
   return tt;
 }
 String tinhtrang(id){
-  String tt ;
+  String tt='' ;
   switch(id){
     case 1:
       tt = "Chưa tạo";

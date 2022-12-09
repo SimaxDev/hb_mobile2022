@@ -1,6 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -12,18 +12,14 @@ import 'package:hb_mobile2021/common/VBDen/GiaoViec.dart';
 import 'package:hb_mobile2021/common/VBDen/SuaVBD.dart';
 import 'package:hb_mobile2021/common/VBDen/ThuHoiVB.dart';
 import 'package:hb_mobile2021/common/VBDen/TreeChuyenNhanhVBD.dart';
-import 'package:hb_mobile2021/common/VBDen/chuyenNhanh.dart';
-import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemMoiDT.dart';
 import 'dart:developer' as Dev;
 import 'package:multi_select_item/multi_select_item.dart';
 import 'package:hb_mobile2021/common/VBDen/TreeChuyenVBDen.dart';
-import 'package:progress_indicator_button/progress_button.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
 import 'TabbarChiTiet/ChonDS.dart';
@@ -34,7 +30,7 @@ class BottomNav extends StatefulWidget {
   final String MaDonVi;
   final ttvbDen;
 
-  BottomNav({this.id,this.nam,this.MaDonVi,this.ttvbDen});
+  BottomNav({required this.id,required this.nam,required this.MaDonVi,this.ttvbDen});
 
   @override
   _BottomNav createState() => _BottomNav();
@@ -53,23 +49,23 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
   ];
 
   MultiSelectController controller = new MultiSelectController();
-  DateTime _dateTime;
+  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-  double _height;
-  double _width;
-  String _setDate;
-  String _setDate1;
+  late double _height;
+  late double _width;
+  late String _setDate;
+  late String _setDate1;
   bool isLoading = false;
   int _tabIndex = 0;
-  TabController _tabController;
+  late TabController _tabController;
   final TreeController _treeController = TreeController(allNodesExpanded: false);
   List chitiet1 = [];
   String daidien = "true";
   List CBList = [];
   var dulieudt = "";
-  bool multipleSelection;
+  late bool multipleSelection;
   String selectedValue = "";
   var  ttduthao = null ;
 
@@ -84,11 +80,11 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
   List _myActivities = [];
   List<String> _colors = <String>['', 'Văn bản 1', 'Văn bản 2', 'Văn bản 3', 'Văn bản 4'];
   String _color = '';
-  String TenCB;
+  late String TenCB;
   int _radioValue = 0;
   int nam22 =  2022;
   final GlobalKey<State> key = new GlobalKey<State>();
-  List<Widget> listDanhSach = new List<Widget>();
+  List<Widget> listDanhSach = <Widget>[];
   bool isPressed = false;
   _pressed() {
     var newVal = true;
@@ -118,9 +114,9 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
     if (mounted) { setState(() {
-      var tendangnhap = sharedStorage.getString("username");
+      var tendangnhap = sharedStorage!.getString("username");
       //GetDataNguoiPhoiHop(tendangnhap);
-      GetDataDetailVBDi(tendangnhap);
+      GetDataDetailVBDi(tendangnhap!);
 
       _tabController = TabController(vsync: this, length: 2);
       _scrollerController.addListener(() {
@@ -162,7 +158,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -214,8 +210,8 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
   }
 
   GetDatacb(String data1) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String vbdt = await getDataCB(tendangnhap, "GetListUserByPhongBan", data1, daidien);
+    var tendangnhap = sharedStorage!.getString("username");
+    String vbdt = await getDataCB(tendangnhap!, "GetListUserByPhongBan", data1, daidien);
     if (mounted) {
 
         setState(() {
@@ -236,7 +232,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
     if (mounted) {setState(() {
       var vanban = json.decode(detailVBDT)['OData'];
       var lstData = (vanban as List).map((e) => ListData.fromJson(e)).toList();
-      List<ListData> lstDataSearch = List<ListData>();
+      List<ListData> lstDataSearch = <ListData>[];
       lstData.forEach((element) {
         lstDataSearch.add(element);
         vanbanList = lstDataSearch;
@@ -284,7 +280,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.blueGrey[100]),
+        border: Border.all(color: Colors.blueGrey[100]!),
         color: Colors.white,
       ),
       height: 56.0,
@@ -621,7 +617,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                           label: Text('Dự thảo VB'),
                           onPressed: () =>Navigator.of(context).pushAndRemoveUntil(
                               MaterialPageRoute(
-                                  builder: (BuildContext context) => ThemMoiDT()),
+                                  builder: (BuildContext context) => ThemMoiDT(nam: '',)),
                                   (Route<dynamic> route) => true) ,
 
                           //textTheme: ButtonTextTheme.primary,
@@ -645,9 +641,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-
-
-          return _getBodyPage(context, index);
+          return _getBodyPage( index) ;
         });
   }
 
@@ -747,10 +741,11 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                 itemCount: CBList.length,
                 // ignore: missing_return
                 itemBuilder: (context, index) {
-
                   if (CBList.length > 0 && index < CBList.length) {
                     return getBody(CBList[index]);
-                  } else if (index == 0) {
+                  }
+                  else
+                    if (index == 0) {
                     return Padding(
                       padding: EdgeInsets.only(top: MediaQuery.of(context).size.height * 0.2),
                       child: Center(
@@ -761,6 +756,9 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                       ),
                     );
                   }
+                    else{
+                      return SizedBox();
+                    }
                 },
                 controller: _scrollerController,
               ),
@@ -768,10 +766,6 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                 alignment: Alignment.bottomCenter,
                 child: ElevatedButton(
                   onPressed: () {
-                    // lstUsers;
-                    // selectedValue;
-                    // fetchData();
-                    // _toggleTab();
                     Navigator.of(context).pushAndRemoveUntil(
                         MaterialPageRoute(
                             builder: (BuildContext context) => ChonDS()),
@@ -790,6 +784,9 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
           onRefresh: refreshList,
         );
       }
+    }
+    else {
+      return Container();
     }
 
 
@@ -867,7 +864,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
   }
 
   // dữ liệu toàn bộ
-  Widget _getBodyPage(context, int index) {
+  Widget _getBodyPage( int index) {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
 
@@ -923,7 +920,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                     Padding(padding: EdgeInsets.only(top: 10),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: MediaQuery
@@ -940,7 +937,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                             TextAlign.center,),
                             onPressed: ()   async {
                               String iaa =  _titleController.text.trim();
-                              var tendangnhap = sharedStorage.getString("username");
+                              var tendangnhap = sharedStorage!.getString("username");
                               if(isAllSpaces(iaa) )
                               {
                                 showAlertDialog(context,"Nhập ý kiến!");
@@ -975,7 +972,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                               }
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             )
                         ),),
@@ -983,7 +980,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                   Padding(padding: EdgeInsets.only(top: 10,left: 20),
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.lightBlue[50], width: 2),
+                        border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       width: MediaQuery
@@ -1033,7 +1030,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                         Padding(padding: EdgeInsets.only(top: 10),
                           child: Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.lightBlue[50], width: 2),
+                              border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                               borderRadius: BorderRadius.circular(10),
                             ),
                             width: MediaQuery
@@ -1056,7 +1053,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                                   Navigator.of(context).pop();
                                 },
                                 style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                                  backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                                   foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                 )
                             ),),
@@ -1064,7 +1061,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                         Padding(padding: EdgeInsets.only(top: 10,left: 20),
                           child: Container(
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.lightBlue[50], width: 2),
+                              border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                               borderRadius: BorderRadius.circular(15),
                             ),
                             width: MediaQuery
@@ -1182,7 +1179,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                       child: new DropdownButton(
                         value: _color,
                         isDense: true,
-                        onChanged: (String newValue) {
+                        onChanged: ( newValue) {
 //                           setState(() {
 // //                                newContact.favoriteColor = newValue;
 //                             _color = newValue;
@@ -1202,15 +1199,19 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
+                child: ElevatedButton(
                   child: Text("Ký số"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.blueAccent,
-                  textColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                  // color: Colors.blueAccent,
+                  // textColor: Colors.white,
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent, // background (button) color
+                    foregroundColor: Colors.white,  // foreground (text) color
+                    shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                  ),
                 ),
               )
             ],
@@ -1256,7 +1257,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                     Padding(padding: EdgeInsets.only(top: 10),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: MediaQuery
@@ -1280,7 +1281,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                                 }
                                 return false;
                               }
-                              var tendangnhap = sharedStorage.getString("username");
+                              var tendangnhap = sharedStorage!.getString("username");
                               String iaa =  _titleController.text.trim();
                               if(isAllSpaces(iaa))
                               {showAlertDialog(context,"Nhập ý kiến, bút phê");
@@ -1301,7 +1302,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             )
                         ),),
@@ -1309,7 +1310,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                     Padding(padding: EdgeInsets.only(top: 10,left: 20),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         width: MediaQuery
@@ -1367,10 +1368,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                               textAlign: TextAlign.center,
                               enabled: false,
                               keyboardType: TextInputType.text,
-                              controller: _dateController == null ? selectedDate : _dateController,
-                              // onSaved: (val) {
-                              //   _setDate1 = val;
-                              // },
+                              controller: _dateController == null ? selectedDate as TextEditingController : _dateController,
                               decoration: InputDecoration(
                                   disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
                                   // labelText: 'Time',
@@ -1388,7 +1386,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                     Padding(padding: EdgeInsets.only(top: 10),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: MediaQuery
@@ -1405,7 +1403,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                               textAlign:
                               TextAlign.center,),
                             onPressed: () async {
-                              var tendangnhap = sharedStorage.getString("username");
+                              var tendangnhap = sharedStorage!.getString("username");
                               EasyLoading.show();
                               var thanhcong = await postHanXuLyVBD
                                 (tendangnhap, widget.id, "HanXuLy",
@@ -1416,7 +1414,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                               showAlertDialog(context, json.decode(thanhcong)['Message']);
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             )
                         ),),
@@ -1424,7 +1422,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                     Padding(padding: EdgeInsets.only(top: 10,left: 20),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         width: MediaQuery
@@ -1504,7 +1502,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                       Padding(padding: EdgeInsets.only(top: 10),
                         child: Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.lightBlue[50], width: 2),
+                            border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery
@@ -1523,7 +1521,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                               onPressed: ()async   {
 
                                 String iaa =  _titleController.text.trim();
-                                var tendangnhap = sharedStorage.getString("username");
+                                var tendangnhap = sharedStorage!.getString("username");
                                 if(isAllSpaces(iaa) )
                                 {
                                   showAlertDialog(context,"Nhập ý kiến xử lý !");
@@ -1549,7 +1547,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                                 }
                               },
                               style: ButtonStyle(
-                                backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                                backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                               )
                           ),),
@@ -1557,7 +1555,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                       Padding(padding: EdgeInsets.only(top: 10,left: 20),
                         child: Container(
                           decoration: BoxDecoration(
-                            border: Border.all(color: Colors.lightBlue[50], width: 2),
+                            border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery
@@ -1639,7 +1637,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
                               }
                               return false;
                             }
-                            var tendangnhap = sharedStorage.getString("username");
+                            var tendangnhap = sharedStorage!.getString("username");
                             String iaa =  _titleController.text.trim();
                             if(isAllSpaces(iaa))
                             {showAlertDialog(context,"Nhập ý kiến từ chối");
@@ -1659,7 +1657,7 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
 
                           },
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                             foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                           )
                       ),
@@ -1685,7 +1683,9 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
             ));
         break;
     }
+  return Container();
   }
+
 }
 
 //dữ liệu văn bản
@@ -1693,7 +1693,7 @@ class ListDataVBD {
   String text;
   String ID;
 
-  ListDataVBD({@required this.text, @required this.ID});
+  ListDataVBD({required this.text, required this.ID});
 
   factory ListDataVBD.fromJson(Map<String, dynamic> json) {
     return ListDataVBD(ID: (json['key']), text: json['title']);

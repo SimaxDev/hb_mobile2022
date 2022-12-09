@@ -39,7 +39,7 @@ android {
 
         exclude "META-INF/DEPENDENCIES"
     }
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion '30.0.3'
 
     sourceSets {
@@ -54,7 +54,7 @@ android {
         // TODO: Specify your own unique Applicatio n ID (https://developer.android.com/studio/build/application-id.html).
         applicationId "com.hoabinh.gov.hb_mobile2021"
         minSdkVersion 23
-        targetSdkVersion 30
+        targetSdkVersion 33
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
 
@@ -120,6 +120,8 @@ dependencies {
     implementation 'com.google.firebase:firebase-analytics'
     androidTestImplementation "androidx.test.ext:junit:1.1.3"
     androidTestImplementation 'androidx.compose.ui:ui-test-junit4:1.1.1'
+    implementation 'com.google.guava:guava:27.0.1-android'
+    implementation 'com.google.firebase:firebase-firestore:21.5.0'
 
 
 

@@ -1,15 +1,10 @@
 import 'dart:convert';
-
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/models/VanBanDiJson.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
-import 'package:hb_mobile2021/ui/vbduthao/phieu_trinh/view_pdf.dart';
 import 'ThongTinVBDi.dart';
 import 'nhatky_vbdi.dart';
 import 'dart:io';
@@ -26,7 +21,7 @@ class ChiTietVanBanDi extends StatefulWidget {
   final String username;
   String MaDonVi;
   final String nam;
-  ChiTietVanBanDi({this.id,this.username,this.nam,this.MaDonVi});
+  ChiTietVanBanDi({required this.id,required this.username,required this.nam,required this.MaDonVi});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -50,9 +45,6 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
     Completer<File> completer = Completer();
     print("Start download file from internet!");
     try {
-      // "https://berlin2017.droidcon.cod.newthinking.net/sites/global.droidcon.cod.newthinking.net/files/media/documents/Flutter%20-%2060FPS%20UI%20of%20the%20future%20%20-%20DroidconDE%2017.pdf";
-      // final url = "https://pdfkit.org/docs/guide.pdf";
-      // final url = "http://www.pdf995.com/samples/pdf.pdf";
       final url = 'http://qlvbapi.moj.gov.vn/Uploads/cvlan42019.pdf';
       final filename = url.substring(url.lastIndexOf("/") + 1);
       var request = await HttpClient().getUrl(Uri.parse(url));

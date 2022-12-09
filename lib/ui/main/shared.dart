@@ -14,24 +14,24 @@ import 'package:hb_mobile2021/ui/Login/Login.dart';
 
 import '../../core/services/callApi.dart';
 
- int tt2;
-int tt4;
-int tt6;
-int  tt8;
-bool isLogin;
+ int? tt2;
+int? tt4;
+int? tt6;
+int?  tt8;
+bool? isLogin;
 
-String tokenfirebase;
-// SharedPreferences sharedStorage;
+String? tokenfirebase;
+// SharedPreferences sharedStorage!;
 //const  DOMAIN = "http://apimobile2021.ungdungtructuyen.vn";
 //const  DOMAIN = "cc";
-const  DOMAIN = "http://apimobile.hoabinh.gov.vn";
-Timer _timer;
+const  DOMAIN = "https://apimobile.hoabinh.gov.vn";
+Timer? _timer;
 void logOut(BuildContext context) async {
   sharedStorage = await SharedPreferences.getInstance();
-      if(!sharedStorage.get("rememberme")) {
-        sharedStorage.remove("password");
-        sharedStorage.remove("expires_in");
-        sharedStorage.remove("token");
+      if(sharedStorage!.get("rememberme")== false) {
+        sharedStorage!.remove("password");
+        sharedStorage!.remove("expires_in");
+        sharedStorage!.remove("token");
          tendangnhapAll = "";
          ten;
          datavb = "";
@@ -160,8 +160,8 @@ void logOut(BuildContext context) async {
         heightKy = 150.0;
       }
  else{
-    sharedStorage.remove("expires_in");
-    sharedStorage.remove("token");
+    sharedStorage!.remove("expires_in");
+    sharedStorage!.remove("token");
 
 
     tendangnhapAll = "";
@@ -305,13 +305,13 @@ lengthDuthao(BuildContext context,  path)async{
   var url = Uri.parse(DOMAIN + path);
   List duthao = [];
   sharedStorage = await SharedPreferences.getInstance();
-  String token = sharedStorage.get("token");
+  String? token = sharedStorage!.get("token") as String?;
  var  response = await http.get(
       url,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token!
       }
   );
   if (response.statusCode == 200) {

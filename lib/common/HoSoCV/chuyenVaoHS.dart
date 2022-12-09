@@ -1,4 +1,4 @@
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
@@ -11,7 +11,7 @@ class chuyenVaoHS extends StatefulWidget {
   final int id;
   final String  nam;
 
-  chuyenVaoHS({this.id,this.nam});
+  chuyenVaoHS({required this.id,required this.nam});
 
   @override
   _chuyenVaoHSState createState() => _chuyenVaoHSState();
@@ -32,8 +32,8 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
   bool isLoading = true;
   var jsonSample = "";
   bool showD = true;
-  int hosoid;
-  String testthuhomerxoa;
+  late int hosoid;
+  late String testthuhomerxoa;
   String ActionXL = "GetListHSCV";
   List<dynamic> jsonL = [];
   List HoSoList = [];
@@ -133,8 +133,8 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
   }
   GetDataHSCV1() async {
     //EasyLoading.show();
-  var tendangnhap = sharedStorage.getString("username");
-  hscv = await getDataByKeyWordHSCV(tendangnhap, ActionXL, "");
+  var tendangnhap = sharedStorage!.getString("username");
+  hscv = await getDataByKeyWordHSCV(tendangnhap!, ActionXL, "");
 
   setState(() {
     jsonL = jsonDecode(hscv)['OData'];
@@ -143,8 +143,8 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
   }
 
   GetDataByKeyWordVBDT(String text) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String vbtimkiem = await getDataByKeyWordHSCV(tendangnhap, ActionXL, text);
+    var tendangnhap = sharedStorage!.getString("username");
+    String vbtimkiem = await getDataByKeyWordHSCV(tendangnhap!, ActionXL, text);
     setState(() {
       HoSoList = json.decode(vbtimkiem)['OData'];
       tongso = json.decode(vbtimkiem)['TotalCount'];
@@ -307,7 +307,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
                 padding: EdgeInsets.only(top: 10, right: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.lightBlue[50], width: 2),
+                    border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   width: MediaQuery.of(context).size.width * 0.25,
@@ -335,7 +335,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
                 padding: EdgeInsets.only(top: 10),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.lightBlue[50], width: 2),
+                    border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   width: MediaQuery.of(context).size.width * 0.3,
@@ -362,7 +362,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
 
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                         foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                       )),
                 ),
@@ -430,7 +430,7 @@ class _chuyenVaoHSState extends State<chuyenVaoHS> {
         : "";
     var hscvHanXuLy;
     if (temp1 != null && temp1 != "") {
-      hscvHanXuLy = DateFormat("dd-MM-yyyy").format(temp1);
+      hscvHanXuLy = DateFormat("dd-MM-yyyy").format(temp1 as DateTime);
     }
 
     return Card(
@@ -494,7 +494,7 @@ String formatDOB(value){
   // return ("${parsedDate.day}/${parsedDate.month}/${parsedDate.year}");
 }
 String ttHoSo(id) {
-  String tt;
+  String tt="";
   switch (id) {
     case 0:
       tt = "Đang xử lý";

@@ -6,7 +6,6 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
@@ -33,17 +32,16 @@ class _ViewPDF extends State<ViewPDFDK> {
   String localPath = "";
   int i = 0;
   String PDF_URL = "adf";
-  File files;
+  late File files;
   double percentage = 0;
   var url;
   List<ListDataDK> ListDataPDF = [];
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   String remotePDFpath = "";
   int pages = 0;
   int currentPage = 0;
   final Completer<PDFViewController> _controller =
       Completer<PDFViewController>();
-  Timer _timer;
   String downloadMessage = "Initalizing...";
   bool _isDownloading = false;
   bool percentageBool = false;
@@ -116,7 +114,7 @@ class _ViewPDF extends State<ViewPDFDK> {
       var bytes = await consolidateHttpClientResponseBytes(response);
       var dir = await getExternalStorageDirectory();
       print("Download files");
-      print("${dir.path}/$filename");
+      print("${dir!.path}/$filename");
       File file = File("${dir.path}/$filename");
 
       await file.writeAsBytes(bytes, flush: true);
@@ -128,14 +126,14 @@ class _ViewPDF extends State<ViewPDFDK> {
     return completer.future;
   }
 
-  Future openFile({String url, String fileName}) async {
+  Future openFile({required String url, required String fileName}) async {
     final file = await downloadFile(url, fileName);
     if (file == null) return;
     print('Path: ${file.path}');
     await OpenFile.open(file.path);
   }
 
-  Future<File> downloadFile(String url, String name) async {
+  Future<File?> downloadFile(String url, String name) async {
     try {
       final appStorage = await getApplicationDocumentsDirectory();
       final file = File('${appStorage.path}/$name');
@@ -158,10 +156,10 @@ class _ViewPDF extends State<ViewPDFDK> {
   }
   static downloadingCallback(id, status, progress) {
     ///Looking up for a send port
-    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+    SendPort? sendPort = IsolateNameServer.lookupPortByName("downloading");
 
     ///ssending the data
-    sendPort.send([id, status, progress]);
+    sendPort?.send([id, status, progress]);
   }
 
   @override
@@ -219,14 +217,14 @@ class _ViewPDF extends State<ViewPDFDK> {
                       child: DropdownButton<String>(
                         hint: Text("Chọn bản ghi khác"),
                         style: TextStyle(fontSize: 14, color: Colors.black),
-                        value: PDF_URL,
+                        value: PDF_URL!.isNotEmpty ? PDF_URL : null,
                         isDense: false,
                         isExpanded: true,
                         onChanged: (newValue) async {
                           //  OpenFile.open(files.path);
                           if (mounted) {
                             setState(() {
-                              PDF_URL = newValue;
+                              PDF_URL = newValue!;
                             });
                           }
                         },
@@ -288,7 +286,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                           url = urlPDF;
                           await FlutterDownloader.enqueue(
                             url: url,
-                            savedDir: dir.path,
+                            savedDir: dir!.path,
                             fileName: tenPDF,
                             showNotification: true,
                             openFileFromNotification: true,
@@ -304,7 +302,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                           url = PDF_URL;
                           await FlutterDownloader.enqueue(
                             url: url,
-                            savedDir: dir.path,
+                            savedDir: dir!.path,
                             fileName: tenPDF,
                             showNotification: true,
                             openFileFromNotification: true,
@@ -316,7 +314,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                           final id =   await FlutterDownloader.enqueue(
                             url: url,
                             fileName: tenPDF,
-                            savedDir: dir.path,
+                            savedDir: dir!.path,
                             showNotification: true,
                             openFileFromNotification: true,
 
@@ -328,83 +326,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                         print("Permission deined");
                       }
                     },
-                    // onPressed: () async {
-                    //   setState(() {
-                    //     _isDownloading = !_isDownloading;
-                    //   });
-                    //   var dir = await getExternalStorageDirectory();
-                    //
-                    //   Dio dio = Dio();
-                    //   String url = "";
-                    //   print(ListDataPDF);
-                    //
-                    // for( var item in ListDataPDF){
-                    //   if( item.Url == PDF_URL)
-                    //     {
-                    //       urlPDF = item.UrlDoc;
-                    //       tenPDF = item.Name;
-                    //       print(urlPDF);
-                    //     }
-                    // }
-                    //   if (PDF_URL.contains("doc") ) {
-                    //     url = urlPDF;
-                    //     createFileOfPdfUrl(url,tenPDF);
-                    //   }
-                    //   else
-                    //     if(PDF_URL.contains("xlsx"))
-                    //     {
-                    //      String ten =  PDF_URL.split('/').last;
-                    //       url = PDF_URL;
-                    //
-                    //
-                    //       dio.download(url, '${dir.path}/$ten',
-                    //           onReceiveProgress: (actualbytes, totalbytes) {
-                    //             percentage = actualbytes / totalbytes * 100;
-                    //
-                    //             setState(() {
-                    //               percentageBool = true;
-                    //               downloadMessage =
-                    //               'Downloading... ${percentage.floor()}'
-                    //                   ' %';
-                    //               if (percentage < 100) {
-                    //               } else {
-                    //                 setState(() {
-                    //                   percentageBool = false;
-                    //                 });
-                    //               }
-                    //             });
-                    //           });
-                    //       print(dir.path ?? '');
-                    //       print('dio  ' + dio.toString());
-                    //     }
-                    //     else
-                    //     {
-                    //     url = PDF_URL;
-                    //
-                    //     String ten =  PDF_URL.split('/').last;
-                    //     dio.download(url, '${dir.path}/$ten',
-                    //         onReceiveProgress: (actualbytes, totalbytes) {
-                    //           percentage = actualbytes / totalbytes * 100;
-                    //
-                    //           setState(() {
-                    //             percentageBool = true;
-                    //             downloadMessage =
-                    //             'Downloading... ${percentage.floor()}'
-                    //                 ' %';
-                    //             if (percentage < 100) {
-                    //             } else {
-                    //               setState(() {
-                    //                 percentageBool = false;
-                    //               });
-                    //             }
-                    //           });
-                    //         });
-                    //     print(dir.path ?? '');
-                    //     print('dio  ' + dio.toString());
-                    //   }
-                    //
-                    //
-                    // },
+
                   ),
                 ))
           ],
@@ -436,7 +358,7 @@ class ListDataDK {
   String Url;
   String UrlDoc;
 
-  ListDataDK({this.Name, this.Url, this.UrlDoc});
+  ListDataDK({required this.Name, required this.Url, required this.UrlDoc});
 
   factory ListDataDK.fromJson(Map<String, dynamic> json) {
     return ListDataDK(

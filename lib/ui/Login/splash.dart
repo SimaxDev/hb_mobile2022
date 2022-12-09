@@ -1,15 +1,10 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:hb_mobile2021/core/models/UserJson.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
+
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
+
 
 import 'Login.dart';
 
@@ -22,7 +17,7 @@ class SplashWidget extends StatefulWidget {
 }
 
 class SplashState extends State<SplashWidget> {
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool rememberMe = false;

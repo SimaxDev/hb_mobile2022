@@ -1,6 +1,6 @@
 
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -11,7 +11,7 @@ import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 
 Map<int, String> lstUsers = new Map<int, String>();
 String str="" ;
-List<int>strID =new List<int>();
+List<int>strID =<int>[];
 
 
 Future<String> getDataByKeyWordVBDen(String TenDangNhap,String ActionXL,
@@ -31,6 +31,8 @@ Future<String> getDataByKeyWordVBDen(String TenDangNhap,String ActionXL,
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataByKeyYearVBDen(String TenDangNhap,String ActionXL,
@@ -48,6 +50,8 @@ Future<String> getDataByKeyYearVBDen(String TenDangNhap,String ActionXL,
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -60,6 +64,8 @@ Future<String> getDataByCreatedVBDen(String created) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataVBDen(int skip, int pageSize, String ActionXL, String year) async {
@@ -75,23 +81,11 @@ Future<String> getDataVBDen(int skip, int pageSize, String ActionXL, String year
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
-// Future<String> getDataHomeVBDen( String ActionXL,String query, String year) async {
-//   //String url = "/vbden/GetAllVBDen";
-//   String url = "/api/ServicesVBD/GetData";
-//   var parts = [];
-//   //parts.add('TenDangNhap=' + name.toString());
-//   parts.add('ActionXL=' + ActionXL.toString());
-//   parts.add(query);
-//   parts.add('Yearvb=' + year);
-//   var formData = parts.join('&');
-//   var response = await responseDataPost(url, formData);
-//   if (response.statusCode == 200) {
-//     var items = response.body;
-//     return items;
-//   }
-// }
+
 Future<String> getDataLeftVBDen(int skip, int pageSize, String ActionXL,
     String query,String nam,int skipquey) async {
   String url = "/api/ServicesVBD/GetData";
@@ -109,6 +103,8 @@ Future<String> getDataLeftVBDen(int skip, int pageSize, String ActionXL,
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataHomeVBDen(int skip, int pageSize, String ActionXL,String query) async {
@@ -123,6 +119,8 @@ Future<String> getDataHomeVBDen(int skip, int pageSize, String ActionXL,String q
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataCVBD(String username,String ActionXL) async {
@@ -135,6 +133,8 @@ Future<String> getDataCVBD(String username,String ActionXL) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataCVBDen(String username,String ActionXL,int parentID,
@@ -151,6 +151,8 @@ async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -163,6 +165,8 @@ Future<String> getDataCVBD1(String ActionXL) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> TuChoiDongy(int id,String ActionXL,int year,String ykthuhoi,String hanhdong) async {
@@ -178,6 +182,8 @@ Future<String> TuChoiDongy(int id,String ActionXL,int year,String ykthuhoi,Strin
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getLich(String ActionXL,nam,week,IDLD) async {
@@ -194,6 +200,8 @@ Future<String> getLich(String ActionXL,nam,week,IDLD) async {
     print(" list danh sách :"+ items);
     return items;
 
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataTreeDT(String username,String ActionXL,String group) async {
@@ -207,6 +215,8 @@ Future<String> getDataTreeDT(String username,String ActionXL,String group) async
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -231,6 +241,8 @@ async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataCB(String username,String ActionXL,ItemID, daidien) async {
@@ -245,6 +257,8 @@ Future<String> getDataCB(String username,String ActionXL,ItemID, daidien) async 
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -259,6 +273,8 @@ Future<String> postChuyenTT(int id,String ActionXL,int nam) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> GetHomeThuHoi(String ActionXL,int nam,int id) async {
@@ -272,6 +288,8 @@ Future<String> GetHomeThuHoi(String ActionXL,int nam,int id) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -299,6 +317,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -320,6 +340,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -453,6 +475,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> postKySimOKKy(int id,String ActionXL,String nam,namefile)
@@ -472,6 +496,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataSoCV(String ActionXL, String DonVi,int  Yearvb) async {
@@ -491,6 +517,8 @@ Future<String> getDataSoCV(String ActionXL, String DonVi,int  Yearvb) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> GetSoHoSo(String ActionXL, int  Yearvb,) async {
@@ -509,6 +537,8 @@ Future<String> GetSoHoSo(String ActionXL, int  Yearvb,) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> GetNuma(String ActionXL, String id,int  Yearvb) async {
@@ -527,6 +557,8 @@ Future<String> GetNuma(String ActionXL, String id,int  Yearvb) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> LVB(String ActionXL, String DonVi,int  Yearvb) async {
@@ -547,6 +579,8 @@ Future<String> LVB(String ActionXL, String DonVi,int  Yearvb) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> APIDoMat(String ActionXL, String DonVi,int  Yearvb) async {
@@ -566,6 +600,8 @@ Future<String> APIDoMat(String ActionXL, String DonVi,int  Yearvb) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> APICQBH(String ActionXL, int  Yearvb, String key) async {
@@ -585,6 +621,8 @@ Future<String> APICQBH(String ActionXL, int  Yearvb, String key) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> APIDoKhan(String ActionXL, String DonVi,int  Yearvb) async {
@@ -605,6 +643,8 @@ Future<String> APIDoKhan(String ActionXL, String DonVi,int  Yearvb) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -627,6 +667,8 @@ Yearvb) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postGiaoViecVBD(
@@ -693,6 +735,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -813,6 +857,8 @@ if(vbdDoMat == null){
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -839,6 +885,8 @@ Future postXuLyXongVBD( username,id, ActionXL,  noidungykien ,nam) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 
 
@@ -911,6 +959,8 @@ Future postYKienVBD( username,id, ActionXL,  noidungykien,nam) async {
     if (response.statusCode == 200) {
       var items = response.body;
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
 
 
@@ -931,6 +981,8 @@ nam) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -945,6 +997,8 @@ Future<String> getButPheDataVBDen(String username,int id,String ActionXL) async 
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -967,6 +1021,8 @@ async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postChuyenVBD( username,id, ActionXL,CBChon,UserXDB,XuLyChinh,PH,selectChechbox,
@@ -990,6 +1046,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postChuyenNhanhVBD( username,id, ActionXL,CBChon,tti,
@@ -1019,5 +1077,7 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }

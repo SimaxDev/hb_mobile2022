@@ -1,40 +1,30 @@
 import 'dart:async';
 
-import 'package:data_table_2/data_table_2.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_custom_cards/flutter_custom_cards.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:hb_mobile2021/common/VBDi/TableUserTT.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'dart:convert';
 
-import 'package:json_table/json_table.dart';
-import 'package:syncfusion_flutter_datagrid/datagrid.dart';
-import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:http/http.dart' as http;
-import 'package:flutter/material.dart';
-
 
 
 class ThayThe extends StatefulWidget {
   final int id;
   final String nam;
 
-  ThayThe({this.id,this.nam});
+  ThayThe({required this.id,required this.nam});
   @override
   _ThayTheState createState() => _ThayTheState();
 }
 
 class _ThayTheState extends State<ThayThe> {
-  final _sigInFormKey = GlobalKey<FormState>();
-  final int _rowsPerPage = 5;
-  double _height;
-  double _width;
+  late double _height;
+  late double _width;
   TextEditingController _titleController = TextEditingController();
   TextEditingController _titleController1 = TextEditingController();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
@@ -51,14 +41,14 @@ class _ThayTheState extends State<ThayThe> {
   List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
 
   String dropdownValue ="2022";
-  String testthuhomerxoa;
+  late String testthuhomerxoa;
   String ActionXL = "GetListVBDi";
   String  text1 = "";
   RxList productlist1 = [].obs;
   bool showLoadingIndicator = true;
-  Timer _timer;
+  late Timer _timer;
   List dataList = [];
-  int selectedRadioTile;
+  late int selectedRadioTile;
   var tongso;
   bool chckSwitch = false;
   @override
@@ -123,8 +113,8 @@ class _ThayTheState extends State<ThayThe> {
 
   }
   GetDataByKeyWordVBDi(String text) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String vbtimkiem = await getDataByKeyWordVBDi(tendangnhap, ActionXL,
+    var tendangnhap = sharedStorage!.getString("username");
+    String vbtimkiem = await getDataByKeyWordVBDi(tendangnhap!, ActionXL,
       text,dropdownValue,"");
     setState(() {
       dataList = json.decode(vbtimkiem)['OData'];
@@ -133,8 +123,8 @@ class _ThayTheState extends State<ThayThe> {
   }
 
   GetDataByKeyYearVBDi(String year) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String yeartimkiem = await getDataByKeyYearVBDi(tendangnhap, ActionXL,
+    var tendangnhap = sharedStorage!.getString("username");
+    String yeartimkiem = await getDataByKeyYearVBDi(tendangnhap!, ActionXL,
         year,"",skip,pageSize);
     setState(() {
       dataList = json.decode(yeartimkiem)['OData'];
@@ -158,7 +148,7 @@ class _ThayTheState extends State<ThayThe> {
   Widget build(BuildContext context) {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
-    final DataGridController _dataGridController = DataGridController();
+    // final DataGridController _dataGridController = DataGridController();
     return Scaffold(
       //  key: _sigInFormKey,
         appBar: AppBar(title: Text("Thay thế văn bản"), automaticallyImplyLeading: false),
@@ -312,10 +302,10 @@ class _ThayTheState extends State<ThayThe> {
                                     height: 1,
                                     color: Colors.white70,
                                   ),
-                                  onChanged: (String newValue) {
+                                  onChanged: ( newValue) {
                                     if(mounted){
                                       setState(() {
-                                        dropdownValue = newValue;
+                                        dropdownValue = newValue!;
                                         // GetDataByKeyYearVBDi(dropdownValue);
                                         GetDataByKeyYearVBDi(dropdownValue);
                                       });
@@ -356,7 +346,7 @@ class _ThayTheState extends State<ThayThe> {
                       padding: EdgeInsets.only(top: 10, right: 20),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         width: MediaQuery.of(context).size.width * 0.25,
@@ -384,7 +374,7 @@ class _ThayTheState extends State<ThayThe> {
                       padding: EdgeInsets.only(top: 10),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: MediaQuery.of(context).size.width * 0.4,
@@ -401,7 +391,7 @@ class _ThayTheState extends State<ThayThe> {
                             ),
                             onPressed: () async {
                               var thanhcong = null;
-                              var tendangnhap = sharedStorage.getString("username");
+                              var tendangnhap = sharedStorage!.getString("username");
                               EasyLoading.show();
                               thanhcong =  await postThayTheVB(tendangnhap,
                                   widget.id, "ThayTheVB",widget.nam,
@@ -413,7 +403,7 @@ class _ThayTheState extends State<ThayThe> {
 
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             )),
                       ),
@@ -455,7 +445,7 @@ class _ThayTheState extends State<ThayThe> {
       shrinkWrap: true,
       itemBuilder: (context, index) {
         if(index == tongso){
-          _buildProgressIndicator();
+          return  _buildProgressIndicator();
         }else{
           return getBody(dataList[index]);
         }
@@ -517,7 +507,7 @@ class _ThayTheState extends State<ThayThe> {
       ),
       onChanged: (ID) {
         setState(() {
-          selectedRadioTile = ID;
+          selectedRadioTile = ID as int;
         });
 
       },
@@ -544,7 +534,7 @@ class _ThayTheState extends State<ThayThe> {
       ),
       onChanged: (ID) {
         setState(() {
-          selectedRadioTile = ID;
+          selectedRadioTile = ID as int;
         });
 
       },

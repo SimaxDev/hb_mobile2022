@@ -1,12 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
-import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:convert';
 
-import 'package:path/path.dart';
 
 
 
@@ -25,7 +23,7 @@ class _TreeFromJsonState extends State<TreeFromJson> {
   TreeController(allNodesExpanded: false);
   String ActionXL1 = "GetTreeDonViLTKhacUBND";
   List chitiet = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
@@ -35,7 +33,7 @@ class _TreeFromJsonState extends State<TreeFromJson> {
   String ch = "";
 
 
-String  lst;
+late String  lst;
 
 
   @override
@@ -44,8 +42,8 @@ String  lst;
     super.initState();
     checkedValue = true;
     setState(() {
-      var tendangnhap = sharedStorage.getString("username");
-      GetDataDetailVBDi(tendangnhap);
+      var tendangnhap = sharedStorage!.getString("username");
+      GetDataDetailVBDi(tendangnhap!);
 
     });
 
@@ -203,10 +201,10 @@ Container(
                     children: [
                       Checkbox(
                         value: values[element['key'].toString()]  ,
-                        onChanged: (bool value) {
+                        onChanged: ( value) {
                           setState(() {
 
-                             values[element['key'].toString()] = value;
+                             values[element['key'].toString()] = value!;
                           });
 
 
@@ -231,7 +229,7 @@ Container(
                             var UserList = lstUser.toString();
                             // UserList =  lstUser1;
                           }
-                          if(!values[element['key'].toString()]){
+                          if(!values[element['key'].toString()]!){
                             if(lstUserCVBi!=null && lstUserCVBi.contains("^"+element["key"]+";|"+element["title"])){
                               lstUser.remove(element["key"]);
                               lstUserCVBi = lstUserCVBi.replaceAll("^"+element["key"]+";|"+ element["title"], "");
@@ -276,7 +274,7 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 
   factory ListData1.fromJson(Map<String, dynamic> json) {
     return ListData1(ID: (json['key']), text: json['title']);

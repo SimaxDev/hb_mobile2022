@@ -8,7 +8,7 @@ import 'dart:convert';
 import 'package:intl/intl.dart';
 
 class NhatKyDuThao extends StatefulWidget {
-  NhatKyDuThao({Key key, this.idDuThao, this.username,this.nam}) : super(key:
+  NhatKyDuThao({Key? key, required this.idDuThao, required this.username,required this.nam}) : super(key:
   key);
   final int idDuThao;
   final String username;
@@ -19,7 +19,7 @@ class NhatKyDuThao extends StatefulWidget {
 }
 
 class _NhatKyDuThao extends State<NhatKyDuThao> {
-  List<Widget> listNhatKy = new List<Widget>();
+  List<Widget> listNhatKy = <Widget>[];
   bool isLoading = false;
   String ActionXLGuiNhan = "GetGuiNhanVBDT";
   var tendangnhap = "";
@@ -44,7 +44,7 @@ class _NhatKyDuThao extends State<NhatKyDuThao> {
 
   //Get api
   fetchData() async {
-    tendangnhap = sharedStorage.getString("username");
+    tendangnhap = sharedStorage!.getString("username")!;
     if (tendangnhap == null || tendangnhap == "") {
       tendangnhap = widget.username;
     }
@@ -157,7 +157,7 @@ class _NhatKyDuThao extends State<NhatKyDuThao> {
         }
       });
     } else {
-      listNhatKy = null;
+      listNhatKy = [];
       isLoading = false;
     }
   }

@@ -1,11 +1,9 @@
 import 'dart:ui';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
-import 'package:hb_mobile2021/common/VBDi/TreeFromJson.dart';
-import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
@@ -15,9 +13,9 @@ import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 
 class ChuyenNBVBDi extends StatefulWidget {
   final int id;
-  final int nam;
+  final int  nam;
 
-  ChuyenNBVBDi({ this.id,this.nam});
+  ChuyenNBVBDi({ required this.id,required this.nam});
 
   @override
   _ChuyenNBVBDiState createState() => _ChuyenNBVBDiState();
@@ -27,22 +25,22 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
   final TreeController _treeController = TreeController(allNodesExpanded: false);
   String ActionXL1 = "GetTreeDonViV2";
   List chitiet = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
   String valueselected = "";
   bool isLoading = false;
   Map<String, bool> values = new Map<String, bool>();
-  String lst;
-  double _height;
-  double _width;
-  DateTime _dateTime;
+  late String lst;
+  late double _height;
+  late double _width;
+  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-  String _setDate;
-  String _setDate1;
+  late String _setDate;
+  late String _setDate1;
   bool PH = false;
   bool isClick = true;
   bool isClick1 = true;
@@ -54,8 +52,8 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
   @override
   void initState() {
     super.initState();
-    var tendangnhap = sharedStorage.getString("username");
-    GetDataDetailVBDi(tendangnhap);
+    var tendangnhap = sharedStorage!.getString("username");
+    GetDataDetailVBDi(tendangnhap!);
   }
 
   @override
@@ -66,7 +64,7 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
     EasyLoading.dismiss();
   }
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -179,16 +177,10 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                     FontWeight
                         .bold),),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       if(mounted){
                         setState(() {
-                          if (parsedJson == null) {
-                            return Center(
-                                child: CircularProgressIndicator(
-                                  valueColor: new AlwaysStoppedAnimation<Color>(Colors.blueAccent),
-                                ));
-                          }
                           isClick1 = !isClick1;
                         });
                       }
@@ -248,7 +240,7 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                 Padding(padding: EdgeInsets.only(top: 10),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery
@@ -264,7 +256,7 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                         label: Text("Chuyển",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
                         TextAlign.center,),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String userList = lstUserCVBD;
                           EasyLoading.show();
                           var thanhcong = await postChuyenVBDi(tendangnhap,
@@ -277,7 +269,7 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ),),
@@ -285,7 +277,7 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                 Padding(padding: EdgeInsets.only(top: 10,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -353,10 +345,10 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                       child: element['isUser']
                           ? Checkbox(
                         value: values[element['key'].toString() + (element['isUser'] ? "U" : "")],
-                        onChanged: (bool value) {
+                        onChanged: ( value) {
                           if(mounted){
                             setState(() {
-                              values[element['key'].toString() + (element['isUser'] ? "U" : "")] = value;
+                              values[element['key'].toString() + (element['isUser'] ? "U" : "")] = value!;
                             });
                           }
 
@@ -378,7 +370,7 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
                             var UserList = lstUser.toString();
                             // UserList =  lstUser91;
                           }
-                          if (!values[element['key'].toString() + (element['isUser'] ? "U" : "")]) {
+                          if (!values[element['key'].toString() + (element['isUser'] ? "U" : "")]!) {
                             if (lstUserCVBD != null &&
                                 lstUserCVBD.contains( element["key"] + ";|" + element["title"])) {
                               lstUser.remove(element["key"]);
@@ -391,7 +383,8 @@ class _ChuyenNBVBDiState extends State<ChuyenNBVBDi> {
 
                                 textND = textND.replaceAll(","+element["title"], "");
                               }
-                              return textND = textND.replaceAll(element["title"], "");
+                              //return textND = textND.replaceAll(element["title"], "");
+                               textND = textND.replaceAll(element["title"], "");
                             } else if (lstUserCVBD.contains(element["key"] + ";|" + element["title"])) {
                               lstUser.remove(element["key"]);
                               lstUserCVBD = lstUserCVBD.replaceAll(element["key"] + ";|" + element["title"], "");
@@ -430,7 +423,7 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 
   factory ListData1.fromJson(Map<String, dynamic> json) {
     return ListData1(ID: (json['key']), text: json['title']);

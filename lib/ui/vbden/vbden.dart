@@ -3,13 +3,9 @@ import 'dart:math';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/restart.dart';
-import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -18,14 +14,14 @@ import 'package:hb_mobile2021/ui/main/MenuLeft.dart';
 
 class ListVBDen extends StatefulWidget {
   String urlttVB;
-  final String created;
+
   final String username;
-  final int val;
+
   String nam;
 
   //VanBanDi({this.urlttVB});
-  ListVBDen({Key key, this.urlttVB, this.created, this.username, this.val,
-    this.nam}) : super(key: key);
+  ListVBDen({Key? key, required this.urlttVB, required this.username,
+    required this.nam}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -37,7 +33,7 @@ class ListVBDen1 extends State<ListVBDen> {
   List dataList = [];
   List dataDisplay = [];
   bool isLoading = false;
-  String hoten, chucvu;
+  late String hoten, chucvu;
   int skip = 1;
   int pageSize = 20;
   int skippage = 0;
@@ -62,10 +58,10 @@ class ListVBDen1 extends State<ListVBDen> {
   int IDT = 0;
   TextEditingController _titleController = TextEditingController();
   bool showD = true;
-  String testthuhomerxoa;
-  String nam = "";
+  late String testthuhomerxoa;
   List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
   String dropdownValue = "";
+  String _nam = "";
   int namYB = 2022;
 
   @override
@@ -76,12 +72,13 @@ class ListVBDen1 extends State<ListVBDen> {
     super.initState();
     isLoading = true;
     chckSwitch = false;
-    if (mounted) {setState(() {
+    if (mounted) {
+      setState(() {
       namYB =  int.parse(widget.nam);
       if(widget.nam == null || widget.nam ==  ""){
         DateTime now = DateTime.now();
-        nam =  DateFormat('yyyy').format(now) ;
-        dropdownValue = nam;
+        _nam =  DateFormat('yyyy').format(now) ;
+        dropdownValue = _nam;
       }
       else
       {
@@ -116,17 +113,17 @@ class ListVBDen1 extends State<ListVBDen> {
   }
 
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
     if (mounted) {setState(() {
-      user.Title = sharedStorage.getString("hoten");
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.Title = sharedStorage!.getString("hoten")!;
+      user.ChucVu = sharedStorage!.getString("chucvu")!;
     });}
 
-    var tendangnhap = sharedStorage.getString("username");
-    ten = tendangnhap;
+    var tendangnhap = sharedStorage!.getString("username");
+    ten = tendangnhap!;
   }
 
 //refesh lại trnag
@@ -194,8 +191,8 @@ class ListVBDen1 extends State<ListVBDen> {
 
 //tim kiem van ban
   GetDataByKeyWordVBDen(String text) async {
-    var tendangnhap = sharedStorage.getString("username");
-        vbtimkiem = await getDataByKeyWordVBDen(tendangnhap, ActionXL, text,
+    var tendangnhap = sharedStorage!.getString("username");
+        vbtimkiem = await getDataByKeyWordVBDen(tendangnhap!, ActionXL, text,
           dropdownValue,widget.urlttVB);
 
 
@@ -341,11 +338,11 @@ class ListVBDen1 extends State<ListVBDen> {
                   color: Colors.white70,
                   width: 50,
                 ),
-                onChanged: (String newValue) {
+                onChanged: ( newValue) {
                   if (mounted) {setState(() {
                     skip =1;
                     skippage =0;
-                    dropdownValue = newValue;
+                    dropdownValue = newValue!;
                     dataList.clear();
                     isLoading = true;
                     // GetDataByKeyYearVBDen(dropdownValue);
@@ -599,7 +596,7 @@ class ListVBDen1 extends State<ListVBDen> {
             Container(
               height: MediaQuery.of(context).size.height,
               child: MenuLeft(page: 1,username: widget.username,year:
-              dropdownValue,queryLeft: widget.urlttVB,queryID:IDTT),
+              dropdownValue,queryLeft: widget.urlttVB,queryID:IDTT as int),
             )
           ],
         ),
@@ -630,7 +627,7 @@ class ListVBDen1 extends State<ListVBDen> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           if(index == tongso){
-            _buildProgressIndicator();
+            return _buildProgressIndicator();
           }else{
             return getBody(dataList[index]);
           }
@@ -661,19 +658,13 @@ class ListVBDen1 extends State<ListVBDen> {
   Widget getBody( item) {
     var trichyeu = item['vbdTrichYeu'] != null ? item['vbdTrichYeu'] :"";
     var soKyHieu = item['vbdSoKyHieu'] != null ? item['vbdSoKyHieu'] : "";
-    //var soKyHieu = "sdjbhsdjoghsdjghsgjlkshgsljh";
     var aa = item['vbdNgayDen'] == null?"": DateTime.tryParse(item['vbdNgayDen']);
-    var ngaybanhanh =item['vbdNgayDen'] == null?"": DateFormat("dd-MM-y").format(aa);
+    var ngaybanhanh =item['vbdNgayDen'] == null?"": DateFormat("dd-MM-y").format(aa as DateTime);
     var id = item['ID'] != null ? item['ID'] :"";
     var MaDonVi = item['MaDonVi'] != null ? item['MaDonVi'] :"";
     var ListName = item['ListName'] == null ? "" : item['ListName'];
     int Yearvb = item['vbdYear'] == null ? 2020: item['vbdYear'];
     var trangthai =  item['vbdTrangThaiXuLyVanBan'] ==  null ?"": item['vbdTrangThaiXuLyVanBan'];
-   // var temp = DateFormat('yyyy-MM-dd').parse(item['vbdNgayBanHanh']);
-    //var tempden = DateFormat('yyyy-MM-dd').parse(item['vbdNgayDen']);
-   // var ngayden = DateFormat('dd-MM-yyyy').format(tempden);
-    //var trangthai = item['vbdTrangThaiVanBan'] ?? "";
-    //VanBanDiJson vbdi = vanBanDiJson(item.toString());
     return soKyHieu == null || soKyHieu == false || trangthai == 1 || trangthai == 4
         ? Card(
             elevation: 1.5,
@@ -684,7 +675,7 @@ class ListVBDen1 extends State<ListVBDen> {
                   context,
                   MaterialPageRoute(
                     builder: (context) => ChiTietVBDen(id: id,
-                      MaDonVi:MaDonVi,Yearvb:namYB ,),
+                      MaDonVi:MaDonVi,Yearvb:namYB, ListName: '' ,),
                   ),
                 );
               },

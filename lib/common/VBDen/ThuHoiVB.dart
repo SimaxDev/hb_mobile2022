@@ -3,22 +3,19 @@
 
 import 'dart:convert';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
-import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:multi_select_item/multi_select_item.dart';
 
-import '../../core/services/callApi.dart';
 
 class ThuHoiVb extends StatefulWidget {
   final int id;
   final int nam;
 
-  ThuHoiVb({this.id, this.nam});
+  ThuHoiVb({required this.id, required this.nam});
 
   final String title = "Thu hồi văn bản";
 
@@ -27,8 +24,8 @@ class ThuHoiVb extends StatefulWidget {
 }
 
 class ThuHoiVbState extends State<ThuHoiVb> {
-  bool sort;
-  int selectedIndex;
+  late bool sort;
+  late int selectedIndex;
   List listThuHoi = [];
   List listID = [];
   String ActionXL = "GetThongTinGuiNhan";
@@ -37,7 +34,7 @@ class ThuHoiVbState extends State<ThuHoiVb> {
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   bool _checkbox = false;
   Map<String, bool> valuesPH = new Map<String, bool>();
-  List _selecteCategorys = List();
+  List _selecteCategorys = [];
 
   @override
   void initState() {
@@ -234,11 +231,8 @@ class ThuHoiVbState extends State<ThuHoiVb> {
                   child:CheckboxListTile(
                     value:_selecteCategorys
                         .contains(item['ID']),
-                    onChanged: (bool selected) {
-                      _onCategorySelected(selected, item['ID'] );
-                      print(item['ID'].toString());
-
-                      print("lisst " +listID.toString());
+                    onChanged: ( selected) {
+                      _onCategorySelected(selected!, item['ID'] );
                     },
                   ) ,),
 

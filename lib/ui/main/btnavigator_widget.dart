@@ -1,20 +1,11 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
-import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/HomePageService.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/restart.dart';
-import 'package:hb_mobile2021/ui/HomePage/HomePage.dart';
-import 'package:hb_mobile2021/ui/HomePage/homeVBD.dart';
 import 'package:hb_mobile2021/ui/HomePage/trangChu.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/index.dart';
-import 'package:hb_mobile2021/ui/hoTro.dart';
-import 'package:hb_mobile2021/ui/main/lich_canhan.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/vbden/vbden.dart';
 import 'package:hb_mobile2021/ui/vbdi/index.dart';
@@ -22,7 +13,6 @@ import 'package:hb_mobile2021/ui/vbduthao/DuThao.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'MenuRight.dart';
 import 'package:http/http.dart' as http;
-import 'dart:convert';
 
 class BottomNavigator extends StatefulWidget {
 
@@ -31,10 +21,10 @@ class BottomNavigator extends StatefulWidget {
   final String query;
   final String year;
   final int ID;
-  final int IDDonVi;
+
   final index ;
-  BottomNavigator({this.username, this.page,this.query,this.year, this.ID,
-  this.index,this.IDDonVi});
+  BottomNavigator({required this.username, required this.page,required this.query,required this.year, required this.ID,
+  this.index});
   @override
   State<StatefulWidget> createState() {
     return BottomNavigatorState();
@@ -43,14 +33,16 @@ class BottomNavigator extends StatefulWidget {
 
 class BottomNavigatorState extends State<BottomNavigator> {
 
-  int _currentIndex  ;
+  late int _currentIndex  ;
   String _title = 'DEMO VGCA';
   String urlttVB = '';
   String tenUser = "";
   String chucvu = "";
-  SharedPreferences sharedStorage;
-  int  indexVBLeft ;
+  late SharedPreferences sharedStorage;
+  DateTime now = DateTime.now();
   String namVB = '2022';
+
+
 
   GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey();
 
@@ -68,7 +60,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
   void initState() {
     super.initState();
     setState(() {
-      if(widget.year == null){
+      if(widget.year == null || widget.year == ""){
         DateTime now = DateTime.now();
         String Yearvb = DateFormat('yyyy').format(now);
         namVB  =  Yearvb;
@@ -110,26 +102,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
   }
 
 
-  // getUserInfor() async {
-  //   //String url = "http://apimobile.hoabinh.gov.vn/api/Home/GetUser";
-  //   String url = "http://ApiMobile.ungdungtructuyen.vn/api/Home/GetUser";
-  //   var parts = [];
-  //   parts.add('TenDangNhap=' + widget.username);
-  //   var formData = parts.join('&');
-  //   var response = await http.get(
-  //       url +"?" + formData
-  //   );
-  //   if (response.statusCode == 200) {
-  //     var items = json.decode(response.body)['OData'];
-  //     if (mounted) { setState(() {
-  //       tenUser = items["Title"];
-  //       chucvu = items["chucvuCurrentTitle"];
-  //     });}
-  //
-  //     sharedStorage.setString("hotenUser", tenUser);
-  //     sharedStorage.setString("chucvu", chucvu);
-  //   }
-  // }
+
 
   @override
   Widget build(BuildContext context) {
@@ -137,43 +110,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
       key: _scaffoldKey,
       body: body(),
 
-      // bottomNavigationBar: FFNavigationBar(
-      //   theme: FFNavigationBarTheme(
-      //     barBackgroundColor: Colors.white,
-      //     selectedItemBorderColor: Colors.yellow,
-      //     selectedItemBackgroundColor: Colors.green,
-      //     selectedItemIconColor: Colors.white,
-      //     selectedItemLabelColor: Colors.black,
-      //   ),
-      //   selectedIndex: _currentIndex,
-      //   onSelectTab:onTabTapped,
-      //   items: [
-      //     FFNavigationBarItem(
-      //       iconData: Icons.home,
-      //       label: 'Trang chủ',
-      //     ),
-      //     FFNavigationBarItem(
-      //       iconData: Icons.library_books,
-      //       label: 'Văn bản đến',
-      //     ),
-      //     FFNavigationBarItem(
-      //       iconData: Icons.my_library_books_outlined,
-      //       label: 'Văn bản đi',
-      //     ),
-      //     FFNavigationBarItem(
-      //       iconData: Icons.collections_bookmark_outlined,
-      //       label: 'Dự thảo/Phiếu trình',
-      //     ),
-      //     FFNavigationBarItem(
-      //       iconData: Icons.collections_bookmark_sharp,
-      //       label: 'Hồ sơ công việc',
-      //     ),
-      //     // FFNavigationBarItem(
-      //     //   iconData: Icons.support_agent_outlined,
-      //     //   label: 'Hỗ trợ',
-      //     // ),
-      //   ],
-      // ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         selectedItemColor: Colors.blue,
@@ -187,10 +124,12 @@ class BottomNavigatorState extends State<BottomNavigator> {
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            title: Text(
-             "Trang chủ",
-              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
-            ),
+            label:
+            "Trang chủ",
+            // title: Text(
+            //  "Trang chủ",
+            //   style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            // ),
           ),
           BottomNavigationBarItem(
             icon:  new Image.asset("assets/icon/vbden.png",
@@ -199,10 +138,12 @@ class BottomNavigatorState extends State<BottomNavigator> {
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            title: Text(
-             "TB Văn bản đến",
-              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
-            ),
+            label:
+            "TB Văn bản đến",
+            // title: Text(
+            //  "TB Văn bản đến",
+            //   style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            // ),
           ),
           BottomNavigationBarItem(
             icon: new Image.asset("assets/icon/vbdiApp.png",
@@ -211,10 +152,11 @@ class BottomNavigatorState extends State<BottomNavigator> {
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            title: Text(
-              "TB Văn bản đi",
-              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
-            ),
+            label: "TB Văn bản đi",
+            // title: Text(
+            //   "TB Văn bản đi",
+            //   style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            // ),
           ),
           BottomNavigationBarItem(
             icon: new Image.asset("assets/icon/duthaoApp.png",
@@ -223,10 +165,11 @@ class BottomNavigatorState extends State<BottomNavigator> {
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            title: Text(
-              "TB Dự thảo/PT",
-              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
-            ),
+            label: "TB Dự thảo/PT",
+            // title: Text(
+            //   "TB Dự thảo/PT",
+            //   style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            // ),
           ),
           BottomNavigationBarItem(
             icon: new Image.asset("assets/icon/hscvApp.png",
@@ -235,10 +178,11 @@ class BottomNavigatorState extends State<BottomNavigator> {
                     .width * 0.045,
                 height: MediaQuery.of(context).size.height *
                     0.025, fit: BoxFit.fill),
-            title: Text(
-              "TB Hồ sơ CV",
-              style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
-            ),
+            label:"TB Hồ sơ CV" ,
+            // title: Text(
+            //   "TB Hồ sơ CV",
+            //   style: TextStyle(fontWeight: FontWeight.normal,fontSize:10),
+            // ),
           )
           // new BottomNavigationBarItem(
           //   icon:    new Image.asset("assets/icon/trangtruApp.png",
@@ -293,11 +237,11 @@ class BottomNavigatorState extends State<BottomNavigator> {
 
         ],
       ),
-      endDrawer: MenuRight(hoten: tenUser,chucvu: chucvu,),endDrawerEnableOpenDragGesture: false,
+      endDrawer: MenuRight(hoten: tenUser,chucvu: chucvu, users: '',),endDrawerEnableOpenDragGesture: false,
     );
   }
 
-  Widget body() {
+  Widget? body() {
 
 
     switch (_currentIndex) {
@@ -307,17 +251,18 @@ class BottomNavigatorState extends State<BottomNavigator> {
             ),
             onWillPop:  () async {
               logOut(context);
-              Navigator.pop(context, true);
+              Navigator.pop(context, true);return true;
             }
 
         );
         break;
       case 1:
         return WillPopScope(
-          child: ListVBDen(urlttVB : urlttVB, val: indexVBLeft, username:
-          widget.username,nam:namVB),
+          child: ListVBDen(urlttVB : urlttVB, username:
+          widget.username,nam:namVB, ),
           onWillPop:  () async {
             trangthaiVB("",0);
+            return false;
           }
 
         );
@@ -326,9 +271,9 @@ class BottomNavigatorState extends State<BottomNavigator> {
 
         return WillPopScope(
             child: VanBanDi(urlttVB : urlttVB, currentIndex: _currentIndex,
-                username: widget.username,nam:namVB),
+                username: widget.username,nam:namVB, ),
             onWillPop:  () async {
-              trangthaiVB("",0);
+              trangthaiVB("",0);return true;
             }
 
         );
@@ -338,7 +283,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
             child: DuThaoWidget(urlLoaiVB : urlttVB, val: _currentIndex, username: widget.username, pageindex:13,
                 nam:namVB),
             onWillPop:  () async {
-              trangthaiVB("",0);
+              trangthaiVB("",0);return true;
             }
 
         );
@@ -346,9 +291,9 @@ class BottomNavigatorState extends State<BottomNavigator> {
       case 4:
         return WillPopScope(
             child:  HSCVWidget(urlLoaiVB : urlttVB, val: _currentIndex,
-                username: widget.username,nam:namVB),
+                username: widget.username,nam:namVB,),
             onWillPop:  () async {
-              trangthaiVB("",0);
+              trangthaiVB("",0);return true;
             }
 
         );
@@ -356,7 +301,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
         break;
 
 
-    }
+    }  return null;
   }
 
   void trangthaiVB(String ttvb,  int index){

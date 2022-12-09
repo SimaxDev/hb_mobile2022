@@ -1,15 +1,9 @@
 import 'dart:async';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get/get.dart';
-import 'package:hb_mobile2021/CauHinhChuKySo/ListKySo.dart';
-import 'package:hb_mobile2021/CauHinhChuKySo/SignaturePicker.dart';
-import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/Login/Login.dart';
 import 'package:hb_mobile2021/ui/User/ThongTinUser.dart';
 import 'package:hb_mobile2021/ui/User/Edit_pass.dart';
 import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
@@ -19,11 +13,10 @@ import 'shared.dart';
 
 class MenuRight extends StatefulWidget {
   String users;
-  String tendangnhap;
   String hoten;
   String chucvu;
 
-  MenuRight({this.hoten, this.chucvu, this.users});
+  MenuRight({required this.hoten, required this.chucvu, required this.users, });
 
   @override
   _MenuRightState createState() => _MenuRightState();
@@ -153,7 +146,7 @@ class _MenuRightState extends State<MenuRight> {
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    BottomNavigator(username: widget.users, IDDonVi: donvi)),
+                    BottomNavigator(username: widget.users, page: 0,year: '',ID: 0,query: '',index: 0,)),
             (Route<dynamic> route) => false);
       });
 
@@ -167,7 +160,7 @@ class _MenuRightState extends State<MenuRight> {
 
   @override
   void dispose() {
-
+EasyLoading.dismiss();
     super.dispose();
   }
 
@@ -226,7 +219,7 @@ class _MenuRightState extends State<MenuRight> {
               // GetInfoUserDonVi(IDVBDT);
               IDGroup = IDVBDT;
               GetInfoUser(widget.users, IDVBDT);
-
+              NeverScrollableScrollPhysics();
               EasyLoading.show();
               //Navigator.pop(context);
             });
@@ -346,7 +339,7 @@ class _MenuRightState extends State<MenuRight> {
           ListTile(
             title: new Text('Thông tin cá nhân'),
             trailing: new IconButton(
-              icon: new Icon(Icons.supervised_user_circle_sharp),
+              icon: new Icon(Icons.supervised_user_circle_sharp), onPressed: () {  },
             ),
             onTap: () {
               Navigator.push(
@@ -391,7 +384,7 @@ class _MenuRightState extends State<MenuRight> {
           ListTile(
             title: new Text('Đổi mật khẩu'),
             trailing: new IconButton(
-              icon: new Icon(Icons.lock_outline_rounded),
+              icon: new Icon(Icons.lock_outline_rounded), onPressed: () {  },
             ),
             onTap: () {
               var tendangnhap1 = ten;
@@ -406,7 +399,7 @@ class _MenuRightState extends State<MenuRight> {
           ListTile(
             title: new Text('Đăng xuất'),
             trailing: new IconButton(
-              icon: new Icon(Icons.exit_to_app),
+              icon: new Icon(Icons.exit_to_app), onPressed: () {  },
             ),
             onTap: () async {
               // Navigator.pushReplacement(context,

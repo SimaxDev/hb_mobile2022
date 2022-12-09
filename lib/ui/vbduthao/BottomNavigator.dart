@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:date_time_picker/date_time_picker.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -11,17 +10,11 @@ import 'package:hb_mobile2021/common/DTPT/TreeTrinhTiepPT.dart';
 import 'package:hb_mobile2021/common/SearchDropdownListServer.dart';
 import 'package:hb_mobile2021/common/SmCombobox.dart';
 import 'package:hb_mobile2021/common/DTPT/TreeTinhTiepDT.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
-
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/restart.dart';
 import 'dart:developer' as Dev;
-
-
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:path/path.dart';
 
 
@@ -32,7 +25,7 @@ class BottomNav extends StatefulWidget {
   final String MaDonVi;
   final ttDuThao;
 
-  BottomNav({this.id, this.username, this.nam,this.MaDonVi,this.ttDuThao});
+  BottomNav({required this.id, required this.username, required this.nam,required this.MaDonVi,this.ttDuThao});
 
   @override
   _BottomNav createState() => _BottomNav(id: id);
@@ -41,7 +34,7 @@ class BottomNav extends StatefulWidget {
 final GlobalKey<State> _keyLoader = new GlobalKey<State>();
 
 class _BottomNav extends State<BottomNav> {
-  int id;
+  late int id;
   var detailVBDT;
 
   bool isLoading = false;
@@ -59,9 +52,9 @@ class _BottomNav extends State<BottomNav> {
   List<ListData> vanbanList = [];
   List vanban = [];
   List lstFileAtt = [];
-  List<ListData> lstDataSearch = List<ListData>();
-  File selectedfile;
-  File selectedfileDuyet;
+  List<ListData> lstDataSearch = <ListData>[];
+  late File selectedfile;
+  late File selectedfileDuyet;
   var duThao= null;
   String mesDuThao = "";
   String tenDsYKien="";
@@ -78,46 +71,27 @@ class _BottomNav extends State<BottomNav> {
     {"display": "Chàm", "value": "7"},
     {"display": "Tím", "value": "8"}
   ];
-
-  _BottomNav({this.id});
+  //
+   _BottomNav({required this.id});
 
 
   @override
   void initState() {
-  // GetDataDetailVBDT();
-    //_initializeTimer();
+
 
     if (mounted) {  setState(() {
-      // GetIdUser(widget.username);
-     // vbdiTrangThaiVB = trangThaiVB;
       duThao = widget.ttDuThao;
       NguoiSoan = vbdiNguoiSoan;
       NguoiTrinhTiep = vbdiNguoiTrinhTiep;
-      // NguoiKy = vbdiNguoiKy;
-
-      //lstCheck =  lstChiTietDt;
 
     });}
 
     check = false;
     super.initState();
   }
-  // GetDataDetailVBDT() async {
-  //   // if (widget.nam == null) {
-  //   //   widget.nam = "2021";
-  //   // }
-  //   String detailVBDT = await getDataDetailVBDT(
-  //       widget.id, "GetVBDTByID", widget.nam, widget.MaDonVi);
-  //   if(mounted){
-  //     setState(() {
-  //       duThao = json.decode(detailVBDT)['OData'];
-  //
-  //     });
-  //   }
-  //
-  // }
+
   selectFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
@@ -125,7 +99,7 @@ class _BottomNav extends State<BottomNav> {
 
     if (result != null) {
       //if there is selected file
-      selectedfile = File(result.files.single.path);
+      selectedfile = File(result.files.single.path!);
     }
     if (mounted) {setState(() {
       pdfString.value = basename(selectedfile.path);
@@ -136,7 +110,7 @@ class _BottomNav extends State<BottomNav> {
 
 
   selectFileDuyet() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
@@ -144,7 +118,7 @@ class _BottomNav extends State<BottomNav> {
 
     if (result != null) {
       //if there is selected file
-      selectedfileDuyet = File(result.files.single.path);
+      selectedfileDuyet = File(result.files.single.path!);
     }
     if (mounted) { setState(() {
       pdfStringDuyet.value = basename(selectedfileDuyet.path);
@@ -164,7 +138,7 @@ class _BottomNav extends State<BottomNav> {
     return BottomAppBar(
       child:Container(
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.blueGrey[100]),
+            border: Border.all(color: Colors.blueGrey[100]!),
             color: Colors.white,
           ),
           height: 56.0,
@@ -184,7 +158,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.keyboard_return),
                               label: Text('Thu hồi'),
                               onPressed: () => showDialog<String>(
@@ -197,7 +171,7 @@ class _BottomNav extends State<BottomNav> {
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () async {
-                                            var tendangnhap = sharedStorage
+                                            var tendangnhap = sharedStorage!
                                                 .getString("username");
                                             EasyLoading.show();
                                             var thanhcong = await posThuHoiVBDT(
@@ -226,7 +200,7 @@ class _BottomNav extends State<BottomNav> {
                                       ],
                                     ),
                               ),
-                              textTheme: ButtonTextTheme.primary,
+                             // textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -239,13 +213,13 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.verified_outlined),
                               label: Text('Duyệt'),
                               onPressed: () {
                                 onPressButton(context, index + 1);
                               },
-                              textTheme: ButtonTextTheme.primary,
+                            //  textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -259,13 +233,13 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.verified_outlined),
                               label: Text('Duyệt'),
                               onPressed: () {
                                 onPressButton(context, index + 5);
                               },
-                              textTheme: ButtonTextTheme.primary,
+                              //textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -279,13 +253,13 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.verified_outlined),
                               label: Text('Duyệt'),
                               onPressed: () {
                                 onPressButton(context, index + 2);
                               },
-                              textTheme: ButtonTextTheme.primary,
+                              //textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -301,13 +275,13 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.assistant_direction),
                               label: Text('Chuyển phát hành'),
                               onPressed: () {
                                 onPressButton(context, index + 9);
                               },
-                              textTheme: ButtonTextTheme.primary,
+                              //textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -329,7 +303,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.plumbing),
                               label: Text(' Trình ký'),
                               onPressed: () => showDialog<String>(
@@ -342,7 +316,7 @@ class _BottomNav extends State<BottomNav> {
                                       actions: <Widget>[
                                         TextButton(
                                           onPressed: () async {
-                                            var tendangnhap = sharedStorage
+                                            var tendangnhap = sharedStorage!
                                                 .getString("username");
                                             EasyLoading.show();
                                             var thanhcong = await posThuHoiVBDT(
@@ -371,7 +345,7 @@ class _BottomNav extends State<BottomNav> {
                                       ],
                                     ),
                               ),
-                              textTheme: ButtonTextTheme.primary,
+                             // textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -385,13 +359,13 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.next_week_outlined),
                               label: Text('Duyệt và chuyển phát hành'),
                               onPressed: () {
                                 onPressButton(context, index + 6);
                               },
-                              textTheme: ButtonTextTheme.primary,
+                             // textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -405,13 +379,13 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.comment),
                               label: Text('Ý kiến'),
                               onPressed: () {
                                 onPressButton(context, index + 8);
                               },
-                              textTheme: ButtonTextTheme.primary,
+                            //  textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -432,13 +406,13 @@ class _BottomNav extends State<BottomNav> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            FlatButton.icon(
+                            TextButton.icon(
                               icon: Icon(Icons.assignment_return_rounded),
                               label: Text('Trả về'),
                               onPressed: () {
                                 onPressButton(context, index);
                               },
-                              textTheme: ButtonTextTheme.primary,
+                             // textTheme: ButtonTextTheme.primary,
                             )
                           ],
                         ),
@@ -447,7 +421,7 @@ class _BottomNav extends State<BottomNav> {
                         : SizedBox(),
 
 
-                    (vbdiTrangThaiVB == 2 || vbdiTrangThaiVB == 3 
+                    (vbdiTrangThaiVB == 2 || vbdiTrangThaiVB == 3
                         || vbdiTrangThaiVB == 6) && isTrinhTiep && isQTNew ?
                     (SiteAction.contains("vpubhb")? Container(
                       child: InkWell(
@@ -456,13 +430,13 @@ class _BottomNav extends State<BottomNav> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                FlatButton.icon(
+                                TextButton.icon(
                                   icon: Icon(Icons.undo_rounded),
                                   label: Text('Trình lại'),
                                   onPressed: () {
                                     onPressButton(context, index + 3);
                                   },
-                                  textTheme: ButtonTextTheme.primary,
+                                 // textTheme: ButtonTextTheme.primary,
                                 )
                               ],
                             )
@@ -476,13 +450,13 @@ class _BottomNav extends State<BottomNav> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                FlatButton.icon(
+                                TextButton.icon(
                                   icon: Icon(Icons.next_plan_outlined),
                                   label: Text('Trình tiếp'),
                                   onPressed: () {
                                     onPressButton(context, index + 7);
                                   },
-                                  textTheme: ButtonTextTheme.primary,
+                                //  textTheme: ButtonTextTheme.primary,
                                 )
                               ],
                             )
@@ -492,8 +466,8 @@ class _BottomNav extends State<BottomNav> {
                     )) :SizedBox(),
 
                     ((vbdiTrangThaiVB == 2 || vbdiTrangThaiVB == 3
-                        || vbdiTrangThaiVB == 6) && isTrinhTiep && notIsQuanTriNew) 
-                        || (notIsQuanTriNew && isTrinhTiep && vbdiTrangThaiVB == 3 
+                        || vbdiTrangThaiVB == 6) && isTrinhTiep && notIsQuanTriNew)
+                        || (notIsQuanTriNew && isTrinhTiep && vbdiTrangThaiVB == 3
                         && vbdiDSNguoiTrinhTiep.length>0 &&
                         vbdiDSNguoiTrinhTiep[0].LookupId == currentUserID)
                         || (notIsQuanTriNew && isTrinhTiep && vbdiTrangThaiVB == 2
@@ -505,13 +479,13 @@ class _BottomNav extends State<BottomNav> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                FlatButton.icon(
+                                TextButton.icon(
                                   icon: Icon(Icons.undo_rounded),
                                   label: Text('Trình lại'),
                                   onPressed: () {
                                     onPressButton(context, index + 3);
                                   },
-                                  textTheme: ButtonTextTheme.primary,
+                             //     textTheme: ButtonTextTheme.primary,
                                 )
                               ],
                             )
@@ -525,13 +499,13 @@ class _BottomNav extends State<BottomNav> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                FlatButton.icon(
+                                TextButton.icon(
                                   icon: Icon(Icons.next_plan_outlined),
                                   label: Text('Trình tiếp'),
                                   onPressed: () {
                                     onPressButton(context, index + 7);
                                   },
-                                  textTheme: ButtonTextTheme.primary,
+                                //  textTheme: ButtonTextTheme.primary,
                                 )
                               ],
                             )
@@ -553,13 +527,13 @@ class _BottomNav extends State<BottomNav> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                FlatButton.icon(
+                                TextButton.icon(
                                   icon: Icon(Icons.next_plan_outlined),
                                   label: Text('Trình tiếp'),
                                   onPressed: () {
                                     onPressButton(context, index + 7);
                                   },
-                                  textTheme: ButtonTextTheme.primary,
+                              //    textTheme: ButtonTextTheme.primary,
                                 )
                               ],
                             )
@@ -581,13 +555,13 @@ class _BottomNav extends State<BottomNav> {
                           children: <Widget>[
                             Column(
                               children: <Widget>[
-                                FlatButton.icon(
+                                TextButton.icon(
                                   icon: Icon(Icons.undo_rounded),
                                   label: Text('Trình lại'),
                                   onPressed: () {
                                     onPressButton(context, index + 3);
                                   },
-                                  textTheme: ButtonTextTheme.primary,
+                               //   textTheme: ButtonTextTheme.primary,
                                 )
                               ],
                             )
@@ -596,32 +570,7 @@ class _BottomNav extends State<BottomNav> {
                       ),
                     )
                         : SizedBox(),
-                    // Container(
-                    //   child: InkWell(
-                    //     child: Column(
-                    //       mainAxisAlignment: MainAxisAlignment.center,
-                    //       children: <Widget>[
-                    //         FlatButton.icon(
-                    //           icon: Icon(Icons.delete,),
-                    //           label: Text('Xoá'),
-                    //           onPressed: () {
-                    //             setState(() {
-                    //               List  data = [];
-                    //               data =  duthaoListXoa;
-                    //               for(int index  in data){
-                    //
-                    //               }
-                    //               data.indexOf(data[index]);
-                    //               data.removeAt(index);
-                    //             });
-                    //             Navigator.of(context).pop();
-                    //           },
-                    //           textTheme: ButtonTextTheme.primary,
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+
                   ],
                 );
               }):Center(child: CircularProgressIndicator(),)) ,);
@@ -659,13 +608,8 @@ class _BottomNav extends State<BottomNav> {
     controller.reset();
   }
 
-  // GetIdUser(String tendangnhap) async {
-  //   detailVBDT = await GetInfoUserService(tendangnhap);
-  //   IDuser = detailVBDT['IDuser'];
-  // }
 
   Widget _getBodyPage(context, int index ) {
-    //int TrangThai  = vanban["vbdiTrangThaiVB"];
     String a = "";
 
     switch (index) {
@@ -712,12 +656,12 @@ class _BottomNav extends State<BottomNav> {
                     Container(
                       width: MediaQuery.of(context).size.width * 0.3,
                       margin: EdgeInsets.only(left: 25),
-                      child: FlatButton(
+                      child: TextButton(
                         child: Text('Đính kèm file...'),
-                        color: Colors.blueAccent,
-                        textColor: Colors.white,
+                        // color: Colors.blueAccent,
+                        // textColor: Colors.white,
                         onPressed: () async {
-                          FilePickerResult result = await FilePicker.platform.pickFiles(
+                          FilePickerResult? result = await FilePicker.platform.pickFiles(
                             type: FileType.custom,
                             allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
                             //allowed extension to choose
@@ -725,7 +669,7 @@ class _BottomNav extends State<BottomNav> {
 
                           if (result != null) {
                             //if there is selected file
-                            selectedfile = File(result.files.single.path);
+                            selectedfile = File(result.files.single.path!);
                           }
                           if (mounted) { setState(() {
                             pdfString.value = basename(selectedfile.path);
@@ -757,7 +701,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.3,
@@ -797,7 +741,7 @@ class _BottomNav extends State<BottomNav> {
                                 } else {
                                     EasyLoading.show();
                                     var tendangnhap =
-                                    sharedStorage.getString("username");
+                                    sharedStorage!.getString("username");
 
                                     var thanhcong = await posTraVeVBDT(
                                         tendangnhap,
@@ -822,7 +766,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -834,7 +778,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -852,7 +796,7 @@ class _BottomNav extends State<BottomNav> {
                               onPressed: () async {
                                 EasyLoading.dismiss();
                                 pdfString.value = "";
-                                selectedfile = null;
+                                selectedfile ;
                                 Navigator.of(context).pop();
                               },
                               style: ButtonStyle(
@@ -917,7 +861,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.3,
@@ -948,7 +892,7 @@ class _BottomNav extends State<BottomNav> {
                                   if (mounted) {setState(() async {
                                     EasyLoading.show();
                                     var tendangnhap =
-                                    sharedStorage.getString("username");
+                                    sharedStorage!.getString("username");
                                     var thanhcong = await posDuyetVBDT(
                                         tendangnhap,
                                         widget.id,
@@ -967,7 +911,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -979,7 +923,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -1058,7 +1002,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.3,
@@ -1089,7 +1033,7 @@ class _BottomNav extends State<BottomNav> {
 
                                     EasyLoading.show();
                                     var tendangnhap =
-                                        sharedStorage.getString("username");
+                                        sharedStorage!.getString("username");
                                     var thanhcong = await posDuyetVBDT(
                                         tendangnhap,
                                         widget.id,
@@ -1107,7 +1051,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -1119,7 +1063,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -1201,7 +1145,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.3,
@@ -1232,7 +1176,7 @@ class _BottomNav extends State<BottomNav> {
                                 } else {
                                   EasyLoading.show();
                                   var tendangnhap =
-                                      sharedStorage.getString("username");
+                                      sharedStorage!.getString("username");
                                   var thanhcong = await posTrinhlaiVBDT(
                                       tendangnhap,
                                       widget.id,
@@ -1248,7 +1192,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -1260,7 +1204,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -1326,10 +1270,10 @@ class _BottomNav extends State<BottomNav> {
                       child: new DropdownButton(
                         value: _color,
                         isDense: true,
-                        onChanged: (String newValue) {
+                        onChanged: ( newValue) {
                           if (mounted) { setState(() {
 //                                newContact.favoriteColor = newValue;
-                            _color = newValue;
+                            _color = newValue as String;
                             state.didChange(newValue);
                           });}
 
@@ -1347,16 +1291,16 @@ class _BottomNav extends State<BottomNav> {
               ),
               Padding(
                 padding: const EdgeInsets.all(8.0),
-                child: FlatButton(
+                child: TextButton(
                   child: Text("Ký số"),
                   onPressed: () {
                     Navigator.of(context).pop();
                   },
-                  color: Colors.blueAccent,
-                  textColor: Colors.white,
-                  shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                      side: BorderSide(color: Colors.blueAccent)),
+                //   color: Colors.blueAccent,
+                //   textColor: Colors.white,
+                //   shape: RoundedRectangleBorder(
+                //       borderRadius: BorderRadius.circular(10.0),
+                //       side: BorderSide(color: Colors.blueAccent)),
                 ),
               )
             ],
@@ -1409,7 +1353,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.3,
@@ -1441,7 +1385,7 @@ class _BottomNav extends State<BottomNav> {
                                   EasyLoading.show();
 
                                   var tendangnhap =
-                                      sharedStorage.getString("username");
+                                      sharedStorage!.getString("username");
                                   var thanhcong = await posTrinhKyVBDT(
                                       tendangnhap,
                                       widget.id,
@@ -1457,7 +1401,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -1469,7 +1413,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -1545,10 +1489,10 @@ class _BottomNav extends State<BottomNav> {
                       Container(
                         width: MediaQuery.of(context).size.width * 0.3,
                         margin: EdgeInsets.only(left: 25),
-                        child: FlatButton(
+                        child: TextButton(
                           child: Text('Đính kèm file...'),
-                          color: Colors.blueAccent,
-                          textColor: Colors.white,
+                          // color: Colors.blueAccent,
+                          // textColor: Colors.white,
                           onPressed: () {
                            selectFileDuyet();
                           },
@@ -1571,7 +1515,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.4,
@@ -1611,7 +1555,7 @@ class _BottomNav extends State<BottomNav> {
                                 } else {
                                   EasyLoading.show();
                                   var tendangnhap =
-                                      sharedStorage.getString("username");
+                                      sharedStorage!.getString("username");
                                   var thanhcong = await postChuyenPhatHanh(
                                       tendangnhap,
                                       widget.id,
@@ -1632,7 +1576,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -1644,7 +1588,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -1756,7 +1700,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.35,
@@ -1787,7 +1731,7 @@ class _BottomNav extends State<BottomNav> {
 
                                     EasyLoading.show();
                                     var tendangnhap =
-                                        sharedStorage.getString("username");
+                                        sharedStorage!.getString("username");
                                     var thanhcong = await posYKienVBDT(
                                         tendangnhap,
                                         widget.id,
@@ -1805,7 +1749,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -1817,7 +1761,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -1953,34 +1897,6 @@ class _BottomNav extends State<BottomNav> {
                     ],
                   ),
 
-                  // Padding(
-                  //   padding: const EdgeInsets.all(8.0),
-                  //   child: Theme(
-                  //     data: Theme.of(context).copyWith(splashColor: Colors.transparent),
-                  //     child: TextField(
-                  //       autofocus: false,
-                  //       cursorColor: Colors.black,
-                  //       style: TextStyle(color: Colors.black),
-                  //       controller: _titleController,
-                  //       decoration: InputDecoration(
-                  //         prefixIcon: Icon(Icons.add, color: Colors.black26, size: 22.0),
-                  //         filled: true,
-                  //         fillColor: Color(0x162e91),
-                  //         hintText: 'Nhập ý kiến ban hành',
-                  //         contentPadding: EdgeInsets.only(left: 10.0, top: 15.0),
-                  //         focusedBorder: OutlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.black26),
-                  //           borderRadius: BorderRadius.circular(25),
-                  //         ),
-                  //         enabledBorder: UnderlineInputBorder(
-                  //           borderSide: BorderSide(color: Colors.black26),
-                  //           borderRadius: BorderRadius.circular(25),
-                  //         ),
-                  //       ),
-                  //       onChanged: null,
-                  //     ),
-                  //   ),
-                  // ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -1989,7 +1905,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           width: MediaQuery.of(context).size.width * 0.3,
@@ -2020,7 +1936,7 @@ class _BottomNav extends State<BottomNav> {
                                 } else {
                                   EasyLoading.show();
                                   var tendangnhap =
-                                      sharedStorage.getString("username");
+                                      sharedStorage!.getString("username");
                                   var thanhcong = await postChuyenPhatHanh(
                                       tendangnhap,
                                       widget.id,
@@ -2040,7 +1956,7 @@ class _BottomNav extends State<BottomNav> {
                               style: ButtonStyle(
                                 backgroundColor:
                                     MaterialStateProperty.all<Color>(
-                                        Colors.lightBlue[50]),
+                                        Colors.lightBlue[50]!),
                                 foregroundColor:
                                     MaterialStateProperty.all<Color>(
                                         Colors.blue),
@@ -2052,7 +1968,7 @@ class _BottomNav extends State<BottomNav> {
                         child: Container(
                           decoration: BoxDecoration(
                             border: Border.all(
-                                color: Colors.lightBlue[50], width: 2),
+                                color: Colors.lightBlue[50]!, width: 2),
                             borderRadius: BorderRadius.circular(15),
                           ),
                           width: MediaQuery.of(context).size.width * 0.25,
@@ -2097,7 +2013,7 @@ class _BottomNav extends State<BottomNav> {
             ),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
-              child: SearchServer(
+              child: SearchServer(selectedValueServer: [],
                 listData: vanbanList,
                 multipleSelection: false,
                 title: 'Chọn xlc',
@@ -2112,7 +2028,7 @@ class _BottomNav extends State<BottomNav> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16.0),
               child: SearchServer(
-                listData: vanbanList,
+                listData: vanbanList,selectedValueServer: [],
                 multipleSelection: true,
                 title: 'Chọn người phối hợp',
                 searchHintText: 'Tìm kiếm',

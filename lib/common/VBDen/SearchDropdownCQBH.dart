@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_slidable/flutter_slidable.dart';
+
 
 var styleDropDownItem = TextStyle(fontSize: 15);
 
@@ -8,19 +8,19 @@ class SearchServerCQBH extends StatefulWidget {
   final String title;
   final String searchHintText;
   List<ListDataCQBH> listData;
-  ListDataCQBH listSelect;
+  ListDataCQBH? listSelect;
   ValueChanged<List<int>> onSaved;
   List<int> selectedValueServer;
   bool multipleSelection;
 
   SearchServerCQBH({
-    this.title,
-    this.searchHintText,
-    this.listSelect,
-    this.listData,
-    this.onSaved,
-    this.selectedValueServer,
-    this.multipleSelection});
+    required this.title,
+    required this.searchHintText,
+     this.listSelect,
+    required this.listData,
+    required this.onSaved,
+    required this.selectedValueServer,
+    required this.multipleSelection});
 
   @override
   SearchServerCQBHState createState() => SearchServerCQBHState();
@@ -79,8 +79,8 @@ class SearchServerCQBHState extends State<SearchServerCQBH> {
   checkExist(List<int> select){
     List<ListDataCQBH> selectedItem = [];
     for(int i = 0; i < select.length ; i ++ ){
-      var getItem = widget.listData.firstWhere((itemToCheck) => itemToCheck.ID == select[i], orElse: () => null);
-      getItem != null ? selectedItem.add(getItem) : selectedItem.add(null);
+      var getItem = widget.listData.firstWhere((itemToCheck) => itemToCheck.ID == select[i], orElse: () => []as ListDataCQBH);
+      getItem != null ? selectedItem.add(getItem) : selectedItem.add([]as ListDataCQBH);
     }
     return selectedItem;
   }
@@ -122,6 +122,7 @@ class SearchServerCQBHState extends State<SearchServerCQBH> {
                         child: Container(
                          // padding: EdgeInsets.fromLTRB(0,0,0,0),
                           child: MaterialButton(
+                            onPressed: () {  },
                             child: Center(
                               child: Text(checkExist(selectedItem)[index].text, style: TextStyle(color: Color(0xff3c4043)),
                               ),
@@ -177,9 +178,9 @@ class DropDownListItem extends StatefulWidget {
 
   DropDownListItem({
     this.customFunction,
-    this.searchHintText,
-    this.listData,
-    this.selectedValue, this.multipleSelection});
+    required this.searchHintText,
+    required this.listData,
+    required this.selectedValue, required this.multipleSelection});
 
   @override
   State<StatefulWidget> createState() {
@@ -282,7 +283,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                       ),
                       Container(
                         alignment: Alignment.centerRight,
-                        child: FlatButton(
+                        child: TextButton(
                           child: Container(
                               child: Text(
                                 'X Bỏ chọn tất cả',
@@ -302,7 +303,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            FlatButton(
+                            TextButton(
                               onPressed: () {
                                 widget.customFunction(widget.selectedValue);
                                 Navigator.of(context).pop();
@@ -351,11 +352,11 @@ class DropDownListItemState extends State<DropDownListItem> {
     var title = item.text;
     var existingItem = widget.selectedValue.firstWhere(
             (itemToCheck) => itemToCheck == item.ID,
-        orElse: () => null);
+        orElse: () => -1);
     return InkWell(
         onTap: () {
           if (widget.multipleSelection) {
-            if (existingItem != null) {
+            if (existingItem != -1) {
               setState(() {
                 widget.selectedValue.removeWhere((i) => i == item.ID);
               });
@@ -380,7 +381,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                 ? Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Icon(existingItem != null
+                Icon(existingItem != -1
                     ?
                 Icons.check_box
                     : Icons.check_box_outline_blank,
@@ -416,7 +417,7 @@ class ListDataCQBH {
   String text;
   int ID;
 
-  ListDataCQBH({@required this.text, @required this.ID});
+  ListDataCQBH({required this.text, required this.ID});
 
   factory ListDataCQBH.fromJson(Map<String, dynamic> json) {
     return ListDataCQBH(ID: (json['ID']), text: json['Title']);

@@ -2,14 +2,12 @@ import 'dart:async';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/cacTaiLieuK.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/chiTietHSLQ.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/vbDenLQ.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/vbDiLQ.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/duaVaoHS/chiTiet.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'dart:convert';
 import 'chiTietHSCV/ThongTinHSCV.dart';
 
@@ -21,7 +19,7 @@ class cayThongTinHSCV extends StatefulWidget {
 
 
 
-  cayThongTinHSCV({Key key, this.idHS, this.title,this.nam,this.idVBDlienQuan}) : super(key:
+  cayThongTinHSCV({Key? key, required this.idHS, required this.title,required this.nam,required this.idVBDlienQuan}) : super(key:
   key);
 
   @override
@@ -39,10 +37,10 @@ class _cayThongTinHSCVState extends State<cayThongTinHSCV> {
   TreeController(allNodesExpanded: false);
   String ActionXL1 = "ChitietHSCVMenuLeftHSCVcon";
   String ch = "";
-  List<String> bientoancuc = new List<String>();
+  List<String> bientoancuc = <String>[];
   GlobalKey key =  new GlobalKey();
   var ay;
-  double _height;
+  late double _height;
   int tongso = 0;
 
 

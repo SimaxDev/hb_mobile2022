@@ -12,14 +12,14 @@ class NhatKyVBDi extends StatefulWidget {
   final String username;
   final int nam;
 
-  NhatKyVBDi({this.id, this.username, this.nam});
+  NhatKyVBDi({required this.id, required this.username, required this.nam});
 
   @override
   _NhatKyVBDi createState() => _NhatKyVBDi();
 }
 
 class _NhatKyVBDi extends State<NhatKyVBDi> {
-  List<Widget> listNhatKy = new List<Widget>();
+  List<Widget> listNhatKy = <Widget>[];
   RxBool isLoading = false.obs;
   String ActionXLGuiNhan = "GetGuiNhanVBDi";
   var tendangnhap = "";
@@ -42,7 +42,7 @@ class _NhatKyVBDi extends State<NhatKyVBDi> {
   }
 
   fetchData() async {
-    tendangnhap = sharedStorage.getString("username");
+    tendangnhap = sharedStorage!.getString("username")!;
     if (tendangnhap == null || tendangnhap == "") {
       tendangnhap = widget.username;
     }

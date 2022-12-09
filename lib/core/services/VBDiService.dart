@@ -1,11 +1,11 @@
 import 'dart:convert';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 String lstUserCVBi="";
 String lstvbdiNoiNhan="";
 
-List<String> bientoancuc = new List<String>();
+List<String> bientoancuc = <String>[];
 var TreViewVBDi ;
 
 
@@ -16,6 +16,8 @@ Future<String> GetMenuLeft() async {
   if(response.statusCode == 200) {
     var item = response.body;
     return item;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataVBDi(int skip, int pageSize,  String ActionXL) async {
@@ -30,6 +32,8 @@ Future<String> getDataVBDi(int skip, int pageSize,  String ActionXL) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getTT( String ActionXL,text,String nam) async {
@@ -45,6 +49,8 @@ Future<String> getTT( String ActionXL,text,String nam) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataHomeVBDi1( String ActionXL,String nam) async {
@@ -58,6 +64,8 @@ Future<String> getDataHomeVBDi1( String ActionXL,String nam) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataHomeVBDi(int skip, int pageSize,  String ActionXL,
@@ -82,6 +90,8 @@ Future<String> getDataHomeVBDi(int skip, int pageSize,  String ActionXL,
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String> getDataHomeVBDiThayThe(int skip, int pageSize,  String ActionXL,
@@ -101,6 +111,8 @@ Future<String> getDataHomeVBDiThayThe(int skip, int pageSize,  String ActionXL,
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -122,6 +134,8 @@ text,String year,query) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -138,6 +152,8 @@ text,String year) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -159,6 +175,8 @@ year,query,int skip,int pageSize) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -171,6 +189,8 @@ Future<String> getDataByCreatedVBDi(String created) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -187,6 +207,8 @@ nam) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -205,8 +227,8 @@ Future<String>posChuyenLienThong( username,id, ActionXL,String  noidungykien,
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -224,8 +246,8 @@ Future<String>posTraVeVBDi( username,id, ActionXL,String  noidungykien,SYear) as
     var items = response.body;
     return items;
   }
-  else{
-    return "";
+  else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -238,6 +260,8 @@ Future<String> getButPheDataVBDi(int id) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -254,6 +278,8 @@ Future<String> getDataDetailVBDi(int id,String ActionXL,
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -268,6 +294,8 @@ Future<String> GetHomeThuHoiVBDi(String ActionXL,int nam,int id) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -290,6 +318,8 @@ Future<String>postYKienVBDi( username,id, ActionXL,  noidungykien,nam) async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>getDataCVBDi(String username,String ActionXL,nam) async {
@@ -303,6 +333,8 @@ Future<String>getDataCVBDi(String username,String ActionXL,nam) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>getDataCVB(String username,String ActionXL) async {
@@ -315,6 +347,8 @@ Future<String>getDataCVB(String username,String ActionXL) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postChuyenVBDi( username,id, ActionXL,  noidungykien, idngnhan,nam
@@ -334,6 +368,8 @@ Future<String>postChuyenVBDi( username,id, ActionXL,  noidungykien, idngnhan,nam
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -354,6 +390,8 @@ Future<String>postChuyenVBDiNgoai( username,id, ActionXL,  noidungykien,
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postHoiBaoVBDi( username,id, ActionXL,thoigian,nguoitheodoi,nam)
@@ -372,6 +410,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postThayTheVB( username,id, ActionXL,nam,noidung,IDThayThe)
@@ -390,6 +430,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -408,6 +450,8 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<String>postCapNhatVB( username,id, ActionXL,vbdiIsSentVanBan)
@@ -424,5 +468,7 @@ async {
   if (response.statusCode == 200) {
     var items = response.body;
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }

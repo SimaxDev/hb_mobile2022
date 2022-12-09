@@ -1,16 +1,12 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbden/vbden.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
 import 'package:hb_mobile2021/core/services/HomePageService.dart';
 import 'dart:convert';
@@ -20,7 +16,7 @@ class HomeHSCV extends StatefulWidget {
   final String username;
   final String nam;
 
-  HomeHSCV({Key key, this.returnData, this.username,this.nam}) : super(key:
+  HomeHSCV({Key? key, this.returnData, required this.username,required this.nam}) : super(key:
   key);
 
   @override
@@ -35,7 +31,7 @@ class PageState extends State<HomeHSCV> {
   List dataListVBDen = [];
   List dataListVBDT = [];
   bool isLoading = false;
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   String ActionXL = "GetListHSCV";
   List HoSoList = [];
   List HoSoList1 = [];
@@ -108,13 +104,13 @@ class PageState extends State<HomeHSCV> {
 
 
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
     if (mounted) {setState(() {
-      user.Title = sharedStorage.getString("hoten");
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.Title = sharedStorage.getString("hoten")!;
+      user.ChucVu = sharedStorage.getString("chucvu")!;
     });}
 
 
@@ -192,7 +188,7 @@ class PageState extends State<HomeHSCV> {
                             height: MediaQuery.of(context).size.height * 0.05,
                             //padding: const EdgeInsets.all(1),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blueGrey[100],width: 1),
+                              border: Border.all(color: Colors.blueGrey[100]!,width: 1),
                               borderRadius: BorderRadius.circular(7),
                               color: Colors.blueAccent,
                             ),
@@ -201,7 +197,7 @@ class PageState extends State<HomeHSCV> {
                             Colors.white, fontSize:11.0)),
                           ),
                           onTap: () {
-                            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=0",page:4) );
+                            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=0",page:4, username: '', year: '', ID: 0,index: 0,) );
                           },
                         ),
                       ),
@@ -221,7 +217,7 @@ class PageState extends State<HomeHSCV> {
                             height: MediaQuery.of(context).size.height * 0.05,
                             //padding: const EdgeInsets.all(1),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blueGrey[100],width: 1),
+                              border: Border.all(color: Colors.blueGrey[100]!,width: 1),
                               borderRadius: BorderRadius.circular(7),
                               color: Colors.blueAccent,
                             ),
@@ -231,7 +227,7 @@ class PageState extends State<HomeHSCV> {
                           ),
                           onTap: () {
 
-                            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=1",page:4) );
+                            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=1",page:4, username: '', ID: 0,year: '',index: 0,) );
                           },
                         ),
                       ),
@@ -251,7 +247,7 @@ class PageState extends State<HomeHSCV> {
                             height: MediaQuery.of(context).size.height * 0.05,
                             //padding: const EdgeInsets.all(1),
                             decoration: BoxDecoration(
-                              border: Border.all(color: Colors.blueGrey[100],width: 1),
+                              border: Border.all(color: Colors.blueGrey[100]!,width: 1),
                               borderRadius: BorderRadius.circular(7),
                               color: Colors.blueAccent,
                             ),
@@ -260,7 +256,7 @@ class PageState extends State<HomeHSCV> {
                             Colors.white, fontSize:11.0)),
                           ),
                           onTap: () {
-                            Get.offAll(BottomNavigator(query: "sHoSocongviec=true&hscvTrangThaiXuLy=5",page:4) );
+                            Get.offAll(BottomNavigator(query: "sHoSocongviec=true&hscvTrangThaiXuLy=5",page:4, username: '',year: '',ID: 0,index: 0,) );
 
                           },
                         ),
@@ -273,30 +269,7 @@ class PageState extends State<HomeHSCV> {
             ))
           ],
         )
-      // body: new ListView(
-      //   padding: const EdgeInsets.all(0.0),
-      //   children: <Widget>[
-      //     // Container(
-      //     //     padding: const EdgeInsets.all(10.0),
-      //     //     //  color: Colors.blue[50],
-      //     //     child: Center(
-      //     //       child: Text('Văn bản đến'.toUpperCase(), style: new TextStyle(color: Colors.blueAccent, fontSize: 21.0,
-      //     //           shadows: [
-      //     //             Shadow(
-      //     //               blurRadius: 15.0,
-      //     //               color: Colors.white,
-      //     //               offset: Offset(0.0, 5.0),
-      //     //             ),
-      //     //           ] ,
-      //     //           fontWeight: FontWeight.bold)),
-      //     //     )
-      //     // ),
-      //
-      //      // height: MediaQuery.of(context).size.height * 0.26,
-      //        GetDataVbDen(),
-      //
-      //   ],
-      // ),
+
     );
   }
 
@@ -390,7 +363,7 @@ class PageState extends State<HomeHSCV> {
             height: MediaQuery.of(context).size.height * 0.05,
             //padding: const EdgeInsets.all(1),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.blueGrey[100],width: 1),
+              border: Border.all(color: Colors.blueGrey[100]!,width: 1),
               borderRadius: BorderRadius.circular(7),
               color: Colors.blueAccent,
             ),
@@ -398,7 +371,7 @@ class PageState extends State<HomeHSCV> {
             Colors.white, fontSize:11.0)),
           ),
           onTap: () {
-            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=0",page:4) );
+            Get.offAll(BottomNavigator(query: "isHoSocongviec=true&hscvTrangThaiXuLy=0",page:4, username: '',ID: 0,year: '',index: 0,) );
 
           }
       ),
@@ -406,7 +379,7 @@ class PageState extends State<HomeHSCV> {
   }
 }
 String ttHoSo(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đang xử lý";

@@ -3,11 +3,7 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/core/services/MenuLeftService.dart';
-import 'package:hb_mobile2021/core/services/VbdenService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbden/vbden.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 class MenuLeft extends StatefulWidget {
   int page;
@@ -17,7 +13,7 @@ class MenuLeft extends StatefulWidget {
    final int queryID;
 
 
-  MenuLeft({this.page,this.username, this.year,this.queryLeft, this.queryID});
+  MenuLeft({required this.page,required this.username, required this.year,required this.queryLeft, required this.queryID});
   @override
   State<StatefulWidget> createState() {
     // TODO: implement createState
@@ -32,14 +28,14 @@ class _Menuleft extends State<MenuLeft>  {
   List data = [];
   bool isLoading = false;
   int _currentIndex =1;
-  int indexVB ;
+  late int indexVB ;
   String urlttVB = '';
   var tendangnhap = "";
    bool checker = false;
-  int tappedIndex;
+   int? tappedIndex;
   String nam =  "";
-  SharedPreferences sharedStorage;
-  SharedPreferences viTriHienTai;
+  late SharedPreferences sharedStorage;
+  late SharedPreferences viTriHienTai;
 
 
 
@@ -51,7 +47,7 @@ class _Menuleft extends State<MenuLeft>  {
     //_initializeTimer();
     this.getMenu();
     isLoading = true;
-    //tappedIndex = 0;
+    tappedIndex = 0;
     if (mounted) {setState(() {
 
 
@@ -162,8 +158,10 @@ class _Menuleft extends State<MenuLeft>  {
         if(widget.page ==3 ) {
           indexVB=2;
         }
+
+
         Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-            BottomNavigator(page: widget.page,
+            BottomNavigator(page: widget.page,username: widget.username,index: 0,
                 query : query,year: widget.year,ID :ID )), (Route<dynamic>
         route)
         => false);

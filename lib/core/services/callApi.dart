@@ -9,11 +9,11 @@ import 'package:http/http.dart' as http;
 
 //const String DOMAIN = "http://AppMobile.ungdungtructuyen.vn";
 
-const String DOMAIN = "http://apimobile.hoabinh.gov.vn";
+const String DOMAIN = "https://apimobile.hoabinh.gov.vn";
 
 
 
-SharedPreferences sharedStorage;
+SharedPreferences? sharedStorage;
 
 
 Future responseDataPost(String path,String formdata) async {
@@ -24,7 +24,7 @@ Future responseDataPost(String path,String formdata) async {
     return CircularProgressIndicator();
   }
   else{
-  String token = sharedStorage.getString("token");
+  String? token = sharedStorage!.getString("token");
    // response = await post(Uri.parse(url),
    //    headers: {
    //    "Accept": "application/json",
@@ -38,7 +38,7 @@ Future responseDataPost(String path,String formdata) async {
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token!
     },
     body: formdata,
   );
@@ -53,13 +53,13 @@ responseDataPost1(String path, final formdata) async {
     return CircularProgressIndicator();
   }
   else{
-  String token = sharedStorage.getString("token");
+  String? token = sharedStorage!.getString("token");
   response = await http.post(
     url,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token!
     },
     body: json.encode(formdata),
   );
@@ -68,13 +68,13 @@ responseDataPost1(String path, final formdata) async {
 }
 Future<http.Response> responseDataPost2(String path, var formdata) async {
    var url = Uri.parse(DOMAIN + path);
-    String token = sharedStorage.getString("token");
+    String? token = sharedStorage!.getString("token");
   return await http.post(
    url,
       body: json.encode(formdata),
       headers: { 'Content-type': 'application/json',
         'Accept': 'application/json',
-        "Authorization": 'Bearer ' + token,}
+        "Authorization": 'Bearer ' + token!,}
     );
 
 }
@@ -82,13 +82,13 @@ Future<http.Response> responseDataPost2(String path, var formdata) async {
 responseDataPostVBDen(String path,String formdata) async {
    var url = Uri.parse(DOMAIN + path);
   sharedStorage = await SharedPreferences.getInstance();
-  String token = sharedStorage.getString("token");
+  String? token = sharedStorage!.getString("token");
   var response = await http.post(
     url,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token!
     },
     body: formdata,
   );
@@ -99,13 +99,13 @@ responseDataPostVBDen(String path,String formdata) async {
 responseData(String path) async {
    var url = Uri.parse(DOMAIN + path);
   sharedStorage = await SharedPreferences.getInstance();
-  String token = sharedStorage.getString("token");
+  String? token = sharedStorage!.getString("token");
   var response = await http.get(
       url,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token!
       }
   );
   return response;
@@ -114,13 +114,13 @@ responseData(String path) async {
 responseDataHOmeVBDen(String path, String formdata) async {
    var url = Uri.parse(DOMAIN + path);
   sharedStorage = await SharedPreferences.getInstance();
-  String token = sharedStorage.getString("token");
+  String? token = sharedStorage!.getString("token");
   var response = await http.post(
     url,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token!
     },
     body: formdata,
   );
@@ -141,13 +141,13 @@ responseMK(String path, String formdata) async {
 responseDataVBDen(String path, String formdata) async {
    var url = Uri.parse(DOMAIN + path);
   sharedStorage = await SharedPreferences.getInstance();
-  String token = sharedStorage.getString("token");
+  String? token = sharedStorage!.getString("token");
   var response = await http.post(
     url,
     headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token!
     },
     body: formdata,
   );
@@ -163,13 +163,13 @@ responseUser(String path) async {
 responsePostData(String path, String formdata) async {
    var url = Uri.parse(DOMAIN + path);
   sharedStorage = await SharedPreferences.getInstance();
-  String token = sharedStorage.getString("token");
+  String? token = sharedStorage!.getString("token");
   var response = await http.post(
       url,
       headers: {
         'Accept': 'application/json',
         'Content-Type': 'application/x-www-form-urlencoded',
-        'Authorization': 'Bearer ' + token
+        'Authorization': 'Bearer ' + token!
       },
       body: formdata
 

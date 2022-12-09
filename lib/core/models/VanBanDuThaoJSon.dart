@@ -10,7 +10,7 @@ import 'package:intl/intl.dart';
 class VanBanDuThaoJson {
   //properties
 
-  final String TrangThaiVB;
+
     final String trichYeu ;
     final String ldKyVB ;
     final bool checkThuHoi1;
@@ -45,38 +45,38 @@ class VanBanDuThaoJson {
   //Constructor
   VanBanDuThaoJson(
       {
-        this.TrangThaiVB,
-        this.isTrinhTiep,
-        this.trichYeu,
-        this.ldKyVB,
-        this.checkThuHoi1,
-        this.ngaytrinhky,
-        this.nguoiSoanThao,
-        this.lanhDao2,
-        this.lanhDao4,
-        this.trangThaiLD,
-        this.trangThai,
-        this.donviSoanthao,
-        this.loaiVanban,
-        this.vbdiCurrentDSXuly_x003a_Title,
-        this.vbdiCurrentUserReceivedDT,
-        this.trinhDaCoNgDuyetDT,
-        this.trinhLan2DT,
-        this.vbdiNguoiSoanIDDT,
-        this.chukysoDT,
-        this.vbdiDSNguoiTrinhTiepDT,
-        this.isDuyetVaPhatHanhDT,
-        this.isDuyetDT,
-        this.kyVaPhatHanhDT,
-        this.isnguoiduyetDT,
-        this.isDuyetTruongPhongDT,
-        this.vbdiNguoiKyIDDT,
-        this.vbdiCurrentNguoiTrinhIDDT,
-        this.pdfDT,
-        this.pdfDK,
-        this.isThuHoi,
-        this.OldID2010,
-        this.isTrinhKy,
+
+        required  this.isTrinhTiep,
+        required this.trichYeu,
+        required  this.ldKyVB,
+        required this.checkThuHoi1,
+        required this.ngaytrinhky,
+        required this.nguoiSoanThao,
+        required  this.lanhDao2,
+        required  this.lanhDao4,
+        required this.trangThaiLD,
+        required  this.trangThai,
+        required this.donviSoanthao,
+        required  this.loaiVanban,
+        required this.vbdiCurrentDSXuly_x003a_Title,
+        required this.vbdiCurrentUserReceivedDT,
+        required this.trinhDaCoNgDuyetDT,
+        required this.trinhLan2DT,
+        required  this.vbdiNguoiSoanIDDT,
+        required  this.chukysoDT,
+        required  this.vbdiDSNguoiTrinhTiepDT,
+        required this.isDuyetVaPhatHanhDT,
+        required this.isDuyetDT,
+        required  this.kyVaPhatHanhDT,
+        required  this.isnguoiduyetDT,
+        required  this.isDuyetTruongPhongDT,
+        required  this.vbdiNguoiKyIDDT,
+        required  this.vbdiCurrentNguoiTrinhIDDT,
+        required  this.pdfDT,
+        required  this.pdfDK,
+        required this.isThuHoi,
+        required  this.OldID2010,
+        required  this.isTrinhKy,
 
 
       });

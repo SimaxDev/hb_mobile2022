@@ -4,10 +4,10 @@ import 'dart:async';
 import 'package:http/http.dart' as http;
 
 
-  Timer _timer;
+ late Timer _timer;
   String tokenDevice="";
   String tendangnhapAll = "";
-  String ten;
+  String? ten;
   var datavb = "";
   var vanbandenCapNhat = null;
   int trangThaiVB =0;
@@ -126,7 +126,7 @@ import 'package:http/http.dart' as http;
   String idPhoiHop = "";
   String idTheoDoi = "";
   String idNTD = "";
-  int IDTT ;
+  int IDTT=0 ;
   int OldID2010 =0 ;
   int IDGroup =0 ;
   List chuaPDF = [];

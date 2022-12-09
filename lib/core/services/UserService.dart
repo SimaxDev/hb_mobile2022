@@ -1,13 +1,13 @@
 import 'dart:convert';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'callApi.dart';
 
-String hoten, chucvu;
-UserJson user;
+ String? hoten, chucvu;
+UserJson? user;
 GetInfoUserService(String username) async {
   var url = "/api/Home/GetUser?TenDangNhap=$username&TokenFireBase=$tokenDevice";
   // var parts = [];
@@ -23,9 +23,9 @@ GetInfoUserService(String username) async {
   }
 
 }
-GetInfoUserServicedoNVi(String username,int id) async {
+GetInfoUserServicedoNVi(String? username,int id) async {
   if(username == "" || username == null){
-    username = sharedStorage.getString("username");
+    username = sharedStorage!.getString("username");
   }
   var url = "/api/Home/GetUser?TenDangNhap=$username&ChangeDV=1&donviid=$id&&&TokenFireBase=$tokenDevice";
 
@@ -134,6 +134,8 @@ async {
     messingCN =  items['Message'];
     return UserJson.fromJson(items);
 
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 Future<UserJson> getDataPutPass(String tendangnhap, String ActionXL,
@@ -152,6 +154,8 @@ async {
     messingCN =  items['Message'];
     return UserJson.fromJson(items);
 
+  }else {
+    throw Exception('Failed to load album');
   }
 }
  getDataChucVu(String username,String ActionXL) async {

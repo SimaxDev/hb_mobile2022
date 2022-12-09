@@ -3,20 +3,15 @@ import 'dart:convert';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/Login/Login.dart';
-import 'package:hb_mobile2021/ui/User/ThongTinUser.dart';
+
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/MenuRight.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbden/BottomNavigator.dart';
-import 'package:hb_mobile2021/ui/vbduthao/DuThao.dart';
+
 
 class themMoiHT extends StatefulWidget {
   String tendangnhap ;
-  themMoiHT({Key key, this.tendangnhap}) : super(key: key);
+  themMoiHT({Key? key, required this.tendangnhap}) : super(key: key);
 
   @override
   _themMoiHTState createState() => _themMoiHTState();
@@ -201,12 +196,12 @@ class _themMoiHTState extends State<themMoiHT> {
                         icon: Icon(Icons.send_and_archive),
                         label: Text('Cập nhật',style: TextStyle(fontWeight: FontWeight.bold)),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           EasyLoading.show();
                           // var thoiGian = _dateController
                           //     .text.toString();
                           var thanhcong = await
-                          postHoTro("ADDYKien",tendangnhap,NoiDung.text,
+                          postHoTro("ADDYKien",tendangnhap!,NoiDung.text,
                               EmailHT,Telephone );
 
                           EasyLoading.dismiss();
@@ -214,7 +209,7 @@ class _themMoiHTState extends State<themMoiHT> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ),

@@ -1,6 +1,6 @@
 
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 
 class hoSoCVJson{
   final String tenHoSo;
@@ -38,37 +38,37 @@ class hoSoCVJson{
 
 
   hoSoCVJson(
-  { this.tenHoSo,
-    this.maHoSo,
-    this.thoiGianBD,
-    this.soHoSo,
-    this.thoiGianKT,
-    this.thoiGianBH,
-    this.ngonNgu,
-    this.cheDoSD,
-    this.linhVuc,
-    this.mucDo,
-    this.checkKetThucHSCV,
-    this.tongSoVB,
-    this.soLuongTo,
-    this.soLuongTrang,
-    this.kyHieuTT,
-    this.tinhTrangVL,
-    this.tuKhoa,
-    this.nguoiLap,
-    this.checkChuyenVaoHS,
-    this.noiDung,
-    this.hscvCongViecLienQuan,
-    this.hscvCongViecLienQuanText,
-    this.hscvNguoiPhuTrach,
-    this.hscvNguoiLap,
-    this.ChuyenVT,
-    this.hscvTrangThaiXuLy,
-    this.checkSoanVBDT,
-    this.hscvVanBanDenLienQuan,
-    this.hscvVanBanDiLienQuan,
-    this.isInHoSo,
-    this.hscvParentID,
+  {required this.tenHoSo,
+    required this.maHoSo,
+    required this.thoiGianBD,
+    required this.soHoSo,
+    required this.thoiGianKT,
+    required this.thoiGianBH,
+    required this.ngonNgu,
+    required  this.cheDoSD,
+    required this.linhVuc,
+    required this.mucDo,
+    required this.checkKetThucHSCV,
+    required  this.tongSoVB,
+    required  this.soLuongTo,
+    required  this.soLuongTrang,
+    required  this.kyHieuTT,
+    required  this.tinhTrangVL,
+    required   this.tuKhoa,
+    required   this.nguoiLap,
+    required   this.checkChuyenVaoHS,
+    required   this.noiDung,
+    required  this.hscvCongViecLienQuan,
+    required  this.hscvCongViecLienQuanText,
+    required this.hscvNguoiPhuTrach,
+    required this.hscvNguoiLap,
+    required this.ChuyenVT,
+    required this.hscvTrangThaiXuLy,
+    required this.checkSoanVBDT,
+    required  this.hscvVanBanDenLienQuan,
+    required  this.hscvVanBanDiLienQuan,
+    required  this.isInHoSo,
+    required  this.hscvParentID,
   }
      );
 

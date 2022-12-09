@@ -1,4 +1,4 @@
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
@@ -6,11 +6,12 @@ import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
+
 class TreeThemDTVPUB extends StatefulWidget {
   final int id;
   final String tenLoaiChon;
   final bool clickChon;
-  TreeThemDTVPUB({this.id,this.tenLoaiChon,this.clickChon});
+  TreeThemDTVPUB({required this.id,required this.tenLoaiChon,required this.clickChon});
 
   @override
   _TreeThemDTVPUBState createState() => _TreeThemDTVPUBState();
@@ -21,7 +22,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   String ActionXL1 = "GetTreeDonViV2";
   List chitiet = [];
   List chitiet1 = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
@@ -31,15 +32,15 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   String textXLC = "";
   String textPD2 = "";
   String textXNK = "";
-  String lst;
-  double _height;
-  double _width;
-  DateTime _dateTime;
+   String? lst;
+  late double _height;
+  late double _width;
+  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-  String _setDate;
-  String _setDate1;
+  late String _setDate;
+  late String _setDate1;
   bool PH = false;
   bool isClick = true;
   bool isClick1 = true;
@@ -61,8 +62,8 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   @override
   void initState() {
     super.initState();
-    var tendangnhap = sharedStorage.getString("username");
-    GetDataDetailVBDi(tendangnhap);
+    var tendangnhap = sharedStorage!.getString("username");
+    GetDataDetailVBDi(tendangnhap!);
 
   }
   @override
@@ -76,7 +77,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
   }
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -148,9 +149,9 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
           {
             if(item['title'] ==tenPhongBan)
             {
-              var tendn1 = sharedStorage.getString("username");
+              var tendn1 = sharedStorage!.getString("username");
               chuListDT =  item['key'] ;
-              GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+              GetDataDTPB(tendn1!,"GetTreeDonVi",chuListDT);
               parsedJson = chitiet1;
             }
 
@@ -180,9 +181,9 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
           {
             if(item['title'] ==tenPhongBan)
             {
-              var tendn1 = sharedStorage.getString("username");
+              var tendn1 = sharedStorage!.getString("username");
               chuListDT =  item['key'] ;
-              GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+              GetDataDTPB(tendn1!,"GetTreeDonVi",chuListDT);
               parsedJson = chitiet1;
             }
 
@@ -218,9 +219,9 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
         {
           if(item['title'] ==tenPhongBan)
           {
-            var tendn1 = sharedStorage.getString("username");
+            var tendn1 = sharedStorage!.getString("username");
             chuListDT =  item['key'] ;
-            GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
+            GetDataDTPB(tendn1!,"GetTreeDonVi",chuListDT);
             parsedJson = chitiet1;
           }
 
@@ -240,7 +241,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
       //     {
       //       if(item['title'] ==tenPhongBan)
       //       {
-      //         var tendn1 = sharedStorage.getString("username");
+      //         var tendn1 = sharedStorage!.getString("username");
       //         chuListDT =  item['key'] ;
       //         GetDataDTPB(tendn1,"GetTreeDonVi",chuListDT);
       //         parsedJson = chitiet1;
@@ -293,7 +294,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('PD/TT:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         setState(() {
                           isClick = !isClick;
@@ -352,7 +353,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('NK:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         setState(() {
                           isClick2 = !isClick2;
@@ -411,12 +412,12 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
     }
   }
 
-  String tti ;
-  String tti1 ;
-  String tti2 ;
-  String radioItemHolder;
-  String radioItemHolder1;
-  String radioItemHolder2;
+   String? tti ;
+  String? tti1 ;
+  String? tti2 ;
+   String? radioItemHolder;
+   String? radioItemHolder1;
+   String? radioItemHolder2;
 
 
   List<TreeNode> toTreeNodesRadio(dynamic parsedJson) {
@@ -447,7 +448,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                 children: [
                   Center(
                     child: element['isUser']
-                        ? Radio(
+                        ? Radio<String>(
                       groupValue:tti ,
                       value:element['key'],
                       onChanged: ( _value) {
@@ -455,12 +456,11 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                         setState(() {
                           radioItemHolder = element['title'] ;
                           tti = element['key'];
-                          toTrinh = tti;
-                          textXLC =  radioItemHolder;
+                          toTrinh = tti!;
+                          textXLC =  radioItemHolder!;
                           isClick = true;
                         });
-                        print(radioItemHolder);
-                        print("tit" + tti);
+
                         lstUserXLC =   element["key"] + ";|" + element["title"];
                         cayXLC = element["key"];
                       },
@@ -518,7 +518,7 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
               children: [
                 Center(
                   child: element['isUser']
-                      ? Radio(
+                      ? Radio<String>(
                     groupValue:tti1 ,
                     value:element['key'],
                     onChanged: ( _value) {
@@ -526,11 +526,10 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
                       setState(() {
                         radioItemHolder1 = element['title'] ;
                         tti1 = element['key'];
-                        textPD2 =  radioItemHolder1;
+                        textPD2 =  radioItemHolder1!;
 
                       });
-                      print(radioItemHolder1);
-                      print("tit" + tti);
+
                       lstUserPD2 =   element["key"] + ";|" + element["title"];
                       cayPD2 = element["key"];
                     },
@@ -584,14 +583,14 @@ class _TreeThemDTVPUBState extends State<TreeThemDTVPUB> {
               children: [
                 Center(
                   child: element['isUser']
-                      ? Radio(
+                      ? Radio<String>(
                     groupValue:tti2 ,
                     value:element['key'],
                     onChanged: ( _value) {
                       setState(() {
                         radioItemHolder2 = element['title'] ;
                         tti2 = element['key'];
-                        textXNK =  radioItemHolder2;
+                        textXNK =  radioItemHolder2!;
                         isClick2 = true;
                         lstUserNK =   element["key"] + ";|" + element["title"];
                         cayXNK = element["key"];
@@ -631,7 +630,7 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 
   factory ListData1.fromJson(Map<String, dynamic> json) {
     return ListData1(ID: (json['key']), text: json['title']);

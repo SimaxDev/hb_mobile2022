@@ -4,10 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/ChuVuUser.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
@@ -16,16 +14,15 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 
 class EditUser extends StatefulWidget  {
-  final gui;
-  EditUser({Key key,this.utser, this.gui}) : super(key: key);
+
+  EditUser({ required this.utser});
   UserJson utser;
-  String cls;
   @override
   _EditUserState createState() => _EditUserState(utser);
 }
 
 class _EditUserState extends State<EditUser>  {
-  final UserJson utser;
+  late final UserJson utser;
   List<String> GioiTinh = ['Nữ', "Nam"];
   var dropdownValue ;
   int gioitinh = 0;
@@ -34,16 +31,15 @@ class _EditUserState extends State<EditUser>  {
   bool valuesecond1 = false;
   bool isLoading = false;
   _EditUserState(this.utser);
-  TextEditingController _controller;
-  DateTime _dateTime;
+  late TextEditingController _controller;
+  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
-  TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-  double _height;
-  double _width;
-  String _setDate;
+  late double _height;
+  late double _width;
+  late String _setDate;
   List<ListData> vanbanList = [];
-  FocusNode myFocusNode;
+  late FocusNode myFocusNode;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
 
 
@@ -89,7 +85,7 @@ class _EditUserState extends State<EditUser>  {
   }
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -107,7 +103,7 @@ class _EditUserState extends State<EditUser>  {
     setState(() {
       var vanban = json.decode(detailChucVu)['OData'];
       var lstData = (vanban as List).map((e) => ListData.fromJson(e)).toList();
-      List<ListData> lstDataSearch = List<ListData>();
+      List<ListData> lstDataSearch = <ListData>[];
       lstData.forEach((element) {
         lstDataSearch.add(element);
         vanbanList = lstDataSearch;
@@ -166,35 +162,7 @@ class _EditUserState extends State<EditUser>  {
 
                       ),
                     ),
-                    // Container(
-                    //   decoration: BoxDecoration(
-                    //     border: Border.all(
-                    //       color: Colors.black38 ,
-                    //
-                    //     ),
-                    //     borderRadius: BorderRadius.circular(10),
-                    //   ),
-                    //   margin: EdgeInsets.only(right: 10),
-                    //   // child: ConstrainedBox(
-                    //     constraints: BoxConstraints.tightFor(width: MediaQuery.of(context).size.width * 0.6,height:
-                    //      MediaQuery.of(context).size.height * 0.04),
-                    //     child: TextField(
-                    //       controller: _controller,
-                    //       style: TextStyle(fontSize: 14,),
-                    //       decoration: InputDecoration(
-                    //         contentPadding:
-                    //         EdgeInsets.symmetric(vertical: 0,horizontal: 10),
-                    //         border: OutlineInputBorder(),
-                    //       ),
-                    //       onChanged: (text){
-                    //         setState(() {
-                    //           this.utser.Title = text;
-                    //         });
-                    //       },
-                    //     ),
-                    //   ),
 
-                    // ),
                   ],
                 ),
                 SizedBox(height: 5,),
@@ -238,7 +206,7 @@ class _EditUserState extends State<EditUser>  {
                           controller: _dateController ,
                           onSaved: (val){
                             setState(() {
-                              _setDate =  val;
+                              _setDate =  val!;
                             });
                           },
                           decoration: new InputDecoration(
@@ -351,7 +319,7 @@ class _EditUserState extends State<EditUser>  {
                             setState(() {
                               idChucVu = value[0] ;
                             });
-                          },
+                          },selectedValueServer: [],multipleSelection: false,
                         )
 
 
@@ -661,9 +629,9 @@ class _EditUserState extends State<EditUser>  {
                     Center(
                       child: Checkbox(
                         value: utser.cbNhanEmail,
-                        onChanged: (bool value) {
+                        onChanged: ( value) {
                           setState(() {
-                            utser.cbNhanEmail = value;
+                            utser.cbNhanEmail = value!;
                           });
                         },
                       ),
@@ -689,9 +657,9 @@ class _EditUserState extends State<EditUser>  {
                     Center(
                       child: Checkbox(
                         value: utser.cbNhanSMS,
-                        onChanged: (bool value) {
+                        onChanged: ( value) {
                           setState(() {
-                            utser.cbNhanSMS = value;
+                            utser.cbNhanSMS = value!;
                           });
                         },
                       ),
@@ -707,13 +675,14 @@ class _EditUserState extends State<EditUser>  {
 
                     height: 50,
                     padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                    child: RaisedButton(
-                      color: Colors.blue,
-                      shape:  RoundedRectangleBorder(
-                          side:new  BorderSide(color: Colors.blue,), //the outline color
-                          borderRadius: new BorderRadius.all(new Radius.circular(10))),
-
-                      textColor: Colors.white,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent, // background (button) color
+                        foregroundColor: Colors.white,  // foreground (text) color
+                        shape:  RoundedRectangleBorder(
+                            side:new  BorderSide(color: Colors.blue,), //the outline color
+                            borderRadius: new BorderRadius.all(new Radius.circular(10))),
+                      ),
                       child: Text('Cập nhật',
                         style: TextStyle(
                           fontSize: 20,
@@ -737,36 +706,15 @@ class _EditUserState extends State<EditUser>  {
                         );
                         EasyLoading.dismiss();
                         showAlertDialog(context, messingCN);
-                        //showAlertDialog(context, json.decode(thanhcong)['Message']);
                         Navigator.of(context).pop();
-                        //  showDialog<String>(
-                        //   context: context,
-                        //   builder: (BuildContext context) => AlertDialog(
-                        //     title: const Text('Thông báo'),
-                        //     content: const Text('Bạn cần phải đăng nhập lại!'),
-                        //     actions: <Widget>[
-                        //       TextButton(
-                        //         onPressed: () async {
-                        //           logOut(context);
-                        //          Navigator.of(context).pop();
-                        //         },
-                        //         child: const Text('Tiếp tục '),
-                        //       ),
-                        //       TextButton(
-                        //         onPressed: () => Navigator.pop(context),
-                        //         child: const Text('Huỷ'),
-                        //       ),
-                        //     ],
-                        //   ),
-                        // );
-                        // widget.gui();
+
 
 
                       },
                     )
                 ),
               ],
-              //,cbNhanEmail: "",cbNhanSMS: "",Message: "",NgaySinh: "",
+
 
             ),
           )

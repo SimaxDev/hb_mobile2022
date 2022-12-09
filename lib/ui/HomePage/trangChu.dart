@@ -1,14 +1,10 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hb_mobile2021/common/VBDen/GiaoViec.dart';
 import 'package:hb_mobile2021/core/services/HomePageService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
-//import 'package:hb_mobile2021/notification_local_api.dart';
-import 'package:hb_mobile2021/restart.dart';
 import 'package:hb_mobile2021/ui/HomePage/homeHSCV.dart';
 import 'package:hb_mobile2021/ui/HomePage/homeVBD.dart';
 import 'package:hb_mobile2021/ui/HomePage/homeVBDT.dart';
@@ -16,21 +12,18 @@ import 'package:hb_mobile2021/ui/HomePage/homeVBDi.dart';
 import 'package:hb_mobile2021/ui/hoTro.dart';
 import 'package:hb_mobile2021/ui/main/lich_canhan.dart';
 import 'package:hb_mobile2021/ui/main/menu_chinh.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
 import 'dart:convert';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:badges/badges.dart';
 
 class trangChu extends StatefulWidget {
   final returnData;
   final String username;
   final String nam;
 
-  trangChu({Key key, this.returnData, this.username, this.nam})
+  trangChu({Key? key, this.returnData, required this.username, required this.nam})
       : super(key: key);
 
   @override
@@ -45,7 +38,7 @@ class PageState extends State<trangChu> {
   List dataListVBDen = [];
   List dataListVBDT = [];
   bool isLoading = false;
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   String ActionXL = "GetListHSCV";
   List HoSoList = [];
   List HoSoList1 = [];
@@ -186,14 +179,14 @@ class PageState extends State<trangChu> {
 
   //lấy thông tin user
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
     if (mounted) {
       setState(() {
-        user.Title = sharedStorage.getString("hoten");
-        user.ChucVu = sharedStorage.getString("chucvu");
+        user.Title = sharedStorage.getString("hoten")!;
+        user.ChucVu = sharedStorage.getString("chucvu")!;
       });
     }
   }
@@ -345,7 +338,7 @@ class PageState extends State<trangChu> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => GiaoViec(
-                                          Yearvb: yeara,
+                                          Yearvb: yeara, MaDonVi: '', id: 0,
                                         )));
                               },
                               child: Column(
@@ -379,7 +372,7 @@ class PageState extends State<trangChu> {
                                     context,
                                     MaterialPageRoute(
                                         builder: (context) => DynamicEvent(
-                                            username: widget.username,
+                                            username: widget.username,created: '',urlttVB: '',val: 0,
                                             nam: widget.nam)));
                               },
                               child: Column(
@@ -899,7 +892,7 @@ class PageState extends State<trangChu> {
 }
 
 String ttHoSo(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đang xử lý";

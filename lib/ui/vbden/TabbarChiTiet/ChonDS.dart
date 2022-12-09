@@ -1,18 +1,15 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
-import 'package:flutter/gestures.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbdi/ThongTinVBDi.dart';
+
 
 
 
 class ChonDS extends StatefulWidget {
-  const ChonDS({Key key}) : super(key: key);
+  const ChonDS({Key? key}) : super(key: key);
 
   @override
   _ChonDSState createState() => _ChonDSState();
@@ -21,17 +18,17 @@ class ChonDS extends StatefulWidget {
 class _ChonDSState extends State<ChonDS> {
   TextEditingController _titleController = TextEditingController();
   int _radioValue = 0;
-  String _setDate;
+  late String _setDate;
   bool PH = false;
   bool XDB = false;
   List<bool> checkPH = [];
   List<bool> checkXDB = [];
   List checkXoa = [];
-  double _height;
-  double _width;
+  late double _height;
+  late double _width;
   int id = -1;
   //int ID =  strID;
-  DateTime _dateTime;
+  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   TextEditingController _dateController = TextEditingController();
 
@@ -40,7 +37,7 @@ class _ChonDSState extends State<ChonDS> {
   void initState() {
     // TODO: implement initState
     //_initializeTimer();
-    var tendangnhap = sharedStorage.getString("username");
+    var tendangnhap = sharedStorage!.getString("username");
     //this.GetDataDetailVBDen(widget.id);
     // this.GetYkienDataVBDen(widget.id);
     //this.GetButPheDataVBDen(widget.id);
@@ -51,7 +48,7 @@ class _ChonDSState extends State<ChonDS> {
 
   }
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -196,9 +193,9 @@ class _ChonDSState extends State<ChonDS> {
                                     child:Checkbox(
 
                                       value: checkPH[i],
-                                      onChanged: (bool value) {
+                                      onChanged: ( value) {
                                         if (mounted) { setState(() {
-                                          checkPH[i] = value ;
+                                          checkPH[i] = value! ;
                                         });}
 
                                       },
@@ -212,9 +209,9 @@ class _ChonDSState extends State<ChonDS> {
                                     alignment: Alignment.centerLeft,
                                     child: Checkbox(
                                       value: checkXDB[i],
-                                      onChanged: (bool value) {
+                                      onChanged: ( value) {
                                         setState(() {
-                                          checkXDB[i] = value;
+                                          checkXDB[i] = value!;
                                         });
                                       },
                                     ),
@@ -323,9 +320,9 @@ class _ChonDSState extends State<ChonDS> {
                                 textAlign: TextAlign.center,
                                 enabled: false,
                                 keyboardType: TextInputType.text,
-                                controller: _dateController == null ? selectedDate : _dateController,
-                                onSaved: (String val) {
-                                  _setDate = val;
+                                controller: _dateController == null ? selectedDate as TextEditingController : _dateController,
+                                onSaved: ( val) {
+                                  _setDate = val!;
                                 },
                                 decoration: InputDecoration(
                                     disabledBorder: UnderlineInputBorder(borderSide: BorderSide.none),
@@ -349,7 +346,7 @@ class _ChonDSState extends State<ChonDS> {
                         style: TextStyle(fontSize: 14,fontWeight: FontWeight.bold),),),
                       Checkbox( value: PH, onChanged: (val){
                         setState(() {
-                          PH= val;
+                          PH= val!;
                         });
 
                       }),
@@ -360,7 +357,7 @@ class _ChonDSState extends State<ChonDS> {
                   children: [
                     Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: FlatButton(
+                      child: ElevatedButton(
                         child: Text("Bỏ tất cả"),
                         onPressed: () async {
                           setState(() {
@@ -368,44 +365,51 @@ class _ChonDSState extends State<ChonDS> {
                           });
 
                         },
-                        color: Colors.blueAccent,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent, // background (button) color
+                          foregroundColor: Colors.white,  // foreground (text) color
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: FlatButton(
+                      child: ElevatedButton(
                         child: Text("Bỏ chọn"),
                         onPressed: () async {},
-                        color: Colors.blueAccent,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent, // background (button) color
+                          foregroundColor: Colors.white,  // foreground (text) color
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: FlatButton(
+                      child: ElevatedButton(
                         child: Text("Chuyển"),
                         onPressed: () async {},
-                        color: Colors.blueAccent,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent, // background (button) color
+                          foregroundColor: Colors.white,  // foreground (text) color
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        ),
                       ),
                     ),
                     Padding(
                       padding: const EdgeInsets.all(4.0),
-                      child: FlatButton(
+                      child: ElevatedButton(
                         child: Text("Đóng"),
                         onPressed: () => Navigator.pop(context),
-
-                        color: Colors.blueAccent,
-                        textColor: Colors.white,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.blueAccent, // background (button) color
+                          foregroundColor: Colors.white,  // foreground (text) color
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10.0), side: BorderSide(color: Colors.blueAccent)),
+                        ),
                       ),
                     ),
                   ],

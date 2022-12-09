@@ -1,6 +1,4 @@
 import 'dart:async';
-import 'dart:io';
-
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -8,11 +6,9 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/main.dart';
+
 import 'package:hb_mobile2021/ui/Login/singUp.dart';
 
-//import 'package:hb_mobile2021/notification_local_api.dart';
 import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:http/http.dart' as http;
@@ -29,7 +25,7 @@ class LoginWidget extends StatefulWidget {
 }
 
 class LoginState extends State<LoginWidget> {
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   TextEditingController usernameController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   bool rememberMe = false;
@@ -39,10 +35,10 @@ class LoginState extends State<LoginWidget> {
   List lstThongTinLConfig = [];
   var user;
 
-  Timer _timer;
+  late Timer _timer;
 
   @override
-  Future<void> initState() {
+  void initState() {
     super.initState();
     // String username = sharedStorage.getString("usernames");
     // usernameController.text = username;
@@ -57,7 +53,7 @@ class LoginState extends State<LoginWidget> {
     );
     final status = await newVersion.getVersionStatus();
 
-    if (status.localVersion != status.storeVersion) {
+    if (status!.localVersion != status.storeVersion) {
       newVersion.showUpdateDialog(
         context: context,
         versionStatus: status,
@@ -81,17 +77,17 @@ class LoginState extends State<LoginWidget> {
   rememberAccount() async {
     sharedStorage = await SharedPreferences.getInstance();
     if (sharedStorage.containsKey("username")) {
-      String username = sharedStorage.getString("username");
-      String passname = sharedStorage.getString("password");
-      bool rememberAccount = sharedStorage.getBool("rememberme");
-      usernameController.text = username;
+      String? username = sharedStorage.getString("username");
+      String? passname = sharedStorage.getString("password");
+      bool? rememberAccount = sharedStorage.getBool("rememberme");
+      usernameController.text = username!;
       if (rememberAccount == true) {
-        passwordController.text = passname;
+        passwordController.text = passname!;
       }
 
       if (mounted) {
         setState(() {
-          rememberMe = rememberAccount;
+          rememberMe = rememberAccount!;
         });
       }
     }
@@ -221,7 +217,7 @@ if(item == null){
   updateTokenFirebase(String tokenUser) async {
     var url = Uri.parse(
         "http://qlvbapi.moj.gov.vn/test/UpdateTokenFirebase?tokenfirebase=" +
-            tokenfirebase);
+            tokenfirebase!);
     var response =
         await http.get(url, headers: {'Authorization': 'Bearer ' + tokenUser});
     if (response.statusCode == 200) {
@@ -450,7 +446,7 @@ if(item == null){
                                         onChanged: (newValue) {
                                           if (mounted) {
                                             setState(() {
-                                              rememberMe = newValue;
+                                              rememberMe = newValue!;
                                             });
                                           }
                                         },
@@ -462,15 +458,15 @@ if(item == null){
 //                   color: Colors.white,
                                   height: 50,
                                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                                  child: RaisedButton(
-                                    color: Colors.blue,
-                                    shape: RoundedRectangleBorder(
-                                        side: new BorderSide(
-                                          color: Colors.blue,
-                                        ),
+                                  child: ElevatedButton(
+                                      style: ElevatedButton.styleFrom(
+                                        backgroundColor: Color(0xff3064D0), // background (button) color// foreground (text) color
+                                        shape:  RoundedRectangleBorder(
+                                            side:new  BorderSide(color: Colors.blue,), //the outline color
+                                            borderRadius: new BorderRadius.all(new Radius.circular(10))),
+                                      ),
                                         //the outline color
-                                        borderRadius: new BorderRadius.all(
-                                            new Radius.circular(10))),
+
                                     child: Text('Đăng nhập',
                                         style: TextStyle(
                                           fontSize: 16,
@@ -540,7 +536,7 @@ if(item == null){
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
     // var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
-  var url = Uri.parse("http://apimobile.hoabinh.gov.vn/token");
+  var url = Uri.parse("https://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,
         'password': password,
@@ -596,7 +592,7 @@ if(item == null){
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    BottomNavigator(username: username)),
+                    BottomNavigator(username: username, page: 0,ID: 0,year: '',query: '',index: 0,)),
             (Route<dynamic> route) => false);
       } else {
         if (mounted) {

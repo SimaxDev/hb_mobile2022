@@ -1,18 +1,13 @@
 import 'dart:developer' as Dev;
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
-import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
 import 'package:hb_mobile2021/ui/vbdi/view_pdf.dart';
 import 'package:hb_mobile2021/ui/vbduthao/BottomNavigator.dart';
 import 'package:hb_mobile2021/ui/vbduthao/phieu_trinh/view_pdf.dart';
-import 'package:hb_mobile2021/ui/vbduthao/view_pdfDT.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'ThongTinVBDT.dart';
 import 'NhatKyDuThao.dart';
 import 'dart:async';
@@ -25,7 +20,7 @@ import 'phieu_trinh/chitietvbpt.dart';
 
 import 'package:hb_mobile2021/core/models/VanBanDuThaoJSon.dart';
 class ThongTinDuThaoWidget extends StatefulWidget {
-  ThongTinDuThaoWidget({Key key, this.idDuThao,this.users,this.nam,this.MaDonVi}) :
+  ThongTinDuThaoWidget({Key? key, required this.idDuThao,required this.users,required this.nam,required this.MaDonVi}) :
 super
       (key:
   key);
@@ -50,7 +45,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
   var duThaoPT = null;
   var urlFile = null;
   var idPhieuTrinh = null;
-  String AuthToken;
+  late String AuthToken;
   bool isLoadingPDF = true;
   List _myActivities = [];
    var detailVBDT = null;
@@ -88,7 +83,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
     // _initializeTimer();
     GetDataDetailVBDT();
     GetDataDetailVBPT();
-    tendangnhap = sharedStorage.getString("username");
+    tendangnhap = sharedStorage!.getString("username")!;
     if (tendangnhap == null || tendangnhap == "") {
       tendangnhap = widget.users;
     }
@@ -144,8 +139,34 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
     if(mounted){
      setState(() {
         duThaoPT = json.decode(PT)['OData'];
-        print("ấd"+duThaoPT.toString());
+        List pdfPT1 = [];
+        pdfPT1  = duThaoPT['ListFileAttach'] != null &&duThaoPT['ListFileAttach']
+            .length >0 ? duThaoPT['ListFileAttach'] :[];
+        ListpdfPT = pdfPT1;
 
+
+        List chuaPDF = [];
+        for (var i in pdfPT1) {
+          if (i['ExtenFile'].contains("pdf")) {
+
+            chuaPDF.add(i);
+            // pdf2 = i['Url'];
+            if(chuaPDF != null && chuaPDF !=[]&& chuaPDF.length >0){
+              dynamic max = chuaPDF.first;
+              // print(max);
+              chuaPDF.forEach((e) {
+                if (e['Name'].length > max['Name'].length) max = e;
+              });
+              pdfPT = max['Url'];
+              namepdf=max['Name'];
+
+            }
+          }
+          else
+          {
+            pdfPT = i['Url'];
+          }
+        }
       });
     }
 
@@ -288,9 +309,9 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
             // ViewPDFDK(),
             // ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
             //     top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
-            ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
+            ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,viewPDF: '',
                 top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
-            ViewPDFPT(idDuThao: widget.idDuThao,nam: widget.nam,
+            ViewPDFPT(idDuThao: widget.idDuThao,nam: widget.nam, viewPDF: '',
                 ),
             // !isLoadingPDF
             //     ? (remotePDFpath.value != '' && remotePDFpath.value.toLowerCase().contains(".pdf"))
@@ -408,9 +429,9 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
             ThongTinPhieuTrinh(
                 idPhieuTrinh: widget.idDuThao,nam: widget.nam,duThaoPT:duThaoPT
             ),
-            ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,
+            ViewPDF(idDuThao: widget.idDuThao,nam: widget.nam,left:0,viewPDF: '',
                 top:0,pdfWidth: pdfWidth,pdfHeight: pdfHeight ),
-            ViewPDFPT(idDuThao: widget.idDuThao,nam: widget.nam,
+            ViewPDFPT(idDuThao: widget.idDuThao,nam: widget.nam,viewPDF:'' ,
             ),
             // !isLoadingPDF
             //     ? (remotePDFpath.value != '' && remotePDFpath.value.toLowerCase().contains(".pdf"))

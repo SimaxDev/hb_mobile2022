@@ -2,23 +2,20 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:async';
 import 'dart:io';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/HoSoCV/linhVucThemMoi.dart';
 import 'package:hb_mobile2021/common/VBDen/GiaoViecCN.dart';
 import 'package:hb_mobile2021/common/VBDen/GiaoViecPB.dart';
-import 'package:hb_mobile2021/common/VBDen/TreeChuyenNhanhVBD.dart';
 import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
-import 'package:hb_mobile2021/restart.dart';
-import 'package:hb_mobile2021/ui/hoSoCV/index.dart';
+
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/main/viewPDF.dart';
+
 import 'dart:convert';
 
 import 'package:path/path.dart';
@@ -27,7 +24,7 @@ import 'package:path/path.dart';
 
 
 class GiaoViec extends StatefulWidget {
-  GiaoViec({Key key, this.id,this.Yearvb,this.MaDonVi}) ;
+  GiaoViec({Key? key, required this.id,required this.Yearvb,required this.MaDonVi}) ;
   int id;
   final int Yearvb;
   final String MaDonVi;
@@ -37,12 +34,12 @@ class GiaoViec extends StatefulWidget {
 }
 
 class _ThemMoiHSState extends State<GiaoViec> {
-  DateTime _dateTime;
+
   DateTime selectedDate =  DateTime.now();
   bool isLoading = false;
-  double _height;
+  late double _height;
   bool _checkbox = false;
-  double _width;
+  late double _width;
   TextEditingController _dateController = TextEditingController();
   TextEditingController tenCV =  new TextEditingController();
   TextEditingController chuGiai =  new TextEditingController();
@@ -54,11 +51,11 @@ class _ThemMoiHSState extends State<GiaoViec> {
   TextEditingController kyHieuThongTin =  new TextEditingController();
   TextEditingController tinhTrangVL =  new TextEditingController();
   TextEditingController tuKhoa =  new TextEditingController();
-  File selectedfile;
+  late File selectedfile;
   List<int> Year = [1,2,3];
   String listLV = "";
-  String SoDen;
-  int dropdownValue ;
+   String? SoDen;
+   int? dropdownValue ;
   List<int> ListTT = [1,2];
   int dropdownValueTT =1 ;
   List<ListDataLinhVuc> vanbanListLinhVuc = [] ;
@@ -76,9 +73,9 @@ class _ThemMoiHSState extends State<GiaoViec> {
   List dataLinhVuc = [];
   List dataMucDo = [{"Title":"Thường","ID":"1"},{"Title":"Nhanh","ID":"2"},
     {"Title":"Khẩn cấp","ID":"3"}];
-  String idCDSD;
-  String idLV;
-  String idMD;
+   var idCDSD;
+   var idLV;
+   var idMD;
   List chua = [];
   String base64PDF = "";
   _onDeleteItemPressed(item) {
@@ -165,7 +162,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
 
 // lấy file từ điện thoại
   selectFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
@@ -173,7 +170,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
 
     if (result != null) {
       //if there is selected file
-      selectedfile = File(result.files.single.path);
+      selectedfile = File(result.files.single.path!);
 
       if (selectedfile != null) {
         // var bytes1 = await rootBundle.load(selectedfile.path);
@@ -192,7 +189,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
    var now = new DateTime.now();
    var formatter = new DateFormat('dd-MM-yyyy').format(now);
    DateTime selectedDateBD = DateFormat('d-M-yyyy').parse(formatter);
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDateBD,
         initialDatePickerMode: DatePickerMode.day,
@@ -208,7 +205,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
   }
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -666,7 +663,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
                           onChanged: (newVal) {
                             setState(() {
                               idCDSD = newVal;
-                              print("idCDSC "  +idCDSD);
+
                             });
                           },
                           hint:Text("Chọn") ,isExpanded: true,
@@ -1108,10 +1105,10 @@ class _ThemMoiHSState extends State<GiaoViec> {
                               width:
                               MediaQuery.of(context).size.width *
                                   0.5,
-                              child: FlatButton(
+                              child: TextButton(
                                 child: Text('Đính kèm file...'),
-                                color: Colors.blueAccent,
-                                textColor: Colors.white,
+                                // color: Colors.blueAccent,
+                                // textColor: Colors.white,
                                 onPressed: () {
                                   selectFile();
                                 },
@@ -1279,7 +1276,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
                                 }
                                 return false;
                               }
-                              var tendangnhap = sharedStorage.getString("username");
+                              var tendangnhap = sharedStorage!.getString("username");
 
                               if(tenCV!= null&& tenCV!= ""&& _dateControllerBD.text!=
                                   null&& _dateControllerBD.text!= "")
@@ -1312,7 +1309,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
 
                                   thanhcong=  await
                                   postGiaoViecVBD
-                                    ("ThemMoiHSCV",tendangnhap,
+                                    ("ThemMoiHSCV",tendangnhap!,
                                       widget.Yearvb,tenCV.text,SoDen
                                           .toString(),
                                       chuGiai.text,_dateControllerBD
@@ -1348,7 +1345,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
 
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             )
                         ),
@@ -1394,7 +1391,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
 
 }
 String trangthai(id){
-  String tt ;
+  String tt ="";
   switch(id){
     case 1:
       tt = "Thường";
@@ -1410,7 +1407,7 @@ String trangthai(id){
   return tt;
 }
 String tinhtrang(id){
-  String tt ;
+  String tt ="";
   switch(id){
     case 1:
       tt = "Khai thác, tra cứu";

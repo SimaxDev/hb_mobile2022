@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
@@ -17,7 +17,7 @@ class HomePage extends StatefulWidget {
   final String username;
   final String nam;
 
-  HomePage({Key key, this.returnData, this.username,this.nam}) : super(key:
+  HomePage({Key? key, this.returnData, required this.username,required this.nam}) : super(key:
   key);
 
   @override
@@ -32,7 +32,7 @@ class PageState extends State<HomePage> {
   List dataListVBDen = [];
   List dataListVBDT = [];
   bool isLoading = false;
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   String ActionXL = "GetListHSCV";
   List HoSoList = [];
   List HoSoList1 = [];
@@ -99,13 +99,13 @@ class PageState extends State<HomePage> {
 
 
   //lấy thông tin user
- UserJson user = new UserJson();
+ UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
     if (mounted) {setState(() {
-      user.Title = sharedStorage.getString("hoten");
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.Title = sharedStorage.getString("hoten")!;
+      user.ChucVu = sharedStorage.getString("chucvu")!;
     });}
 
 
@@ -444,7 +444,7 @@ class PageState extends State<HomePage> {
   }
 }
 String ttHoSo(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đang xử lý";

@@ -6,19 +6,12 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-
-import 'package:flutter_full_pdf_viewer/full_pdf_viewer_scaffold.dart';
-import 'package:get/get.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
 import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
-// import 'package:flutter_pdfview/flutter_pdfview.dart';
-import 'package:percent_indicator/circular_percent_indicator.dart';
-import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
@@ -33,17 +26,16 @@ class _ViewPDF extends State<ViewPDFLT> {
   String localPath = "";
   int i = 0;
   String PDF_URL = "adf";
-  File files;
+  late File files;
   double percentage = 0;
   var url;
   List<ListDataP> ListDataPDF = [];
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   String remotePDFpath = "";
   int pages = 0;
   int currentPage = 0;
   final Completer<PDFViewController> _controller =
   Completer<PDFViewController>();
-  Timer _timer;
   String downloadMessage = "Initalizing...";
   bool _isDownloading = false;
   bool percentageBool = false;
@@ -54,21 +46,12 @@ class _ViewPDF extends State<ViewPDFLT> {
 
   static downloadingCallback(id, status, progress) {
     ///Looking up for a send port
-    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+    SendPort? sendPort = IsolateNameServer.lookupPortByName("downloading");
 
     ///ssending the data
-    sendPort.send([id, status, progress]);
+    sendPort!.send([id, status, progress]);
   }
 
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 5), (_) {
-      if (mounted) {
-        logOut(context);
-      }
-
-      _timer.cancel();
-    });
-  }
 
 
   Future<String> loadPDF(String urlPDF) async {
@@ -136,7 +119,7 @@ class _ViewPDF extends State<ViewPDFLT> {
       var bytes = await consolidateHttpClientResponseBytes(response);
       var dir = await getExternalStorageDirectory();
       print("Download files");
-      print("${dir.path}/$filename");
+      print("${dir!.path}/$filename");
       File file = File("${dir.path}/$filename");
 
       await file.writeAsBytes(bytes, flush: true);
@@ -148,14 +131,14 @@ class _ViewPDF extends State<ViewPDFLT> {
     return completer.future;
   }
 
-  Future openFile({String url, String fileName}) async {
+  Future openFile({required String url, required String fileName}) async {
     final file = await downloadFile(url, fileName);
     if (file == null) return;
     print('Path: ${file.path}');
     await OpenFile.open(file.path);
   }
 
-  Future<File> downloadFile(String url, String name) async {
+  Future<File?> downloadFile(String url, String name) async {
     try {
       final appStorage = await getApplicationDocumentsDirectory();
       final file = File('${appStorage.path}/$name');
@@ -220,7 +203,7 @@ class ListDataP {
   String Url;
   String UrlDoc;
 
-  ListDataP({this.Name, this.Url, this.UrlDoc});
+  ListDataP({required this.Name, required this.Url, required this.UrlDoc});
 
   factory ListDataP.fromJson(Map<String, dynamic> json) {
     return ListDataP(

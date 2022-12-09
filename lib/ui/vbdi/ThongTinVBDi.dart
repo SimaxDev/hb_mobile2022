@@ -1,5 +1,5 @@
 import 'dart:async';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/models/VanBanDiJson.dart';
@@ -13,7 +13,7 @@ class ThongTinVBDi extends StatefulWidget {
   final String MaDonVi;
   final ttVbanDi;
 
-  ThongTinVBDi({this.id, this.nam,this.MaDonVi,this.ttVbanDi});
+  ThongTinVBDi({required this.id, required this.nam,required this.MaDonVi,this.ttVbanDi});
 
   @override
   _ThongTinVBDi createState() => _ThongTinVBDi();
@@ -24,11 +24,11 @@ class _ThongTinVBDi extends State<ThongTinVBDi> {
 
   // List dataList = [];
   var duthao = null;
-  List<dynamic> yKienitems=new List<Widget>();
-  List<Widget> listYkien = new List<Widget>();
-  String AuthToken;
-  List<dynamic> butPheitems = new List<Widget>();
-  List<Widget> listButPhe = new List<Widget>();
+  List<dynamic> yKienitems=<Widget>[];
+  List<Widget> listYkien = <Widget>[];
+  late String AuthToken;
+  List<dynamic> butPheitems = <Widget>[];
+  List<Widget> listButPhe = <Widget>[];
 
   String ActionXLYKien = "GetButPhe";
   String donViNhan="";

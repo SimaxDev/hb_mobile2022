@@ -1,19 +1,15 @@
 import 'dart:async';
 import 'dart:developer';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/models/VanBanDuThaoJSon.dart';
-import 'package:hb_mobile2021/core/services/DataControllerGetxx.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 
 class ThongTinVBDT extends StatefulWidget {
-  ThongTinVBDT({Key key, this.idDuThao, this.nam, this.MaDonVi,this.ttDuThao})
+  ThongTinVBDT({Key? key, required this.idDuThao, required this.nam, required this.MaDonVi,this.ttDuThao})
       : super(key: key);
   final int idDuThao;
   String nam;
@@ -29,13 +25,13 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
   var duThao;
 
   bool isLoading = false;
-  List<dynamic> yKienitems;
-  List<Widget> lstYKien = new List<Widget>();
+  late List<dynamic> yKienitems;
+  List<Widget> lstYKien = <Widget>[];
   String ActionXL = "GetVBDTByID";
   String ActionXLYKien = "GetYKien";
   String mesDuThao = "";
   String tenDsYKien="";
-  Timer _timer;
+  late Timer _timer;
 
 
   @override
@@ -594,7 +590,7 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
 }
 
 String ttDuthao(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đã thu hồi";

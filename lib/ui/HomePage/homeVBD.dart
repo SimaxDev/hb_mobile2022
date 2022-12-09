@@ -1,15 +1,9 @@
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
-import 'package:hb_mobile2021/restart.dart';
 import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbden/vbden.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
 import 'package:hb_mobile2021/core/services/HomePageService.dart';
 import 'dart:convert';
@@ -18,7 +12,7 @@ class HomeVBDen extends StatefulWidget {
   final returnData;
   final String username;
 
-  HomeVBDen({Key key, this.returnData, this.username}) : super(key: key);
+  HomeVBDen({Key? key, this.returnData, required this.username}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -31,7 +25,7 @@ class PageState extends State<HomeVBDen> {
 
   List dataListVBDen = [];
   bool isLoading = false;
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
 
 
 
@@ -57,13 +51,13 @@ class PageState extends State<HomeVBDen> {
 
 
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
     if (mounted) {setState(() {
-      user.Title = sharedStorage.getString("hoten");
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.Title = sharedStorage.getString("hoten")!;
+      user.ChucVu = sharedStorage.getString("chucvu")!;
     });}
 
 
@@ -173,7 +167,7 @@ class PageState extends State<HomeVBDen> {
             height: MediaQuery.of(context).size.height * 0.05,
             //padding: const EdgeInsets.all(1),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.blueGrey[100],width: 1),
+              border: Border.all(color: Colors.blueGrey[100]!,width: 1),
               borderRadius: BorderRadius.circular(7),
               color: Colors.blueAccent,
             ),
@@ -181,7 +175,7 @@ class PageState extends State<HomeVBDen> {
             Colors.white, fontSize:11.0)),
           ),
           onTap: () {
-           Get.offAll(BottomNavigator(query: query,page:1) );
+           Get.offAll(BottomNavigator(query: query,page:1, username: '', year: '', ID: 0,index: 0,) );
 
           }
       ),

@@ -17,11 +17,12 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
+import 'package:resize/resize.dart';
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
     'high_importance_channel', // id
     'High Importance Notifications', // title
-    'This channel is used for important notifications.', // description
+    // 'This channel is used for important notifications.', // description
     importance: Importance.high,
     playSound: true);
 
@@ -33,7 +34,7 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
 }
 Future<void> backgroundHandler(RemoteMessage message) async{
   print(message.data.toString());
-  print(message.notification.title);
+  print(message.notification!.title);
   await Firebase.initializeApp();
 }
 const debug = true;
@@ -50,7 +51,7 @@ Future<void> main() async{
   if(sharedStorage.containsKey("expires_in")){
     var expireIn = sharedStorage.getString("expires_in");
     DateTime now = DateTime.now();
-    var checkTimetoken = DateTime.parse(expireIn).compareTo(now);
+    var checkTimetoken = DateTime.parse(expireIn!).compareTo(now);
     if(checkTimetoken > 0){
       isLogin = true;
     }else{
@@ -61,65 +62,65 @@ Future<void> main() async{
   }
   _initializeTimer();
 
+
   runApp(MyApp());
 
 }
-Timer _timer;
+ Timer? _timer;
 void _initializeTimer() {
   _timer = Timer.periodic(const Duration(minutes:5), (_) {
     rester().logOutALL();
-    _timer.cancel();
+    _timer?.cancel();
   });
 
 }
 void _handleUserInteraction([_]) {
-  _timer.cancel();
+  _timer?.cancel();
   _initializeTimer();
-  if (!_timer.isActive) {
-    // This means the user has been logged out
-
-    return;
-
-  }
-
 
 }
 
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return  Listener(onPointerDown:_handleUserInteraction ,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home:GestureDetector(
-          // onTap: _handleUserInteraction,
-          // onPanDown: _handleUserInteraction,
-          // onScaleStart: _handleUserInteraction,
-          child: Notification(),
-          // builder: (BuildContext context, Widget child) {
-          //   final MediaQueryData data = MediaQuery.of(context);
-          //   return MediaQuery(
-          //     data: data.copyWith(
-          //         textScaleFactor: data.textScaleFactor > 2.0 ? 2.0 : data.textScaleFactor),
-          //     child: FlutterEasyLoading(child: child),
-          //   )  ;
-          // },
-        ),
-      ),
-    );
+    return  Resize(
+        builder: () {
+          return Listener(onPointerDown:_handleUserInteraction ,
+            child: MaterialApp(
+              debugShowCheckedModeBanner: false,
+              home:GestureDetector(
+                // onTap: _handleUserInteraction,
+                // onPanDown: _handleUserInteraction,
+                // onScaleStart: _handleUserInteraction,
+                child: Notification(),
+                // builder: (BuildContext context, Widget child) {
+                //   final MediaQueryData data = MediaQuery.of(context);
+                //   return MediaQuery(
+                //     data: data.copyWith(
+                //         textScaleFactor: data.textScaleFactor > 2.0 ? 2.0 : data.textScaleFactor),
+                //     child: FlutterEasyLoading(child: child),
+                //   )  ;
+                // },
+              ),
+              builder: EasyLoading.init(),
+            ),
+          );
+        }
+
+    )
+     ;
   }
 }
 
-// final BehaviorSubject<ReceivedNotification> didReceiveLocalNotificationSubject =  BehaviorSubject<ReceivedNotification>();
-// final BehaviorSubject<String> selectNotificationSubject = BehaviorSubject<String>();
-Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
-  if (message.containsKey('data')) {
-    final dynamic data = message['data'];
-  }
-  if (message.containsKey('notification')) {
-    final dynamic notification = message['notification'];
-  }
-}
+
+// Future<dynamic> myBackgroundMessageHandler(Map<String, dynamic> message) {
+//   if (message.containsKey('data')) {
+//     final dynamic data = message['data'];
+//   }
+//   if (message.containsKey('notification')) {
+//     final dynamic notification = message['notification'];
+//   }
+// }
 
 class Notification extends StatefulWidget {
   @override
@@ -127,11 +128,11 @@ class Notification extends StatefulWidget {
 }
 
 class _NotificationState extends State<Notification> {
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-  SharedPreferences sharedStorage;
+  late FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
+  late SharedPreferences sharedStorage;
   final _keymain = GlobalKey<ScaffoldState>();
   // FirebaseMessaging firebaseMessaging;
-  Timer _timer;
+  late Timer _timer;
 
 
   void _initializeTimer() {
@@ -198,8 +199,8 @@ class _NotificationState extends State<Notification> {
     ///foreground
     FirebaseMessaging.onMessage.listen((message) {
       if(message.notification != null){
-        print(message.notification.body);
-        print(message.notification.title);
+        print(message.notification?.body);
+        print(message.notification?.title);
       }
 
       LocalNotificationService.display(message);
@@ -258,7 +259,8 @@ class _NotificationState extends State<Notification> {
         "Testing $_counter",
         "How you doin ?",
         NotificationDetails(
-            android: AndroidNotificationDetails(channel.id, channel.name, channel.description,
+            android: AndroidNotificationDetails(channel.id, channel.name,
+                // channel.description,
                 importance: Importance.high,
                 color: Colors.blue,
                 playSound: true,
@@ -278,9 +280,9 @@ class _NotificationState extends State<Notification> {
         body: SplashWidget() ,
 
       ),
-      builder: (BuildContext context, Widget child) {
-        return FlutterEasyLoading(child: child);
-      },
+      // builder: (BuildContext context, Widget child) {
+      //   return FlutterEasyLoading(child: child);
+      // },
     );
 
     // return  Provider(

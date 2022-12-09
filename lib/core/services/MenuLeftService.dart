@@ -11,15 +11,17 @@ Future<String> GetMenuLeft(int page,String year) async {
   }
 
   var formData = parts.join('&');
-  var response =await responseDataHOmeVBDen(url,formData);
+  var response =await responseDataHOmeVBDen(url!,formData);
   if(response.statusCode == 200) {
     var item = response.body;
     return item;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
 Future<String> GetDetailMenuLeft(int page, String query, String year) async {
-  String ActionXL;
+  String? ActionXL;
   if(page == 1){
     ActionXL ="GetListVBDen";
   }
@@ -32,19 +34,21 @@ Future<String> GetDetailMenuLeft(int page, String query, String year) async {
   var url = getUrlDetail(page);
   var parts = [];
   parts.add('Yearvb=' + year );
-  parts.add('ActionXL=' + ActionXL);
+  parts.add('ActionXL=' + ActionXL!);
   parts.add(query);
   var formData = parts.join('&');
-  var response =await responseDataVBDen(url,formData);
+  var response =await responseDataVBDen(url!,formData);
   if(response.statusCode == 200) {
     var item = response.body;
     datavb =  item;
     return datavb;
 
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
-String getUrl(int page) {
+String? getUrl(int page) {
   switch (page) {
     case 1:
       return "/api/SVMenu/GetDataMenuLeftVBD1";
@@ -59,8 +63,9 @@ String getUrl(int page) {
       return "/api/SVMenu/GetDataMenuLeftHSCV";
       break;
   }
+  return null;
 }
-String getUrlDetail(int page) {
+String? getUrlDetail(int page) {
   switch (page) {
     case 1:
       return "/api/ServicesVBD/GetData";
@@ -72,4 +77,5 @@ String getUrlDetail(int page) {
       return "/api/ServicesVBDT/GetData";
       break;
   }
+  return null;
 }

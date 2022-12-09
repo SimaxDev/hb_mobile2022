@@ -13,7 +13,7 @@ import 'package:hb_mobile2021/ui/User/Edit_user.dart';
 class ThongtinUser extends StatefulWidget {
 
   final String username;
-   ThongtinUser({Key key, this.username}) : super(key: key);
+   ThongtinUser({Key? key, required this.username}) : super(key: key);
 
   @override
   _ThongtinUserState createState() => _ThongtinUserState();
@@ -24,7 +24,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
   bool valueEmail = false;
   bool valueSMS = false;
   bool isLoading = false;
-  String testthuhomerxoa;
+  late String testthuhomerxoa;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   var users = null;
   var tendangnhap = "";
@@ -50,14 +50,11 @@ class _ThongtinUserState extends State<ThongtinUser> {
     });
   }
   //lấy thông tin user
- Future<UserJson> GetDataDetailUser() async {
+ Future<UserJson?> GetDataDetailUser() async {
    tendangnhap =widget.username;
 
     if(tendangnhap == null || tendangnhap == "")
-    {
-      tendangnhap =sharedStorage.getString("username");
-    }
-
+      tendangnhap =sharedStorage!.getString("username")!;
 
 
 
@@ -66,6 +63,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
       var data =  json.decode(detailUser)['OData'];
       users = UserJson.fromJson(data);
     });
+    return null;
   }
 
   Future<Null> refreshList() async {
@@ -76,7 +74,6 @@ class _ThongtinUserState extends State<ThongtinUser> {
     }
     );
 
-    return null;
   }
 
 
@@ -460,7 +457,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
                 ),
                 Center(
                   child: Checkbox(
-                    value: users.cbNhanEmail,
+                    value: users.cbNhanEmail, onChanged: (bool? value) {  },
                     // onChanged: (bool value) {
                     //   setState(() {
                     //     this.valueEmail = value;
@@ -489,7 +486,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
                 Center(
                   child: Checkbox(
 
-                    value: users.cbNhanSMS,
+                    value: users.cbNhanSMS, onChanged: (bool? value) {  },
                     // onChanged: (bool value) {
                     //   setState(() {
                     //     this.valueSMS = value;
@@ -538,12 +535,14 @@ class _ThongtinUserState extends State<ThongtinUser> {
             Container(
                 height: 50,
                 padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                child: RaisedButton(
-                  color: Colors.blue,
-                  shape:  RoundedRectangleBorder(
-                      side:new  BorderSide(color: Colors.blue,), //the outline color
-                      borderRadius: new BorderRadius.all(new Radius.circular(10))),
-                  textColor: Colors.white,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.blueAccent, // background (button) color
+                    foregroundColor: Colors.white,  // foreground (text) color
+                    shape:  RoundedRectangleBorder(
+                        side:new  BorderSide(color: Colors.blue,), //the outline color
+                        borderRadius: new BorderRadius.all(new Radius.circular(10))),
+                  ),
                   child: Text('Sửa thông tin',
                       style: TextStyle(
                         fontSize: 20,
@@ -558,7 +557,7 @@ class _ThongtinUserState extends State<ThongtinUser> {
                       Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => EditUser(utser:utser,gui : refreshList()),
+                            builder: (context) => EditUser(utser:utser),
                           ));
                       isLoading = true;
                     });

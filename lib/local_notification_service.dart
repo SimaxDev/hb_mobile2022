@@ -11,12 +11,16 @@ class LocalNotificationService {
     InitializationSettings(
         android: AndroidInitializationSettings("@mipmap/ic_launcher")
     );
+    _notificationsPlugin.initialize(initializationSettings);
 
-    _notificationsPlugin.initialize(initializationSettings,onSelectNotification: (String route) async{
-      if(route != null){
-        Navigator.of(context).pushNamed(route);
-      }
-    });
+    // _notificationsPlugin.initialize(initializationSettings,onSelectNotification: ( route) async{
+    //   if(route != null){
+    //     Navigator.of(context).pushNamed(route);
+    //   }else{
+    //     return "";
+    //   }
+    //
+    // });
   }
 
   static void display(RemoteMessage message) async {
@@ -28,20 +32,20 @@ class LocalNotificationService {
           android: AndroidNotificationDetails(
             "easyapproach",
             "easyapproach channel",
-            "this is our channel",
+            // "this is our channel",
             importance: Importance.max,
             priority: Priority.high,
           ),
-        iOS: IOSNotificationDetails(
-         subtitle: "easyapproach",sound: "",
-        )
+        // iOS: IOSNotificationDetails(
+        //  subtitle: "easyapproach",sound: "",
+        // )
       );
 
 
       await _notificationsPlugin.show(
         id,
-        message.notification.title,
-        message.notification.body,
+        message.notification?.title,
+        message.notification?.body,
         notificationDetails,
         payload: message.data["route"],
       );

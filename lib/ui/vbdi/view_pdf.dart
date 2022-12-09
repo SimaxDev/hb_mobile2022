@@ -38,24 +38,24 @@ class ViewPDF extends StatefulWidget {
   final double left;
 
   ViewPDF(
-      {this.idDuThao,
-      this.nam,
-      this.pdfHeight,
-      this.left,
-      this.viewPDF,
-      this.top,
-      this.pdfWidth});
+      {required this.idDuThao,
+      required this.nam,
+      required this.pdfHeight,
+      required this.left,
+      required this.viewPDF,
+      required this.top,
+      required this.pdfWidth});
 
   @override
   _ViewPDF createState() => _ViewPDF();
 }
 
 extension GlobalKeyExtension on GlobalKey {
-  Rect get globalPaintBound {
+  Rect? get globalPaintBound {
     final renderObject = currentContext?.findRenderObject();
     var translation = renderObject?.getTransformTo(null).getTranslation();
     if (translation != null && renderObject?.paintBounds != null) {
-      return renderObject.paintBounds
+      return renderObject!.paintBounds
           .shift(Offset(translation.x, translation.y));
     } else {
       return null;
@@ -69,7 +69,7 @@ class _ViewPDF extends State<ViewPDF> {
   var _y = 0.0;
   final GlobalKey stackKey = GlobalKey();
 
-  PDFViewController _pdfViewController;
+
   double pdfWidth = 612.0;
   double pdfHeight = 792.0;
   Completer<PDFViewController> pdfController = Completer<PDFViewController>();
@@ -79,35 +79,34 @@ class _ViewPDF extends State<ViewPDF> {
   bool pdfReload = false;
   bool isLoading = false;
   bool chekKy = false;
-  String localPath;
+  String? localPath;
   String namefile = namepdf;
   String namefilePDF = "";
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   double widthCK = 110, heightCK = 60;
   GlobalKey stickyKeyPositioned = GlobalKey();
-  double top, left;
-  double relX, relY;
-  double xOff, yOff;
+   double? top, left;
+   double? relX, relY;
+   double? xOff, yOff;
   bool _visibleSign = false;
   int _currentPage = 1;
-  String encodedImage;
+   String? encodedImage;
   GlobalKey stickyKey = GlobalKey();
   GlobalKey stickyKeyPdf = GlobalKey();
   String pdfGui = "";
   String pdfCu = "";
   String NameMoi = "";
   String UrlMoi = "";
-  bool _enableSwipe = true;
-  double xz, yz;
+   double? xz, yz;
   final keyText = GlobalKey();
-  Size size;
-  Offset position;
+   Size? size;
+   Offset? position;
   bool pdfReady = false;
 
   Offset offset = Offset.zero;
-  String PDF_URL = "";
+  String? PDF_URL = "";
 
-  File file;
+   File? file;
   var url;
   List<ListDataP> ListDataPDF = [];
 
@@ -150,12 +149,10 @@ class _ViewPDF extends State<ViewPDF> {
     }
 
 
-    print("Download files");
-    print("${dir.path}/$filename");
     file = File("${dir.path}/$filename");
 
-    await file.writeAsBytes(response.bodyBytes, flush: true);
-    return file.path;
+    await file!.writeAsBytes(response.bodyBytes, flush: true);
+    return file!.path;
   }
 
   Future<File> createFileOfPdfUrl(String url, filename) async {
@@ -171,8 +168,8 @@ class _ViewPDF extends State<ViewPDF> {
       var bytes = await consolidateHttpClientResponseBytes(response);
       var dir = await getExternalStorageDirectory();
       print("Download files");
-      print("${dir.path}/$filename");
-      File file = File("${dir.path}/$filename");
+      print("${dir?.path}/$filename");
+      File file = File("${dir!.path}/$filename");
 
       await file.writeAsBytes(bytes, flush: true);
       completer.complete(file);
@@ -182,20 +179,20 @@ class _ViewPDF extends State<ViewPDF> {
 
     return completer.future;
   }
+  //
+  // void _getRenderOffsets() {
+  //   final RenderObject? renderBoxWidget =
+  //       stickyKeyPositioned.currentContext.findRenderObject();
+  //   final offset = renderBoxWidget.localToGlobal(Offset.zero);
+  //
+  //   yOff = offset.dy - this.top;
+  //   xOff = offset.dx - this.left;
+  // }
 
-  void _getRenderOffsets() {
-    final RenderBox renderBoxWidget =
-        stickyKeyPositioned.currentContext.findRenderObject();
-    final offset = renderBoxWidget.localToGlobal(Offset.zero);
 
-    yOff = offset.dy - this.top;
-    xOff = offset.dx - this.left;
-  }
-
-
-  void _afterLayout(_) {
-    _getRenderOffsets();
-  }
+  // void _afterLayout(_) {
+  //   _getRenderOffsets();
+  // }
 
   @override
   void dispose() {
@@ -204,22 +201,22 @@ class _ViewPDF extends State<ViewPDF> {
   }
 
   @override
-  Future<void> initState() {
+ void initState() {
     // _initializeTimer();
     // TODO: implement initState
     super.initState();
     PDF_URL = pdf;
-    if (widget.viewPDF != null) {
+    if (widget.viewPDF != null &&widget.viewPDF != "") {
       PDF_URL = widget.viewPDF;
     }
-    GetPDF(PDF_URL);
+    GetPDF(PDF_URL!);
     pdfWidth = widget.pdfWidth;
     pdfHeight = widget.pdfHeight;
 
     position = Offset(0, 0);
     top = widget.top;
     left = widget.left;
-    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
+    // WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
     //this.fetchData();
     if (mounted) {
       setState(() {
@@ -236,10 +233,10 @@ class _ViewPDF extends State<ViewPDF> {
 
   static downloadingCallback(id, status, progress) {
     ///Looking up for a send port
-    SendPort sendPort = IsolateNameServer.lookupPortByName("downloading");
+    SendPort? sendPort = IsolateNameServer.lookupPortByName("downloading");
 
     ///ssending the data
-    sendPort.send([id, status, progress]);
+    sendPort!.send([id, status, progress]);
   }
 
   @override
@@ -257,14 +254,8 @@ class _ViewPDF extends State<ViewPDF> {
 //ký số bằng việc kéo tahr
     return Scaffold(
         body: Stack(
-          // key: stackKey, // 3.
-          //fit: StackFit.expand,
           children: [
-            // !pdfReady
-            //     ? Center(
-            //   child: CircularProgressIndicator(),
-            // )
-            //     : Offstage(),
+
             localPath != null
                 ? Container(
                     key: stickyKeyPdf,
@@ -280,7 +271,7 @@ class _ViewPDF extends State<ViewPDF> {
                       true, // if set to true the link is handled in flutter
                       onRender: (_pages) {
                         setState(() {
-                          pages = _pages;
+                          pages = _pages!;
                           pdfReady = true;
                         });
                       },
@@ -290,11 +281,11 @@ class _ViewPDF extends State<ViewPDF> {
                       // onViewCreated: (PDFViewController pdfViewController) {
                       //   _controller.complete(pdfViewController);
                       // },
-                      onPageChanged: (int page, int total) {
+                      onPageChanged: ( page,  total) {
                         setState(() {
 
 
-                            _currentPage = page;
+                            _currentPage = page!;
 
 
                         });
@@ -327,8 +318,7 @@ class _ViewPDF extends State<ViewPDF> {
                           imageCK,
                           width: widthKy,
                           height: heightKy,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace stackTrace) {
+                          errorBuilder: (context, error, stackTrace) {
                             return Image(
                               image: AssetImage('assets/signature.png'),
                               width: widthKy,
@@ -360,8 +350,7 @@ class _ViewPDF extends State<ViewPDF> {
                           imageCK,
                           width: widthKy,
                           height: heightKy,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace stackTrace) {
+                          errorBuilder: (context, error, stackTrace) {
                             return Image(
                               image: AssetImage('assets/signature.png'),
                               width: widthKy,
@@ -391,7 +380,7 @@ class _ViewPDF extends State<ViewPDF> {
                       print("top  "+(top ).toString());
                     });
                     final keyContext = stickyKeyPdf.currentContext;
-                    final box = keyContext.findRenderObject() as RenderBox;
+                    final box = keyContext!.findRenderObject() as RenderBox;
                     final pos = box.localToGlobal(Offset.zero);
                     double ratioW = pdfWidth / (box.size.width);
                     double ratio = (box.size.width) / pdfWidth;
@@ -405,12 +394,12 @@ class _ViewPDF extends State<ViewPDF> {
                     // });
 
                     double dy = (box.size.height -
-                        top -
+                        top! -
                         heightKy -
                         ((box.size.height - boxHeight) / 2));
                     double ratioH = pdfHeight / (boxHeight);
 
-                    double dx = (left * ratioW);
+                    double dx = (left! * ratioW);
                     double dy1 = (dy * ratioH);
 
                     // print("chièu dài PhepTinh: " +
@@ -422,19 +411,30 @@ class _ViewPDF extends State<ViewPDF> {
                     // print('width: ====${(width * ratioW).toInt()}');
                     // print('height: ====${(height * ratioW).toInt()}');
                     //
-                    PDF_URL.substring(0, 38);
+                    PDF_URL!.substring(0, 38);
                     // pdfCu = PDF_URL.substring(36, PDF_URL.length);
-                    pdfCu = PDF_URL.replaceAll(
-                        "http://apimobile.hoabinh.gov"
-                            ".vn/",
-                        "");
+                    if(PDF_URL!.contains("https://apimobile.hoabinh.gov"
+                        ".vn/")){
+                      pdfCu = PDF_URL!.replaceAll(
+                          "https://apimobile.hoabinh.gov"
+                              ".vn/",
+                          "");
+                    }
+                    else
+                      {
+                        pdfCu = PDF_URL!.replaceAll(
+                            "http://apimobile.hoabinh.gov"
+                                ".vn/",
+                            "");
+                      }
+
                     EasyLoading.show();
                     //String vbtimkiem ;
                     String vbtimkiem = await postKySim(
                         widget.idDuThao,
                         "KySim",
                         widget.nam,
-                        ((left * ratioW) + (widthKy * 1 / 2)).toString(),
+                        ((left! * ratioW) + (widthKy * 1 / 2)).toString(),
                         // ((dy1 + heightKy) - MediaQuery.of(context).size
                         //     .height*0.1 ).toString(),
                         // (widthKy * ratioW).toString(),
@@ -467,12 +467,24 @@ class _ViewPDF extends State<ViewPDF> {
 
                     } else {
                       if (mounted) {
-                        setState(() {
+                        setState(()  {
                           var duthaoList = json.decode(vbtimkiem)['OData'];
-                          NameMoi = duthaoList['Name'];
-                          UrlMoi = duthaoList['Url'];
-                          EasyLoading.dismiss();
-                          chekKy = true;
+                          if(duthaoList != null){
+                            NameMoi = duthaoList['Name'];
+                            UrlMoi = duthaoList['Url'];
+                            EasyLoading.dismiss();
+                            chekKy = true;
+                          }
+                          else{
+                            Get.defaultDialog(
+
+                                title:"Thông báo",
+                                middleText:"Ký số không thành công!"
+                            );
+                            EasyLoading.dismiss();
+                            chekKy = false;
+                          }
+
                         });
                       }
                     }
@@ -504,15 +516,15 @@ class _ViewPDF extends State<ViewPDF> {
                             style: TextStyle(fontSize: 14,
                                 color: Colors.black,
                             ),
-                            value: PDF_URL,
+                            value:PDF_URL!.isNotEmpty ? PDF_URL : null,
                             isDense: false,
                             isExpanded: true,
                             onChanged: (newValue) async {
                               //  OpenFile.open(files.path);
                               if (mounted) {
                                 setState(() {
-                                  PDF_URL = newValue;
-                                  GetPDF(PDF_URL);
+                                  PDF_URL = newValue!;
+                                  GetPDF(PDF_URL!);
                                   for (var i in chuaPDF) {
                                     if (PDF_URL == i['Url']) {
                                       setState(() {
@@ -524,7 +536,6 @@ class _ViewPDF extends State<ViewPDF> {
                               }
                             },
                             items: ListDataPDF.map((value) {
-                              String a = value.Url;
                               // tenPDFTruyen =  value.Name;
                               return DropdownMenuItem<String>(
                                   value: value.Url,
@@ -577,24 +588,24 @@ class _ViewPDF extends State<ViewPDF> {
                                 print(urlPDF);
                               }
                             }
-                            if (PDF_URL.contains("doc")) {
+                            if (PDF_URL!.contains("doc")) {
                               url = urlPDF;
                               await FlutterDownloader.enqueue(
                                 url: url,
-                                savedDir: dir.path,
+                                savedDir: dir!.path,
                                 fileName: tenPDF,
                                 showNotification: true,
                                 openFileFromNotification: true,
                               );
                               // createFileOfPdfUrl(url,tenPDF);
-                            } else if (PDF_URL.contains("xlsx")) {
-                              String ten = PDF_URL.split('/').last;
+                            } else if (PDF_URL!.contains("xlsx")) {
+                              String ten = PDF_URL!.split('/').last;
                               url = PDF_URL;
 
                               url = PDF_URL;
                               await FlutterDownloader.enqueue(
                                 url: url,
-                                savedDir: dir.path,
+                                savedDir: dir!.path,
                                 fileName: tenPDF,
                                 showNotification: true,
                                 openFileFromNotification: true,
@@ -623,7 +634,7 @@ class _ViewPDF extends State<ViewPDF> {
                               final id = await FlutterDownloader.enqueue(
                                 url: url,
                                 fileName: tenPDF,
-                                savedDir: dir.path,
+                                savedDir: dir!.path,
                                 showNotification: true,
                                 openFileFromNotification: true,
                               );
@@ -681,8 +692,8 @@ class _ViewPDF extends State<ViewPDF> {
                             if (_visibleSign) {
                               EasyLoading.show();
                               String pdf = "";
-                              PDF_URL.substring(0, 38);
-                              pdf = PDF_URL.substring(36, PDF_URL.length);
+                              PDF_URL!.substring(0, 38);
+                              pdf = PDF_URL!.substring(36, PDF_URL!.length);
                               var thanhcong = await postKySimOK(
                                   widget.idDuThao,
                                   "UpdateFileS"
@@ -1091,7 +1102,7 @@ class ListDataP {
   String Url;
   String UrlDoc;
 
-  ListDataP({this.Name, this.Url, this.UrlDoc});
+  ListDataP({required this.Name, required this.Url, required this.UrlDoc});
 
   factory ListDataP.fromJson(Map<String, dynamic> json) {
     return ListDataP(

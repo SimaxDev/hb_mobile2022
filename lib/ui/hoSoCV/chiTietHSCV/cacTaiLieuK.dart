@@ -1,23 +1,19 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/HoSoCV/coQuanBH.dart';
 import 'package:hb_mobile2021/common/HoSoCV/loaiVB.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/ThongTinHSCV.dart';
-import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'dart:convert';
-import 'package:json_table/json_table.dart';
+
 
 class cacTaiLieuK extends StatefulWidget {
   final int id;
   final String  nam;
 
-  cacTaiLieuK({this.id, this.nam});
+  cacTaiLieuK({required this.id, required this.nam});
 
   @override
   _cacTaiLieuKState createState() => _cacTaiLieuKState();
@@ -37,18 +33,10 @@ class _cacTaiLieuKState extends State<cacTaiLieuK> {
   List<ListDataCQ> vanbanListCQ = [];
   var idLoaiVB;
   bool showD = true;
-  int hosoid;
-  String testthuhomerxoa;
+  late int hosoid;
+  late String testthuhomerxoa;
   String ActionXL = "DanhSachCacTaiLieuKhac";
-  // List<dynamic> dataListThayThe = [];
-  // var columns = [
-  //   JsonTableColumn("hscvMaHoSo", label: "Mã hồ sơ"),
-  //   JsonTableColumn("hscvNguoiLap.Title", label: "Người lập"),
-  //   JsonTableColumn("Title", label: "Tên hồ sơ công việc"),
-  //   JsonTableColumn("hscvTrangThaiXuLy", label: "Trạng thái xử lý",valueBuilder:ttHoSo),
-  // ];
-  //
-  Timer _timer;
+  late Timer _timer;
 
 
 
@@ -205,7 +193,7 @@ String formatDOB(value){
   // return ("${parsedDate.day}/${parsedDate.month}/${parsedDate.year}");
 }
 String ttHoSo(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đang xử lý";

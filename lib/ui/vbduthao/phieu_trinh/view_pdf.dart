@@ -6,6 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
@@ -20,31 +21,28 @@ import 'package:shared_preferences/shared_preferences.dart';
 class ViewPDFPT extends StatefulWidget {
   final int idDuThao;
   final String nam;
-  final double pdfWidth;
-  final double pdfHeight;
-  final double top;
   final String viewPDF;
-  final double left;
+
 
   ViewPDFPT(
-      {this.idDuThao,
-        this.nam,
-        this.pdfHeight,
-        this.left,
-        this.viewPDF,
-        this.top,
-        this.pdfWidth});
+      {required this.idDuThao,
+        required this.nam,
+
+
+        required this.viewPDF,
+
+     });
 
   @override
   _ViewPDF createState() => _ViewPDF();
 }
 
 extension GlobalKeyExtension on GlobalKey {
-  Rect get globalPaintBound {
+  Rect? get globalPaintBound {
     final renderObject = currentContext?.findRenderObject();
     var translation = renderObject?.getTransformTo(null).getTranslation();
     if (translation != null && renderObject?.paintBounds != null) {
-      return renderObject.paintBounds
+      return renderObject!.paintBounds
           .shift(Offset(translation.x, translation.y));
     } else {
       return null;
@@ -58,7 +56,6 @@ class _ViewPDF extends State<ViewPDFPT> {
   var _y = 0.0;
   final GlobalKey stackKey = GlobalKey();
 
-  PDFViewController _pdfViewController;
   double pdfWidth = 612.0;
   double pdfHeight = 792.0;
   Completer<PDFViewController> pdfController = Completer<PDFViewController>();
@@ -67,18 +64,18 @@ class _ViewPDF extends State<ViewPDFPT> {
   double width =75.0, height =65.0;
   bool isLoading = false;
   bool chekKy = false;
-  String localPath;
+   String? localPath;
   String namefile = namepdf;
   String namefilePDF = "";
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
   double widthCK = 110, heightCK = 60;
   GlobalKey stickyKeyPositioned = GlobalKey();
-  double top, left;
-  double relX, relY;
-  double xOff, yOff;
+   double? top, left;
+   double? relX, relY;
+   double? xOff, yOff;
   bool _visibleSign = false;
   int _currentPage = 1;
-  String encodedImage;
+  late String encodedImage;
   GlobalKey stickyKey = GlobalKey();
   GlobalKey stickyKeyPdf = GlobalKey();
   String pdfGui = "";
@@ -86,16 +83,16 @@ class _ViewPDF extends State<ViewPDFPT> {
   String NameMoi = "";
   String UrlMoi = "";
   bool _enableSwipe = true;
-  double xz, yz;
+   double? xz, yz;
   final keyText = GlobalKey();
-  Size size;
-  Offset position;
+   Size? size;
+   Offset? position;
   bool pdfReady = false;
 
   Offset offset = Offset.zero;
   String PDF_URL ="";
   String tenPDFTruyen ="";
-  File file;
+  late File file;
   var url;
   List<ListDataPPT>  ListDataPDF = [];
 
@@ -121,7 +118,7 @@ class _ViewPDF extends State<ViewPDFPT> {
       var bytes = await consolidateHttpClientResponseBytes(response);
       var dir = await getExternalStorageDirectory();
       print("Download files");
-      print("${dir.path}/$filename");
+      print("${dir!.path}/$filename");
       File file = File("${dir.path}/$filename");
 
       await file.writeAsBytes(bytes, flush: true);
@@ -171,53 +168,46 @@ class _ViewPDF extends State<ViewPDFPT> {
 
 
   }
+  //
+  // void _getRenderOffsets() {
+  //   final RenderObject? renderBoxWidget =
+  //   stickyKeyPositioned.currentContext?.findRenderObject();
+  //   final offset = renderBoxWidget?.localToGlobal(Offset.zero);
+  //
+  //   yOff = offset.dy - this.top;
+  //   xOff = offset.dx - this.left;
+  // }
 
-  void _getRenderOffsets() {
-    final RenderBox renderBoxWidget =
-    stickyKeyPositioned.currentContext.findRenderObject();
-    final offset = renderBoxWidget.localToGlobal(Offset.zero);
+  // void _getOffset(GlobalKey key) {
+  //   RenderBox box = key.currentContext.findRenderObject();
+  //   Offset position = box.localToGlobal(Offset.zero);
+  //   setState(() {
+  //     _x = position.dx;
+  //     _y = position.dy;
+  //   });
+  // }
 
-    yOff = offset.dy - this.top;
-    xOff = offset.dx - this.left;
-  }
-
-  void _getOffset(GlobalKey key) {
-    RenderBox box = key.currentContext.findRenderObject();
-    Offset position = box.localToGlobal(Offset.zero);
-    setState(() {
-      _x = position.dx;
-      _y = position.dy;
-    });
-  }
-
-  void _afterLayout(_) {
-    _getRenderOffsets();
-  }
+  // void _afterLayout(_) {
+  //   _getRenderOffsets();
+  // }
 
   @override
-  Future<void> initState() {
-    // _initializeTimer();
-    // TODO: implement initState
+  void initState() {
     super.initState();
     PDF_URL=  pdfPT;
-    if(widget.viewPDF != null ){
+    if(widget.viewPDF != null &&widget.viewPDF != ""){
       PDF_URL = widget.viewPDF;
     }
     GetPDF(PDF_URL);
-    pdfWidth = widget.pdfWidth;
-    pdfHeight = widget.pdfHeight;
+
 
     position = Offset(0, 0);
-    top = widget.top;
-    left = widget.left;
-    WidgetsBinding.instance.addPostFrameCallback(_afterLayout);
-    //this.fetchData();
+
     if(mounted){ setState(() {
       var vanban = ListpdfPT;
       var lstData = (vanban as List).map((e) => ListDataPPT.fromJson(e)).toList();
       lstData.forEach((element) {
         ListDataPDF.add(element);
-
       });
     });}
   }
@@ -269,9 +259,9 @@ class _ViewPDF extends State<ViewPDFPT> {
                     pdfReady = true;
                   });
                 },
-                onPageChanged: (int page, int total) {
+                onPageChanged: ( page,  total) {
                   setState(() {
-                    _currentPage = page;
+                    _currentPage = page!;
                   });
                 },
               ),
@@ -301,8 +291,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                           imageCK,
                           width: widthKy,
                           height: heightKy,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace stackTrace) {
+                          errorBuilder: (context, error, stackTrace) {
                             return Image(
                               image: AssetImage('assets/signature.png'),
                               width: widthKy,
@@ -311,13 +300,6 @@ class _ViewPDF extends State<ViewPDFPT> {
                           },
                         ),
 
-                        // child: (encodedImage != null && encodedImage != "")
-                        //     ? Image.memory(base64.decode(encodedImage), width: widthKy, height: heightKy, )
-                        //     : Image(
-                        //   image: AssetImage('assets/signature.png'),
-                        //   width: widthKy,
-                        //   height: heightKy,
-                        // )
                       ),
                     ),
                     opacity: 0.6,
@@ -333,8 +315,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                           imageCK,
                           width: widthKy,
                           height: heightKy,
-                          errorBuilder: (BuildContext context, Object exception,
-                              StackTrace stackTrace) {
+                          errorBuilder: (context, error, stackTrace) {
                             return Image(
                               image: AssetImage('assets/signature.png'),
                               width: widthKy,
@@ -363,7 +344,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                       top = (drag.offset.dy - parentPos.top) ;
                     });
                     final keyContext = stickyKeyPdf.currentContext;
-                    final box = keyContext.findRenderObject() as RenderBox;
+                    final box = keyContext!.findRenderObject() as RenderBox;
                     final pos = box.localToGlobal(Offset.zero);
                     double ratioW = pdfWidth/(box.size.width);
                     double ratio = (box.size.width)/pdfWidth;
@@ -372,15 +353,15 @@ class _ViewPDF extends State<ViewPDFPT> {
                     final boxHeight = pdfHeight * ratio;
 
                     // setState(() {
-                    //   top = drag.offset.dy - (box.size.height * 0.2);
+                    // top = drag.offset.dy - (box.size.height * 0.2);
                     //   left = drag.offset.dx;
                     // });
 
-                    double dy = (box.size.height - top - heightKy - ((box.size
+                    double dy = (box.size.height - top! - heightKy - ((box.size
                         .height - boxHeight)/2));
                     double ratioH = pdfHeight/(boxHeight);
 
-                    double dx = (left * ratioW);
+                    // double dx = (left * ratioW);
                     double dy1 = (dy * ratioH);
 
                     // print("chièu dài PhepTinh: " +
@@ -394,15 +375,27 @@ class _ViewPDF extends State<ViewPDFPT> {
                     //
                     PDF_URL.substring(0, 38);
                     // pdfCu = PDF_URL.substring(36, PDF_URL.length);
-                    pdfCu =  PDF_URL.replaceAll("http://apimobile.hoabinh.gov"
-                        ".vn/", "");
+                    if(PDF_URL!.contains("https://apimobile.hoabinh.gov"
+                        ".vn/")){
+                      pdfCu = PDF_URL!.replaceAll(
+                          "https://apimobile.hoabinh.gov"
+                              ".vn/",
+                          "");
+                    }
+                    else
+                    {
+                      pdfCu = PDF_URL!.replaceAll(
+                          "http://apimobile.hoabinh.gov"
+                              ".vn/",
+                          "");
+                    }
                     EasyLoading.show();
                     /// String vbtimkiem ;
                     String vbtimkiem = await postKySim(
                         widget.idDuThao,
                         "KySim",
                         widget.nam,
-                        ((left * ratioW)+(widthKy*1/2)).toString(),
+                        ((left! * ratioW)+(widthKy*1/2)).toString(),
                         ((dy1 + heightKy)-40 ).toString(),
                         (widthKy * ratioW).toString(),
                         (heightKy * ratioW).toString(),
@@ -420,9 +413,22 @@ class _ViewPDF extends State<ViewPDFPT> {
                       if (mounted) {
                         setState(() {
                           var duthaoList = json.decode(vbtimkiem)['OData'];
-                          NameMoi = duthaoList['Name'];
-                          UrlMoi = duthaoList['Url'];
-                          chekKy = true;
+                          if(duthaoList != null){
+                            NameMoi = duthaoList['Name'];
+                            UrlMoi = duthaoList['Url'];
+                            EasyLoading.dismiss();
+                            chekKy = true;
+                          }
+                          else{
+                            Get.defaultDialog(
+
+                                title:"Thông báo",
+                                middleText:"Ký số không thành công!"
+                            );
+                            EasyLoading.dismiss();
+                            chekKy = false;
+                          }
+
                         });
                       }
                     }
@@ -607,7 +613,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                           child: DropdownButton<String>(
                             hint: Text("Chọn bản ghi khác"),
                             style: TextStyle(fontSize: 14,color: Colors.black),
-                            value: PDF_URL  ,
+                            value: PDF_URL!.isNotEmpty ? PDF_URL : null,
                             isDense: false,
                             isExpanded: true,
                             onChanged: (newValue) async {
@@ -615,7 +621,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                               if(mounted){
                                 setState(() {
 
-                                  PDF_URL=newValue;
+                                  PDF_URL=newValue!;
 
                                 });
                               }
@@ -698,7 +704,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                             url = PDF_URL;
 
 
-                            dio.download(url, '${dir.path}/$ten',
+                            dio.download(url, '${dir!.path}/$ten',
                                 onReceiveProgress: (actualbytes, totalbytes) {
                                   percentage = actualbytes / totalbytes * 100;
 
@@ -723,7 +729,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                             url = PDF_URL;
 
                             String ten =  PDF_URL.split('/').last;
-                            dio.download(url, '${dir.path}/$ten',
+                            dio.download(url, '${dir!.path}/$ten',
                                 onReceiveProgress: (actualbytes, totalbytes) {
                                   percentage = actualbytes / totalbytes * 100;
 
@@ -989,7 +995,7 @@ class ListDataPPT {
   String Url;
   String UrlDoc;
 
-  ListDataPPT({ this.Name,this.Url,this.UrlDoc});
+  ListDataPPT({ required this.Name,required this.Url,required this.UrlDoc});
 
   factory ListDataPPT.fromJson(Map<String, dynamic> json) {
     return ListDataPPT(

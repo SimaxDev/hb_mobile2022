@@ -1,22 +1,16 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
-import 'package:get/get.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
-import 'package:dio/dio.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/DTPT/TreeLoaiVanBan.dart';
 import 'package:hb_mobile2021/common/DTPT/TreeThemDTVPUB.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
-import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/restart.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:path/path.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:hb_mobile2021/common/DTPT/TreeThemDT.dart';
@@ -25,7 +19,7 @@ import 'package:http/http.dart' as http;
 
 class ThemDT extends StatefulWidget {
   String nam;
-   ThemDT({Key key, this.nam}) : super(key: key);
+   ThemDT({Key? key, required this.nam}) : super(key: key);
 
   @override
   _ThemDTState createState() => _ThemDTState();
@@ -43,16 +37,16 @@ class _ThemDTState extends State<ThemDT> {
 
   List<ListData> vanbanListLoai = [];
   TextEditingController textEditingController = new TextEditingController();
-  File selectedfile;
-  File selectedfile1;
-  String _myCity;
-  List citiesList;
+  late File selectedfile;
+  late File selectedfile1;
+  late String _myCity;
+  late List citiesList;
   String tenLoaiChon = "";
   String cbKy = "";
   String cbDuyet = "";
   String cbHoaToc = "";
   String DuThaoBo = "";
-  Timer _timer;
+  late Timer _timer;
   String  intuseduyet= "";
   List chua1 = [];
   String base64PDF1 = "";
@@ -81,13 +75,6 @@ class _ThemDTState extends State<ThemDT> {
 
     super.initState();
     setState(() {
-      //this.selectFile();
-      // userDuocCHon= "";
-      // vNguoiKy= "";
-      // vNguoiTrinh= "";
-      // toTrinh= "";
-      // base64PDF1= "";
-      // base64PDF= "";
 
       tenLoaiChon = tenPhongBan;
     });
@@ -115,7 +102,7 @@ class _ThemDTState extends State<ThemDT> {
     setState(() {
       var vanban = json.decode(detailChucVu)['OData'];
       var lstData = (vanban as List).map((e) => ListData.fromJson(e)).toList();
-      List<ListData> lstDataSearch = List<ListData>();
+      List<ListData> lstDataSearch = <ListData>[];
       lstData.forEach((element) {
         lstDataSearch.add(element);
         vanbanListLoai = lstDataSearch;
@@ -124,7 +111,7 @@ class _ThemDTState extends State<ThemDT> {
   }
 
   selectFile1() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
@@ -132,7 +119,7 @@ class _ThemDTState extends State<ThemDT> {
 
     if (result != null) {
       //if there is selected file
-      selectedfile1 = File(result.files.single.path);
+      selectedfile1 = File(result.files.single.path!);
 
       if (selectedfile1 != null) {
         // var bytes1 = await rootBundle.load(selectedfile.path);
@@ -149,7 +136,7 @@ class _ThemDTState extends State<ThemDT> {
     setState(() {});
   }
   selectFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
@@ -157,7 +144,7 @@ class _ThemDTState extends State<ThemDT> {
 
     if (result != null) {
       //if there is selected file
-      selectedfile = File(result.files.single.path);
+      selectedfile = File(result.files.single.path!);
 
       if (selectedfile != null) {
         // var bytes1 = await rootBundle.load(selectedfile.path);
@@ -341,7 +328,7 @@ class _ThemDTState extends State<ThemDT> {
                                 setState(() {
                                   idLoaiVB = value[0];
                                 });
-                              },
+                              }, searchHintText: '', multipleSelection: true,selectedValueServer: [],
                             )),
                       ],
                     ),
@@ -416,10 +403,10 @@ class _ThemDTState extends State<ThemDT> {
                                 width:
                                 MediaQuery.of(context).size.width *
                                     0.5,
-                                child: FlatButton(
-                                  child: Text('Đính kèm file...'),
-                                  color: Colors.blueAccent,
-                                  textColor: Colors.white,
+                                child: ElevatedButton(
+                                  child: Text('Đính kèm file...'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueAccent),),
+                                  // color: Colors.blueAccent,
+                                  // textColor: Colors.white,
                                   onPressed: () {
                                     selectFile();
                                   },
@@ -487,7 +474,7 @@ class _ThemDTState extends State<ThemDT> {
                                   value: daKy,
                                   onChanged: (val) {
                                     setState(() {
-                                      daKy = val;
+                                      daKy = val!;
                                       cbKy = "1";
                                     });
                                   }),
@@ -509,7 +496,7 @@ class _ThemDTState extends State<ThemDT> {
                                   value: daDuyet,
                                   onChanged: (val) {
                                     setState(() {
-                                      daDuyet = val;
+                                      daDuyet = val!;
                                       cbDuyet = "2";
                                     });
                                   }),
@@ -557,10 +544,10 @@ class _ThemDTState extends State<ThemDT> {
                                 width:
                                 MediaQuery.of(context).size.width *
                                     0.5,
-                                child: FlatButton(
-                                  child: Text('Đính kèm file...'),
-                                  color: Colors.blueAccent,
-                                  textColor: Colors.white,
+                                child: ElevatedButton(
+                                  child: Text('Đính kèm file...'),style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueAccent),),
+                                  // color: Colors.blueAccent,
+                                  // textColor: Colors.white,
                                   onPressed: () {
                                     selectFile1();
                                   },
@@ -630,7 +617,7 @@ class _ThemDTState extends State<ThemDT> {
                                   value: hoaToc,
                                   onChanged: (val) {
                                     setState(() {
-                                      hoaToc = val;
+                                      hoaToc = val!;
                                       cbHoaToc = "3";
                                     });
                                   }),
@@ -654,7 +641,7 @@ class _ThemDTState extends State<ThemDT> {
                                   value: IdDocument,
                                   onChanged: (val) {
                                     setState(() {
-                                      IdDocument = val;
+                                      IdDocument = val!;
                                       DuThaoBo = "1";
                                     });
                                   }),
@@ -698,9 +685,9 @@ class _ThemDTState extends State<ThemDT> {
                 ),
                 child: groupID == 198
                     ? TreeThemDT(
-                    tenLoaiChon: tenLoaiChon, clickChon: clickChon)
+                    tenLoaiChon: tenLoaiChon, clickChon: clickChon, id: 0,)
                     : TreeThemDTVPUB(
-                    tenLoaiChon: tenLoaiChon, clickChon: clickChon),
+                    tenLoaiChon: tenLoaiChon, clickChon: clickChon, id: 0,),
               ),
 
               Container(child:   Row(
@@ -728,7 +715,7 @@ class _ThemDTState extends State<ThemDT> {
                           }
                           // print(vNguoiKy.value);
                           var tendangnhap =
-                          sharedStorage.getString("username");
+                          sharedStorage!.getString("username");
                           String iaa =
                           textEditingController.text.trim();
                           if (isAllSpaces(iaa)) {
@@ -820,7 +807,7 @@ class _ThemDTState extends State<ThemDT> {
                         style: ButtonStyle(
                           backgroundColor:
                           MaterialStateProperty.all<Color>(
-                              Colors.lightBlue[50]),
+                              Colors.lightBlue[50]!),
                           foregroundColor:
                           MaterialStateProperty.all<Color>(
                               Colors.blue),
@@ -846,8 +833,8 @@ class _ThemDTState extends State<ThemDT> {
                             daKy = false;
                             daDuyet = false;
                             hoaToc = false;
-                            selectedfile = null;
-                            selectedfile1 = null;
+                            selectedfile ;
+                            selectedfile1 ;
                           });
                         },
                         style: ButtonStyle(
@@ -922,7 +909,7 @@ class _ThemDTState extends State<ThemDT> {
                                 }
                                 // print(vNguoiKy.value);
                                 var tendangnhap =
-                                sharedStorage.getString("username");
+                                sharedStorage!.getString("username");
                                 String iaa =
                                 textEditingController.text.trim();
                                 if (isAllSpaces(iaa)) {
@@ -1026,7 +1013,7 @@ class _ThemDTState extends State<ThemDT> {
                           // foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
                           backgroundColor:
                           MaterialStateProperty.all<Color>(
-                              Colors.lightBlue[50]),
+                              Colors.lightBlue[50]!),
                           foregroundColor:
                           MaterialStateProperty.all<Color>(
                               Colors.blue),

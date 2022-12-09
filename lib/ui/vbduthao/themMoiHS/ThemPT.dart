@@ -1,8 +1,8 @@
-import 'dart:async';
+
 import 'dart:convert';
 import 'dart:io';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:file_picker/file_picker.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,15 +10,12 @@ import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/common/SearchDropdownListServer.dart';
 import 'package:hb_mobile2021/common/DTPT/TreeThemDT.dart';
 import 'package:hb_mobile2021/common/DTPT/TreeThemDTVPUB.dart';
-import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/restart.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:path/path.dart';
 
 class ThemPT extends StatefulWidget {
-  const ThemPT({Key key}) : super(key: key);
+  const ThemPT({Key? key}) : super(key: key);
 
   @override
   _ThemPTState createState() => _ThemPTState();
@@ -33,7 +30,7 @@ class _ThemPTState extends State<ThemPT> {
   bool hoaToc = false;
   List<ListData> vanbanList = [];
   TextEditingController textEditingController = new TextEditingController();
-  File selectedfile;
+  late File selectedfile;
 
   String formattedDate = "";
   List chitiet1 = [];
@@ -62,7 +59,7 @@ class _ThemPTState extends State<ThemPT> {
     formattedDate = DateFormat('dd-MM-yyyy').format(now);
   }
   selectFile() async {
-    FilePickerResult result = await FilePicker.platform.pickFiles(
+    FilePickerResult? result = await FilePicker.platform.pickFiles(
       type: FileType.custom,
       allowedExtensions: ['jpg', 'pdf', 'mp4', 'doc'],
       //allowed extension to choose
@@ -70,14 +67,13 @@ class _ThemPTState extends State<ThemPT> {
 
     if (result != null) {
       //if there is selected file
-      selectedfile = File(result.files.single.path);
+      selectedfile = File(result.files.single.path!);
 
       if (selectedfile != null) {
         // var bytes1 = await rootBundle.load(selectedfile.path);
         List<int> Bytes = await selectedfile.readAsBytesSync();
         print(Bytes);
         base64PDF = await base64Encode(Bytes);
-        print("hdaf  " + base64PDF);
         chua.add(basename(selectedfile.path));
       }
     }
@@ -106,10 +102,6 @@ class _ThemPTState extends State<ThemPT> {
                   borderRadius: BorderRadius.circular(7),
                 ),
 
-                // width: MediaQuery
-                //     .of(context)
-                //     .size
-                //     .width * 0.67,
                 child: Column(
                   children: [
                     Container(
@@ -275,10 +267,10 @@ class _ThemPTState extends State<ThemPT> {
                                 width:
                                 MediaQuery.of(context).size.width *
                                     0.5,
-                                child: FlatButton(
+                                child: ElevatedButton(
                                   child: Text('Đính kèm file...'),
-                                  color: Colors.blueAccent,
-                                  textColor: Colors.white,
+                                  // color: Colors.blueAccent,
+                                  // textColor: Colors.white,
                                   onPressed: () {
                                     selectFile();
                                   },
@@ -347,10 +339,10 @@ class _ThemPTState extends State<ThemPT> {
                 child: groupID == 198
                     ? TreeThemDT(
                   tenLoaiChon: tenPB,
-                  clickChon: clickPB,
+                  clickChon: clickPB, id: 0,
                 )
                     : TreeThemDTVPUB(
-                  tenLoaiChon: tenPB,
+                  tenLoaiChon: tenPB,id: 0,
                   clickChon: clickPB,
                 ),
               ),
@@ -376,7 +368,7 @@ class _ThemPTState extends State<ThemPT> {
                             }
                             return false;
                           }
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String iaa =  textEditingController.text.trim();
                           if(isAllSpaces(iaa))
                           {showAlertDialog(context,"Nhập trích yếu");
@@ -429,7 +421,7 @@ class _ThemPTState extends State<ThemPT> {
 
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )),
                   ),
@@ -447,7 +439,7 @@ class _ThemPTState extends State<ThemPT> {
                             daKy = false;
                             daDuyet = false;
                             hoaToc = false;
-                            selectedfile = null;
+                            selectedfile ;
                           }); }
 
                         },
@@ -486,7 +478,7 @@ class _ThemPTState extends State<ThemPT> {
                         style: ButtonStyle(
                           // backgroundColor: MaterialStateProperty.all<Color>(Colors.greenAccent),
                           // foregroundColor: MaterialStateProperty.all<Color>(Colors.red),
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )),
                   ),

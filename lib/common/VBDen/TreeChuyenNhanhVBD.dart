@@ -1,23 +1,21 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
-import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
 
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 
 class TreeChuyenNhanhVBDen extends StatefulWidget {
   final int id;
   final int nam;
 
-  TreeChuyenNhanhVBDen({this.id,this.nam});
+  TreeChuyenNhanhVBDen({required this.id,required this.nam});
 
   @override
   _TreeChuyenNhanhVBDenState createState() => _TreeChuyenNhanhVBDenState();
@@ -27,7 +25,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
   final TreeController _treeController = TreeController(allNodesExpanded: false);
   String ActionXL1 = "GetTreeDonViNoiBoKhacUBND";
   List chitiet = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
@@ -40,15 +38,11 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
   String textXLC = "";
   String textPH = "";
   String textXDB = "";
-  String lst;
-  double _height;
-  double _width;
-  DateTime _dateTime;
+   String? lst;
+  late double _height;
+  late double _width;
   DateTime selectedDate = DateTime.now();
-  TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-  String _setDate;
-  String _setDate1;
   bool PH = false;
   bool isClick = true;
   bool isClick1 = true;
@@ -67,8 +61,8 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
   void initState() {
     super.initState();
     //_initializeTimer();
-    var tendangnhap = sharedStorage.getString("username");
-    GetDataDetailVBDi(tendangnhap);
+    var tendangnhap = sharedStorage!.getString("username");
+    GetDataDetailVBDi(tendangnhap!);
   }
   @override
   void dispose(){
@@ -80,7 +74,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
   }
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -125,13 +119,6 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
 
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Row(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: <Widget>[buildTree()]);
-  // }
-
   @override
   Widget build(BuildContext context) {
     return  Row(
@@ -157,7 +144,6 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
     try {
-      var parsedJson = chitiet;
       return SingleChildScrollView(
 
           child: Column(
@@ -177,7 +163,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                         width: MediaQuery.of(context).size.width * 0.15,
                         child: Text('Chủ trì:', style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           if (mounted) { setState(() {
                             isClick = !isClick;
@@ -242,7 +228,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                           style: TextStyle(fontWeight: FontWeight.bold),
                         ),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           if (mounted) { setState(() {
                             isClick1 = !isClick1;
@@ -304,7 +290,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                         width: MediaQuery.of(context).size.width * 0.15,
                         child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
                       ),
-                      FlatButton(
+                      TextButton(
                         onPressed: () {
                           if (mounted) {   setState(() {
                             isClick2 = !isClick2;
@@ -363,7 +349,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                   Padding(padding: EdgeInsets.only(top: 10),
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.lightBlue[50], width: 2),
+                        border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                         borderRadius: BorderRadius.circular(10),
                       ),
                       width: MediaQuery
@@ -380,8 +366,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                             textAlign:
                             TextAlign.center,),
                           onPressed: () async {
-                            var tendangnhap = sharedStorage.getString("username");
-                            String userList = _titleController.text;
+                            var tendangnhap = sharedStorage!.getString("username");
                             var userDuocCHon = "";
                             if(!userDuocCHon.contains(lstUserXLC))
                               userDuocCHon += lstUserXLC+ "^";
@@ -397,7 +382,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                             }
                             else
                             {
-                              return userDuocCHon;
+                              return userDuocCHon as Future<void>;
                             }
 
 
@@ -424,7 +409,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                                ;
                           },
                           style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                             foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                           )
                       ),),
@@ -432,7 +417,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                   Padding(padding: EdgeInsets.only(top: 10,left: 20),
                     child: Container(
                       decoration: BoxDecoration(
-                        border: Border.all(color: Colors.lightBlue[50], width: 2),
+                        border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                         borderRadius: BorderRadius.circular(15),
                       ),
                       width: MediaQuery
@@ -469,10 +454,10 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
     }
   }
 
-  String tti ;
-  String ttPH ;
-  String ttXDB ;
-  String radioItemHolder;
+  String? tti ;
+   String? ttPH ;
+   String? ttXDB ;
+   String? radioItemHolder;
 
 
   Widget buildTreeCT() {
@@ -675,10 +660,10 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                     children: [
                       tti != element['key']?Checkbox(
                         value: valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")],
-                        onChanged: (bool value) {
+                        onChanged: ( value) {
                           if (mounted) { setState(() {
                             ttPH= element['key'];
-                            valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")] = value;
+                            valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")] = value!;
                           });}
 
                           if (!(lstUser.length > 0) ||
@@ -699,7 +684,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                             var UserList = lstUser.toString();
                             // UserList =  lstUser91;
                           }
-                          if (!valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")]) {
+                          if (!valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")]!) {
                             if (lstUserPH != null &&
                                 lstUserPH.contains("^" + element["key"] + ";|" + element["title"])) {
                               lstUser.remove(element["key"]);
@@ -712,7 +697,8 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
 
                                 textPH = textPH.replaceAll(","+element["title"], "");
                               }
-                              return textPH = textPH.replaceAll(element["title"], "");
+                              //return textPH = textPH.replaceAll(element["title"], "");
+                               textPH = textPH.replaceAll(element["title"], "");
                             } else if (lstUserPH.contains(element["key"] + ";|" + element["title"])) {
                               lstUser.remove(element["key"]);
                               lstUserPH = lstUserPH.replaceAll(element["key"] + ";|" + element["title"], "");
@@ -779,10 +765,10 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                       tti != element['key']?
                       Checkbox(
                         value: valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")],
-                        onChanged: (bool value) {
+                        onChanged: ( value) {
                           if (mounted) { setState(() {
                             ttXDB = element['key'];
-                            valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")] = value;
+                            valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")] = value!;
                           });}
 
                           if (!(lstUserCBXDB.length > 0) ||
@@ -802,7 +788,7 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                             var UserList = lstUserCBXDB.toString();
                             // UserList =  lstUser91;
                           }
-                          if (!valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")]) {
+                          if (!valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")]!) {
                             if (lstUserXDB != null &&
                                 lstUserXDB.contains("^" + element["key"] + ";|" + element["title"])) {
                               lstUserCBXDB.remove(element["key"]);
@@ -815,7 +801,8 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
 
                                 textXDB = textXDB.replaceAll(","+element["title"], "");
                               }
-                              return textXDB = textXDB.replaceAll(element["title"], "");
+                            //  return textXDB = textXDB.replaceAll(element["title"], "");
+                               textXDB = textXDB.replaceAll(element["title"], "");
                             } else if (lstUserXDB.contains(element["key"] + ";|" + element["title"])) {
                               lstUserCBXDB.remove(element["key"]);
                               lstUserXDB = lstUserXDB.replaceAll(element["key"] + ";|" + element["title"], "");
@@ -879,20 +866,20 @@ class _TreeChuyenNhanhVBDenState extends State<TreeChuyenNhanhVBDen> {
                   TreeNode(content:
                   Row(
                     children: [
-                    Radio(
+                    Radio<String>(
                           groupValue:tti ,
                           value:element['key'],
                           onChanged: ( _value) {
                             if (mounted) { setState(() {
                               radioItemHolder = element['title'] ;
                               tti = element['key'];
-                              textXLC =  radioItemHolder;
+                              textXLC =  radioItemHolder!;
                               lstUserXLC =   element["key"] + ";|" + element["title"];
                               isClick =true;
                             });}
 
 
-                            cayXLC =  tti;
+                            cayXLC =  tti!;
 
                           },
                         ),
@@ -929,7 +916,7 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 
   factory ListData1.fromJson(Map<String, dynamic> json) {
     return ListData1(ID: (json['key']), text: json['title']);

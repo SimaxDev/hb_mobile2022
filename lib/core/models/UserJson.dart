@@ -8,7 +8,6 @@ UserJson jsonToUserJson(str) => UserJson.fromJson(str);
 class UserJson {
   String Title;
   String ChucVu ;
-  bool Message;
   String NgaySinh ;
   var GioiTinh ;
   String Email;
@@ -21,18 +20,17 @@ class UserJson {
 
 
   UserJson({
-    this.Title,
-    this.Message,
-    this.NgaySinh,
-    this.GioiTinh,
-    this.ChucVu,
-    this.Email,
-    this.SDT,
-    this.SDTN,
-    this.DiaChi,
-    this.cbNhanEmail,
-    this.cbNhanSMS,
-    this.ThongBao,});
+    required this.Title,
+    required this.NgaySinh,
+    required this.GioiTinh,
+    required this.ChucVu,
+    required this.Email,
+    required this.SDT,
+    required  this.SDTN,
+    required  this.DiaChi,
+    required  this.cbNhanEmail,
+    required  this.cbNhanSMS,
+    required this.ThongBao,});
 
   factory UserJson.fromJson(Map<String, dynamic> json) => UserJson(
     Title: json['Title'] ??"",

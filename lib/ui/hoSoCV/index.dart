@@ -6,36 +6,28 @@ import 'dart:convert';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
 import 'package:hb_mobile2021/core/services/DataControllerGetxx.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
-import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/themMoiHS.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbduthao/ChiTietVBDuThao.dart';
-import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemMoiDT.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hb_mobile2021/ui/main/MenuLeft.dart';
-import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'chiTietHSCV/ThongTinHSCV.dart';
-import 'cayThongTinHSCV.dart';
 
 class HSCVWidget extends StatefulWidget {
-  final int pageindex;
   String urlLoaiVB;
   final int val;
   final String username;
   String nam = "2022";
 
   HSCVWidget(
-      {Key key,
-      this.urlLoaiVB,
-      this.val,
-      this.username,
-      this.pageindex,
-      this.nam})
+      {Key? key,
+      required this.urlLoaiVB,
+      required this.val,
+      required this.username,
+      required this.nam})
       : super(key: key);
 
   @override
@@ -54,11 +46,11 @@ class HSCVState extends State<HSCVWidget> {
   int skip = 1;
   int pageSize = 10;
   int skippage = 0;
-  String hoten, chucvu;
-  String testthuhomerxoa;
+  late String hoten, chucvu;
+  late String testthuhomerxoa;
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   String ActionXL = "GetListHSCV";
-  String tendangnhap;
+  late String tendangnhap;
   int IDT = 0;
   var tongso = 0;
   bool chckSwitch = false;
@@ -144,17 +136,17 @@ class HSCVState extends State<HSCVWidget> {
   }
 
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUser() async {
-    if (sharedStorage != null) {
+    if (sharedStorage! != null) {
       isLoading = false;
       var item = await GetInfoUserService(widget.username);
 
       // user = jsonToUserJson(item);
       user = UserJson.fromJson(item);
-      sharedStorage.setString("hoten", user.Title);
-      sharedStorage.setString("chucvu", user.ChucVu);
+      sharedStorage!.setString("hoten", user.Title);
+      sharedStorage!.setString("chucvu", user.ChucVu);
     }
   }
 
@@ -175,11 +167,11 @@ class HSCVState extends State<HSCVWidget> {
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
     setState(() {
-      user.Title = sharedStorage.getString("hoten");
+      user.Title = sharedStorage!.getString("hoten")!;
       hoVaTen = user.Title;
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.ChucVu = sharedStorage!.getString("chucvu")!;
     });
-    var tendangnhap = sharedStorage.getString("username");
+    var tendangnhap = sharedStorage!.getString("username");
     ten = tendangnhap;
   }
 
@@ -243,8 +235,8 @@ class HSCVState extends State<HSCVWidget> {
 
   //tim kiem van ban
   GetDataByKeyWordVBDT(String text) async {
-    var tendangnhap = sharedStorage.getString("username");
-    String vbtimkiem = await getDataByKeyWordHSCV(tendangnhap, ActionXL, text);
+    var tendangnhap = sharedStorage!.getString("username");
+    String vbtimkiem = await getDataByKeyWordHSCV(tendangnhap!, ActionXL, text);
     setState(() {
       HoSoList = json.decode(vbtimkiem)['OData'];
       tongso = json.decode(vbtimkiem)['TotalCount'];
@@ -381,9 +373,9 @@ class HSCVState extends State<HSCVWidget> {
                   height: 1,
                   color: Colors.white70,
                 ),
-                onChanged: (String newValue) {
+                onChanged: ( newValue) {
                   setState(() {
-                    _user = Year.indexOf(newValue);
+                    _user = Year.indexOf(newValue!);
                     dropdownValue = ttHoSo(_user);
                     GetDataByKeyYearVBDi(_user.toString(), dropdownValueYear);
                   });
@@ -421,10 +413,10 @@ class HSCVState extends State<HSCVWidget> {
                   color: Colors.white70,
                   width: 50,
                 ),
-                onChanged: (String newValue) {
+                onChanged: ( newValue) {
                   if (mounted) {
                     setState(() {
-                      dropdownValueYear = newValue;
+                      dropdownValueYear = newValue!;
                       GetDataByKeyYearVBDi(
                           _user.toString(), dropdownValueYear);
                     });
@@ -442,86 +434,6 @@ class HSCVState extends State<HSCVWidget> {
             ),
           ],
         ),
-        // title: Transform.translate(
-        //   offset: Offset(-25.0, 0.0),
-        //   child: Theme(
-        //     data: Theme.of(context).copyWith(splashColor: Colors.transparent),
-        //     child: Row(
-        //       mainAxisAlignment: MainAxisAlignment.start,
-        //       crossAxisAlignment: CrossAxisAlignment.start,
-        //       children: [
-        //         Container(
-        //             width: MediaQuery.of(context).size.width * 0.4,
-        //             height: MediaQuery.of(context).size.height * 0.06,
-        //             margin: EdgeInsets.all(10),
-        //             // padding: EdgeInsets.all(10),
-        //             alignment: Alignment.center,
-        //             decoration: BoxDecoration(
-        //               border: Border.all(
-        //                 color: Colors.white, // Set border color
-        //               ), // Set border width
-        //               borderRadius: BorderRadius.all(Radius.circular(10.0)), // Set rounded corner radius
-        //               // Make rounded corner of border
-        //             ),
-        //             child: Row(
-        //               children: [
-        //                 Container(
-        //                   alignment: Alignment.center,
-        //                   width: MediaQuery.of(context).size.width * 0.4,
-        //                   child: TextField(
-        //                     autofocus: false,
-        //                     cursorColor: Colors.white,
-        //                     style: TextStyle(color: Colors.white),
-        //                     controller: _titleController,
-        //                     decoration: InputDecoration(
-        //                       hintStyle: TextStyle(fontSize: 17),
-        //                       hintText: 'Tìm kiếm',
-        //                       prefixIcon: Icon(Icons.search, color: Colors.white, size: 20.0),
-        //                       border: InputBorder.none,
-        //                       // contentPadding: EdgeInsets.only(left: 0.0,
-        //                       //   top: 5.0,),
-        //                     ),
-        //                     onChanged: (val) {
-        //                       setState(() {
-        //
-        //                         showD = false;
-        //                         testthuhomerxoa = val;
-        //
-        //                         GetDataByKeyWordVBDT(testthuhomerxoa);
-        //                       });
-        //                     },
-        //                   ),
-        //                 ),
-        //                 !showD
-        //                     ? InkWell(
-        //                   child: Container(
-        //                     width: MediaQuery.of(context).size.width * 0.05,
-        //                     child: Text(
-        //                       "X",
-        //                       style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.bold),
-        //                     ),
-        //                   ),
-        //                   onTap: () {
-        //                     setState(() {
-        //                       _titleController.text = "";
-        //                       testthuhomerxoa = "";
-        //                       // GetDataVBDi();
-        //                       showD = true;
-        //                     });
-        //                   },
-        //                 )
-        //                     : SizedBox()
-        //               ],
-        //             )),
-        //         Container(
-        //             margin: EdgeInsets.fromLTRB(0, 7, 0, 0),
-        //             alignment: Alignment.center,
-        //             width: MediaQuery.of(context).size.width * 0.3,
-        //             child: )
-        //       ],
-        //     ),
-        //   ),
-        // ),
         actions: <Widget>[
           Builder(
             builder: (context) => IconButton(
@@ -769,7 +681,7 @@ class HSCVState extends State<HSCVWidget> {
                 page: 4,
                 username: widget.username,
                 year: nam1,
-                queryID: IDTT,
+                queryID: IDTT, queryLeft: '',
               ),
             )
           ],
@@ -840,7 +752,7 @@ class HSCVState extends State<HSCVWidget> {
         : "";
     var hscvHanXuLy;
     if (temp1 != null && temp1 != "") {
-      hscvHanXuLy = DateFormat("dd-MM-yyyy").format(temp1);
+      hscvHanXuLy = DateFormat("dd-MM-yyyy").format(temp1 as DateTime);
     }
 
     return Card(

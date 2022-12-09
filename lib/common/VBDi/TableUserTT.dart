@@ -1,16 +1,15 @@
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
-import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
+
 
 import 'package:json_table/json_table.dart';
 class SimpleTable extends StatefulWidget {
   final int id;
 
-  SimpleTable({this.id});
+  SimpleTable({required this.id});
 
   @override
   _SimpleTableState createState() => _SimpleTableState();
@@ -76,24 +75,16 @@ class _SimpleTableState extends State<SimpleTable> {
     return
       //Decode your json string
       Container(
-        //height: MediaQuery.of(context).size.height *1,
+
           padding: EdgeInsets.all(16.0),
           child:Column(
             children: [
-              //Decode your json string
 
-//                                     JsonTable(
-//                                       json,
-//                                       columns: columns,
-//                                       allowRowHighlight: true,
-//                                       rowHighlightColor: Colors.yellow[500].withOpacity(0.7),
-//                                       paginationRowCount: 8,
-//                                     ),
               JsonTable(
                 json,
                 columns: columns,
                 paginationRowCount: 10,
-                tableHeaderBuilder: (String header) {
+                tableHeaderBuilder: ( header) {
                   return Container(
                     width: 100,
                     padding: EdgeInsets.symmetric(
@@ -101,7 +92,7 @@ class _SimpleTableState extends State<SimpleTable> {
                     decoration: BoxDecoration(border: Border.all(width: 0.5),
                         color: Colors.grey[300]),
                     child: Text(
-                      header,
+                      header!,
                       maxLines: 1,
                       textAlign: TextAlign.center,
                       // style: Theme.of(context).textTheme.headline4.copyWith(fontWeight: FontWeight.w700, fontSize: 14.0,color: Colors.black87),
@@ -122,7 +113,7 @@ class _SimpleTableState extends State<SimpleTable> {
                           .of(context)
                           .textTheme
                           .headline4
-                          .copyWith(fontSize: 14.0, color: Colors.grey[900]),
+                          ?.copyWith(fontSize: 14.0, color: Colors.grey[900]),
                     ),
                   );
                 },
@@ -151,7 +142,7 @@ String formatDOB(value){
   // return ("${parsedDate.day}/${parsedDate.month}/${parsedDate.year}");
 }
 String ttHoSo(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đang xử lý";

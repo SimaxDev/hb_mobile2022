@@ -3,11 +3,8 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
 import 'package:hb_mobile2021/ui/main/view_pdf_dinh_kem.dart';
-import 'package:hb_mobile2021/ui/vbdi/view_pdf.dart';
 import 'nhatky_vbden.dart';
 import 'thongtin_vbden.dart';
 import 'dart:io';
@@ -16,7 +13,6 @@ import 'package:flutter/foundation.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
 import 'package:hb_mobile2021/ui/vbden/BottomNavigator.dart';
-import 'package:open_file/open_file.dart';
 
 
 class ChiTietVBDen extends StatefulWidget {
@@ -27,7 +23,7 @@ class ChiTietVBDen extends StatefulWidget {
 
 
 
-  ChiTietVBDen({this.id,this.Yearvb,this.ListName,this.MaDonVi});
+  ChiTietVBDen({required this.id,required this.Yearvb,required this.ListName,required this.MaDonVi});
 
   @override
   _ChiTietVBDen createState() => _ChiTietVBDen(ItemId:id);
@@ -35,7 +31,7 @@ class ChiTietVBDen extends StatefulWidget {
 
 class _ChiTietVBDen extends State<ChiTietVBDen> {
    int ItemId;
-   _ChiTietVBDen({this.ItemId});
+   _ChiTietVBDen({required this.ItemId});
   bool isLoading = false;
   bool isLoadingPDF = true;
   var urlFile = null;
@@ -63,21 +59,18 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
     //getFileFromURL("http://qlvbapi.moj.gov.vn/Uploads/cvlan42019.pdf").then
     // ((f)
     GetDataDetailVBDen(widget.id);
-    getFileFromURL(pdf).then((f)
-    {
-      if (mounted) {setState(() {
-        assetPDFPath = ValueNotifier(f.path);
-
-      });}
-
-    });
+    // getFileFromURL(pdf).then((f)
+    // {
+    //   if (mounted) {setState(() {
+    //     assetPDFPath = ValueNotifier(f.path);
+    //
+    //   });}
+    //
+    // });
     if(widget.MaDonVi != null){
       if (widget.MaDonVi.startsWith("sites"))
       {
         year =  widget.Yearvb;
-        // List<string> lstTT = MaDonVi.Split('/').ToList();
-        // if (lstTT.Count > 0 && lstTT.Count == 3)
-        //   SYear = lstTT[1].ToInt32();
       }
     }
 
@@ -105,20 +98,20 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
    }
 
   //lấy pdf
-  Future<File> getFileFromURL(String url) async {
-    try {
-      var url11 = Uri.parse(url);
-      var data = await http.get(url11);
-      var bytes = data.bodyBytes;
-      var dir = await getApplicationDocumentsDirectory();//truy cap vao muc chinh
-      File file = File("${dir.path}/VanBanGoc.pdf"); // tao 1 tep moi
-
-      File urlFile = await file.writeAsBytes(bytes);
-      return urlFile;
-    } catch (e) {
-      throw Exception("Error opening url flie");
-    }
-  }
+  // Future<File> getFileFromURL(String url) async {
+  //   try {
+  //     var url11 = Uri.parse(url);
+  //     var data = await http.get(url11);
+  //     var bytes = data.bodyBytes;
+  //     var dir = await getApplicationDocumentsDirectory();//truy cap vao muc chinh
+  //     File file = File("${dir.path}/VanBanGoc.pdf"); // tao 1 tep moi
+  //
+  //     File urlFile = await file.writeAsBytes(bytes);
+  //     return urlFile;
+  //   } catch (e) {
+  //     throw Exception("Error opening url flie");
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {

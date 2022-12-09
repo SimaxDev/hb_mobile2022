@@ -1,20 +1,19 @@
-import 'package:date_time_picker/date_time_picker.dart';
+
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
-import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
-import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
-import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
+
 
 class GiaoViecPB extends StatefulWidget {
   final int id;
   final int nam;
 
-  GiaoViecPB({this.id,this.nam});
+  GiaoViecPB({required this.id,required this.nam});
 
   @override
   _GiaoViecPBState createState() => _GiaoViecPBState();
@@ -24,7 +23,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
   final TreeController _treeController = TreeController(allNodesExpanded: false);
   String ActionXL1 = "GetTreeDonViNoiBoKhacUBND";
   List chitiet = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
@@ -37,15 +36,10 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
   String textXLC = "";
   String textPH = "";
   String textXDB = "";
-  String lst;
-  double _height;
-  double _width;
-  DateTime _dateTime;
+   String? lst;
+  late double _height;
+  late double _width;
   DateTime selectedDate = DateTime.now();
-  TextEditingController _titleController = TextEditingController();
-  TextEditingController _dateController = TextEditingController();
-  String _setDate;
-  String _setDate1;
   bool PH = false;
   bool isClick = true;
   bool isClick1 = true;
@@ -63,8 +57,8 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
   @override
   void initState() {
     super.initState();
-    var tendangnhap = sharedStorage.getString("username");
-    GetDataDetailVBDi(tendangnhap);
+    var tendangnhap = sharedStorage!.getString("username");
+    GetDataDetailVBDi(tendangnhap!);
   }
   @override
   void dispose(){
@@ -73,21 +67,6 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
     ttPH ="";
     ttXDB ="";
     EasyLoading.dismiss();
-  }
-
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(DateTime.now().year - 5),
-        lastDate: DateTime(DateTime.now().year + 5));
-    if (picked != null)
-      if (mounted) { setState(() {
-        selectedDate = picked;
-        _dateController.text = DateFormat.yMd().format(selectedDate);
-      });}
-
   }
 
   int tong = 0;
@@ -121,12 +100,6 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
 
   }
 
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Row(
-  //       crossAxisAlignment: CrossAxisAlignment.start,
-  //       children: <Widget>[buildTree()]);
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -174,7 +147,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('Chủ trì:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick = !isClick;
@@ -236,7 +209,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick1 = !isClick1;
@@ -297,7 +270,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                       child: Text('Theo dõi:', style: TextStyle(fontWeight:
                       FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) {   setState(() {
                           isClick2 = !isClick2;
@@ -360,10 +333,10 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
     }
   }
 
-  String tti ;
-  String ttPH ;
-  String ttXDB ;
-  String radioItemHolder;
+   String? tti ;
+   String? ttPH ;
+   String? ttXDB ;
+   String? radioItemHolder;
 
 
   Widget buildTreeCT() {
@@ -505,10 +478,10 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                   children: [
                     tti != element['key']?Checkbox(
                       value: valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")],
-                      onChanged: (bool value) {
+                      onChanged: ( value) {
                         if (mounted) { setState(() {
                           ttPH= element['key'];
-                          valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")] = value;
+                          valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")] = value!;
                         });}
 
                         if (!(lstUser.length > 0) ||
@@ -529,7 +502,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                           var UserList = lstUser.toString();
                           // UserList =  lstUser91;
                         }
-                        if (!valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")]) {
+                        if (!valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")]!) {
                           if (lstUserPH != null &&
                               lstUserPH.contains("^" + element["key"] + ";|" + element["title"])) {
                             lstUser.remove(element["key"]);
@@ -542,7 +515,8 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
 
                               textPH = textPH.replaceAll(","+element["title"], "");
                             }
-                            return textPH = textPH.replaceAll(element["title"], "");
+                           // return textPH = textPH.replaceAll(element["title"], "");
+                             textPH = textPH.replaceAll(element["title"], "");
                           } else if (lstUserPH.contains(element["key"] + ";|" + element["title"])) {
                             lstUser.remove(element["key"]);
                             lstUserPH = lstUserPH.replaceAll(element["key"] + ";|" + element["title"], "");
@@ -550,8 +524,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                         }
                         cayPH += element["key"]+",";
                         idPhoiHop =  cayPH;
-                        print( " cay" + cayPH);
-                        print("phối hợp" +lstUserPH);
+
                       },
                     ):SizedBox(),
                     // ),
@@ -611,10 +584,10 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                     tti != element['key']?
                     Checkbox(
                       value: valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")],
-                      onChanged: (bool value) {
+                      onChanged: ( value) {
                         if (mounted) { setState(() {
                           ttXDB = element['key'];
-                          valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")] = value;
+                          valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")] = value!;
                         });}
 
                         if (!(lstUserCBXDB.length > 0) ||
@@ -634,7 +607,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                           var UserList = lstUserCBXDB.toString();
                           // UserList =  lstUser91;
                         }
-                        if (!valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")]) {
+                        if (!valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")]!) {
                           if (lstUserXDB != null &&
                               lstUserXDB.contains("^" + element["key"] + ";|" + element["title"])) {
                             lstUserCBXDB.remove(element["key"]);
@@ -647,7 +620,8 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
 
                               textXDB = textXDB.replaceAll(","+element["title"], "");
                             }
-                            return textXDB = textXDB.replaceAll(element["title"], "");
+                           // return textXDB = textXDB.replaceAll(element["title"], "");
+                             textXDB = textXDB.replaceAll(element["title"], "");
                           } else if (lstUserXDB.contains(element["key"] + ";|" + element["title"])) {
                             lstUserCBXDB.remove(element["key"]);
                             lstUserXDB = lstUserXDB.replaceAll(element["key"] + ";|" + element["title"], "");
@@ -655,8 +629,7 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                         }
                         cayXDB += element["key"]+",";
                         idTheoDoi =  cayXDB;
-                        print("xem để biết" +lstUserXDB);
-                        print("xem để âsasbiết" +cayXDB);
+
                       },
                     ):SizedBox(),
                     // ),
@@ -714,23 +687,22 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
                 TreeNode(content:
                 Row(
                   children: [
-                    Radio(
+                    Radio<String>(
                       groupValue:tti ,
                       value:element['key'],
                       onChanged: ( _value) {
                         if (mounted) { setState(() {
                           radioItemHolder = element['title'] ;
                           tti = element['key'];
-                          textXLC =  radioItemHolder;
+                          textXLC =  radioItemHolder!;
                           lstUserXLC =   element["key"] + ";|" + element["title"];
                           isClick =true;
                         });}
 
-                        print(radioItemHolder);
-                        print("tit" + tti);
-                        cayXLC =  tti;
-                        idChuTri =  tti;
-                        print("Xử lý chính" + lstUserXLC);
+
+                        cayXLC =  tti!;
+                        idChuTri =  tti!;
+
                       },
                     ),
 
@@ -759,6 +731,11 @@ class _GiaoViecPBState extends State<GiaoViecPB> {
 
     return [TreeNode(content: Text(parsedJson.toString(),style:TextStyle(fontWeight: FontWeight.bold),),)];
   }
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(IterableProperty<ListData1>('listData', listData));
+  }
 
 }
 
@@ -766,7 +743,7 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 
   factory ListData1.fromJson(Map<String, dynamic> json) {
     return ListData1(ID: (json['key']), text: json['title']);

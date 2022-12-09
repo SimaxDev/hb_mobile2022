@@ -1,7 +1,7 @@
 
 import 'dart:developer';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
@@ -17,7 +17,7 @@ import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import '../BottomNavigator.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 class thongTinHSCV extends StatefulWidget {
-  thongTinHSCV({Key key, this.idHS,this.nam}) : super(key: key);
+  thongTinHSCV({Key? key, required this.idHS,required this.nam}) : super(key: key);
   final int idHS;
   String nam;
 
@@ -30,16 +30,16 @@ class _thongTinHSCV extends State<thongTinHSCV> {
 //  List duthaoList = [];
   var hoSoCV = null ;
   bool isLoading = false;
-  List<dynamic> yKienitems;
-  List<Widget> lstYKien = new List<Widget>();
+  late List<dynamic> yKienitems;
+  List<Widget> lstYKien = <Widget>[];
   String ActionXL = "GetHSCVDetail";
   String ActionXLYKien = "LayDanhSachYKien";
   String mesDuThao= "";
-  DateTime _dateTime;
+  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   TextEditingController _dateController = TextEditingController();
-  double _height;
-  double _width;
+  late double _height;
+  late double _width;
   String titleDrawer = "";
   String idVBDlienQuan="";
 
@@ -47,7 +47,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
   @override
   void initState() {
     super.initState();
-    var tendangnhap = sharedStorage.getString("username");
+    var tendangnhap = sharedStorage!.getString("username");
     if((widget.idHS != null || widget.idHS != ""))
     {
       GetDataDetailHSCV(widget.idHS);
@@ -57,7 +57,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
 
   }
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -729,7 +729,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
                 ],
               ),
               Divider(),
-              (!hsCV.noiDung?.isEmpty ?? true)?
+              (!hsCV.noiDung.isEmpty ?? true)?
                   Column(children: [
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -871,7 +871,7 @@ class _thongTinHSCV extends State<thongTinHSCV> {
 
 
 String TinhTrangVL(id){
-  String tt ;
+  String tt='' ;
   switch(id){
     case 1:
       tt = "Chưa tạo";
@@ -883,7 +883,7 @@ String TinhTrangVL(id){
   return tt;
 }
 String ttDuthao(id){
-  String tt ;
+  String tt='' ;
   switch(id){
     case 0:
       tt = "Đã thu hồi";
@@ -913,7 +913,7 @@ String ttDuthao(id){
   return tt;
 }
 String trangthai(id){
-  String tt ;
+  String tt='' ;
   switch(id){
     case 1:
       tt = "Thường";

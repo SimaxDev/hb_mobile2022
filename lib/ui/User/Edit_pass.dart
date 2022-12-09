@@ -4,18 +4,13 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/core/services/UserService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/Login/Login.dart';
-import 'package:hb_mobile2021/ui/User/ThongTinUser.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/MenuRight.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-import 'package:hb_mobile2021/ui/vbden/BottomNavigator.dart';
-import 'package:hb_mobile2021/ui/vbduthao/DuThao.dart';
+
 
 class EditPassWord extends StatefulWidget {
   String tendangnhap ;
- EditPassWord({Key key, this.tendangnhap}) : super(key: key);
+ EditPassWord({Key? key, required this.tendangnhap}) : super(key: key);
 
   @override
   _EditPassWordState createState() => _EditPassWordState();
@@ -127,7 +122,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
                     padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                     child: TextFormField(
                       validator: (value){
-                        if(value.isEmpty){
+                        if(value!.isEmpty){
                           return 'Yêu cầu nhập giá trị cho trường này';
                         }
 
@@ -174,7 +169,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
                     padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                     child: TextFormField(
                       validator: (value){
-                        if(value.isEmpty){
+                        if(value!.isEmpty){
                           return 'Yêu cầu nhập giá trị cho trường này';
                         }
                         return null;
@@ -223,7 +218,7 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
                     padding: EdgeInsets.fromLTRB(10, 5, 0, 0),
                     child: TextFormField(
                       validator: (value){
-                        if(value.isEmpty){
+                        if(value!.isEmpty){
                           return 'Yêu cầu nhập giá trị cho trường này';
                         }
                         return null;
@@ -242,12 +237,13 @@ TextEditingController nhapLaiMatKhau =  new TextEditingController();
               Container(
                   height: 50,
                   padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
-                  child: RaisedButton(
-                    color: Colors.blue,
-                    shape:  RoundedRectangleBorder(
-                        side:new  BorderSide(color: Colors.blue,), //the outline color
-                        borderRadius: new BorderRadius.all(new Radius.circular(10))),
-                    textColor: Colors.white,
+                  child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: Colors.blueAccent, // background (button) color
+                        foregroundColor: Colors.white,  // foreground (text) color
+                        shape:  RoundedRectangleBorder(
+                            side:new  BorderSide(color: Colors.blue,), //the outline color
+                            borderRadius: new BorderRadius.all(new Radius.circular(10)))),
                     child: Text('Cập nhật',
                         style: TextStyle(
                           fontSize: 20,

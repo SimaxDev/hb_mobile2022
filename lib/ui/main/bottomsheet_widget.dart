@@ -6,7 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 class BottomSheetWidget extends StatefulWidget {
   final String idDuThao;
 
-  BottomSheetWidget({Key key, this.idDuThao}) : super(key: key);
+  BottomSheetWidget({Key? key, required this.idDuThao}) : super(key: key);
 
   @override
   _BottomSheetWidgetState createState() => _BottomSheetWidgetState();
@@ -30,7 +30,7 @@ class _BottomSheetWidgetState extends State<BottomSheetWidget> {
                   borderRadius: BorderRadius.circular(10),
                   boxShadow: [
                     BoxShadow(
-                        blurRadius: 10, color: Colors.grey[300], spreadRadius: 5)
+                        blurRadius: 10, color: Colors.grey[300]!, spreadRadius: 5)
                   ]),
               child: Column(
                 children: <Widget>[
@@ -69,7 +69,7 @@ class DecorateTextField extends StatelessWidget {
 }
 
 class SheetButton extends StatefulWidget {
-  SheetButton({Key key, this.idDuThao}) : super(key: key);
+  SheetButton({Key? key, required this.idDuThao}) : super(key: key);
   final String idDuThao;
 
   @override
@@ -113,11 +113,14 @@ class _SheetButtonState extends State<SheetButton> {
                 leading: Radio(
                   value: SingingCharacter.ky,
                   groupValue: _character,
-                  onChanged: (SingingCharacter value) {
+    //onChanged: (SingingCharacter value) {
+                  onChanged: ( value) {
                     setState(() {
-                      _character = value;
+                      _character = value as SingingCharacter;
                     });
                   },
+
+
                 ),
               ),
             ),
@@ -128,9 +131,10 @@ class _SheetButtonState extends State<SheetButton> {
                 leading: Radio(
                   value: SingingCharacter.kychuyen,
                   groupValue: _character,
-                  onChanged: (SingingCharacter value) {
+                  //onChanged: (SingingCharacter value) {
+                  onChanged: ( value) {
                     setState(() {
-                      _character = value;
+                      _character = value as SingingCharacter;
                     });
                   },
                 ),
@@ -143,9 +147,10 @@ class _SheetButtonState extends State<SheetButton> {
                 leading: Radio(
                   value: SingingCharacter.trave,
                   groupValue: _character,
-                  onChanged: (SingingCharacter value) {
+                  //onChanged: (SingingCharacter value) {
+                  onChanged: ( value) {
                     setState(() {
-                      _character = value;
+                      _character = value as SingingCharacter;
                     });
                   },
                 ),
@@ -189,7 +194,7 @@ class _SheetButtonState extends State<SheetButton> {
     );
   }
 
-  SharedPreferences sharedStorage;
+  late SharedPreferences sharedStorage;
 
   Future<void> Send(String ykien, String id, int action) async {
     var apiUrl = Uri.parse("http://qlvbapi.moj.gov.vn/test/XuLyDuThao");
@@ -202,7 +207,7 @@ class _SheetButtonState extends State<SheetButton> {
       trangthai = "6";
     }
     sharedStorage = await SharedPreferences.getInstance();
-    String token = sharedStorage.getString("token");
+    String? token = sharedStorage.getString("token");
 
     Map data = {"vbdiTrangThaiVB": trangthai, "id": id, "NoiDungYKien": ykien};
     String body = json.encode(data);
@@ -210,7 +215,7 @@ class _SheetButtonState extends State<SheetButton> {
     var response = await http.post(apiUrl, body: data, headers: {
       'Accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded',
-      'Authorization': 'Bearer ' + token
+      'Authorization': 'Bearer ' + token!
     });
 
     if (response.statusCode == 200) {

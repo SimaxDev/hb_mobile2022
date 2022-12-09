@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
@@ -9,13 +9,13 @@ import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
+
 
 class TreeChuyenVBDen extends StatefulWidget {
   final int id;
   final int nam;
 
-  TreeChuyenVBDen({this.id,this.nam});
+  TreeChuyenVBDen({required this.id,required this.nam});
 
   @override
   _TreeChuyenVBDenState createState() => _TreeChuyenVBDenState();
@@ -25,7 +25,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   final TreeController _treeController = TreeController(allNodesExpanded: false);
   String ActionXL1 = "GetTreeDonViV2";
   List chitiet = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
@@ -39,15 +39,12 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   String textPT = "";
   String textPH = "";
   String textXDB = "";
-  String lst;
-  double _height;
-  double _width;
-  DateTime _dateTime;
+  late String lst;
+  late double _height;
+  late double _width;
   DateTime selectedDate = DateTime.now();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-  String _setDate;
-  String _setDate1;
   bool PH = false;
   bool isClick = true;
   bool isClickPT = true;
@@ -69,8 +66,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
   void initState() {
     //_initializeTimer();
     super.initState();
-    var tendangnhap = sharedStorage.getString("username");
-    GetDataDetailVBDi(tendangnhap);
+    var tendangnhap = sharedStorage!.getString("username");
+    GetDataDetailVBDi(tendangnhap!);
   }
   @override
   void dispose() {
@@ -85,20 +82,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
 
     EasyLoading.dismiss();
   }
-  Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: selectedDate,
-        initialDatePickerMode: DatePickerMode.day,
-        firstDate: DateTime(DateTime.now().year - 5),
-        lastDate: DateTime(DateTime.now().year + 5));
-    if (picked != null)
-      if (mounted) {setState(() {
-        selectedDate = picked;
-        _dateController.text = DateFormat.yMd().format(selectedDate);
-      }); }
 
-  }
 
   int tong = 0;
 
@@ -251,7 +235,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                     child: Text('Phụ trách:', style:
                     TextStyle(fontWeight: FontWeight.bold)),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       if (mounted) { setState(() {
                         isClickPT = !isClickPT;
@@ -320,7 +304,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       style: TextStyle(fontWeight: FontWeight.bold),
                     ),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       if (mounted) {setState(() {
                         isClick1 = !isClick1;
@@ -387,7 +371,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                     width: MediaQuery.of(context).size.width * 0.15,
                     child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
                   ),
-                  FlatButton(
+                  TextButton(
                     onPressed: () {
                       if (mounted) { setState(() {
                         isClick2 = !isClick2;
@@ -494,7 +478,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
               Padding(padding: EdgeInsets.only(top: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.lightBlue[50], width: 2),
+                    border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                     borderRadius: BorderRadius.circular(10),
                   ),
                   width: MediaQuery
@@ -511,7 +495,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                         textAlign:
                         TextAlign.center,),
                       onPressed: () async {
-                        var tendangnhap = sharedStorage.getString("username");
+                        var tendangnhap = sharedStorage!.getString("username");
                         String userYKien = _titleController.text;
                         var userDuocCHon = "";
                         if(!userDuocCHon.contains(lstUserPT))
@@ -556,7 +540,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                         showAlertDialog(context, json.decode(thanhcong)['Message']);
                       },
                       style: ButtonStyle(
-                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                        backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                         foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                       )
                   ),),
@@ -564,7 +548,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
               Padding(padding: EdgeInsets.only(top: 20,left: 20),
                 child: Container(
                   decoration: BoxDecoration(
-                    border: Border.all(color: Colors.lightBlue[50], width: 2),
+                    border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                     borderRadius: BorderRadius.circular(15),
                   ),
                   width: MediaQuery
@@ -611,7 +595,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Phụ trách:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClickPT = !isClickPT;
@@ -679,7 +663,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Xử lý chính:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick = !isClick;
@@ -748,7 +732,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) {setState(() {
                           isClick1 = !isClick1;
@@ -815,7 +799,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick2 = !isClick2;
@@ -922,7 +906,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery
@@ -939,7 +923,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           textAlign:
                           TextAlign.center,),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String userYKien = _titleController.text;
                           var userDuocCHon = "";
                           if(!userDuocCHon.contains(lstUserPT))
@@ -984,7 +968,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ),),
@@ -992,7 +976,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -1042,7 +1026,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Xử lý chính:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick = !isClick;
@@ -1111,7 +1095,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) {setState(() {
                           isClick1 = !isClick1;
@@ -1178,7 +1162,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick2 = !isClick2;
@@ -1285,7 +1269,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery
@@ -1302,7 +1286,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           textAlign:
                           TextAlign.center,),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String userYKien = _titleController.text;
                           var userDuocCHon = "";
                           if(!userDuocCHon.contains(lstUserPT))
@@ -1347,7 +1331,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ),),
@@ -1355,7 +1339,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -1402,7 +1386,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Xử lý chính:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick = !isClick;
@@ -1471,7 +1455,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) {setState(() {
                           isClick1 = !isClick1;
@@ -1538,7 +1522,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick2 = !isClick2;
@@ -1645,7 +1629,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery
@@ -1662,7 +1646,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           textAlign:
                           TextAlign.center,),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String userYKien = _titleController.text;
                           var userDuocCHon = "";
                           if(!userDuocCHon.contains(lstUserPT))
@@ -1707,7 +1691,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ),),
@@ -1715,7 +1699,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -1762,7 +1746,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Phụ trách:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClickPT = !isClickPT;
@@ -1830,7 +1814,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Xử lý chính:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick = !isClick;
@@ -1899,7 +1883,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) {setState(() {
                           isClick1 = !isClick1;
@@ -1966,7 +1950,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick2 = !isClick2;
@@ -2073,7 +2057,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery
@@ -2090,7 +2074,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           textAlign:
                           TextAlign.center,),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String userYKien = _titleController.text;
                           var userDuocCHon = "";
                           if(!userDuocCHon.contains(lstUserPT))
@@ -2135,7 +2119,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ),),
@@ -2143,7 +2127,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -2190,7 +2174,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Phụ trách:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClickPT = !isClickPT;
@@ -2258,7 +2242,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       child: Text('Xử lý chính:', style:
                       TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick = !isClick;
@@ -2327,7 +2311,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) {setState(() {
                           isClick1 = !isClick1;
@@ -2394,7 +2378,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         if (mounted) { setState(() {
                           isClick2 = !isClick2;
@@ -2501,7 +2485,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery
@@ -2518,7 +2502,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           textAlign:
                           TextAlign.center,),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String userYKien = _titleController.text;
                           var userDuocCHon = "";
                           if(!userDuocCHon.contains(lstUserPT))
@@ -2563,7 +2547,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ),),
@@ -2571,7 +2555,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                 Padding(padding: EdgeInsets.only(top: 20,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -2600,374 +2584,15 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
 
           ],
         )
-        // Column(
-        //   // mainAxisAlignment: MainAxisAlignment.end,
-        //   // crossAxisAlignment: CrossAxisAlignment.start,
-        //   children: [
-        //     SizedBox(
-        //       height: 10,
-        //     ),
-        //     Column(
-        //       children: [
-        //         Row(
-        //           children: [
-        //             Container(
-        //
-        //               margin: EdgeInsets.only(left: 10),
-        //               width: MediaQuery.of(context).size.width * 0.15,
-        //               child: Text('Xử lý chính:', style:
-        //               TextStyle(fontWeight: FontWeight.bold)),
-        //             ),
-        //             FlatButton(
-        //               onPressed: () {
-        //                 if (mounted) { setState(() {
-        //                   isClick = !isClick;
-        //                 }); }
-        //
-        //               },
-        //               child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
-        //
-        //                   decoration: BoxDecoration(
-        //                     border: Border.all(color: Colors.black38, width: 2),
-        //                     borderRadius: BorderRadius.circular(10),
-        //                   ),
-        //                   width: MediaQuery
-        //                       .of(context)
-        //                       .size
-        //                       .width * 0.7,
-        //                   height: MediaQuery
-        //                       .of(context)
-        //                       .size
-        //                       .height * 0.05,
-        //                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-        //                   child: Align(
-        //                       child: textXLC == "" ? Text(
-        //                         "Chọn cán bộ xử lý chính",
-        //                         style: TextStyle(
-        //                             color: Colors.black45
-        //                         ),
-        //
-        //
-        //                       ) :
-        //                       Text(textXLC,
-        //                         style: TextStyle(
-        //                             color: Colors.black.withOpacity(0.8)
-        //                         ),
-        //                         maxLines: 2,
-        //                         overflow: TextOverflow.ellipsis,
-        //
-        //                       )
-        //                   )
-        //               ),),
-        //             ),
-        //           ],
-        //         ),
-        //         isClick
-        //             ? SizedBox()
-        //             : Container(
-        //           width: MediaQuery
-        //               .of(context)
-        //               .size
-        //               .width * 0.9,
-        //           child: buildTreeCBC(),
-        //         ),
-        //
-        //         // Container()
-        //       ],
-        //     ),
-        //     Column(
-        //       children: [
-        //         Row(
-        //           children: [
-        //             Container(
-        //               margin: EdgeInsets.only(left: 10),
-        //               width: MediaQuery.of(context).size.width * 0.15,
-        //               child: Text(
-        //                 'Phối hợp:',
-        //                 style: TextStyle(fontWeight: FontWeight.bold),
-        //               ),
-        //             ),
-        //             FlatButton(
-        //               onPressed: () {
-        //                 if (mounted) {setState(() {
-        //                   isClick1 = !isClick1;
-        //                 }); }
-        //
-        //               },
-        //               child: Padding(padding: EdgeInsets.only(left: 3),
-        //                 child: Container(
-        //                     decoration: BoxDecoration(
-        //                       border: Border.all(color: Colors.black38, width: 2),
-        //                       borderRadius: BorderRadius.circular(10),
-        //                     ),
-        //                     width: MediaQuery
-        //                         .of(context)
-        //                         .size
-        //                         .width * 0.7,
-        //                     height: MediaQuery
-        //                         .of(context)
-        //                         .size
-        //                         .height * 0.05,
-        //                     padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-        //                     child: Align(
-        //                         child: textPH == "" ? Text(
-        //                           "Chọn cán bộ phối hợp",
-        //                           style: TextStyle(
-        //                               color: Colors.black45
-        //                           ),
-        //
-        //
-        //                         ) :
-        //                         Text(textPH,
-        //                           style: TextStyle(
-        //                               color: Colors.black.withOpacity(0.8)
-        //                           ),
-        //                           maxLines: 2,
-        //                           overflow: TextOverflow.ellipsis,
-        //
-        //                         )
-        //                     )
-        //                 ),),
-        //             ),
-        //           ],
-        //         ),
-        //
-        //         isClick1
-        //             ? SizedBox()
-        //             : Container(
-        //           width: MediaQuery
-        //               .of(context)
-        //               .size
-        //               .width * 0.9,
-        //           child: buildTreePhu(),
-        //         ),
-        //
-        //         // Container()
-        //       ],
-        //     ),
-        //     Column(
-        //       children: [
-        //         Row(
-        //           children: [
-        //             Container(
-        //               margin: EdgeInsets.only(left: 10),
-        //               width: MediaQuery.of(context).size.width * 0.15,
-        //               child: Text('Xem để biết:', style: TextStyle(fontWeight: FontWeight.bold)),
-        //             ),
-        //             FlatButton(
-        //               onPressed: () {
-        //                 if (mounted) { setState(() {
-        //                   isClick2 = !isClick2;
-        //                 }); }
-        //
-        //               },
-        //               child: Padding(padding: EdgeInsets.only(left: 3), child: Container(
-        //                   decoration: BoxDecoration(
-        //                     border: Border.all(color: Colors.black38, width: 2),
-        //                     borderRadius: BorderRadius.circular(10),
-        //                   ),
-        //                   width: MediaQuery
-        //                       .of(context)
-        //                       .size
-        //                       .width * 0.7,
-        //                   height: MediaQuery
-        //                       .of(context)
-        //                       .size
-        //                       .height * 0.05,
-        //                   padding: EdgeInsets.fromLTRB(10, 0, 0, 0),
-        //                   child: Align(
-        //                       child: textXDB == "" ? Text(
-        //                         "Chọn cán bộ xem để biết",
-        //                         style: TextStyle(
-        //                             color: Colors.black45
-        //                         ),
-        //
-        //
-        //                       ) :
-        //                       Text(textXDB,
-        //                         style: TextStyle(
-        //                             color: Colors.black.withOpacity(0.8)
-        //                         ),
-        //                         maxLines: 2,
-        //                         overflow: TextOverflow.ellipsis,
-        //
-        //                       )
-        //                   )
-        //               ),),
-        //             ),
-        //           ],
-        //         ),
-        //
-        //         isClick2
-        //             ? SizedBox()
-        //             : Container(
-        //           width: MediaQuery
-        //               .of(context)
-        //               .size
-        //               .width * 0.9,
-        //           child: buildTreePhuXDB(),
-        //         ),
-        //
-        //         // Container()
-        //       ],
-        //     ),
-        //     Container(
-        //       //   decoration: BoxDecoration(
-        //       //     border: Border.all(color: Colors.blueAccent)
-        //       // ),
-        //       child: Padding(
-        //           padding: const EdgeInsets.only( top: 5),
-        //           child: Row(
-        //             children: [
-        //               Container(
-        //                 width: MediaQuery.of(context).size.width * 0.15,
-        //                 child: Text('Ý kiến:', style: TextStyle(fontWeight: FontWeight.bold)),
-        //               ),
-        //               Padding(
-        //                 padding: EdgeInsets.only(left: 15),
-        //                 child: Container(
-        //                   decoration: BoxDecoration(
-        //                     border: Border.all(color: Colors.black38, width: 2),
-        //                     borderRadius: BorderRadius.circular(10),
-        //                   ),
-        //                   width: MediaQuery.of(context).size.width * 0.7,
-        //                   height: MediaQuery.of(context).size.height * 0.05,
-        //                   padding: EdgeInsets.fromLTRB(0, 0, 0, 0),
-        //                   child: Theme(
-        //                     data: Theme.of(context).copyWith(splashColor: Colors.transparent),
-        //                     child: TextField(
-        //                       autofocus: false,
-        //                       cursorColor: Colors.black,
-        //                       style: TextStyle(color: Colors.black),
-        //                       controller: _titleController,
-        //                       textAlign: TextAlign.center,
-        //                       decoration: InputDecoration(
-        //                         hintText: 'Nhập ý kiến',
-        //                         hintStyle: TextStyle(color: Colors.black45),
-        //                         // contentPadding: EdgeInsets.only(left: 10.0, top: 15.0),
-        //                       ),
-        //                       onChanged: null,
-        //                     ),
-        //                   ),
-        //                 ),
-        //               ),
-        //             ],
-        //           )),
-        //     ),
-        //     Row(
-        //       crossAxisAlignment: CrossAxisAlignment.end,
-        //       mainAxisAlignment: MainAxisAlignment.center,
-        //       children: [
-        //         Padding(padding: EdgeInsets.only(top: 20),
-        //           child: Container(
-        //             decoration: BoxDecoration(
-        //               border: Border.all(color: Colors.lightBlue[50], width: 2),
-        //               borderRadius: BorderRadius.circular(10),
-        //             ),
-        //             width: MediaQuery
-        //                 .of(context)
-        //                 .size
-        //                 .width * 0.3,
-        //             height: MediaQuery
-        //                 .of(context)
-        //                 .size
-        //                 .height * 0.06,
-        //             child:TextButton.icon (
-        //                 icon: Icon(Icons.send_rounded),
-        //                 label: Text("Chuyển",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),
-        //                   textAlign:
-        //                   TextAlign.center,),
-        //                 onPressed: () async {
-        //                   var tendangnhap = sharedStorage.getString("username");
-        //                   String userYKien = _titleController.text;
-        //                   var userDuocCHon = "";
-        //                   if(!userDuocCHon.contains(lstUserPT))
-        //                     userDuocCHon += lstUserPT+ "^";
-        //                   if(!userDuocCHon.contains(lstUserXLC))
-        //                     userDuocCHon += lstUserXLC+ "^";
-        //                   for( var item in lstUserXDB.split("^"))
-        //                     if(!userDuocCHon.contains(item))
-        //                       userDuocCHon += item+ "^";
-        //                   for( var item in lstUserPH.split("^"))
-        //                     if(!userDuocCHon.contains(item))
-        //                       userDuocCHon += item + "^";
-        //                   if( userDuocCHon != null && userDuocCHon.length >0)
-        //                   {
-        //                     userDuocCHon =  userDuocCHon.substring(0,userDuocCHon.length-1);
-        //                   }
-        //
-        //                   if(cayPH != null && cayPH.length>0)
-        //                   {
-        //                     for(var item in cayPH.split(","))
-        //                       if(cayXDB.contains(item) && item!= null && item
-        //                           .isNotEmpty)
-        //                         selcb += item + ",";
-        //                     if(selcb != null && selcb.length>0)
-        //                       selcb =  selcb.substring(0,selcb.length-1);
-        //                   }
-        //
-        //                   EasyLoading.show();
-        //                   var thanhcong =  await postChuyenVBD(tendangnhap, widget.id, "ChuyenVB",userDuocCHon,lstUserXDB,
-        //                       lstUserXLC,
-        //                       lstUserPH,selcb,userYKien,widget.nam,lstUserPT);
-        //                   userDuocCHon = "";
-        //                   lstUserXDB = "";
-        //                   lstUserXLC = "";
-        //                   lstUserPT = "";
-        //                   lstUserPH = "";
-        //                   selcb = "";
-        //                   userYKien = "";
-        //
-        //                   EasyLoading.dismiss();
-        //                   Navigator.of(context).pop();
-        //                   showAlertDialog(context, json.decode(thanhcong)['Message']);
-        //                 },
-        //                 style: ButtonStyle(
-        //                   backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
-        //                   foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
-        //                 )
-        //             ),),
-        //         ),
-        //         Padding(padding: EdgeInsets.only(top: 20,left: 20),
-        //           child: Container(
-        //             decoration: BoxDecoration(
-        //               border: Border.all(color: Colors.lightBlue[50], width: 2),
-        //               borderRadius: BorderRadius.circular(15),
-        //             ),
-        //             width: MediaQuery
-        //                 .of(context)
-        //                 .size
-        //                 .width * 0.25,
-        //             height: MediaQuery
-        //                 .of(context)
-        //                 .size
-        //                 .height * 0.06,
-        //             child:TextButton.icon (
-        //                 icon: Icon(Icons.delete_forever_outlined),
-        //                 label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
-        //                 TextAlign.center,),
-        //                 onPressed: ()  {
-        //                   Navigator.of(context).pop();
-        //                 },
-        //                 style: ButtonStyle(
-        //                   backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
-        //                   foregroundColor: MaterialStateProperty.all<Color>(Colors.white),
-        //                 )
-        //             ),),
-        //         ),
-        //
-        //       ],),
-        //
-        //   ],
-        // )
+
         )
        ;
 
   }
 
-  String tti ;
-  String ttiPT ;
-  String radioItemHolder;
+   String? tti ;
+   String? ttiPT ;
+   String? radioItemHolder;
 
   List<TreeNode> toTreeNodesPH(dynamic parsedJson) {
     if (parsedJson is Map<String, dynamic>) {
@@ -2999,10 +2624,10 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                               element['key']&& ttiPT  != element['key']
                               ? Checkbox(
                             value: valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")],
-                            onChanged: (bool value) {
+                            onChanged: ( value) {
 
                               if (mounted) {  setState(() {
-                                valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")] = value;
+                                valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")] = value!;
                               }); }
 
                               if (!(lstUser.length > 0) ||
@@ -3023,7 +2648,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                                 var UserList = lstUser.toString();
                                 // UserList =  lstUser91;
                               }
-                              if (!valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")]) {
+                              if (!valuesPH[element['key'].toString() + (element['isUser'] ? "U" : "")]!) {
                                 if (lstUserPH != null &&
                                     lstUserPH.contains("^" + element["key"] + ";|" + element["title"])) {
                                   lstUser.remove(element["key"]);
@@ -3036,7 +2661,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
 
                                     textPH = textPH.replaceAll(","+element["title"], "");
                                   }
-                                  return textPH = textPH.replaceAll(element["title"], "");
+                                  //return textPH = textPH.replaceAll(element["title"], "");
+                                   textPH = textPH.replaceAll(element["title"], "");
                                 } else if (lstUserPH.contains(element["key"] + ";|" + element["title"])) {
                                   lstUser.remove(element["key"]);
                                   lstUserPH = lstUserPH.replaceAll(element["key"] + ";|" + element["title"], "");
@@ -3098,9 +2724,9 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                               && ttiPT != element['key']
                               ? Checkbox(
                             value: valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")],
-                            onChanged: (bool value) {
+                            onChanged: ( value) {
                               if (mounted) { setState(() {
-                                valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")] = value;
+                                valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")] = value!;
                               }); }
 
                               if (!(lstUserCBXDB.length > 0) ||
@@ -3120,7 +2746,7 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                                 var UserList = lstUserCBXDB.toString();
                                 // UserList =  lstUser91;
                               }
-                              if (!valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")]) {
+                              if (!valuesXDB[element['key'].toString() + (element['isUser'] ? "U" : "")]!) {
                                 if (lstUserXDB != null &&
                                     lstUserXDB.contains("^" + element["key"] + ";|" + element["title"])) {
                                   lstUserCBXDB.remove(element["key"]);
@@ -3133,7 +2759,8 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
 
                                     textXDB = textXDB.replaceAll(","+element["title"], "");
                                   }
-                                  return textXDB = textXDB.replaceAll(element["title"], "");
+                                  //return textXDB = textXDB.replaceAll(element["title"], "");
+                                   textXDB = textXDB.replaceAll(element["title"], "");
                                 } else if (lstUserXDB.contains(element["key"] + ";|" + element["title"])) {
                                   lstUserCBXDB.remove(element["key"]);
                                   lstUserXDB = lstUserXDB.replaceAll(element["key"] + ";|" + element["title"], "");
@@ -3193,20 +2820,20 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       children: [
                         Center(
                           child: element['isUser'] &&ttiPT  != element['key']
-                              ? Radio(
+                              ? Radio<String>(
                            groupValue:tti ,
                             value:element['key'],
                             onChanged: ( _value) {
                               if (mounted) {    setState(() {
                                 radioItemHolder = element['title'] ;
                                 tti = element['key'];
-                                textXLC =  radioItemHolder;
+                                textXLC =  radioItemHolder!;
                                 lstUserXLC =   element["key"] + ";|" + element["title"];
                                 isClick= true;
                               });}
 
 
-                              cayXLC =  tti;
+                              cayXLC =  tti!;
 
                                   },
                                 )
@@ -3259,21 +2886,21 @@ class _TreeChuyenVBDenState extends State<TreeChuyenVBDen> {
                       children: [
                         Center(
                           child: element['isUser']&&tti  != element['key']
-                              ? Radio(
+                              ? Radio<String>(
                            groupValue:ttiPT ,
                             value:element['key'],
                             onChanged: ( _value) {
                               if (mounted) {    setState(() {
                                 radioItemHolder = element['title'] ;
                                 ttiPT = element['key'];
-                                textPT =  radioItemHolder;
+                                textPT =  radioItemHolder!;
                                 lstUserPT =   element["key"] + ";|" +
                                     element["title"];
                                 isClickPT= true;
                               });}
 
 
-                              cayPT =  ttiPT;
+                              cayPT =  ttiPT!;
 
                                   },
                                 )
@@ -3306,5 +2933,5 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 }

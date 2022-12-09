@@ -1,24 +1,22 @@
 import 'dart:async';
 import 'dart:convert';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:bordered_text/bordered_text.dart';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
-import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/themMoiHT.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 
 class hoTro extends StatefulWidget {
-  const hoTro({Key key,this.username,this.nam}) : super(key: key);
+  const hoTro({Key? key,required this.username,required this.nam}) : super(key: key);
   final String username;
   final String nam;
   @override
@@ -97,16 +95,16 @@ class _hoTroState extends State<hoTro> {
   }
 
 
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
   GetInfoUserNew() async{
     sharedStorage = await SharedPreferences.getInstance();
     setState(() {
-      user.Title = sharedStorage.getString("hoten");
+      user.Title = sharedStorage!.getString("hoten")!;
       hoVaTen = user.Title;
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.ChucVu = sharedStorage!.getString("chucvu")!;
     });
-    var tendangnhap = sharedStorage.getString("username");
-    ten = tendangnhap;
+    var tendangnhap = sharedStorage!.getString("username");
+    ten = tendangnhap!;
 
   }
   @override
@@ -206,10 +204,7 @@ class _hoTroState extends State<hoTro> {
             //
 
             SizedBox(height: 20,),
-            // Center(
-            //   child:Text("(Click vào mã QR tham gia nhóm hỗ trợ)",
-            //     style: TextStyle(fontWeight: FontWeight.normal, fontSize:
-            //     13,fontStyle: FontStyle.italic),) ,),
+
             Center(
               child:Text("Click hoặc quét mã QR tham gia nhóm hỗ trợ",
                 style: TextStyle(fontWeight: FontWeight.bold, fontSize:
@@ -220,7 +215,7 @@ class _hoTroState extends State<hoTro> {
                 Padding(padding: EdgeInsets.only(top: 20,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -238,9 +233,8 @@ class _hoTroState extends State<hoTro> {
                         FontWeight.bold, fontSize: 16,),textAlign:
                         TextAlign.center,),
                         onPressed: ()  {
-                          Get.to(themMoiHT());
-                          // Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                          //     themMoiHT()));
+                        //  Get.to(themMoiHT(tendangnhap: widget.username,));
+                          EasyLoading.show();
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty

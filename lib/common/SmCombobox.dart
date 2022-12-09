@@ -10,11 +10,11 @@ class SmComboBox extends StatefulWidget {
   //endregion
 
   SmComboBox(
-      {Key key,
-        this.dataSource,
-        this.titleText,
-        this.myActivities,
-        this.onSaved})
+      {Key? key,
+        required this.dataSource,
+        required this.titleText,
+        required this.myActivities,
+        required this.onSaved})
       : super(key: key);
 
   @override
@@ -35,10 +35,10 @@ class _SmComboBoxState extends State<SmComboBox> {
 
   //endregion
   _SmComboBoxState(
-      {@required this.dataSource,
-        this.titleText,
-        this.myActivities,
-        this.onSaved});
+      {required this.dataSource,
+        required this.titleText,
+        required this.myActivities,
+        required this.onSaved});
 
   @override
   Widget build(BuildContext context) {

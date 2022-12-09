@@ -4,16 +4,12 @@ import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'dart:convert';
 import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/core/models/UserJson.dart';
-import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
 import 'package:hb_mobile2021/ui/main/MenuRight.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:hb_mobile2021/ui/main/MenuLeft.dart';
 
 class DynamicEvent extends StatefulWidget {
   String urlttVB;
@@ -24,8 +20,8 @@ class DynamicEvent extends StatefulWidget {
 
 
   //VanBanDi({this.urlttVB});
-  DynamicEvent({Key key, this.urlttVB, this.created, this.username, this.val,
-    this.nam}) : super(key: key);
+  DynamicEvent({Key? key, required this.urlttVB, required this.created, required this.username, required this.val,
+    required this.nam}) : super(key: key);
 
   @override
   State<StatefulWidget> createState() {
@@ -38,7 +34,7 @@ class ListVBDen1 extends State<DynamicEvent> {
   List dataList = [];
   List dataDisplay = [];
   bool isLoading = false;
-  String hoten, chucvu;
+  late String hoten, chucvu;
   int skip = 1;
   int pageSize = 20;
   int skippage = 0;
@@ -65,7 +61,7 @@ class ListVBDen1 extends State<DynamicEvent> {
   int IDT = 0;
   TextEditingController _titleController = TextEditingController();
   bool showD = true;
-  String testthuhomerxoa;
+  late String testthuhomerxoa;
   String nam = "";
   var tenLD ;
   List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
@@ -125,16 +121,16 @@ class ListVBDen1 extends State<DynamicEvent> {
   }
 
   //lấy thông tin user
-  UserJson user = new UserJson();
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
     if (mounted) {setState(() {
-      user.Title = sharedStorage.getString("hoten");
-      user.ChucVu = sharedStorage.getString("chucvu");
+      user.Title = sharedStorage!.getString("hoten")!;
+      user.ChucVu = sharedStorage!.getString("chucvu")!;
     });}
 
-    var tendangnhap = sharedStorage.getString("username");
+    var tendangnhap = sharedStorage!.getString("username");
     ten = tendangnhap;
   }
 
@@ -198,8 +194,8 @@ class ListVBDen1 extends State<DynamicEvent> {
 
 //tim kiem van ban
   GetDataByKeyWordVBDen(String text) async {
-    var tendangnhap = sharedStorage.getString("username");
-    vbtimkiem = await getDataByKeyWordVBDen(tendangnhap, ActionXL, text,
+    var tendangnhap = sharedStorage!.getString("username");
+    vbtimkiem = await getDataByKeyWordVBDen(tendangnhap!, ActionXL, text,
         dropdownValue,widget.urlttVB);
 
 
@@ -284,11 +280,11 @@ class ListVBDen1 extends State<DynamicEvent> {
                   color: Colors.white70,
                   width: 50,
                 ),
-                onChanged: (String newValue) {
+                onChanged: ( newValue) {
                   if (mounted) {setState(() {
                     skip =1;
                     skippage =0;
-                    dropdownValue = newValue;
+                    dropdownValue = newValue!;
                     dataList.clear();
                     isLoading = true;
                     // GetDataByKeyYearVBDen(dropdownValue);
@@ -561,7 +557,7 @@ class ListVBDen1 extends State<DynamicEvent> {
         shrinkWrap: true,
         itemBuilder: (context, index) {
           if(index == tongso){
-            _buildProgressIndicator();
+            return   _buildProgressIndicator();
           }else{
             return getBody(dataList[index]);
           }
@@ -880,7 +876,7 @@ class CustomIcon extends StatelessWidget {
   final IconData icons;
   final Color bgiconColor;
 
-  CustomIcon({@required this.icons, this.bgiconColor});
+  CustomIcon({required this.icons, required this.bgiconColor});
 
   @override
   Widget build(BuildContext context) {
@@ -901,7 +897,7 @@ class ListDataP {
   int ID;
 
 
-  ListDataP({ this.Name,this.ID});
+  ListDataP({ required this.Name,required this.ID});
 
   factory ListDataP.fromJson(Map<String, dynamic> json) {
     return ListDataP( Name: json['Title'],ID: json['ID']);

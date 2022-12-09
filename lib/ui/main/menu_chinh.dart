@@ -1,20 +1,17 @@
-import 'dart:async';
+
 import 'dart:convert';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:hb_mobile2021/core/services/HomePageService.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/btnavigator_widget.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
-import 'package:url_launcher/url_launcher.dart';
 
 class MenuChinh extends StatefulWidget {
   
 final String year;
-MenuChinh({this.year});
+MenuChinh({required this.year});
   @override
   _MenuRightBN_DPState createState() => _MenuRightBN_DPState();
 }
@@ -30,9 +27,9 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
   bool isLoadingVBD = false;
   bool isLoadingVBDT = false;
   bool isLoadingVBDi = false;
-  int tappedIndexVBD;
-  int tappedIndexVBDi;
-  int tappedIndexVBDT;
+   int? tappedIndexVBD;
+   int? tappedIndexVBDi;
+   int? tappedIndexVBDT;
 
   ScrollController _sc = new ScrollController();
 
@@ -201,7 +198,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           height: MediaQuery.of(context).size.height * 0.05,
           //padding: const EdgeInsets.all(1),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.blueGrey[100],width: 1),
+            border: Border.all(color: Colors.blueGrey[100]!,width: 1),
             borderRadius: BorderRadius.circular(7),
             color: Colors.blueAccent,
           ),
@@ -227,7 +224,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           //  GetDetailMenuLeft(widget.page,query, widget.year);
 
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-              BottomNavigator(page: 3,
+              BottomNavigator(page: 3,username:'' ,index: 0,
                   query : query,year: widget.year,ID :ID )), (Route<dynamic>
           route)
           => false);
@@ -253,7 +250,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           height: MediaQuery.of(context).size.height * 0.05,
           //padding: const EdgeInsets.all(1),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.blueGrey[100],width: 1),
+            border: Border.all(color: Colors.blueGrey[100]!,width: 1),
             borderRadius: BorderRadius.circular(7),
             color: Colors.blueAccent,
           ),
@@ -277,7 +274,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           //  GetDetailMenuLeft(widget.page,query, widget.year);
 
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-              BottomNavigator(page: 1,
+              BottomNavigator(page: 1,username: '',index: 0,
                   query : query,year: widget.year,ID :ID )), (Route<dynamic>
           route)
           => false);
@@ -303,7 +300,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           height: MediaQuery.of(context).size.height * 0.05,
           //padding: const EdgeInsets.all(1),
           decoration: BoxDecoration(
-            border: Border.all(color: Colors.blueGrey[100],width: 1),
+            border: Border.all(color: Colors.blueGrey[100]!,width: 1),
             borderRadius: BorderRadius.circular(7),
             color: Colors.blueAccent,
           ),
@@ -325,7 +322,7 @@ class _MenuRightBN_DPState extends State<MenuChinh> {
           //  GetDetailMenuLeft(widget.page,query, widget.year);
 
           Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(builder: (context) =>
-              BottomNavigator(page: 2,
+              BottomNavigator(page: 2,username: '',index: 0,
                   query : query,year: widget.year,ID :ID )), (Route<dynamic>
           route)
           => false);
@@ -418,7 +415,7 @@ class CustomIcon extends StatelessWidget {
   final IconData icons;
   final Color bgiconColor;
 
-  CustomIcon({@required this.icons, this.bgiconColor});
+  CustomIcon({required this.icons, required this.bgiconColor});
 
   @override
   Widget build(BuildContext context) {

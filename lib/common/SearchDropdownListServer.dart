@@ -8,19 +8,19 @@ class SearchServer extends StatefulWidget {
   final String title;
   final String searchHintText;
   List<ListData> listData;
-  ListData listSelect;
+  ListData? listSelect;
   ValueChanged<List<int>> onSaved;
   List<int> selectedValueServer;
   bool multipleSelection;
 
   SearchServer({
-    this.title,
-    this.searchHintText,
-    this.listSelect,
-    this.listData,
-    this.onSaved,
-    this.selectedValueServer,
-    this.multipleSelection});
+    required this.title,
+    required this.searchHintText,
+     this.listSelect,
+    required this.listData,
+    required this.onSaved,
+    required this.selectedValueServer,
+    required this.multipleSelection});
 
   @override
   SearchServerState createState() => SearchServerState();
@@ -79,8 +79,8 @@ class SearchServerState extends State<SearchServer> {
   checkExist(List<int> select){
     List<ListData> selectedItem = [];
     for(int i = 0; i < select.length ; i ++ ){
-      var getItem = widget.listData.firstWhere((itemToCheck) => itemToCheck.ID == select[i], orElse: () => null);
-      getItem != null ? selectedItem.add(getItem) : selectedItem.add(null);
+      var getItem = widget.listData.firstWhere((itemToCheck) => itemToCheck.ID == select[i] , orElse:() => []as ListData);
+      getItem != null ? selectedItem.add(getItem) : selectedItem.add([]as ListData);
     }
     return selectedItem;
   }
@@ -121,6 +121,7 @@ class SearchServerState extends State<SearchServer> {
                         child: Container(
                           padding: EdgeInsets.fromLTRB(0, 3, 0, 3),
                           child: MaterialButton(
+                            onPressed: () {  },
                             child: Center(
                               child: Text(checkExist(selectedItem)[index].text, style: TextStyle(color: Colors.white),
                               ),
@@ -176,9 +177,9 @@ class DropDownListItem extends StatefulWidget {
 
   DropDownListItem({
     this.customFunction,
-    this.searchHintText,
-    this.listData,
-    this.selectedValue, this.multipleSelection});
+    required this.searchHintText,
+    required this.listData,
+    required this.selectedValue, required this.multipleSelection});
 
   @override
   State<StatefulWidget> createState() {
@@ -281,7 +282,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                       ),
                       Container(
                         alignment: Alignment.centerRight,
-                        child: FlatButton(
+                        child: TextButton(
                           child: Container(
                               child: Text(
                                 'X Bỏ chọn tất cả',
@@ -301,7 +302,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.end,
                           children: <Widget>[
-                            FlatButton(
+                            TextButton(
                               onPressed: () {
                                 widget.customFunction(widget.selectedValue);
                                 Navigator.of(context).pop();
@@ -350,11 +351,11 @@ class DropDownListItemState extends State<DropDownListItem> {
     var title = item.text;
     var existingItem = widget.selectedValue.firstWhere(
             (itemToCheck) => itemToCheck == item.ID,
-        orElse: () => null);
+        orElse: () => -1);
     return InkWell(
         onTap: () {
           if (widget.multipleSelection) {
-            if (existingItem != null) {
+            if (existingItem != -1) {
               setState(() {
                 widget.selectedValue.removeWhere((i) => i == item.ID);
               });
@@ -379,7 +380,7 @@ class DropDownListItemState extends State<DropDownListItem> {
                 ? Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: <Widget>[
-                Icon(existingItem != null
+                Icon(existingItem != -1
                     ?
                   Icons.check_box
                     : Icons.check_box_outline_blank,
@@ -415,7 +416,7 @@ class ListData {
   String text;
   int ID;
 
-  ListData({@required this.text, @required this.ID});
+  ListData({required this.text, required this.ID});
 
   factory ListData.fromJson(Map<String, dynamic> json) {
     return ListData(ID: (json['ID']), text: json['Title']);

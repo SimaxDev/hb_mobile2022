@@ -1,7 +1,7 @@
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 
 import 'callApi.dart';
 
@@ -18,6 +18,8 @@ import 'callApi.dart';
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
   Future<String> getDataDetailHSCV2(int idHS,String ActionXL,String nam)
@@ -32,6 +34,8 @@ import 'callApi.dart';
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
   
@@ -50,6 +54,8 @@ import 'callApi.dart';
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
   Future<String> getDataDetailHSCVVBD(String ActionXL,String query,int idHS,
@@ -85,6 +91,8 @@ import 'callApi.dart';
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
 
@@ -104,6 +112,8 @@ import 'callApi.dart';
     if (response.statusCode == 200) {
       var items = response.body;
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
 
@@ -120,6 +130,8 @@ import 'callApi.dart';
     if (response.statusCode == 200) {
       var items = response.body;
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
   Future<String>getDataByKeyTrangThai1(String ActionXL,String
@@ -145,6 +157,8 @@ import 'callApi.dart';
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
 Future<String>getDataByKeyTrangThai(String ActionXL,String
@@ -162,6 +176,8 @@ trangthai,nam) async {
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -184,6 +200,8 @@ trangthai,nam) async {
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
 
@@ -198,6 +216,8 @@ Future<String> getDataHomeHSCV1( String ActionXL,
   if (response.statusCode == 200) {
     var items = (response.body);
     return items;
+  }else {
+    throw Exception('Failed to load album');
   }
 }
 
@@ -214,6 +234,8 @@ Future<String> getDataHomeHSCV1( String ActionXL,
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
 
@@ -229,6 +251,8 @@ Future<String> getDataHomeHSCV1( String ActionXL,
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
   Future<String> deleteHSCV(int id,String ActionXL) async {
@@ -241,6 +265,8 @@ Future<String> getDataHomeHSCV1( String ActionXL,
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
 
@@ -299,6 +325,8 @@ Future<String> getDataHomeHSCV1( String ActionXL,
     if (response.statusCode == 200) {
       var items = response.body;
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
   Future postYKienHSCV( username,id, ActionXL,  noidungykien) async {
@@ -321,6 +349,8 @@ Future<String> getDataHomeHSCV1( String ActionXL,
     if (response.statusCode == 200) {
       var items = response.body;
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
 
 
@@ -342,6 +372,8 @@ Future<String> getDataHomeHSCV1( String ActionXL,
     if (response.statusCode == 200) {
       var items = (response.body);
       return items;
+    }else {
+      throw Exception('Failed to load album');
     }
   }
 

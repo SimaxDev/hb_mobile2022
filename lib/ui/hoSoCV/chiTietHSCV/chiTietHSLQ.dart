@@ -1,20 +1,15 @@
 import 'dart:async';
 
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/hoSoCV/chiTietHSCV/ThongTinHSCV.dart';
-import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'dart:convert';
-import 'package:json_table/json_table.dart';
 
 class chiTietHSLQ extends StatefulWidget {
   final int id;
   final String nam;
-  chiTietHSLQ({this.id,this.nam});
+  chiTietHSLQ({required this.id,required this.nam});
 
   @override
   _chiTietHSLQState createState() => _chiTietHSLQState();
@@ -31,17 +26,10 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
   bool isLoading = false;
   var jsonSample = "";
   bool showD = true;
-  int hosoid;
-  String testthuhomerxoa;
+  late int hosoid;
+  late String testthuhomerxoa;
   String ActionXL = "GetHSCVLienQuan";
-  // List<dynamic> dataListThayThe = [];
-  // var columns = [
-  //   JsonTableColumn("hscvMaHoSo", label: "Mã hồ sơ"),
-  //   JsonTableColumn("hscvNguoiLap.Title", label: "Người lập"),
-  //   JsonTableColumn("Title", label: "Tên hồ sơ công việc"),
-  //   JsonTableColumn("hscvTrangThaiXuLy", label: "Trạng thái xử lý",valueBuilder:ttHoSo),
-  // ];
-  //
+
 
   Future<Null> onRefresh() async {
     refreshKey.currentState?.show(atTop: false);
@@ -118,57 +106,6 @@ class _chiTietHSLQState extends State<chiTietHSLQ> {
   Widget buildTree() {
 
 
-//     return RefreshIndicator(
-//         child: SingleChildScrollView(
-//           child: Column(
-//             children: [
-//               SizedBox(
-//
-//              child: Column(
-//                 children: [
-//                   Container(
-//                     // height: MediaQuery.of(context).size.height * .60,
-//                       child: Column(
-//                         children: <Widget>[
-//
-//                           SizedBox(height: 5,),
-//                           dataListThayThe == null || dataListThayThe.length == 0
-//                               ? SizedBox()
-//                               : Container(
-//                             //height: MediaQuery.of(context).size.height *1,
-//                               padding: EdgeInsets.only(left: 16,right: 16,
-//                                 bottom: 16,top: 10),
-//                               child: Column(
-//                                 children: [
-//                                   //Decode your json string
-//
-// //Simply pass this column list to JsonTable
-//                                   JsonTable(
-//                                     dataListThayThe,
-//                                     columns: columns,
-//                                     allowRowHighlight: true,
-//                                     rowHighlightColor: Colors.yellow[500].withOpacity(0.7),
-//                                     paginationRowCount: 10,
-//                                     onRowSelect: (index, map) {
-//                                       // print(index);
-//                                       //print(map);
-//                                      // print(map['ID']);
-//
-//                                     },
-//                                   )
-//                                 ],
-//                               )
-//                           )
-//                         ],
-//                       )),
-//
-//                   // Container()
-//                 ],
-//               ),),
-//             ],
-//           ),
-//         ),
-//         onRefresh: onRefresh);
 
     if (dataListThayThe== null || dataListThayThe.length < 0 ||
         isLoading==false) {
@@ -275,7 +212,7 @@ String formatDOB(value){
   // return ("${parsedDate.day}/${parsedDate.month}/${parsedDate.year}");
 }
 String ttHoSo(id) {
-  String tt;
+  String tt='';
   switch (id) {
     case 0:
       tt = "Đang xử lý";

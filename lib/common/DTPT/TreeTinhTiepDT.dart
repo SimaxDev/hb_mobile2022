@@ -1,4 +1,4 @@
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -17,7 +17,7 @@ class TreeTrinhTiepDT extends StatefulWidget {
   final int id;
   final String nam;
 
-  TreeTrinhTiepDT({this.id,this.nam});
+  TreeTrinhTiepDT({required this.id,required this.nam});
 
   @override
   _TreeTrinhTiepDTState createState() => _TreeTrinhTiepDTState();
@@ -27,7 +27,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
   final TreeController _treeController = TreeController(allNodesExpanded: false);
   String ActionXL1 = "GetTreeDonViV2";
   List chitiet = [];
-  List<ListData1> listData;
+  late List<ListData1> listData;
   var existingItem;
   bool checkedValue = false;
   Map<String, String> lstUser = new Map<String, String>();
@@ -36,15 +36,14 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
   String textXLC = "";
   String textPD2 = "";
   String textXNK = "";
-  String lst;
-  double _height;
-  double _width;
-  DateTime _dateTime;
+  late String lst;
+  late double _height;
+  late double _width;
+
   DateTime selectedDate = DateTime.now();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
-  String _setDate;
-  String _setDate1;
+
   bool PH = false;
   bool isClick = true;
   bool isClick1 = true;
@@ -65,8 +64,8 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
   @override
   void initState() {
     super.initState();
-    var tendangnhap = sharedStorage.getString("username");
-    GetDataDetailVBDi(tendangnhap);
+    var tendangnhap = sharedStorage!.getString("username");
+    GetDataDetailVBDi(tendangnhap!);
   }
   @override
   void dispose() {
@@ -75,7 +74,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
   }
 
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -225,7 +224,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('PD/TT:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         setState(() {
                           isClick = !isClick;
@@ -290,7 +289,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                         style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         setState(() {
                           isClick1 = !isClick1;
@@ -351,7 +350,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                       width: MediaQuery.of(context).size.width * 0.15,
                       child: Text('NK:', style: TextStyle(fontWeight: FontWeight.bold)),
                     ),
-                    FlatButton(
+                    TextButton(
                       onPressed: () {
                         setState(() {
                           isClick2 = !isClick2;
@@ -452,7 +451,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                 Padding(padding: EdgeInsets.only(top: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery
@@ -468,7 +467,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                         label: Text("Trình ký",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
                         TextAlign.center,),
                         onPressed: () async {
-                          var tendangnhap = sharedStorage.getString("username");
+                          var tendangnhap = sharedStorage!.getString("username");
                           String userList = _titleController.text;
                           var userDuocCHon = "";
                           if(!userDuocCHon.contains(lstUserXLC))
@@ -495,7 +494,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                           showAlertDialog(context, json.decode(thanhcong)['Message']);
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                          backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                         )
                     ):TextButton.icon (
@@ -506,13 +505,13 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                           backgroundColor: MaterialStateProperty.all<Color>
                             (Colors.black26),
                           foregroundColor: MaterialStateProperty.all<Color>(Colors.black54),
-                        )
+                        ), onPressed: () {  },
                     ),),
                 ),
                 Padding(padding: EdgeInsets.only(top: 20,left: 20),
                   child: Container(
                     decoration: BoxDecoration(
-                      border: Border.all(color: Colors.lightBlue[50], width: 2),
+                      border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery
@@ -548,12 +547,12 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
     }
   }
 
-  String tti ;
-  String tti1 ;
-  String tti2 ;
-  String radioItemHolder;
-  String radioItemHolder1;
-  String radioItemHolder2;
+   String? tti ;
+   String? tti1 ;
+   String? tti2 ;
+   String? radioItemHolder;
+   String? radioItemHolder1;
+   String? radioItemHolder2;
 
 
   List<TreeNode> toTreeNodesRadio(dynamic parsedJson) {
@@ -584,7 +583,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                 Center(
                   child: element['isUser'] && tti1 != element['key'] && tti2
                       != element['key']
-                      ? Radio(
+                      ? Radio<String>(
                     groupValue:tti ,
                     value:element['key'],
                     onChanged: ( _value) {
@@ -592,7 +591,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                       setState(() {
                         radioItemHolder = element['title'] ;
                         tti = element['key'];
-                        textXLC =  radioItemHolder;
+                        textXLC =  radioItemHolder!;
                         isClick =true;
                       });
 
@@ -650,7 +649,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                 Center(
                   child: element['isUser'] && tti != element['key'] && tti2
                       != element['key']
-                      ? Radio(
+                      ? Radio<String>(
                     groupValue:tti1 ,
                     value:element['key'],
                     onChanged: ( _value) {
@@ -658,7 +657,7 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                       setState(() {
                         radioItemHolder1 = element['title'] ;
                         tti1 = element['key'];
-                        textPD2 =  radioItemHolder1;
+                        textPD2 =  radioItemHolder1!;
                       });
 
                       lstUserPD2 =   element["key"] + ";|" + element["title"];
@@ -716,14 +715,14 @@ class _TreeTrinhTiepDTState extends State<TreeTrinhTiepDT> {
                 Center(
                   child: element['isUser'] &&tti != element['key'] &&tti1 !=
                       element['key']
-                      ? Radio(
+                      ? Radio<String>(
                     groupValue:tti2 ,
                     value:element['key'],
                     onChanged: ( _value) {
                       setState(() {
                         radioItemHolder2 = element['title'] ;
                         tti2 = element['key'];
-                        textXNK =  radioItemHolder2;
+                        textXNK =  radioItemHolder2!;
                         isClick2 = true;
                         checkTrinhKy = true;
                       });
@@ -759,7 +758,7 @@ class ListData1 {
   String text;
   String ID;
 
-  ListData1({@required this.text, @required this.ID});
+  ListData1({required this.text, required this.ID});
 
   factory ListData1.fromJson(Map<String, dynamic> json) {
     return ListData1(ID: (json['key']), text: json['title']);

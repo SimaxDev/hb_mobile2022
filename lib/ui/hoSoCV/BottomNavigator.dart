@@ -1,24 +1,20 @@
 import 'dart:convert';
-import 'package:date_time_picker/date_time_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_simple_treeview/flutter_simple_treeview.dart';
 import 'package:hb_mobile2021/common/HoSoCV/chuyenVaoHS.dart';
-import 'package:hb_mobile2021/core/services/VbdenService.dart';
-
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/hoSoCVService.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'dart:developer' as Dev;
 import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemDT.dart';
 import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemMoiDT.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 class BottomNavHSCV extends StatefulWidget {
   int id;
   String nam;
-  BottomNavHSCV({this.id,this.nam});
+  BottomNavHSCV({required this.id,required this.nam});
 
   @override
   _BottomNavHSCV createState() => _BottomNavHSCV();
@@ -27,14 +23,14 @@ class BottomNavHSCV extends StatefulWidget {
 class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderStateMixin {
 
 
-  DateTime _dateTime;
+  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   TextEditingController _dateController = TextEditingController();
   TextEditingController _titleController = TextEditingController();
-  double _height;
-  double _width;
-  String _setDate;
-  String _setDate1;
+  late double _height;
+  late double _width;
+  late String _setDate;
+  late String _setDate1;
   bool isLoading = false;
   List chitiet1 = [];
   ScrollController _scrollerController = new ScrollController();
@@ -70,7 +66,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
     EasyLoading.dismiss();
   }
   Future<Null> _selectDate(BuildContext context) async {
-    final DateTime picked = await showDatePicker(
+    final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedDate,
         initialDatePickerMode: DatePickerMode.day,
@@ -114,7 +110,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
     _width = MediaQuery.of(context).size.width;
     return Container(
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.blueGrey[100]),
+        border: Border.all(color: Colors.blueGrey[100]!),
         color: Colors.white,
       ),
       height: 56.0,
@@ -211,7 +207,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                                             textAlign: TextAlign.center,
                                             enabled: false,
                                             keyboardType: TextInputType.text,
-                                            controller: _dateController == null ? selectedDate : _dateController,
+                                            controller: _dateController == null ? selectedDate as TextEditingController : _dateController,
                                             // onSaved: (val) {
                                             //   _setDate1 = val;
                                             // },
@@ -238,7 +234,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                                           label: Text('Cập nhật',style: TextStyle(fontWeight: FontWeight.bold)),
                                           onPressed: () async {
                                             EasyLoading.show();
-                                            var tendangnhap = sharedStorage.getString("username");
+                                            var tendangnhap = sharedStorage!.getString("username");
 
                                             var thoiGian = _dateController
                                                 .text.toString();
@@ -251,7 +247,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                                             showAlertDialog(context, json.decode(thanhcong)['Message']);
                                           },
                                           style: ButtonStyle(
-                                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                                            backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                                             foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                           )
                                       ),
@@ -351,7 +347,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                               onPressed: () {
                                 Navigator.of(context).pushAndRemoveUntil(
                                     MaterialPageRoute(
-                                        builder: (BuildContext context) => ThemMoiDT()),
+                                        builder: (BuildContext context) => ThemMoiDT(nam: '',)),
                                         (Route<dynamic> route) => true);
 
 
@@ -434,7 +430,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                                                 showAlertDialog(context, json.decode(thanhcong)['Message']);
                                               },
                                               style: ButtonStyle(
-                                                backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                                                backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                                                 foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                                               )
                                           ),
@@ -477,7 +473,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
     showModalBottomSheet(
         context: context,
         builder: (BuildContext context) {
-          return _getBodyPage(context, index);
+          return _getBodyPage( index);
         });
   }
 
@@ -493,7 +489,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
     return false;
   }
   // dữ liệu toàn bộ
-  Widget _getBodyPage(context, int index) {
+  Widget _getBodyPage( int index) {
 
 
     switch (index) {
@@ -536,7 +532,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                     Padding(padding: EdgeInsets.only(top: 10),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: MediaQuery
@@ -562,7 +558,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                                 }
                                 return false;
                               }
-                              var tendangnhap = sharedStorage.getString("username");
+                              var tendangnhap = sharedStorage!.getString("username");
                               String iaa =  _titleController.text.trim();
                               if(isAllSpaces(iaa))
                               {showAlertDialog(context,"Nhập ý kiến");
@@ -582,7 +578,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
 
                             },
                             style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]),
+                              backgroundColor: MaterialStateProperty.all<Color>(Colors.lightBlue[50]!),
                               foregroundColor: MaterialStateProperty.all<Color>(Colors.blue),
                             )
                         ),),
@@ -590,7 +586,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
                     Padding(padding: EdgeInsets.only(top: 10,left: 20),
                       child: Container(
                         decoration: BoxDecoration(
-                          border: Border.all(color: Colors.lightBlue[50], width: 2),
+                          border: Border.all(color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         width: MediaQuery
@@ -622,6 +618,7 @@ class _BottomNavHSCV extends State<BottomNavHSCV> with SingleTickerProviderState
         break;
 
     }
+    return SizedBox();
   }
 }
 
@@ -630,7 +627,7 @@ class ListDataVBD {
   String text;
   String ID;
 
-  ListDataVBD({@required this.text, @required this.ID});
+  ListDataVBD({required this.text, required this.ID});
 
   factory ListDataVBD.fromJson(Map<String, dynamic> json) {
     return ListDataVBD(ID: (json['key']), text: json['title']);

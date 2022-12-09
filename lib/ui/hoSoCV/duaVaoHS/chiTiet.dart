@@ -1,15 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/viewPDF.dart';
-import 'package:hb_mobile2021/ui/vbdi/view_pdf.dart';
-import 'dart:io';
-import 'dart:async';
+
 import 'package:flutter/foundation.dart';
-import 'package:path_provider/path_provider.dart';
 import 'package:http/http.dart' as http;
-import 'package:hb_mobile2021/ui/vbden/BottomNavigator.dart';
-import 'package:open_file/open_file.dart';
 
 
 class ChiTietHSDuaVao extends StatefulWidget {
@@ -20,7 +13,7 @@ class ChiTietHSDuaVao extends StatefulWidget {
 }
 
 class _ChiTietVBDen extends State<ChiTietHSDuaVao> {
-  int ItemId;
+  late int ItemId;
   bool isLoading = false;
   bool isLoadingPDF = true;
   var urlFile = null;
