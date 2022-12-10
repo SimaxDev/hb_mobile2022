@@ -35,7 +35,7 @@ class LoginState extends State<LoginWidget> {
   List lstThongTinLConfig = [];
   var user;
 
-  late Timer _timer;
+
 
   @override
   void initState() {
@@ -535,7 +535,7 @@ if(item == null){
   Future<void> login(String username, String password) async {
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
-    // var url = Uri.parse("http://AppMobile.ungdungtructuyen.vn/token");
+    // var url = Uri.parse("http://apiappmobilehoabinh.ungdungtructuyen.vn/token");
   var url = Uri.parse("https://apimobile.hoabinh.gov.vn/token");
       var details = {
         'username': username,

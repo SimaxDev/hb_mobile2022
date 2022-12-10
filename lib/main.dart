@@ -68,7 +68,7 @@ Future<void> main() async{
 }
  Timer? _timer;
 void _initializeTimer() {
-  _timer = Timer.periodic(const Duration(minutes:5), (_) {
+  _timer = Timer.periodic(const Duration(seconds:5), (_) {
     rester().logOutALL();
     _timer?.cancel();
   });

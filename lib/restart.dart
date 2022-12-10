@@ -10,7 +10,7 @@ import 'core/services/callApi.dart';
 
 
 class rester {
-  late Timer _timer;
+   Timer? _timer;
 
   void initializeTimer() {
     _timer = Timer.periodic(const Duration(seconds: 10), (_) {
@@ -282,11 +282,9 @@ class rester {
       widthKy = 75.0;
     heightKy = 150.0;
     }
-    if(_timer != null){
-      _timer?.cancel();
-    }
-    // Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
-    //     builder: (BuildContext context) => LoginWidget()), (Route<dynamic> route) => false);
+    // if(_timer != null){
+    //   _timer?.cancel();
+    // }
     Get.off(LoginWidget());
 
   }
