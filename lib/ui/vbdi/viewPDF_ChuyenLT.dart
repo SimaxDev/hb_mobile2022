@@ -10,7 +10,7 @@ import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:open_file/open_file.dart';
+// import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
@@ -131,12 +131,12 @@ class _ViewPDF extends State<ViewPDFLT> {
     return completer.future;
   }
 
-  Future openFile({required String url, required String fileName}) async {
-    final file = await downloadFile(url, fileName);
-    if (file == null) return;
-    print('Path: ${file.path}');
-    await OpenFile.open(file.path);
-  }
+  // Future openFile({required String url, required String fileName}) async {
+  //   final file = await downloadFile(url, fileName);
+  //   if (file == null) return;
+  //   print('Path: ${file.path}');
+  //   await OpenFile.open(file.path);
+  // }
 
   Future<File?> downloadFile(String url, String name) async {
     try {

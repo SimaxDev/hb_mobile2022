@@ -28,7 +28,7 @@ class SplashState extends State<SplashWidget> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
+    Timer(Duration(seconds: 4), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) =>  LoginWidget() ,));
     });
@@ -108,12 +108,13 @@ class SplashState extends State<SplashWidget> {
                         textAlign: TextAlign.center,
                       ),
                     ),
+                    SizedBox(height: 20,),
                     Center(
                       child: CircularProgressIndicator(
                         valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                       ),
                     ),
-                    SizedBox(height: 150,),
+                    SizedBox(height: 140,),
                     Column(children: [
                       Row(
                         children: [

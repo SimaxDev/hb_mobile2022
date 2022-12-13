@@ -10,7 +10,6 @@ import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:open_file/open_file.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
@@ -133,12 +132,12 @@ class _ViewPDF extends State<ViewPDFVB> {
     return completer.future;
   }
 
-  Future openFile({required String url, required String fileName}) async {
-    final file = await downloadFile(url, fileName);
-    if (file == null) return;
-    print('Path: ${file.path}');
-    await OpenFile.open(file.path);
-  }
+  // Future openFile({required String url, required String fileName}) async {
+  //   final file = await downloadFile(url, fileName);
+  //   if (file == null) return;
+  //   print('Path: ${file.path}');
+  //   await OpenFile.open(file.path);
+  // }
 
   Future<File?> downloadFile(String url, String name) async {
     try {
@@ -217,7 +216,7 @@ class _ViewPDF extends State<ViewPDFVB> {
                       child: DropdownButton<String>(
                         hint: Text("Chọn bản ghi khác"),
                         style: TextStyle(fontSize: 14, color: Colors.black),
-                        value: PDF_URL,
+                        value: PDF_URL!.isNotEmpty ? PDF_URL : null,
                         isDense: false,
                         isExpanded: true,
                         onChanged: (newValue) async {
@@ -288,7 +287,7 @@ class _ViewPDF extends State<ViewPDFVB> {
                             ? await getExternalStorageDirectory() //FOR ANDROID
                             :  await getApplicationSupportDirectory();
 
-                        Dio dio = Dio();
+
                         String url = "";
 
                         for (var item in ListDataPDF) {
@@ -302,7 +301,8 @@ class _ViewPDF extends State<ViewPDFVB> {
                           url = urlPDF;
                           await FlutterDownloader.enqueue(
                             url: url,
-                            savedDir: dir!.path,
+                            savedDir: '/storage/emulated/0/Download',
+                          //  savedDir: dir!.path,
                             fileName: tenPDF,
                             showNotification: true,
                             openFileFromNotification: true,
@@ -315,7 +315,8 @@ class _ViewPDF extends State<ViewPDFVB> {
                           url = PDF_URL;
                           await FlutterDownloader.enqueue(
                             url: url,
-                            savedDir: dir!.path,
+                            //savedDir: dir!.path,
+                            savedDir: '/storage/emulated/0/Download',
                             fileName: tenPDF,
                             showNotification: true,
                             openFileFromNotification: true,
@@ -344,7 +345,8 @@ class _ViewPDF extends State<ViewPDFVB> {
                           final id = await FlutterDownloader.enqueue(
                             url: url,
                             fileName: tenPDF,
-                            savedDir: dir!.path,
+                            savedDir: '/storage/emulated/0/Download',
+                           // savedDir: dir!.path,
                             showNotification: true,
                             openFileFromNotification: true,
                           );

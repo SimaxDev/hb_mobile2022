@@ -18,7 +18,6 @@ import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/vbduthao/themMoiHS/ThemMoiDT.dart';
 import 'dart:developer' as Dev;
-import 'package:multi_select_item/multi_select_item.dart';
 import 'package:hb_mobile2021/common/VBDen/TreeChuyenVBDen.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
@@ -48,8 +47,6 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
     {"display": "Tím", "value": "8"}
   ];
 
-  MultiSelectController controller = new MultiSelectController();
-  late DateTime _dateTime;
   DateTime selectedDate = DateTime.now();
   TextEditingController _titleController = TextEditingController();
   TextEditingController _dateController = TextEditingController();
@@ -127,8 +124,8 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
           isPressed;
         }
       });
-      controller.disableEditingWhenNoneSelected = true;
-      controller.set(CBList.length);
+      // controller.disableEditingWhenNoneSelected = true;
+      // controller.set(CBList.length);
       refreshList();
       refreshListDS();
     }); }
@@ -645,13 +642,13 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
         });
   }
 
-  void add() {
-    CBList.add({"key": CBList.length + 1});
-    if (mounted) {  setState(() {
-      controller.set(CBList.length);
-    });}
+  // void add() {
+  //   CBList.add({"key": CBList.length + 1});
+  //   if (mounted) {  setState(() {
+  //  //   controller.set(CBList.length);
+  //   });}
 
-  }
+ // }
 
   //treeview chuyển văn bản
   List<TreeNode> toTreeNodes(dynamic parsedJson) {
@@ -708,12 +705,12 @@ class _BottomNav extends State<BottomNav> with SingleTickerProviderStateMixin {
     return [TreeNode(content: Text(parsedJson.toString()))];
   }
 
-  void selectAll() {
-    if (mounted) { setState(() {
-      controller.toggleAll();
-    }); }
-
-  }
+  // void selectAll() {
+  //   if (mounted) { setState(() {
+  //     controller.toggleAll();
+  //   }); }
+  //
+  // }
   bool isAllSpaces(String input) {
     String output = input.replaceAll(' ', '');
     if(output == '') {

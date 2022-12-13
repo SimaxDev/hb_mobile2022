@@ -6,19 +6,14 @@ import 'package:dio/dio.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
-import 'package:get/get.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
-import 'package:open_file/open_file.dart';
+
 import 'package:path_provider/path_provider.dart';
 
-// import 'package:flutter_pdfview/flutter_pdfview.dart';
 import 'package:percent_indicator/circular_percent_indicator.dart';
 import 'package:permission_handler/permission_handler.dart';
-// import 'package:permission_handler/permission_handler.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:flutter_cached_pdfview/flutter_cached_pdfview.dart';
 
@@ -126,12 +121,12 @@ class _ViewPDF extends State<ViewPDFDK> {
     return completer.future;
   }
 
-  Future openFile({required String url, required String fileName}) async {
-    final file = await downloadFile(url, fileName);
-    if (file == null) return;
-    print('Path: ${file.path}');
-    await OpenFile.open(file.path);
-  }
+  // Future openFile({required String url, required String fileName}) async {
+  //   final file = await downloadFile(url, fileName);
+  //   if (file == null) return;
+  //   print('Path: ${file.path}');
+  //   await OpenFile.open(file.path);
+  // }
 
   Future<File?> downloadFile(String url, String name) async {
     try {
@@ -286,7 +281,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                           url = urlPDF;
                           await FlutterDownloader.enqueue(
                             url: url,
-                            savedDir: dir!.path,
+                             savedDir: '/storage/emulated/0/Download',
                             fileName: tenPDF,
                             showNotification: true,
                             openFileFromNotification: true,
@@ -302,7 +297,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                           url = PDF_URL;
                           await FlutterDownloader.enqueue(
                             url: url,
-                            savedDir: dir!.path,
+                             savedDir: '/storage/emulated/0/Download',
                             fileName: tenPDF,
                             showNotification: true,
                             openFileFromNotification: true,
@@ -314,7 +309,7 @@ class _ViewPDF extends State<ViewPDFDK> {
                           final id =   await FlutterDownloader.enqueue(
                             url: url,
                             fileName: tenPDF,
-                            savedDir: dir!.path,
+                             savedDir: '/storage/emulated/0/Download',
                             showNotification: true,
                             openFileFromNotification: true,
 

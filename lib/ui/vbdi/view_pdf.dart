@@ -592,7 +592,7 @@ class _ViewPDF extends State<ViewPDF> {
                               url = urlPDF;
                               await FlutterDownloader.enqueue(
                                 url: url,
-                                savedDir: dir!.path,
+                                 savedDir: '/storage/emulated/0/Download',
                                 fileName: tenPDF,
                                 showNotification: true,
                                 openFileFromNotification: true,
@@ -605,7 +605,7 @@ class _ViewPDF extends State<ViewPDF> {
                               url = PDF_URL;
                               await FlutterDownloader.enqueue(
                                 url: url,
-                                savedDir: dir!.path,
+                                 savedDir: '/storage/emulated/0/Download',
                                 fileName: tenPDF,
                                 showNotification: true,
                                 openFileFromNotification: true,
@@ -634,7 +634,7 @@ class _ViewPDF extends State<ViewPDF> {
                               final id = await FlutterDownloader.enqueue(
                                 url: url,
                                 fileName: tenPDF,
-                                savedDir: dir!.path,
+                                 savedDir: '/storage/emulated/0/Download',
                                 showNotification: true,
                                 openFileFromNotification: true,
                               );

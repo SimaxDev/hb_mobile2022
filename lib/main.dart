@@ -40,7 +40,7 @@ Future<void> backgroundHandler(RemoteMessage message) async{
 const debug = true;
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
-  await FlutterDownloader.initialize(debug: debug);
+  await FlutterDownloader.initialize(debug: debug,ignoreSsl: true);
   SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
   await Firebase.initializeApp();
   //await Firebase.initializeApp(options: DefaultFirebaseOptions
@@ -68,7 +68,7 @@ Future<void> main() async{
 }
  Timer? _timer;
 void _initializeTimer() {
-  _timer = Timer.periodic(const Duration(seconds:5), (_) {
+  _timer = Timer.periodic(const Duration(minutes:5), (_) {
     rester().logOutALL();
     _timer?.cancel();
   });

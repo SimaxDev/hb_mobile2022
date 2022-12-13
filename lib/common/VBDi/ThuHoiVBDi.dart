@@ -8,7 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:hb_mobile2021/core/services/VBDiService.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
-import 'package:multi_select_item/multi_select_item.dart';
+
 
 class ThuHoiVbDi extends StatefulWidget {
   final int id;
@@ -29,7 +29,7 @@ class ThuHoiVbDiState extends State<ThuHoiVbDi> {
   List listID = [];
   String ActionXL = "GetGuiNhanVBDi";
   bool isLoading = true;
-  MultiSelectController controller = new MultiSelectController();
+  // MultiSelectController controller = new MultiSelectController();
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   bool _checkbox = false;
   Map<String, bool> valuesPH = new Map<String, bool>();
@@ -46,7 +46,7 @@ class ThuHoiVbDiState extends State<ThuHoiVbDi> {
   void dispose(){
     super.dispose();
     listID;
-    controller.isSelecting = false;
+    // controller.isSelecting = false;
     EasyLoading.dismiss();
   }
 

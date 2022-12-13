@@ -102,12 +102,6 @@ class LoginState extends State<LoginWidget> {
         FirebaseMessaging.instance.subscribeToTopic("truyenthong_all");
 if(item == null){
   {
-    if (mounted) {
-      setState(() {
-        isLoading = false;
-      });
-    }
-
     showAlertDialog(context, "Tài khoản hoặc mật khẩu không đúng");
   }
 }
@@ -535,37 +529,60 @@ if(item == null){
   Future<void> login(String username, String password) async {
     if (usernameController.text.isNotEmpty &&
         passwordController.text.isNotEmpty) {
-    // var url = Uri.parse("http://apiappmobilehoabinh.ungdungtructuyen.vn/token");
-  var url = Uri.parse("https://apimobile.hoabinh.gov.vn/token");
-      var details = {
+      var headers = {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      };
+      var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
+      //var request = http.Request('POST', Uri.parse('http://apiappmobilehoabinh.ungdungtructuyen.vn/token'));
+      request.bodyFields = {
         'username': username,
         'password': password,
         'grant_type': 'password'
       };
       matKhauHT = password;
-      var parts = [];
-      details.forEach((key, value) {
-        parts.add('${Uri.encodeQueryComponent(key)}='
-            '${Uri.encodeQueryComponent(value)}');
-      });
-      var formData = parts.join('&'); //nối đường dẫnf
-      var response = await http.post(
-        url,
-        headers: {
-          'Accept': 'application/json',
-          'Content-Type': 'application/x-www-form-urlencoded',
-        },
-        body: formData,
-      );
+      request.headers.addAll(headers);
+
+      http.StreamedResponse response = await request.send();
+
+
+    // var url = Uri.parse("http://apiappmobilehoabinh.ungdungtructuyen.vn/token");
+  // var url = Uri.parse("https://apimobile.hoabinh.gov.vn/token");
+  //     var details = {
+  //       'username': username,
+  //       'password': password,
+  //       'grant_type': 'password'
+  //     };
+  //     matKhauHT = password;
+  //     var parts = [];
+  //     details.forEach((key, value) {
+  //
+  //       parts.add('${Uri.encodeQueryComponent(key)}='
+  //           '${Uri.encodeQueryComponent(value)}');
+  //     });
+  //     // var formData = parts.join('&'); //nối đường dẫnf
+  //     var response = await http.post(
+  //       url,
+  //       headers: {
+  //         'Accept': 'application/json',
+  //         'Content-Type': 'application/x-www-form-urlencoded',
+  //       },
+  //       // body: formData,
+  //     );
 
       var getToken, expires_in;
       SharedPreferences sharedToken = await SharedPreferences.getInstance();
       DateTime now = DateTime.now();
       if (response.statusCode == 200) {
-        getToken = json.decode(response.body)['access_token'];
 
-        expires_in = json.decode(response.body)['expires_in'];
-        await sharedToken.setString("token", getToken);
+        var IN  =  await response.stream.bytesToString();
+
+         getToken = jsonDecode(IN)['access_token'];
+
+        expires_in = jsonDecode(IN)['expires_in'];
+        // getToken = json.decode(await response.stream.bytesToString())['access_token'];
+        //
+        // expires_in = json.decode(await response.stream.bytesToString())['expires_in'];
+         sharedToken.setString("token", getToken);
         var expiresOut = now.add(new Duration(seconds: expires_in));
 
         sharedToken.setBool("rememberme", rememberMe);
@@ -578,16 +595,10 @@ if(item == null){
         if (rememberMeTK) {
           sharedToken.setString("username", username);
         }
-
+        //FirebaseMessaging.instance.subscribeToTopic("truyenthong_all");
        await GetInfoUser(username);
-// print("tenPhongBan "+tenPhongBan);
         sharedToken.setString("expires_in", expiresOut.toString());
-        // await updateTokenFirebase(getToken);
-        if (mounted) {
-          setState(() {
-            isLoading = false;
-          });
-        }
+
 
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
