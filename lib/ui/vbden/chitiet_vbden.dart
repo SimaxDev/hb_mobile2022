@@ -39,7 +39,7 @@ class _ChiTietVBDen extends State<ChiTietVBDen> {
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
    var  ttduthao = null ;
    String ActionXL = "GetVBDByIDMobile";
-  int year = 2022;
+  int year = 2023;
   List FileTaiLieu =[];
 
    @override

@@ -38,9 +38,10 @@ class _ThayTheState extends State<ThayThe> {
   int ID = 0;
   bool showD = true;
   bool isLoading = true;
-  List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
+  List<String> Year = ["2026","2025","2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
 
-  String dropdownValue ="2022";
+  DateTime now = DateTime.now();
+  String dropdownValue ="2023";
   late String testthuhomerxoa;
   String ActionXL = "GetListVBDi";
   String  text1 = "";
@@ -61,6 +62,7 @@ class _ThayTheState extends State<ThayThe> {
     generateProductList();
     //dropdownValue =   widget.nam;
     setState(() {
+      dropdownValue = DateFormat('yyyy').format(now);
     });
   }
   @override

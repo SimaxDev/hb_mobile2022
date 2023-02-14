@@ -7,11 +7,13 @@ import 'callApi.dart';
 
 
   Future<String> getDataDetailHSCV(int idHS,String ActionXL)
-  async {
+  async {DateTime now = DateTime.now();
+    String nam=DateFormat('yyyy').format(now);
+
     var parts = [];
     parts.add('ItemID=' + idHS.toString());
     parts.add('ActionXL=' + ActionXL);
-    parts.add('SYear=2022' );
+    parts.add('SYear=$nam' );
     var formData = parts.join('&');
     String url = "/api/ServicesHSCV/GetData";
     var response = await responseDataPost(url, formData);

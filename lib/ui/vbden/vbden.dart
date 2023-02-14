@@ -59,10 +59,10 @@ class ListVBDen1 extends State<ListVBDen> {
   TextEditingController _titleController = TextEditingController();
   bool showD = true;
   late String testthuhomerxoa;
-  List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
+  List<String> Year = ["2026","2025","2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
   String dropdownValue = "";
   String _nam = "";
-  int namYB = 2022;
+  int namYB = 2023;
 
   @override
   void initState() {
@@ -621,10 +621,7 @@ class ListVBDen1 extends State<ListVBDen> {
       key: refreshKey,
       child: ListView.builder(
         itemCount: dataList == null ? 0 : dataList.length ,
-        physics:
-        ClampingScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        shrinkWrap: true,
+      
         itemBuilder: (context, index) {
           if(index == tongso){
             return _buildProgressIndicator();

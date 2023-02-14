@@ -20,7 +20,7 @@ class HSCVWidget extends StatefulWidget {
   String urlLoaiVB;
   final int val;
   final String username;
-  String nam = "2022";
+  String nam = "2023";
 
   HSCVWidget(
       {Key? key,
@@ -72,10 +72,9 @@ class HSCVState extends State<HSCVWidget> {
     ttHoSo(6)
   ];
   String dropdownValue = "";
-  String nam1 = "2021";
+  String nam1 = "2023";
 
-  List<String> Years = ["2024","2023","2022","2021", "2020", "2019", "2018",
-    "2017"];
+  List<String> Years = ["2026","2025","2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
   String dropdownValueYear = "";
   int _user = 6;
   final DataController product = Get.put(DataController());

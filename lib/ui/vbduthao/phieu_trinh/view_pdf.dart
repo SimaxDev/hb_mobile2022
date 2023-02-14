@@ -375,22 +375,22 @@ class _ViewPDF extends State<ViewPDFPT> {
                     // print('width: ====${(width * ratioW).toInt()}');
                     // print('height: ====${(height * ratioW).toInt()}');
                     //
-                    PDF_URL.substring(0, 38);
-                    // pdfCu = PDF_URL.substring(36, PDF_URL.length);
-                    if(PDF_URL!.contains("https://apimobile.hoabinh.gov"
-                        ".vn/")){
-                      pdfCu = PDF_URL!.replaceAll(
-                          "https://apimobile.hoabinh.gov"
-                              ".vn/",
-                          "");
-                    }
-                    else
-                    {
-                      pdfCu = PDF_URL!.replaceAll(
-                          "http://apimobile.hoabinh.gov"
-                              ".vn/",
-                          "");
-                    }
+                    // PDF_URL.substring(0, 38);
+                    // // pdfCu = PDF_URL.substring(36, PDF_URL.length);
+                    // if(PDF_URL!.contains("https://apimobile.hoabinh.gov"
+                    //     ".vn/")){
+                    //   pdfCu = PDF_URL!.replaceAll(
+                    //       "https://apimobile.hoabinh.gov"
+                    //           ".vn/",
+                    //       "");
+                    // }
+                    // else
+                    // {
+                    //   pdfCu = PDF_URL!.replaceAll(
+                    //       "http://apimobile.hoabinh.gov"
+                    //           ".vn/",
+                    //       "");
+                    // }
                     EasyLoading.show();
                     /// String vbtimkiem ;
                     String vbtimkiem = await postKySim(
@@ -401,7 +401,7 @@ class _ViewPDF extends State<ViewPDFPT> {
                         ((dy1 + heightKy)-40 ).toString(),
                         (widthKy * ratioW).toString(),
                         (heightKy * ratioW).toString(),
-                        pdfCu,
+                        PDF_URL,
                         _currentPage,
                         namefile);
 
@@ -993,9 +993,9 @@ class _ViewPDF extends State<ViewPDFPT> {
                   ? () async {
                 if (_visibleSign) {
                   EasyLoading.show();
-                  String pdf = "";
-                  PDF_URL.substring(0, 38);
-                  pdf = PDF_URL.substring(36, PDF_URL.length);
+                  // String pdf = "";
+                  // PDF_URL.substring(0, 38);
+                  // pdf = PDF_URL.substring(36, PDF_URL.length);
                   var thanhcong = await postKySimOK(
                       widget.idDuThao,
                       "UpdateFileS"

@@ -36,7 +36,7 @@ class PageState extends State<HomeHSCV> {
   List HoSoList = [];
   List HoSoList1 = [];
   List HoSoList2 = [];
-  String  nam1 =  '2022';
+  String  nam1 =  '2023';
   // lấy năm hiện tại
   String tenDN = "";
   String queryDXL = "";

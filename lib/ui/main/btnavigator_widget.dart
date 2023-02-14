@@ -40,7 +40,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
   String chucvu = "";
   late SharedPreferences sharedStorage;
   DateTime now = DateTime.now();
-  String namVB = '2022';
+  String namVB = '2023';
 
 
 

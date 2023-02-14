@@ -34,7 +34,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
   bool isLoadingPDF = true;
   var urlFile = null;
   var duthao = null;
-  int year = 2022;
+  int year = 2023;
   String ActionXL = "GetVBDiByID";
   ValueNotifier<String> assetPDFPath = ValueNotifier<String>('');
   ValueNotifier<String> remotePDFpath = ValueNotifier<String>('');
@@ -109,7 +109,7 @@ class TabChiTietVBDi extends State<ChiTietVanBanDi> {
       if (widget.MaDonVi.startsWith("sites"))
       {
 
-        String a = "2022";
+        String a = "2023";
         if(widget.nam != null){
           a =  widget.nam;}
         year = int.parse(a);

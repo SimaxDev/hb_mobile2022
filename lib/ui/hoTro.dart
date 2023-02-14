@@ -24,8 +24,10 @@ class hoTro extends StatefulWidget {
 }
 
 class _hoTroState extends State<hoTro> {
-  List<String> Year = ["2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
-  String dropdownValue ="2022";
+  List<String> Year = ["2026","2025","2024","2023","2022","2021", "2020", "2019", "2018", "2017"];
+  DateTime now = DateTime.now();
+
+  String dropdownValue ="2023";
   List listHoTro = [];
   var refreshKey = GlobalKey<RefreshIndicatorState>();
   bool isLoading  = true;
@@ -74,6 +76,9 @@ class _hoTroState extends State<hoTro> {
    // _initializeTimer();
     super.initState();
 
+    setState(() {
+      dropdownValue=DateFormat('yyyy').format(now);
+    });
     GetInfoUserNew();
     GetDataVBDT();
     _scrollerController.addListener(() {

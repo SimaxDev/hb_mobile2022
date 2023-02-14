@@ -33,7 +33,7 @@ class _vbDiLQState extends State<vbDiLQ> {
   var idLoaiVB;
   bool showD = true;
   late int hosoid;
-  int nam = 2022;
+  int nam = 2023;
   late String testthuhomerxoa;
   String ActionXL = "GetVBDiLienQuan";
 

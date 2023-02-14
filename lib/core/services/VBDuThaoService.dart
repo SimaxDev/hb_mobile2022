@@ -49,7 +49,7 @@ Future<String>postThemDT(   noidungykien,vbdiLoaiVB,cbKy,cbDyet,cbHoaToc,vbdiNgu
     vbdiNguoiTrinhTiep,totrinhNguoiDuyet2,userChoosen,tenPDF,base64,tenPDF1,
     base641,nam)
 async {
-  String SYear = "2022";
+  String SYear = "2023";
   if (nam == null) {
     DateTime now = DateTime.now();
     String  nam1 =  DateFormat('yyyy').format(now) ;

@@ -56,7 +56,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
   var  daduyet= null;
   var vanban =  null;
   var tendangnhap = "";
-  int year=2022;
+  int year=2023;
   double pdfWidth = 612.0;
   double pdfHeight = 792.0;
   String ActionXLPT = "GetToTrinh";
@@ -94,7 +94,7 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
 
     if(widget.MaDonVi != null){
       if (widget.MaDonVi.startsWith("sites")) {
-        String a = "2022";
+        String a = "2023";
 
 
         if(widget.nam != null){

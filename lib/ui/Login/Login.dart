@@ -96,13 +96,17 @@ class LoginState extends State<LoginWidget> {
   GetInfoUser(String TenDangNhap) async {
     sharedStorage = await SharedPreferences.getInstance();
     if (sharedStorage != null) {
-      isLoading = false;
+      setState(() {
+        isLoading = false;
+      });
+
       var item = await GetInfoUserService(TenDangNhap);
 
         FirebaseMessaging.instance.subscribeToTopic("truyenthong_all");
 if(item == null){
   {
     showAlertDialog(context, "Tài khoản hoặc mật khẩu không đúng");
+
   }
 }
         tenPhongBan =
