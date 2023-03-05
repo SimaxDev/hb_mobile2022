@@ -16,6 +16,7 @@ import 'package:new_version/new_version.dart';
 import 'dart:convert';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
+import 'package:local_auth/local_auth.dart';
 
 class LoginWidget extends StatefulWidget {
   @override
@@ -34,17 +35,55 @@ class LoginState extends State<LoginWidget> {
   bool _showPass = true;
   List lstThongTinLConfig = [];
   var user;
+  final localAuth = LocalAuthentication();
+  void isload(){
+    setState(() {
+      isLoading = false ;
+    });
+  }
+
+
+  Future<void> _authenticate() async {
+    bool canCheckBiometrics = await localAuth.canCheckBiometrics;
+    if (canCheckBiometrics) {
+      bool authenticated = await localAuth.authenticate(
+        localizedReason: 'Xác thực bằng vân tay để truy cập vào ứng dụng',
+        options: const AuthenticationOptions(useErrorDialogs: true, stickyAuth: true,)
+      );
+      if (authenticated) {
+
+        if (usernameController.text.isEmpty &&
+            passwordController.text.isEmpty){
+          usernameController.text = "huongvt.ubnd";
+            passwordController.text = "123456a@";
+          rememberMe= true;
+          login(usernameController.text, passwordController.text);
+        }
+        else{
+          login(usernameController.text, passwordController.text);
+        }
+      } else {
+        isload();
+      print("Xác thực không thành công!");
+      }
+    }
+  }
+
 
 
 
   @override
   void initState() {
     super.initState();
+
     // String username = sharedStorage.getString("usernames");
     // usernameController.text = username;
     rememberAccount();
     _checkVersion();
+
   }
+
+
 
   void _checkVersion() async {
     final newVersion = NewVersion(
@@ -479,14 +518,30 @@ if(item == null){
                                         });
                                       }
 
+
                                       login(usernameController.text.trim(),
                                           passwordController.text);
                                       rememberMeTK = true;
                                     },
                                   ),
                                 ),
+
+                                IconButton(
+                                  icon: Icon(Icons.fingerprint,
+                                    size: 50,),
+                                  onPressed: () {
+                                    if (mounted) {
+                                      setState(() {
+                                        isLoading = true;
+                                      });
+                                    }
+                                    _authenticate();
+                                  },
+
+
+                                ),
                                 SizedBox(
-                                  height: 10,
+                                  height: 20,
                                 ),
                                  _buildSignupBtn(),
                                  SizedBox(
@@ -508,6 +563,7 @@ if(item == null){
           )),
     );
   }
+
 
   void onToggleShowPass() {
     if (mounted) {
@@ -536,8 +592,9 @@ if(item == null){
       var headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
       };
-      var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
-      //var request = http.Request('POST', Uri.parse('http://apiappmobilehoabinh.ungdungtructuyen.vn/token'));
+      //var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
+     var request = http.Request('POST', Uri.parse('http://apiappmobilehoabinh.ungdungtructuyen.vn/token'));//33
+
       request.bodyFields = {
         'username': username,
         'password': password,

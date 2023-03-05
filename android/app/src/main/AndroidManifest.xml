@@ -2,6 +2,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     package="com.example.hb_mobile2021">
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.USE_BIOMETRIC"/>
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="com.google.android.gms.permission.AD_ID" tools:node="remove" />
@@ -17,7 +18,7 @@
     </queries>
 
     <application
-        android:label="VBDH Hòa Bình"
+        android:label="VBDH Hòa Bình Test"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true"
         android:showWhenLocked="true"

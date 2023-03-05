@@ -413,11 +413,11 @@ class _ViewPDF extends State<ViewPDF> {
                     //
                     // PDF_URL!.substring(0, 38);
                     // // pdfCu = PDF_URL.substring(36, PDF_URL.length);
-                    // if(PDF_URL!.contains("http://apiappmobilehoabinh.ungdungtructuyen.vn/")){
-                    //   pdfCu = PDF_URL!.replaceAll(
-                    //       "http://apiappmobilehoabinh.ungdungtructuyen.vn/",
-                    //       "");
-                    // }
+                    if(PDF_URL!.contains("http://apiappmobilehoabinh.ungdungtructuyen.vn/")){
+                      pdfCu = PDF_URL!.replaceAll(
+                          "http://apiappmobilehoabinh.ungdungtructuyen.vn/",
+                          "");
+                    }
                     // else
                     //   {
                     //     pdfCu = PDF_URL!.replaceAll(
@@ -442,7 +442,7 @@ class _ViewPDF extends State<ViewPDF> {
                           .height*0.01).toString(),
                         (widthKy ).toString(),
                         (heightKy ).toString(),
-                        PDF_URL,
+                        pdfCu,
                         _currentPage,
                         tenPDFTruyen);
 

@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:io';
-import 'package:async/async.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +7,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_downloader/flutter_downloader.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
-import 'package:hb_mobile2021/core/services/callApi.dart';
-import 'package:hb_mobile2021/firebase_options.dart';
 import 'package:hb_mobile2021/local_notification_service.dart';
 import 'package:hb_mobile2021/restart.dart';
 import 'package:hb_mobile2021/ui/Login/splash.dart';
