@@ -299,7 +299,7 @@ class PageState extends State<trangChu> {
 
   GetInfoUserNew() async {
     sharedStorage = await SharedPreferences.getInstance();
-    //await GetInfoUser(widget.username);
+    await GetInfoUser(widget.username);
     if (mounted) {
       setState(() {
         user.Title = sharedStorage.getString("hoten")!;

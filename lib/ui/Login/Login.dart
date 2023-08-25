@@ -52,16 +52,11 @@ class LoginState extends State<LoginWidget> {
       );
       if (authenticated) {
 
-        if (usernameController.text.isEmpty &&
-            passwordController.text.isEmpty){
-          usernameController.text = "huongvt.ubnd";
-            passwordController.text = "123456a@";
-          rememberMe= true;
-          login(usernameController.text, passwordController.text);
-        }
-        else{
-          login(usernameController.text, passwordController.text);
-        }
+        usernameController.text = "huongvt.ubnd";
+        passwordController.text = "123456a@";
+        rememberMe= true;
+        login(usernameController.text, passwordController.text);
+
       } else {
         isload();
       print("Xác thực không thành công!");
@@ -79,7 +74,7 @@ class LoginState extends State<LoginWidget> {
     // String username = sharedStorage.getString("usernames");
     // usernameController.text = username;
     rememberAccount();
-    _checkVersion();
+  //  _checkVersion();
 
   }
 
@@ -526,24 +521,24 @@ if(item == null){
                                   ),
                                 ),
 
-                                IconButton(
-                                  icon: Icon(Icons.fingerprint,
-                                    size: 50,),
-                                  onPressed: () {
-                                    if (mounted) {
-                                      setState(() {
-                                        isLoading = true;
-                                      });
-                                    }
-                                    _authenticate();
-                                  },
-
-
-                                ),
+                                // IconButton(
+                                //   icon: Icon(Icons.fingerprint,
+                                //     size: 50,),
+                                //   onPressed: () {
+                                //     if (mounted) {
+                                //       setState(() {
+                                //         isLoading = true;
+                                //       });
+                                //     }
+                                //     _authenticate();
+                                //   },
+                                //
+                                //
+                                // ),
                                 SizedBox(
                                   height: 20,
                                 ),
-                                 _buildSignupBtn(),
+                                _buildSignupBtn(),
                                  SizedBox(
                                   height: 10,
                                 ),
@@ -592,8 +587,8 @@ if(item == null){
       var headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
       };
-      //var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
-     var request = http.Request('POST', Uri.parse('http://apiappmobilehoabinh.ungdungtructuyen.vn/token'));//33
+      var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
+     //var request = http.Request('POST', Uri.parse('http://apiappmobilehoabinh.ungdungtructuyen.vn/token'));//33
 
       request.bodyFields = {
         'username': username,
@@ -657,15 +652,20 @@ if(item == null){
           sharedToken.setString("username", username);
         }
         //FirebaseMessaging.instance.subscribeToTopic("truyenthong_all");
-       await GetInfoUser(username);
+      // await GetInfoUser(username);
         sharedToken.setString("expires_in", expiresOut.toString());
+
+
 
 
         Navigator.of(context).pushAndRemoveUntil(
             MaterialPageRoute(
                 builder: (BuildContext context) =>
-                    BottomNavigator(username: username, page: 0,ID: 0,year: '',query: '',index: 0,)),
+                    BottomNavigator(username: username)),
             (Route<dynamic> route) => false);
+        setState(() {
+          isLoading = false;
+        });
       } else {
         if (mounted) {
           setState(() {

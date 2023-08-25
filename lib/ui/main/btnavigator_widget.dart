@@ -16,14 +16,14 @@ import 'package:http/http.dart' as http;
 
 class BottomNavigator extends StatefulWidget {
 
-  final String username;
-  final int page;
-  final String query;
-  final String year;
-  final int ID;
+  final String? username;
+  final int? page;
+  final String? query;
+  final String? year;
+  final int? ID;
 
   final index ;
-  BottomNavigator({required this.username, required this.page,required this.query,required this.year, required this.ID,
+  BottomNavigator({ this.username,  this.page, this.query, this.year,  this.ID,
   this.index});
   @override
   State<StatefulWidget> createState() {
@@ -50,9 +50,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
     DateTime now = DateTime.now();
     String Yearvb = DateFormat('yyyy').format(now);
 
-    var vbden = await getthongbao(Yearvb);
-    var vbdi = await getthongbaoDi(Yearvb);
-    var vbdt = await getthongbaoDT(Yearvb);
+
 
 
   }
@@ -67,7 +65,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
       }
 
       else{
-        namVB = widget.year;
+        namVB = widget.year!;
       }
 
     });
@@ -84,8 +82,8 @@ class BottomNavigatorState extends State<BottomNavigator> {
 
       }
       else{
-        _currentIndex =  widget.page;
-        urlttVB =  widget.query;
+        _currentIndex =  widget.page!;
+        urlttVB =  widget.query!;
 
       }
 
@@ -247,7 +245,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
     switch (_currentIndex) {
       case 0:
         return WillPopScope(
-            child:  trangChu(returnData: trangthaiVB, username: widget.username,nam:namVB
+            child:  trangChu(returnData: trangthaiVB, username: widget.username!,nam:namVB
             ),
             onWillPop:  () async {
               logOut(context);
@@ -259,7 +257,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
       case 1:
         return WillPopScope(
           child: ListVBDen(urlttVB : urlttVB, username:
-          widget.username,nam:namVB, ),
+          widget.username!,nam:namVB, ),
           onWillPop:  () async {
             trangthaiVB("",0);
             return false;
@@ -271,7 +269,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
 
         return WillPopScope(
             child: VanBanDi(urlttVB : urlttVB, currentIndex: _currentIndex,
-                username: widget.username,nam:namVB, ),
+                username: widget.username!,nam:namVB, ),
             onWillPop:  () async {
               trangthaiVB("",0);return true;
             }
@@ -280,7 +278,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
         break;
       case 3:
         return WillPopScope(
-            child: DuThaoWidget(urlLoaiVB : urlttVB, val: _currentIndex, username: widget.username, pageindex:13,
+            child: DuThaoWidget(urlLoaiVB : urlttVB, val: _currentIndex, username: widget.username!, pageindex:13,
                 nam:namVB),
             onWillPop:  () async {
               trangthaiVB("",0);return true;
@@ -291,7 +289,7 @@ class BottomNavigatorState extends State<BottomNavigator> {
       case 4:
         return WillPopScope(
             child:  HSCVWidget(urlLoaiVB : urlttVB, val: _currentIndex,
-                username: widget.username,nam:namVB,),
+                username: widget.username!,nam:namVB,),
             onWillPop:  () async {
               trangthaiVB("",0);return true;
             }

@@ -38,7 +38,7 @@ const debug = true;
 Future<void> main() async{
   WidgetsFlutterBinding.ensureInitialized();
   await FlutterDownloader.initialize(debug: debug,ignoreSsl: true);
-  SystemChrome.setEnabledSystemUIOverlays([SystemUiOverlay.bottom, SystemUiOverlay.top]);
+ SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual, overlays: [SystemUiOverlay.bottom, SystemUiOverlay.top]);
   await Firebase.initializeApp();
   //await Firebase.initializeApp(options: DefaultFirebaseOptions
     //  .currentPlatform,);
@@ -131,48 +131,6 @@ class _NotificationState extends State<Notification> {
   // FirebaseMessaging firebaseMessaging;
   late Timer _timer;
 
-
-  void _initializeTimer() {
-    _timer = Timer.periodic(const Duration(seconds:10), (_) {
-      print(_timer);
-      Navigator.of
-        (context).pop();
-      _timer?.cancel();
-      print('ket thuc');
-    });
-
-  }
-
-
-
-
-  // @override
-  // void initState() {
-  //   // _initializeTimer();
-  //   // pushNotification();
-  //   // flutterLocalNotificationsPlugin = new FlutterLocalNotificationsPlugin();
-  //   // AndroidInitializationSettings initializationSettingsAndroid =
-  //   //     AndroidInitializationSettings('@mipmap/ic_launcher');
-  //   // final IOSInitializationSettings initializationSettingsIOS =
-  //   //     IOSInitializationSettings(
-  //   //         requestAlertPermission: false,
-  //   //         requestBadgePermission: false,
-  //   //         requestSoundPermission: false,
-  //   //         onDidReceiveLocalNotification:
-  //   //             (int id, String title, String body, String payload) async {
-  //   //           // didReceiveLocalNotificationSubject.add(ReceivedNotification(
-  //   //           //     id: id, title: title, body: body, payload: payload));
-  //   //         });
-  //   // var initSetttings = new InitializationSettings(
-  //   //     android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
-  //   // flutterLocalNotificationsPlugin.initialize(initSetttings,
-  //   //     onSelectNotification: onSelectNotification);
-  //   // firebaseMessaging.getToken().then((String token) {
-  //   //   assert(token != null);
-  //   //   tokenfirebase = token;
-  //   // });
-  //   super.initState();
-  // }
   @override
   void initState() {
     super.initState();

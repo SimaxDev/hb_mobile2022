@@ -18,7 +18,7 @@
     </queries>
 
     <application
-        android:label="VBDH Hòa Bình Test"
+        android:label="VBDH Hòa Bình"
         android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true"
         android:showWhenLocked="true"
@@ -68,14 +68,10 @@
             android:hardwareAccelerated="true"
             android:windowSoftInputMode="adjustResize"
             android:exported="true">
-            <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />
+<!--            <meta-data android:name="google_analytics_adid_collection_enabled" android:value="false" />-->
             <meta-data
                 android:name="io.flutter.embedding.android.NormalTheme"
                 android:resource="@style/NormalTheme"
-                />
-            <meta-data
-                android:name="io.flutter.embedding.android.SplashScreenDrawable"
-                android:resource="@drawable/launch_background"
                 />
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
@@ -86,6 +82,7 @@
         <meta-data
             android:name="flutterEmbedding"
             android:value="2" />
+
     </application>
 
 </manifest>
