@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:flutter/scheduler.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'dart:convert';
@@ -55,18 +56,25 @@ class _Menuleft extends State<MenuLeft>  {
     });}
 
     super.initState();
-    _scrollController.animateTo(
-      0.0,
-      curve: Curves.easeOut,
-      duration: const Duration(milliseconds: 500),
-    );
-
+    // _scrollController.animateTo(
+    //   0.0,
+    //   curve: Curves.easeOut,
+    //   duration: const Duration(milliseconds: 500),
+    // );
+    SchedulerBinding.instance?.addPostFrameCallback((_) {
+      _scrollController.animateTo(
+        0.0,
+        curve: Curves.easeOut,
+        duration: const Duration(milliseconds: 500),
+      );
+    });
   }
 
   @override
   void dispose(){
-    super.dispose();
 
+    _scrollController.dispose();
+    super.dispose();
   }
   getMenu() async {
 

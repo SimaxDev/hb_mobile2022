@@ -81,7 +81,13 @@ class ListVBDen1 extends State<DynamicEvent> {
     getDataMsenuLefft();
     isLoading = true;
     chckSwitch = false;
-    if (mounted) {setState(() {
+    List<String>? storedYearList = sharedStorage!.getStringList("lstYear");
+
+    if (mounted) {
+      setState(() {
+        if(storedYearList != null){
+          Year = storedYearList;
+        }
       if(widget.nam == null || widget.nam ==  ""){
         DateTime now = DateTime.now();
         nam =  DateFormat('yyyy').format(now) ;

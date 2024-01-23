@@ -50,13 +50,15 @@ class PageState extends State<trangChu> {
   int ThongbaoDT = 0;
   // lấy năm hiện tại
   String tenDN = "";
+  String tenND = "";
+  String chucVuND = "";
   String queryDXL = "";
   String queryDHT = "";
   String queryDTV = "";
   int indexTT = 4;
   int tong = 0;
   int tong1 = 0;
-  List lstThongTinLConfig = [];
+  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
   int tong2 = 0;
   DateTime now = DateTime.now();
@@ -75,127 +77,16 @@ class PageState extends State<trangChu> {
   void initState() {
    // _initializeTimer();
     super.initState();
-    GetInfoUserNew();
+
+    GetInfoUser();
+    //
     getTTVBDen();
     getTTVBDi();
     getTTVBDT();
     String formattedDate = DateFormat('yyyy').format(now);
     yeara = int.parse(formattedDate);
   }
-  GetInfoUser(String TenDangNhap) async {
-    sharedStorage = await SharedPreferences.getInstance();
-    if (sharedStorage != null) {
-      isLoading = false;
-      var item = await GetInfoUserService(TenDangNhap);
 
-
-      // if(item == null){
-      //   {
-      //     showAlertDialog(context, "Tài khoản hoặc mật khẩu không đúng");
-      //   }
-      // }
-      tenPhongBan =
-      item['CurrentTenPhongBan'] != null ? item['CurrentTenPhongBan'] : "";
-      CurrentTenDonVi =
-      item['CurrentTenDonVi'] != null ? item['CurrentTenDonVi'] : "";
-      OrganName = item['OrganName'] != null ? item['OrganName'] : "";
-      notIsQuanTriNew =
-      item['notIsQuanTriNew'] != null ? item['notIsQuanTriNew'] : false;
-      isQTNew = item['isQTNew'] != null ? item['isQTNew'] : false;
-      lstThongTinGroup =
-      item['lstThongTinGroup'] != null ? item['lstThongTinGroup'] : [];
-      EmailHT = item['userEmail'] != null ? item['userEmail'] : "";
-      Telephone =
-      item['userDienThoaiDD'] != null ? item['userDienThoaiDD'] : "";
-      userGroups = item['userGroups'] != null ? item['userGroups'] : [];
-      butPheVBD = item['ListPermissions'] != null &&
-          item['ListPermissions']['ButPheVanBan'] != null
-          ? item['ListPermissions']['ButPheVanBan']
-          : false;
-      groupID = item['groupID'] != null ? item['groupID'] : 0;
-      lstPhongBanLaVanThuVBDI = item['lstPhongBanLaVanThuVBDI'].length> 0
-          ?item['lstPhongBanLaVanThuVBDI']:[] ;
-      lstPhongBanLaVanThuVBDEN = item['lstPhongBanLaVanThuVBDEN'].length >
-          0 ? item['lstPhongBanLaVanThuVBDEN']: [];
-      SiteAction = item['SiteAction'] != null ? item['SiteAction'] : "";
-
-      if (item['ListPermissions'] != null &&
-          item['ListPermissions'].length > 0) {
-        ThemMoiVanBanDi = item['ListPermissions']['ThemMoiVanBanDi'] != null
-            ? item['ListPermissions']['ThemMoiVanBanDi']
-            : false;
-        ThemVanBanDen = item['ListPermissions']['ThemVanBanDen'] != null
-            ? item['ListPermissions']['ThemVanBanDen']
-            : false;
-        ThemMoiVanBanDuThao = item['ListPermissions']['ThemMoiVanBanDuThao'] != null
-            ? item['ListPermissions']['ThemMoiVanBanDuThao']
-            : false;
-        ThietLapHoiBao = item['ListPermissions']['ThietLapHoiBao'] != null
-            ? item['ListPermissions']['ThietLapHoiBao']
-            : false;
-        CapSoVanBanDi = item['ListPermissions']['CapSoVanBanDi'] != null
-            ? item['ListPermissions']['CapSoVanBanDi']
-            : false;
-        hanXLVBD = item['ListPermissions']['GuiVanBanD'] != null
-            ? item['ListPermissions']['GuiVanBanD']
-            : false;
-        GuiVanBanDi = item['ListPermissions']['GuiVanBanDi'] != null
-            ? item['ListPermissions']['GuiVanBanDi']
-            : false;
-        SuaVanBanDen = item['ListPermissions']['SuaVanBanDen'] != null
-            ? item['ListPermissions']['SuaVanBanDen']
-            : false;
-        GuiVanBan = item['ListPermissions']['GuiVanBan'] != null
-            ? item['ListPermissions']['GuiVanBan']
-            : false;
-        imageCK =item['ListFileAttach'].length >0 &&item['ListFileAttach']!=
-            null  &&
-            item['ListFileAttach'][0]['Url'] != null
-            ? item['ListFileAttach'][0]['Url']
-            : "";
-        widthKy =item['SignatureWidth']!= null
-            ? item['SignatureWidth'].toDouble()
-            : 150.0;
-        heightKy =item['SignatureHeight']!= null
-            ? item['SignatureHeight'].toDouble()
-            : 75.0;
-      }
-
-      userTenTruyCap =
-      item['userTenTruyCap'] != null ? item['userTenTruyCap'] : "";
-      CurrentDonViID =
-      item['CurrentDonVi'] == null ? 0 : item['CurrentDonVi']['LookupId'];
-      ThongTinLConfig =
-      item['lstThongTinLConfig'] != null ? item['lstThongTinLConfig'] : [];
-      DonViInSiteID =
-      item['DonViInSite'] == null ? 0 : item['DonViInSite']['LookupId'];
-
-      ID = item['ID'];
-      currentUserID = ID;
-      userHasQuyenKyVB = item['lstPBHasVanBan'];
-
-      lstThongTinLConfig = item['lstThongTinLConfig'] != null &&
-          item['lstThongTinLConfig'].length > 0
-          ? item['lstThongTinLConfig']
-          : [];
-      for (var i in lstThongTinLConfig) {
-        if (i['configType'] == "pGuiXuLyChinh") {
-          ispGuiXuLyChinh = true;
-        }
-      }
-
-      userChucVu = item['userChucVu'].length > 0 &&
-          item['userChucVu'][0]['LookupValue'] != null
-          ? item['userChucVu'][0]['LookupValue']
-          : "";
-      user = UserJson.fromJson(item);
-
-      sharedStorage.setString("hoten", user.Title);
-      sharedStorage.setString("chucvu", user.ChucVu);
-    }
-
-
-  }
 
   @override
   void dispose(){
@@ -204,6 +95,25 @@ class PageState extends State<trangChu> {
       ThongbaoDi= 0;
       ThongbaoDT= 0;
 
+  }
+   GetInfoUser() async {
+     sharedStorage = await SharedPreferences.getInstance();
+  //   if(TenDangNhap != "" ){
+  //     tenDN = sharedStorage!.getString("username")!;
+  //   }
+  //   var item = await GetInfoUserService(TenDangNhap);
+  //   if(item != null){
+       setState(() {
+        tenND= sharedStorage!.getString("hoten")!;
+        chucVuND =  sharedStorage!.getString("chucvu")!;;
+      });
+  //
+  //   }
+  //
+  //
+  //
+  //
+  //
   }
 
   GetDataByKeyYearVBDi() async {
@@ -228,7 +138,7 @@ class PageState extends State<trangChu> {
     if (mounted) {
       setState(() {
         isLoading = false;
-        if (vbden != null && vbden != []) {
+        if (vbden != null && vbden != "[]") {
           ThongbaoD = json.decode(vbden)[0]['Count'];
         }
       });
@@ -244,7 +154,7 @@ class PageState extends State<trangChu> {
     if (mounted) {
       setState(() {
         isLoading = false;
-        if (vbdi != null && vbdi != []) {
+        if (vbdi != null && vbdi != "[]") {
           ThongbaoDi = json.decode(vbdi)[0]['Count'];
         }
       });
@@ -260,7 +170,7 @@ class PageState extends State<trangChu> {
     if (mounted) {
       setState(() {
         isLoading = false;
-        if (vbdt != null && vbdt != []) {
+        if (vbdt != null && vbdt != "[]") {
           ThongbaoDT = json.decode(vbdt)[0]['Count'];
         }
       });
@@ -295,18 +205,9 @@ class PageState extends State<trangChu> {
 
   //lấy thông tin user
   //lấy thông tin user
-  UserJson user = new UserJson(cbNhanEmail: true,cbNhanSMS: true,ChucVu: '',DiaChi: '',Email: '',GioiTinh: 0,NgaySinh: '',SDT: '',SDTN: '',ThongBao: '',Title: '');
 
-  GetInfoUserNew() async {
-    sharedStorage = await SharedPreferences.getInstance();
-    await GetInfoUser(widget.username);
-    if (mounted) {
-      setState(() {
-        user.Title = sharedStorage.getString("hoten")!;
-        user.ChucVu = sharedStorage.getString("chucvu")!;
-      });
-    }
-  }
+
+
 
   // api mưới gethomevbden
   getHomeVBDen() async {
@@ -342,7 +243,7 @@ class PageState extends State<trangChu> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  user.ChucVu == null ? "" : user.ChucVu + ":",
+                  chucVuND!= "" ?  chucVuND+ ":" : "",
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 10,
@@ -350,7 +251,7 @@ class PageState extends State<trangChu> {
                   textAlign: TextAlign.center,
                 ),
                 Text(
-                  user.Title != null ? user.Title : "",
+                  tenND,
                   style: TextStyle(
                     fontWeight: FontWeight.bold,
                     fontSize: 13,
@@ -369,8 +270,8 @@ class PageState extends State<trangChu> {
           ],
         ),
         endDrawer: MenuRight(
-          hoten: user.Title,
-          chucvu: user.ChucVu,
+          hoten: tenND,
+          chucvu: chucVuND,
           users: widget.username,
         ),
         endDrawerEnableOpenDragGesture: false,

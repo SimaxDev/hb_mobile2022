@@ -95,14 +95,13 @@ class HSCVState extends State<HSCVWidget> {
     chckSwitch = false;
     dropdownValue = ttHoSo(6);
 
-    // _scrollerController.addListener(() {
-    //   if (_scrollerController.position.pixels == _scrollerController.position.maxScrollExtent) {
+    List<String>? storedYearList = sharedStorage!.getStringList("lstYear");
 
-    //     HoSoList;
-    //   }
-    // });
+
     setState(() {
-
+      if(storedYearList != null){
+        Years = storedYearList;
+      }
       GetDataHSCV();
       IDT = IDTT;
       isLoading = true;

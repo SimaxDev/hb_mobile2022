@@ -72,8 +72,14 @@ class ListVBDen1 extends State<ListVBDen> {
     super.initState();
     isLoading = true;
     chckSwitch = false;
+    List<String>? storedYearList = sharedStorage!.getStringList("lstYear");
+
     if (mounted) {
       setState(() {
+        if(storedYearList != null){
+          Year = storedYearList;
+        }
+
       namYB =  int.parse(widget.nam);
       if(widget.nam == null || widget.nam ==  ""){
         DateTime now = DateTime.now();

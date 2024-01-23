@@ -129,12 +129,13 @@ class LoginState extends State<LoginWidget> {
 
   GetInfoUser(String TenDangNhap) async {
     sharedStorage = await SharedPreferences.getInstance();
+    var item = await GetInfoUserService(TenDangNhap);
     if (sharedStorage != null) {
       setState(() {
         isLoading = false;
-      });
 
-      var item = await GetInfoUserService(TenDangNhap);
+
+
 
         FirebaseMessaging.instance.subscribeToTopic("truyenthong_all");
 if(item == null){
@@ -241,9 +242,10 @@ if(item == null){
 
         sharedStorage.setString("hoten", user.Title);
         sharedStorage.setString("chucvu", user.ChucVu);
-      }
 
 
+          });
+    }
   }
 
   updateTokenFirebase(String tokenUser) async {
@@ -587,8 +589,8 @@ if(item == null){
       var headers = {
         'Content-Type': 'application/x-www-form-urlencoded'
       };
-      var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
-     //var request = http.Request('POST', Uri.parse('http://apiappmobilehoabinh.ungdungtructuyen.vn/token'));//33
+      // var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
+     var request = http.Request('POST', Uri.parse('http://apimobile2021.ungdungtructuyen.vn/token')); //33
 
       request.bodyFields = {
         'username': username,
@@ -644,6 +646,7 @@ if(item == null){
         sharedToken.setBool("rememberme", rememberMe);
 
         tendangnhapAll = username;
+
         if (rememberMe) {
           sharedToken.setString("username", username);
           sharedToken.setString("password", password);
@@ -652,7 +655,7 @@ if(item == null){
           sharedToken.setString("username", username);
         }
         //FirebaseMessaging.instance.subscribeToTopic("truyenthong_all");
-      // await GetInfoUser(username);
+         await GetInfoUser(username);
         sharedToken.setString("expires_in", expiresOut.toString());
 
 

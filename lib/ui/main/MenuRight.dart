@@ -165,15 +165,15 @@ EasyLoading.dismiss();
   }
 
   void XuLyUserGroups() {}
-
-  GetInfoUserDonVi(int id) async {
-    // tendangnhap = sharedStorage.getString("username");
-    //
-    // if (sharedStorage != null) {
-    var item = await GetInfoUserServicedoNVi(widget.users, id);
-
-    // }
-  }
+  //
+  // GetInfoUserDonVi(int id) async {
+  //   // tendangnhap = sharedStorage.getString("username");
+  //   //
+  //   // if (sharedStorage != null) {
+  //   var item = await GetInfoUserServicedoNVi(widget.users, id);
+  //
+  //   // }
+  // }
 
   Widget MenuVBDT() {
     // if (userGroups== null|| userGroups.length < 0 ) {
@@ -215,12 +215,12 @@ EasyLoading.dismiss();
               style: TextStyle(color: Colors.lightBlue, fontSize: 13),
             ),
             onTap: () {
-              // setState(() {
+              setState(() {
               // GetInfoUserDonVi(IDVBDT);
               IDGroup = IDVBDT;
               GetInfoUser(widget.users, IDVBDT);
               NeverScrollableScrollPhysics();
-              EasyLoading.show();
+              EasyLoading.show();});
               //Navigator.pop(context);
             });
   }

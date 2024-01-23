@@ -234,7 +234,7 @@ class _ThemMoiHSState extends State<GiaoViec> {
 
   @override
   Widget build(BuildContext context) {
-    VanBanDenJson vbDen = vanbanDen ;
+
     _height = MediaQuery.of(context).size.height;
     _width = MediaQuery.of(context).size.width;
 

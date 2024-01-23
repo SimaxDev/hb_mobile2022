@@ -23,6 +23,22 @@ GetInfoUserService(String username) async {
   }
 
 }
+GetYears() async {
+  var url = "/api/home/GetYears";
+  var response =await responseUser(url);
+  if (response.statusCode == 200) {
+    var items = json.decode(response.body)['OData'];
+    if (items is List<dynamic>) {
+      return List<String>.from(items.map((item) => item.toString()));
+    } else {
+      return [];
+    }
+  }
+  else {
+    return "";
+  }
+
+}
 GetInfoUserServicedoNVi(String? username,int id) async {
   if(username == "" || username == null){
     username = sharedStorage!.getString("username");

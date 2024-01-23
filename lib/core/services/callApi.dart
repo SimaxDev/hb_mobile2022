@@ -7,10 +7,10 @@ import 'package:http/http.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:http/http.dart' as http;
 
-//const String DOMAIN = "http://apiappmobilehoabinh.ungdungtructuyen.vn";//30
+const String DOMAIN = "http://apimobile2021.ungdungtructuyen.vn";//33
 
 
-const String DOMAIN = "https://apimobile.hoabinh.gov.vn";
+//const String DOMAIN = "https://apimobile.hoabinh.gov.vn";
 
      //tesst
 

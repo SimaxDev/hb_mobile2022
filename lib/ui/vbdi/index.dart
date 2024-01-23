@@ -73,7 +73,13 @@ class _VanBanDi extends State<VanBanDi> {
     super.initState();
     isLoading = true;
     chckSwitch = false;
+    List<String>? storedYearList = sharedStorage!.getStringList("lstYear");
+
+
     setState(() {
+      if(storedYearList != null){
+        Year = storedYearList;
+      }
       if(widget.nam == null || widget.nam ==  ""){
         DateTime now = DateTime.now();
         nam =  DateFormat('yyyy').format(now) ;
