@@ -164,16 +164,27 @@ class DuThaoState extends State<DuThaoWidget> {
     //   vbden= await getDataLeftVBDen(skip, pageSize, ActionXL,widget.urlttVB,nam);
     // }
     // else
+    try{
+
+
     vbdt= await getDataHomeVBDT(skip, pageZ, ActionXL,widget.urlLoaiVB,
         nam,skippage);
-    if (mounted) {setState(() {
+if(json.decode(vbdt)["Erros"] == true){
+  setState(() {
+    isLoading = false;});
+}
+else{
+      setState(() {
+        isLoading = false;
       // dataList += json.decode(vbden)['OData'];
-      duthaoList.addAll(json.decode(vbdt)['OData']);
+      if (vbdt != null) {
+        duthaoList.addAll(json.decode(vbdt)['OData']);
+      }
       skip++;
       skippage += 10;
 
       tongso = json.decode(vbdt)['TotalCount'];
-      isLoading = false;
+
       _scrollerController.addListener(() {
         if(chckSwitch != true){
           if (_scrollerController.position.pixels == _scrollerController.position.maxScrollExtent) {
@@ -184,7 +195,12 @@ class DuThaoState extends State<DuThaoWidget> {
         }
 
       });
-    });}
+    });}}
+    catch (ex){
+
+
+
+    }
 
   }
 

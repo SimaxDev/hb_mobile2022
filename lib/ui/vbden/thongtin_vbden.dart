@@ -1,25 +1,22 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:date_time_picker/date_time_picker.dart';
-import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
+import 'package:intl/intl.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
-import 'package:hb_mobile2021/core/models/VanBanDiJson.dart';
 import 'package:hb_mobile2021/core/services/DataControllerGetxx.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
-import 'package:hb_mobile2021/ui/main/shared.dart';
-
+import 'package:flutter_emoji/flutter_emoji.dart';
 class ThongTinVBDen extends StatefulWidget {
   int id;
   int Yearvb;
   final ttvbDen;
 
-  ThongTinVBDen({this.id, this.Yearvb, this.ttvbDen});
+  ThongTinVBDen({required this.id, required this.Yearvb, this.ttvbDen});
 
   @override
   _ThongTinVBDen createState() => _ThongTinVBDen();
@@ -27,18 +24,18 @@ class ThongTinVBDen extends StatefulWidget {
 
 class _ThongTinVBDen extends State<ThongTinVBDen> {
   bool isLoading = false;
-  List<dynamic> yKienitems;
-  List<dynamic> butPheitems;
+  late List<dynamic> yKienitems;
+  late List<dynamic> butPheitems;
   var ttduthao = null;
 
-  List<Widget> listYkien = new List<Widget>();
-  List<Widget> listButPhe = new List<Widget>();
+  List<Widget> listYkien = <Widget>[];
+  List<Widget> listButPhe = <Widget>[];
 
   // String ActionXL = "GetVBDByIDMobile";
   String ActionXLYKien = "GetYKien";
   String ActionXLButPhe = "GetButPhe";
   String yKienThuHoi = "";
-
+  var parser = EmojiParser();
   final DataController input = Get.put(DataController());
 
 
@@ -55,26 +52,11 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     //_initializeTimer();
     super.initState();
     ttduthao = widget.ttvbDen;
-    var tendangnhap = sharedStorage.getString("username");
+    var tendangnhap = sharedStorage!.getString("username");
     // GetDataDetailVBDen(widget.id);
     GetallYKien();
     GetallButPhe();
   }
-
-//lấy danh sách chi tiết văn bản đến
-//   GetDataDetailVBDen(int id) async {
-//     String detailVBDen =  await getDataDetailVBDen(id,ActionXL
-//         ,widget.MaDonVi,widget.Yearvb);
-//     if (mounted) { setState(() {
-//       var data =  json.decode(detailVBDen)['OData'];
-//       // ttduthao =  VanBanDenJson.fromJson(data);
-//       ttduthao = VanBanDenJson.fromJson(data);
-//       vanbanDen = ttduthao;
-//       print(ttduthao);
-//     }); }
-//
-//   }
-//lấy danh sách ý kiến văn bản đến
 
 
   GetallYKien()async{
@@ -130,9 +112,9 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                       width: MediaQuery.of(context).size.width * 0.65,
                       padding: EdgeInsets.only(left: 10.0),
                       child: Text(
-                        it['ykienNoiDung'].toString(),
+                        parser.emojify(it['ykienNoiDung'].toString()),
                         maxLines: 3,
-                        style: TextStyle(fontSize: 14, color: Colors.black),
+                        style: TextStyle(fontSize: 14, color: Colors.black,),
                         overflow: TextOverflow.ellipsis,
                       ),
                     )
@@ -270,20 +252,20 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     thuHoiVBD = vbDen.ThuHoi;
     String LogxulyText = vbDen.LogxulyText;
     checkThuHoi = vbDen.checkThuHoi1;
-   if ((!(LogxulyText == null || LogxulyText.isEmpty)
-        && !LogxulyText.contains("#DYCapNhap#") 
+    if ((!(LogxulyText == null || LogxulyText.isEmpty)
+        && !LogxulyText.contains("#DYCapNhap#")
         && !LogxulyText.contains("#TCCapNhap#")
-        && !LogxulyText.contains("#TCThayThe#") 
-        && !LogxulyText.contains("#DYThayThe#") 
-        && !LogxulyText.contains("#DYThuHoi#") 
-        && !LogxulyText.contains("#TCThuHoi#") 
+        && !LogxulyText.contains("#TCThayThe#")
+        && !LogxulyText.contains("#DYThayThe#")
+        && !LogxulyText.contains("#DYThuHoi#")
+        && !LogxulyText.contains("#TCThuHoi#")
         && !LogxulyText.contains("#DYLayLai#")
         && !LogxulyText.contains("#vbdaduocthaythe;")
-        && !LogxulyText.contains("#tuchoi_2#")) 
+        && !LogxulyText.contains("#tuchoi_2#"))
         || (LogxulyText == null || LogxulyText.isEmpty)){
-     setState(() {
-       isTraCuu = true;
-     });
+      setState(() {
+        isTraCuu = true;
+      });
 
     };
     // isTraCuu = vbDen.isTraCuu;
@@ -375,52 +357,52 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
               height: 5,
             ),
 
-    // (yKienThuHoi.isNotEmpty ||
-    // yKienThuHoi != null)&& (vbdTTXuLyVanBanLT != 29
-    // && vbdTTXuLyVanBanLT !=16 && vbdTTXuLyVanBanLT !=15
-    // && vbdTTXuLyVanBanLT !=14 && vbdTTXuLyVanBanLT != 13
-    // && vbdTTXuLyVanBanLT != 18 && vbdTTXuLyVanBanLT != 21
-    // && vbdTTXuLyVanBanLT != 23 && vbdTTXuLyVanBanLT != 25
-    // && vbdTTXuLyVanBanLT != 27
-    // && vbdPhuongThuc == 2 )
-    //             ? Column(
-    //           children: [
-    //             Row(
-    //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-    //               children: [
-    //                 Container(
-    //                   width: MediaQuery.of(context).size.width * 0.4,
-    //                   padding: EdgeInsets.only(left: 20.0),
-    //                   child: Text(
-    //                     'Ý kiến thu hồi/lấy lại/thay thế',
-    //                     style: TextStyle(
-    //                         fontWeight: FontWeight.bold, fontSize: 14),
-    //                   ),
-    //                 ),
-    //                 Container(
-    //                   width: MediaQuery.of(context).size.width * 0.6,
-    //                   padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-    //                   child: Text(
-    //                     yKienThuHoi,
-    //                     style: TextStyle(
-    //                         fontWeight: FontWeight.normal,
-    //                         fontSize: 14,
-    //                         color: Colors.red),
-    //                     // overflow: TextOverflow.ellipsis,
-    //                     textAlign: TextAlign.start,
-    //                   ),
-    //                 )
-    //               ],
-    //             ),
-    //             Divider(),
-    //           ],
-    //         )
-    //             : SizedBox(),
+            // (yKienThuHoi.isNotEmpty ||
+            // yKienThuHoi != null)&& (vbdTTXuLyVanBanLT != 29
+            // && vbdTTXuLyVanBanLT !=16 && vbdTTXuLyVanBanLT !=15
+            // && vbdTTXuLyVanBanLT !=14 && vbdTTXuLyVanBanLT != 13
+            // && vbdTTXuLyVanBanLT != 18 && vbdTTXuLyVanBanLT != 21
+            // && vbdTTXuLyVanBanLT != 23 && vbdTTXuLyVanBanLT != 25
+            // && vbdTTXuLyVanBanLT != 27
+            // && vbdPhuongThuc == 2 )
+            //             ? Column(
+            //           children: [
+            //             Row(
+            //               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //               children: [
+            //                 Container(
+            //                   width: MediaQuery.of(context).size.width * 0.4,
+            //                   padding: EdgeInsets.only(left: 20.0),
+            //                   child: Text(
+            //                     'Ý kiến thu hồi/lấy lại/thay thế',
+            //                     style: TextStyle(
+            //                         fontWeight: FontWeight.bold, fontSize: 14),
+            //                   ),
+            //                 ),
+            //                 Container(
+            //                   width: MediaQuery.of(context).size.width * 0.6,
+            //                   padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
+            //                   child: Text(
+            //                     yKienThuHoi,
+            //                     style: TextStyle(
+            //                         fontWeight: FontWeight.normal,
+            //                         fontSize: 14,
+            //                         color: Colors.red),
+            //                     // overflow: TextOverflow.ellipsis,
+            //                     textAlign: TextAlign.start,
+            //                   ),
+            //                 )
+            //               ],
+            //             ),
+            //             Divider(),
+            //           ],
+            //         )
+            //             : SizedBox(),
 
 
 
-    //         (yKienThuHoi.isNotEmpty ||
-    // yKienThuHoi != null)
+            //         (yKienThuHoi.isNotEmpty ||
+            // yKienThuHoi != null)
             !(yKienThuHoi?.isEmpty ?? true)
                 && (vbdTTXuLyVanBanLT != 29 && vbdTTXuLyVanBanLT !=16
                 && vbdTTXuLyVanBanLT !=15 && vbdTTXuLyVanBanLT !=14
@@ -428,8 +410,8 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                 && vbdTTXuLyVanBanLT != 21 && vbdTTXuLyVanBanLT != 23
                 && vbdTTXuLyVanBanLT != 25
                 && vbdTTXuLyVanBanLT != 27 && vbdPhuongThuc != 2)
-            
-            
+
+
             // yKienThuHoi.isNotEmpty ||
             //         yKienThuHoi != null &&
             //             (vbdTTXuLyVanBanLT != 29 &&
@@ -443,222 +425,130 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
             //                 vbdTTXuLyVanBanLT != 25 &&
             //                 vbdTTXuLyVanBanLT != 27)
                 ? Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Ý kiến thu hồi/lấy lại/thay thế',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-                            child: Text(
-                              yKienThuHoi,
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                  color: Colors.red),
-                              // overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
-                            ),
-                          )
-                        ],
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        'Ý kiến thu hồi/lấy lại/thay thế',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
                       ),
-                      Divider(),
-                    ],
-                  )
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
+                      child: Text(
+                        yKienThuHoi,
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                            color: Colors.red),
+                        // overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                      ),
+                    )
+                  ],
+                ),
+                Divider(),
+              ],
+            )
                 : SizedBox(),
 
             (vbdTTXuLyVanBanLT == 16 ||
-                    vbdTTXuLyVanBanLT == 15 ||
-                    vbdTTXuLyVanBanLT == 14) && vbdPhuongThuc == 2
+                vbdTTXuLyVanBanLT == 15 ||
+                vbdTTXuLyVanBanLT == 14) && vbdPhuongThuc == 2
                 ? Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Trạng thái',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-                            child: Text(
-                              "Đã từ chối thu hồi/lấy lại/thay thế",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                  color: Colors.red),
-                              // overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
-                            ),
-                          )
-                        ],
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        'Trạng thái',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
                       ),
-                      Divider(),
-                    ],
-                  )
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
+                      child: Text(
+                        "Đã từ chối thu hồi/lấy lại/thay thế",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                            color: Colors.red),
+                        // overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                      ),
+                    )
+                  ],
+                ),
+                Divider(),
+              ],
+            )
                 : SizedBox(),
 
             ( vbdTTXuLyVanBanLT == 18 ||
-                    vbdTTXuLyVanBanLT == 21 ||
-                    vbdTTXuLyVanBanLT == 23 ||
-                    vbdTTXuLyVanBanLT == 25) && vbdPhuongThuc == 2
-    ? Column(
-                    children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.4,
-                            padding: EdgeInsets.only(left: 20.0),
-                            child: Text(
-                              'Trạng thái',
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 14),
-                            ),
-                          ),
-                          Container(
-                            width: MediaQuery.of(context).size.width * 0.6,
-                            padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
-                            child: Text(
-                              "Đã đồng ý thu hồi/lấy lại/thay thế",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.normal,
-                                  fontSize: 14,
-                                  color: Colors.red),
-                              // overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.start,
-                            ),
-                          )
-                        ],
+                vbdTTXuLyVanBanLT == 21 ||
+                vbdTTXuLyVanBanLT == 23 ||
+                vbdTTXuLyVanBanLT == 25) && vbdPhuongThuc == 2
+                ? Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      padding: EdgeInsets.only(left: 20.0),
+                      child: Text(
+                        'Trạng thái',
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
                       ),
-                      Divider(),
-                    ],
-                  )
+                    ),
+                    Container(
+                      width: MediaQuery.of(context).size.width * 0.6,
+                      padding: EdgeInsets.fromLTRB(0, 15, 10, 10),
+                      child: Text(
+                        "Đã đồng ý thu hồi/lấy lại/thay thế",
+                        style: TextStyle(
+                            fontWeight: FontWeight.normal,
+                            fontSize: 14,
+                            color: Colors.red),
+                        // overflow: TextOverflow.ellipsis,
+                        textAlign: TextAlign.start,
+                      ),
+                    )
+                  ],
+                ),
+                Divider(),
+              ],
+            )
                 : SizedBox(),
 
 
-            vbDen.ID>0  &&( (vbdTTXuLyVanBanLT==26 && vanbandenCapNhat != null) 
+            vbDen.ID>0  &&( (vbdTTXuLyVanBanLT==26 && vanbandenCapNhat != null)
                 || vbdTTXuLyVanBanLT==17
                 || vbdTTXuLyVanBanLT==24 || vbdTTXuLyVanBanLT==28)
                 && vbdPhuongThuc != 2 ?
 
             (
                 (LogxulyText.isNotEmpty ||
-                LogxulyText != null
-                    && !LogxulyText.contains("#DYCapNhap#")
-                    && !LogxulyText.contains("#TCCapNhap#")
-                    && !LogxulyText.contains("#TCThayThe#")
-                    && !LogxulyText.contains("#DYThuHoi#")
-                    && !LogxulyText.contains("#TCThuHoi#")
-                    && !LogxulyText.contains("#DYLayLai#"))
-                || LogxulyText.isEmpty ||
-                LogxulyText == null
-
-
-                ? Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Padding(
-                  padding: EdgeInsets.only(top: 10, left: 20),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.lightBlue[50], width: 2),
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    child: TextButton.icon(
-                        icon: Icon(Icons.delete_forever_outlined),
-                        label: Text(
-                          "Từ chối",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all<Color>(
-                              Colors.orangeAccent),
-                          foregroundColor:
-                          MaterialStateProperty.all<Color>(
-                              Colors.white),
-                        )),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsets.only(top: 10, left: 10),
-                  child: Container(
-                    decoration: BoxDecoration(
-                      border: Border.all(
-                          color: Colors.lightBlue[50], width: 2),
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    width: MediaQuery.of(context).size.width * 0.3,
-                    height: MediaQuery.of(context).size.height * 0.06,
-                    child: TextButton.icon(
-                        icon: Icon(Icons.send_and_archive),
-                        label: Text(
-                          "Đồng ý",
-                          style: TextStyle(
-                            fontWeight: FontWeight.bold,
-                            fontSize: 16,
-                          ),
-                          textAlign: TextAlign.center,
-                        ),
-                        onPressed: () async {
-                          EasyLoading.show();
-                          Navigator.of(context).pop();
-                          EasyLoading.dismiss();
-                        },
-                        style: ButtonStyle(
-                          backgroundColor:
-                          MaterialStateProperty.all<Color>(
-                              Colors.lightBlue[50]),
-                          foregroundColor:
-                          MaterialStateProperty.all<Color>(
-                              Colors.blue),
-                        )),
-                  ),
-                ),
-              ],
-            )
-                : SizedBox()): SizedBox(),
-
-
-            vbDen.ID>0  && ((vbdTTXuLyVanBanLT==26 && vanbandenCapNhat != null)
-                || vbdTTXuLyVanBanLT==17 || vbdTTXuLyVanBanLT==24
-                || vbdTTXuLyVanBanLT==28) && vbdPhuongThuc == 2
-                //&& CheckVBNoiBo > 0
-
-           ? (
-                      (LogxulyText.isNotEmpty ||
-                        LogxulyText != null && !LogxulyText.contains("#DYCapNhap#")
-                        && !LogxulyText.contains("#TCCapNhap#") && !LogxulyText.contains("#TCThayThe#")
-                        && !LogxulyText.contains("#DYThuHoi_" + currentUserID.toString()+"#")
-                        && !LogxulyText.contains("#TCThuHoi_" + currentUserID.toString()+"#")
-                        && !LogxulyText.contains("#DYLayLai_" + currentUserID.toString()+"#"))
-                    ||LogxulyText.isEmpty ||
+                    LogxulyText != null
+                        && !LogxulyText.contains("#DYCapNhap#")
+                        && !LogxulyText.contains("#TCCapNhap#")
+                        && !LogxulyText.contains("#TCThayThe#")
+                        && !LogxulyText.contains("#DYThuHoi#")
+                        && !LogxulyText.contains("#TCThuHoi#")
+                        && !LogxulyText.contains("#DYLayLai#"))
+                    || LogxulyText.isEmpty ||
                     LogxulyText == null
 
 
@@ -670,7 +560,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Colors.lightBlue[50], width: 2),
+                              color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         width: MediaQuery.of(context).size.width * 0.3,
@@ -685,15 +575,8 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                               ),
                               textAlign: TextAlign.center,
                             ),
-                            onPressed: () async {
-                              var tendangnhap = sharedStorage.getString("username");
-                              EasyLoading.show();
-                              // var thanhcong = await postChuyenVBDi(widget.id,
-                              //   "TUCHOI",widget.Yearvb,yKienTuChoi);
+                            onPressed: () {
                               Navigator.of(context).pop();
-                              EasyLoading.dismiss();
-                             // showAlertDialog(context, json.decode
-                              //(thanhcong)['Message']);
                             },
                             style: ButtonStyle(
                               backgroundColor:
@@ -710,7 +593,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Colors.lightBlue[50], width: 2),
+                              color: Colors.lightBlue[50]!, width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: MediaQuery.of(context).size.width * 0.3,
@@ -733,7 +616,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                             style: ButtonStyle(
                               backgroundColor:
                               MaterialStateProperty.all<Color>(
-                                  Colors.lightBlue[50]),
+                                  Colors.lightBlue[50]!),
                               foregroundColor:
                               MaterialStateProperty.all<Color>(
                                   Colors.blue),
@@ -745,8 +628,107 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                     : SizedBox()): SizedBox(),
 
 
-          
-            
+            vbDen.ID>0  && ((vbdTTXuLyVanBanLT==26 && vanbandenCapNhat != null)
+                || vbdTTXuLyVanBanLT==17 || vbdTTXuLyVanBanLT==24
+                || vbdTTXuLyVanBanLT==28) && vbdPhuongThuc == 2
+            //&& CheckVBNoiBo > 0
+
+                ? (
+                (LogxulyText.isNotEmpty ||
+                    LogxulyText != null && !LogxulyText.contains("#DYCapNhap#")
+                        && !LogxulyText.contains("#TCCapNhap#") && !LogxulyText.contains("#TCThayThe#")
+                        && !LogxulyText.contains("#DYThuHoi_" + currentUserID.toString()+"#")
+                        && !LogxulyText.contains("#TCThuHoi_" + currentUserID.toString()+"#")
+                        && !LogxulyText.contains("#DYLayLai_" + currentUserID.toString()+"#"))
+                    ||LogxulyText.isEmpty ||
+                    LogxulyText == null
+
+
+                    ? Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.only(top: 10, left: 20),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.lightBlue[50]!, width: 2),
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: TextButton.icon(
+                            icon: Icon(Icons.delete_forever_outlined),
+                            label: Text(
+                              "Từ chối",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            onPressed: () async {
+                              var tendangnhap = sharedStorage!.getString("username");
+                              EasyLoading.show();
+                              // var thanhcong = await postChuyenVBDi(widget.id,
+                              //   "TUCHOI",widget.Yearvb,yKienTuChoi);
+                              Navigator.of(context).pop();
+                              EasyLoading.dismiss();
+                              // showAlertDialog(context, json.decode
+                              //(thanhcong)['Message']);
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.orangeAccent),
+                              foregroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.white),
+                            )),
+                      ),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 10, left: 10),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                              color: Colors.lightBlue[50]!, width: 2),
+                          borderRadius: BorderRadius.circular(10),
+                        ),
+                        width: MediaQuery.of(context).size.width * 0.3,
+                        height: MediaQuery.of(context).size.height * 0.06,
+                        child: TextButton.icon(
+                            icon: Icon(Icons.send_and_archive),
+                            label: Text(
+                              "Đồng ý",
+                              style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
+                              ),
+                              textAlign: TextAlign.center,
+                            ),
+                            onPressed: () async {
+                              EasyLoading.show();
+                              Navigator.of(context).pop();
+                              EasyLoading.dismiss();
+                            },
+                            style: ButtonStyle(
+                              backgroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.lightBlue[50]!),
+                              foregroundColor:
+                              MaterialStateProperty.all<Color>(
+                                  Colors.blue),
+                            )),
+                      ),
+                    ),
+                  ],
+                )
+                    : SizedBox()): SizedBox(),
+
+
+
+
 
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -765,7 +747,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.SoKyHieu,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -790,7 +772,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.NgayBanHanh,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -814,7 +796,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.LoaiVanBan,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -838,7 +820,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     ttduthao.CoQuanBanHanh,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -862,7 +844,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.HanXL,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -886,7 +868,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.NguoiKy,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -910,7 +892,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.NgayDen,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -934,7 +916,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.NgayVaoSo,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -958,7 +940,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.VBNhanLT,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -982,7 +964,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.ThoiGianNhan,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1006,7 +988,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.TrichYeu,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1030,7 +1012,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.MaDinhDanhDonVi,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1054,7 +1036,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.MaDinhDanhVB,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1078,7 +1060,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.DoMat,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1102,7 +1084,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.DoKhan,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1111,7 +1093,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
             Divider(),
             (vbDen.vbdNguoiDungPT >0 || vbDen.vbdPhongBanPT >0)&& groupID ==
                 198
-           ? Column(
+                ? Column(
               children: [
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -1239,7 +1221,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.CBXemDeBiet,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1263,7 +1245,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Text(
                     vbDen.NhanVB,
                     style:
-                        TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
+                    TextStyle(fontWeight: FontWeight.normal, fontSize: 14),
                     textAlign: TextAlign.justify,
                   ),
                 )
@@ -1304,17 +1286,17 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
         listButPhe == null || listButPhe.length == 0
             ? Container()
             : Container(
-                //padding: EdgeInsets.only(left: 18.0),
-                margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                alignment: Alignment.center,
-                child: Text(
-                  'Danh sách bút phê',
-                  style: TextStyle(
-                      color: Colors.blue,
-                      fontSize: 12,
-                      fontStyle: FontStyle.italic),
-                ),
-              ),
+          //padding: EdgeInsets.only(left: 18.0),
+          margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+          alignment: Alignment.center,
+          child: Text(
+            'Danh sách bút phê',
+            style: TextStyle(
+                color: Colors.blue,
+                fontSize: 12,
+                fontStyle: FontStyle.italic),
+          ),
+        ),
         Container(
           child: Column(
             children: listButPhe,
@@ -1324,17 +1306,17 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
         listYkien == null || listYkien.length == 0
             ? Container()
             : Container(
-                // padding: EdgeInsets.only(left: 18.0),
-                alignment: Alignment.center,
-                margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
-                child: Text(
-                  'Danh sách xin ý kiến',
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontStyle: FontStyle.italic,
-                      color: Colors.blue),
-                ),
-              ),
+          // padding: EdgeInsets.only(left: 18.0),
+          alignment: Alignment.center,
+          margin: EdgeInsets.only(top: 10.0, bottom: 10.0),
+          child: Text(
+            'Danh sách xin ý kiến',
+            style: TextStyle(
+                fontSize: 12,
+                fontStyle: FontStyle.italic,
+                color: Colors.blue),
+          ),
+        ),
         Container(
           child: Column(
             children: listYkien,
