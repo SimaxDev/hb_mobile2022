@@ -94,7 +94,6 @@ class PageState extends State<trangChu> {
       ThongbaoD = 0;
       ThongbaoDi= 0;
       ThongbaoDT= 0;
-
   }
    GetInfoUser() async {
      sharedStorage = await SharedPreferences.getInstance();
