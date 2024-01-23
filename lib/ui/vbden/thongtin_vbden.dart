@@ -1,22 +1,25 @@
 import 'dart:async';
 import 'dart:math';
-import 'package:intl/intl.dart';
+import 'package:date_time_picker/date_time_picker.dart';
+import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 import 'dart:convert';
 import 'package:hb_mobile2021/core/models/VanBanDenJson.dart';
+import 'package:hb_mobile2021/core/models/VanBanDiJson.dart';
 import 'package:hb_mobile2021/core/services/DataControllerGetxx.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'package:hb_mobile2021/core/services/VbdenService.dart';
-import 'package:flutter_emoji/flutter_emoji.dart';
+import 'package:hb_mobile2021/ui/main/shared.dart';
+
 class ThongTinVBDen extends StatefulWidget {
   int id;
   int Yearvb;
   final ttvbDen;
 
-  ThongTinVBDen({required this.id, required this.Yearvb, this.ttvbDen});
+  ThongTinVBDen({this.id, this.Yearvb, this.ttvbDen});
 
   @override
   _ThongTinVBDen createState() => _ThongTinVBDen();
@@ -24,18 +27,18 @@ class ThongTinVBDen extends StatefulWidget {
 
 class _ThongTinVBDen extends State<ThongTinVBDen> {
   bool isLoading = false;
-  late List<dynamic> yKienitems;
-  late List<dynamic> butPheitems;
+  List<dynamic> yKienitems;
+  List<dynamic> butPheitems;
   var ttduthao = null;
 
-  List<Widget> listYkien = <Widget>[];
-  List<Widget> listButPhe = <Widget>[];
+  List<Widget> listYkien = new List<Widget>();
+  List<Widget> listButPhe = new List<Widget>();
 
   // String ActionXL = "GetVBDByIDMobile";
   String ActionXLYKien = "GetYKien";
   String ActionXLButPhe = "GetButPhe";
   String yKienThuHoi = "";
-  var parser = EmojiParser();
+
   final DataController input = Get.put(DataController());
 
 
@@ -52,11 +55,26 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
     //_initializeTimer();
     super.initState();
     ttduthao = widget.ttvbDen;
-    var tendangnhap = sharedStorage!.getString("username");
+    var tendangnhap = sharedStorage.getString("username");
     // GetDataDetailVBDen(widget.id);
     GetallYKien();
     GetallButPhe();
   }
+
+//lấy danh sách chi tiết văn bản đến
+//   GetDataDetailVBDen(int id) async {
+//     String detailVBDen =  await getDataDetailVBDen(id,ActionXL
+//         ,widget.MaDonVi,widget.Yearvb);
+//     if (mounted) { setState(() {
+//       var data =  json.decode(detailVBDen)['OData'];
+//       // ttduthao =  VanBanDenJson.fromJson(data);
+//       ttduthao = VanBanDenJson.fromJson(data);
+//       vanbanDen = ttduthao;
+//       print(ttduthao);
+//     }); }
+//
+//   }
+//lấy danh sách ý kiến văn bản đến
 
 
   GetallYKien()async{
@@ -112,9 +130,9 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                       width: MediaQuery.of(context).size.width * 0.65,
                       padding: EdgeInsets.only(left: 10.0),
                       child: Text(
-                        parser.emojify(it['ykienNoiDung'].toString()),
+                        it['ykienNoiDung'].toString(),
                         maxLines: 3,
-                        style: TextStyle(fontSize: 14, color: Colors.black,),
+                        style: TextStyle(fontSize: 14, color: Colors.black),
                         overflow: TextOverflow.ellipsis,
                       ),
                     )
@@ -560,7 +578,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                          color: Colors.lightBlue[50]!, width: 2),
+                          color: Colors.lightBlue[50], width: 2),
                       borderRadius: BorderRadius.circular(15),
                     ),
                     width: MediaQuery.of(context).size.width * 0.3,
@@ -593,7 +611,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                   child: Container(
                     decoration: BoxDecoration(
                       border: Border.all(
-                          color: Colors.lightBlue[50]!, width: 2),
+                          color: Colors.lightBlue[50], width: 2),
                       borderRadius: BorderRadius.circular(10),
                     ),
                     width: MediaQuery.of(context).size.width * 0.3,
@@ -616,7 +634,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                         style: ButtonStyle(
                           backgroundColor:
                           MaterialStateProperty.all<Color>(
-                              Colors.lightBlue[50]!),
+                              Colors.lightBlue[50]),
                           foregroundColor:
                           MaterialStateProperty.all<Color>(
                               Colors.blue),
@@ -652,7 +670,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Colors.lightBlue[50]!, width: 2),
+                              color: Colors.lightBlue[50], width: 2),
                           borderRadius: BorderRadius.circular(15),
                         ),
                         width: MediaQuery.of(context).size.width * 0.3,
@@ -668,7 +686,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                               textAlign: TextAlign.center,
                             ),
                             onPressed: () async {
-                              var tendangnhap = sharedStorage!.getString("username");
+                              var tendangnhap = sharedStorage.getString("username");
                               EasyLoading.show();
                               // var thanhcong = await postChuyenVBDi(widget.id,
                               //   "TUCHOI",widget.Yearvb,yKienTuChoi);
@@ -692,7 +710,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                       child: Container(
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Colors.lightBlue[50]!, width: 2),
+                              color: Colors.lightBlue[50], width: 2),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         width: MediaQuery.of(context).size.width * 0.3,
@@ -715,7 +733,7 @@ class _ThongTinVBDen extends State<ThongTinVBDen> {
                             style: ButtonStyle(
                               backgroundColor:
                               MaterialStateProperty.all<Color>(
-                                  Colors.lightBlue[50]!),
+                                  Colors.lightBlue[50]),
                               foregroundColor:
                               MaterialStateProperty.all<Color>(
                                   Colors.blue),

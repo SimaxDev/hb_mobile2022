@@ -102,9 +102,8 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
                       padding: EdgeInsets.only(left: 10.0),
                       child: Text(
                         it['Title'].toString(),
-                        maxLines: 3,
                         style: TextStyle(fontSize: 14, color: Colors.black),
-                        overflow: TextOverflow.ellipsis,
+                        overflow: TextOverflow.clip,
                       ),
                     )
                   ],

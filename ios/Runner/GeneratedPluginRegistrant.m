@@ -30,6 +30,12 @@
 @import flutter_downloader;
 #endif
 
+#if __has_include(<flutter_full_pdf_viewer/FlutterFullPdfViewerPlugin.h>)
+#import <flutter_full_pdf_viewer/FlutterFullPdfViewerPlugin.h>
+#else
+@import flutter_full_pdf_viewer;
+#endif
+
 #if __has_include(<flutter_keyboard_visibility/FlutterKeyboardVisibilityPlugin.h>)
 #import <flutter_keyboard_visibility/FlutterKeyboardVisibilityPlugin.h>
 #else
@@ -42,16 +48,16 @@
 @import flutter_local_notifications;
 #endif
 
-#if __has_include(<flutter_native_splash/FlutterNativeSplashPlugin.h>)
-#import <flutter_native_splash/FlutterNativeSplashPlugin.h>
-#else
-@import flutter_native_splash;
-#endif
-
 #if __has_include(<flutter_pdfview/FLTPDFViewFlutterPlugin.h>)
 #import <flutter_pdfview/FLTPDFViewFlutterPlugin.h>
 #else
 @import flutter_pdfview;
+#endif
+
+#if __has_include(<image_gallery_saver/ImageGallerySaverPlugin.h>)
+#import <image_gallery_saver/ImageGallerySaverPlugin.h>
+#else
+@import image_gallery_saver;
 #endif
 
 #if __has_include(<image_picker_ios/FLTImagePickerPlugin.h>)
@@ -60,10 +66,16 @@
 @import image_picker_ios;
 #endif
 
-#if __has_include(<local_auth_ios/FLTLocalAuthPlugin.h>)
-#import <local_auth_ios/FLTLocalAuthPlugin.h>
+#if __has_include(<multi_select_item/MultiSelectItemPlugin.h>)
+#import <multi_select_item/MultiSelectItemPlugin.h>
 #else
-@import local_auth_ios;
+@import multi_select_item;
+#endif
+
+#if __has_include(<open_file/OpenFilePlugin.h>)
+#import <open_file/OpenFilePlugin.h>
+#else
+@import open_file;
 #endif
 
 #if __has_include(<package_info_plus/FLTPackageInfoPlusPlugin.h>)
@@ -72,22 +84,34 @@
 @import package_info_plus;
 #endif
 
-#if __has_include(<path_provider_foundation/PathProviderPlugin.h>)
-#import <path_provider_foundation/PathProviderPlugin.h>
+#if __has_include(<path_provider_ios/FLTPathProviderPlugin.h>)
+#import <path_provider_ios/FLTPathProviderPlugin.h>
 #else
-@import path_provider_foundation;
+@import path_provider_ios;
 #endif
 
-#if __has_include(<permission_handler_apple/PermissionHandlerPlugin.h>)
-#import <permission_handler_apple/PermissionHandlerPlugin.h>
+#if __has_include(<permission_handler/PermissionHandlerPlugin.h>)
+#import <permission_handler/PermissionHandlerPlugin.h>
 #else
-@import permission_handler_apple;
+@import permission_handler;
 #endif
 
-#if __has_include(<shared_preferences_foundation/SharedPreferencesPlugin.h>)
-#import <shared_preferences_foundation/SharedPreferencesPlugin.h>
+#if __has_include(<responsive_table/ResponsiveTablePlugin.h>)
+#import <responsive_table/ResponsiveTablePlugin.h>
 #else
-@import shared_preferences_foundation;
+@import responsive_table;
+#endif
+
+#if __has_include(<save_in_gallery/SaveInGalleryPlugin.h>)
+#import <save_in_gallery/SaveInGalleryPlugin.h>
+#else
+@import save_in_gallery;
+#endif
+
+#if __has_include(<shared_preferences_ios/FLTSharedPreferencesPlugin.h>)
+#import <shared_preferences_ios/FLTSharedPreferencesPlugin.h>
+#else
+@import shared_preferences_ios;
 #endif
 
 #if __has_include(<sqflite/SqflitePlugin.h>)
@@ -109,16 +133,20 @@
   [FLTFirebaseCorePlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseCorePlugin"]];
   [FLTFirebaseMessagingPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTFirebaseMessagingPlugin"]];
   [FlutterDownloaderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterDownloaderPlugin"]];
+  [FlutterFullPdfViewerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterFullPdfViewerPlugin"]];
   [FlutterKeyboardVisibilityPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterKeyboardVisibilityPlugin"]];
   [FlutterLocalNotificationsPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterLocalNotificationsPlugin"]];
-  [FlutterNativeSplashPlugin registerWithRegistrar:[registry registrarForPlugin:@"FlutterNativeSplashPlugin"]];
   [FLTPDFViewFlutterPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPDFViewFlutterPlugin"]];
+  [ImageGallerySaverPlugin registerWithRegistrar:[registry registrarForPlugin:@"ImageGallerySaverPlugin"]];
   [FLTImagePickerPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTImagePickerPlugin"]];
-  [FLTLocalAuthPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTLocalAuthPlugin"]];
+  [MultiSelectItemPlugin registerWithRegistrar:[registry registrarForPlugin:@"MultiSelectItemPlugin"]];
+  [OpenFilePlugin registerWithRegistrar:[registry registrarForPlugin:@"OpenFilePlugin"]];
   [FLTPackageInfoPlusPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPackageInfoPlusPlugin"]];
-  [PathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"PathProviderPlugin"]];
+  [FLTPathProviderPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTPathProviderPlugin"]];
   [PermissionHandlerPlugin registerWithRegistrar:[registry registrarForPlugin:@"PermissionHandlerPlugin"]];
-  [SharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"SharedPreferencesPlugin"]];
+  [ResponsiveTablePlugin registerWithRegistrar:[registry registrarForPlugin:@"ResponsiveTablePlugin"]];
+  [SaveInGalleryPlugin registerWithRegistrar:[registry registrarForPlugin:@"SaveInGalleryPlugin"]];
+  [FLTSharedPreferencesPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTSharedPreferencesPlugin"]];
   [SqflitePlugin registerWithRegistrar:[registry registrarForPlugin:@"SqflitePlugin"]];
   [FLTURLLauncherPlugin registerWithRegistrar:[registry registrarForPlugin:@"FLTURLLauncherPlugin"]];
 }

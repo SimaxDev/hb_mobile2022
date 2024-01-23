@@ -9,7 +9,7 @@ import 'package:intl/intl.dart';
 import 'package:flutter/cupertino.dart';
 
 class MenuChinh extends StatefulWidget {
-  
+
 final String year;
 MenuChinh({required this.year});
   @override
