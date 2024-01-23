@@ -28,7 +28,7 @@ class SplashState extends State<SplashWidget> {
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 4), () {
+    Timer(Duration(seconds: 2), () {
       Navigator.of(context)
           .pushReplacement(MaterialPageRoute(builder: (_) =>  LoginWidget() ,));
     });
