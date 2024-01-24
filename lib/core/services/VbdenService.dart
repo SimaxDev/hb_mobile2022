@@ -124,9 +124,15 @@ Future<String> getDataHomeVBDen(int skip, int pageSize, String ActionXL,String q
   }
 }
 Future<String> getDataCVBD(String username,String ActionXL) async {
+  dynamic nam =2024;
+  if(nam == null){
+    DateTime now = DateTime.now();
+    nam =  DateFormat('yyyy').format(now) ;
+  };
   var parts = [];
   parts.add('TenDangNhap=' + username.toString());
   parts.add('ActionXL=' + ActionXL);
+  parts.add('SYear=' + nam.toString());
   var formData = parts.join('&');
   String url = "/api/ServicesVBD/GetData";
   var response = await responseDataPost(url, formData);

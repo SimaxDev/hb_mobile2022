@@ -59,6 +59,7 @@ bool isLoading = false;
     super.dispose();
     currentUserID;
     EasyLoading.dismiss();
+    idLoaiVBN = "";
 
   }
 
@@ -871,6 +872,7 @@ bool isLoading = false;
                                               var thanhcong =   await posChuyenLienThong(tendangnhap, widget.id, 'ChuyenLienThong',
                                                   idLoaiVBN,widget.nam);
                                               _titleController.text = "";
+                                              idLoaiVBN = "";
                                               EasyLoading.dismiss();
                                               Navigator.of(context).pop();
                                               showAlertDialog(context, json.decode(thanhcong)['Message']);
@@ -901,7 +903,9 @@ bool isLoading = false;
                                             label: Text("Đóng",style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16,),textAlign:
                                             TextAlign.center,),
                                             onPressed: ()  {
+                                              EasyLoading.dismiss();
                                               Navigator.of(context).pop();
+                                              idLoaiVBN = "";
                                             },
                                             style: ButtonStyle(
                                               backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),

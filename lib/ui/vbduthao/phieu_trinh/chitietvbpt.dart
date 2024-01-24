@@ -74,7 +74,7 @@ class _ThongTinVBDT extends State<ThongTinPhieuTrinh> {
     duThao['totrinhNguoiTrinh_x003a_Title']['LookupValue']  : "" ;
     nguoiKy = duThao['totrinhNguoiDuyetCuoi'] != null && duThao['totrinhNguoiDuyetCuoi']['LookupValue'] != null ?
     duThao['totrinhNguoiDuyetCuoi']['LookupValue']  : "" ;
-    nguoiDuyet = duThao['totrinhCurrentNguoiDuyet'] != null ?
+    nguoiDuyet = duThao['totrinhCurrentNguoiDuyet'] != null && duThao['totrinhCurrentNguoiDuyet']['LookupValue']  != null?
     duThao['totrinhCurrentNguoiDuyet']['LookupValue']  : "" ;
     tomtatnd = duThao['totrinhNoiDung'] != null ? duThao['totrinhNoiDung']  : "";
    // List pdfPT1 = [];

@@ -10,12 +10,14 @@ import 'package:hb_mobile2021/common/DTPT/TreeTrinhTiepPT.dart';
 import 'package:hb_mobile2021/common/SearchDropdownListServer.dart';
 import 'package:hb_mobile2021/common/SmCombobox.dart';
 import 'package:hb_mobile2021/common/DTPT/TreeTinhTiepDT.dart';
+import 'package:hb_mobile2021/core/services/UserService.dart';
 import 'package:hb_mobile2021/ui/main/truong_trung_gian.dart';
 import 'package:hb_mobile2021/core/services/VBDuThaoService.dart';
 import 'package:hb_mobile2021/core/services/callApi.dart';
 import 'dart:developer' as Dev;
 import 'package:hb_mobile2021/ui/main/DigLogThongBao.dart';
 import 'package:path/path.dart';
+import 'package:path_provider/path_provider.dart';
 
 
 class BottomNav extends StatefulWidget {
@@ -39,7 +41,7 @@ class _BottomNav extends State<BottomNav> {
 
   bool isLoading = false;
   bool check = false;
-  var IDuser = "";
+
   //int vbdiTrangThaiVB = 0;
   String NguoiSoan = "";
   String NguoiKy = "";
@@ -53,8 +55,8 @@ class _BottomNav extends State<BottomNav> {
   List vanban = [];
   List lstFileAtt = [];
   List<ListData> lstDataSearch = <ListData>[];
-  late File selectedfile;
-  late File selectedfileDuyet;
+   File? selectedfile;
+   File? selectedfileDuyet;
   var duThao= null;
   String mesDuThao = "";
   String tenDsYKien="";
@@ -80,6 +82,7 @@ class _BottomNav extends State<BottomNav> {
 
 
     if (mounted) {  setState(() {
+print("currentUserID"+ currentUserID.toString());
       duThao = widget.ttDuThao;
       NguoiSoan = vbdiNguoiSoan;
       NguoiTrinhTiep = vbdiNguoiTrinhTiep;
@@ -102,7 +105,7 @@ class _BottomNav extends State<BottomNav> {
       selectedfile = File(result.files.single.path!);
     }
     if (mounted) {setState(() {
-      pdfString.value = basename(selectedfile.path);
+      pdfString.value = basename(selectedfile!.path);
 
     });}
 
@@ -121,7 +124,7 @@ class _BottomNav extends State<BottomNav> {
       selectedfileDuyet = File(result.files.single.path!);
     }
     if (mounted) { setState(() {
-      pdfStringDuyet.value = basename(selectedfileDuyet.path);
+      pdfStringDuyet.value = basename(selectedfileDuyet!.path);
 
     });}
 
@@ -672,7 +675,7 @@ class _BottomNav extends State<BottomNav> {
                             selectedfile = File(result.files.single.path!);
                           }
                           if (mounted) { setState(() {
-                            pdfString.value = basename(selectedfile.path);
+                            pdfString.value = basename(selectedfile!.path);
 
                             check = true;
                           });}
@@ -721,7 +724,7 @@ class _BottomNav extends State<BottomNav> {
                                 String base64PDF = "";
                                 if (selectedfile != null) {
                                   List<int> Bytes =
-                                      await selectedfile.readAsBytesSync();
+                                      await selectedfile!.readAsBytesSync();
 
                                   base64PDF = await base64Encode(Bytes);
                                 }
@@ -896,9 +899,9 @@ class _BottomNav extends State<BottomNav> {
                                     var thanhcong = await posDuyetVBDT(
                                         tendangnhap,
                                         widget.id,
-                                        'TPAPP',
+                                        'APP',
                                         _titleController.text,
-                                        IDuser);
+                                        currentUserID);
                                     EasyLoading.dismiss();
                                     Navigator.of(context).pop();
                                     _titleController.text = "";
@@ -1039,7 +1042,7 @@ class _BottomNav extends State<BottomNav> {
                                         widget.id,
                                         'TPAPP',
                                         _titleController.text,
-                                        IDuser);
+                                        currentUserID);
                                     EasyLoading.dismiss();
                                     Navigator.of(context).pop();
                                     _titleController.text = "";
@@ -1533,9 +1536,11 @@ class _BottomNav extends State<BottomNav> {
                               onPressed: () async {
                                 var ch;
                                 String base64PDFDDuyet = "";
+                                //Directory? downloadsDirectory = await getDownloadsDirectory();
+                               // selectedfileDuyet = File('${downloadsDirectory!.path}/your_file_name.txt');
                                 if (selectedfileDuyet != null) {
                                   List<int> Bytes =
-                                      await selectedfileDuyet.readAsBytesSync();
+                                      await selectedfileDuyet!.readAsBytesSync();
 
                                   base64PDFDDuyet = await base64Encode(Bytes);
                                 }

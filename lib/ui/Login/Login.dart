@@ -141,9 +141,11 @@ class LoginState extends State<LoginWidget> {
 if(item == null){
   {
     showAlertDialog(context, "Tài khoản hoặc mật khẩu không đúng");
-
+    setState(() {
+      isLoading = false;});
   }
 }
+
         tenPhongBan =
         item['CurrentTenPhongBan'] != null ? item['CurrentTenPhongBan'] : "";
         CurrentTenDonVi =
@@ -590,7 +592,8 @@ if(item == null){
         'Content-Type': 'application/x-www-form-urlencoded'
       };
       // var request = http.Request('POST', Uri.parse('https://apimobile.hoabinh.gov.vn/token'));
-     var request = http.Request('POST', Uri.parse('http://apimobile2021.ungdungtructuyen.vn/token')); //33
+     //var request = http.Request('POST', Uri.parse('http://apimobile2021.ungdungtructuyen.vn/token')); //33
+     var request = http.Request('POST', Uri.parse('http://appmobilehb2024.ungdungtructuyen.vn/token')); //27
 
       request.bodyFields = {
         'username': username,

@@ -247,9 +247,15 @@ Future<String>posYKienVBDT( username,id, ActionXL,String  noidungykien,
 
 Future<String>posDuyetVBDT( username,id, ActionXL,String  noidungykien,DaDuyet) async {
   var parts = [];
+  dynamic nam = "2024";
+  if (nam == null) {
+    DateTime now = DateTime.now();
+    nam = DateFormat('yyyy').format(now);
+  }
   parts.add('TenDangNhap=' + username.toString());
   parts.add('ItemID=' + id.toString());
   parts.add('ActionXL=' + ActionXL);
+  parts.add('SYear=' + nam.toString());
   parts.add('Title=' + noidungykien);
   parts.add('DaDuyet=' + DaDuyet.toString());
   var formData = parts.join('&');
