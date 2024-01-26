@@ -1040,7 +1040,7 @@ print("currentUserID"+ currentUserID.toString());
                                     var thanhcong = await posDuyetVBDT(
                                         tendangnhap,
                                         widget.id,
-                                        'TPAPP',
+                                        'APP',
                                         _titleController.text,
                                         currentUserID);
                                     EasyLoading.dismiss();

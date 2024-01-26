@@ -45,7 +45,6 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     super.initState();
     duThao =  widget.ttDuThao;
 
-    print("duthao  "+duThao.toString());
       GetallYKien();
   }
 
@@ -158,66 +157,26 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
     vanbanDT =  duThao;
     if(vbDT != null){
        trichYeu =  vbDT.trichYeu;
-       isTrinhTiep =  vbDT.isTrinhTiep;
-       isTrinhKy =  vbDT.isTrinhKy;
-       ldKyVB =  vbDT.ldKyVB;
-      vbdiCurrentUserReceived = vbDT.vbdiCurrentUserReceivedDT;
-     checkThuHoi1 =  vbDT.checkThuHoi1 ;
-    trinhDaCoNgDuyet =  vbDT.trinhDaCoNgDuyetDT;
-    trinhLan2 = vbDT == null ? false : vbDT.trinhLan2DT ?? false;
-    checkThuHoi = checkThuHoi1;
-    TrichYeuDT = trichYeu;
-     ngaytrinhky =  vbDT.ngaytrinhky;
-       OldID2010 =  vbDT.OldID2010;
-    ngayTrinhDT = ngaytrinhky;
-     nguoiSoanThao =  vbDT.nguoiSoanThao;
-    vbdiNguoiSoanID =  vbDT.vbdiNguoiSoanIDDT;
-       chukyso =  vbDT.chukysoDT;
 
-    vbdiNguoiSoan = nguoiSoanThao;
+       ldKyVB =  vbDT.ldKyVB;
+
+     checkThuHoi1 =  vbDT.checkThuHoi1 ;
+
+
+     ngaytrinhky =  vbDT.ngaytrinhky;
+
+     nguoiSoanThao =  vbDT.nguoiSoanThao;
+
    lanhDao2 =
        vbDT.lanhDao2;
-    vbdiNguoiTrinhTiep = lanhDao2;
-    vbdiDSNguoiTrinhTiep =
-        vbDT.vbdiDSNguoiTrinhTiepDT;
-       isDuyetVaPhatHanh =
-           vbDT.isDuyetVaPhatHanhDT;
-       isDuyet =
-           vbDT.isDuyetDT;
-       kyVaPhatHanh =
-           vbDT.kyVaPhatHanhDT;
-       isnguoiduyet =
-           vbDT.isnguoiduyetDT;
-       isDuyetTruongPhong =
-           vbDT.isDuyetTruongPhongDT;
+
     lanhDao4 =  vbDT.lanhDao4;
-    vbdiNguoiKyID =  vbDT.vbdiNguoiKyIDDT;
-    vbdiCurrentNguoiTrinhID = vbDT.vbdiCurrentNguoiTrinhIDDT;
-    vbdiNguoiKy = vbDT.vbdiNguoiKyIDDT;
     trangThaiLD  =  vbDT.trangThaiLD;
-       vbdiTrangThaiVB = vbDT.trangThaiLD;
-       isThuHoi = vbDT.isThuHoi;
      trangThai =  vbDT.trangThai;
     donviSoanthao =  vbDT.donviSoanthao;
      loaiVanban =  vbDT.loaiVanban;
-     loaivbDT =  loaiVanban;
    vbdiCurrentDSXuly_x003a_Title = vbDT.vbdiCurrentDSXuly_x003a_Title;
    vbdiCurrentDSXuly = vbDT.vbdiCurrentDSXuly_x003a_Title;
-
-       for (var item in vbdiDSNguoiTrinhTiep) {
-         if ((item['LookupId'] == currentUserID ) ) {
-           setState(() {
-             vbdiDSNguoiTrinhTiepKy = true;
-           });
-
-         } else {
-           // setState(() {
-           //   vbdUserChuaXuLy = false;
-           // });
-
-         }
-       }
-
    if(vbdiCurrentDSXuly_x003a_Title !=null &&vbdiCurrentDSXuly_x003a_Title
        !="" ){
      for( var item  in vbdiCurrentDSXuly_x003a_Title)
@@ -236,53 +195,6 @@ class _ThongTinVBDT extends State<ThongTinVBDT> {
        List pdf1 =[];
        List chuaPDFDK =[];
        pdf1 =  vbDT.pdfDT;
-       Listpdf = pdf1;
-       ListpdfDK = vbDT.pdfDK;
-
-       for (var i in vbDT.pdfDT) {
-         if (i['ExtenFile'].contains("pdf")&&i['Name'].contains("signed")) {
-
-           chuaPDF.add(i);
-           // pdf2 = i['Url'];
-           if(chuaPDF != null && chuaPDF !=[]&& chuaPDF.length >0){
-             dynamic max = chuaPDF.first;
-             // print(max);
-             chuaPDF.forEach((e) {
-               if (e['Name'].length > max['Name'].length) max = e;
-             });
-             pdf = max['Url'];
-             namepdf=max['Name'];
-             tenPDFTruyen=max['Name'];
-
-           }
-         }
-         else{
-
-         } pdf = i['Url'];
-         tenPDFTruyen=i['Name'];
-         // tenPDFTruyen=i['Name'];
-
-       }
-       for (var i in vbDT.pdfDK) {
-         if (i['ExtenFile'].contains("pdf") ) {
-
-           chuaPDFDK.add(i);
-           // pdf2 = i['Url'];
-           if(chuaPDFDK != null && chuaPDFDK !=[]&& chuaPDFDK.length >0){
-             dynamic max = chuaPDFDK.first;
-             // print(max);
-             chuaPDFDK.forEach((e) {
-               if (e['Name'].length > max['Name'].length) max = e;
-             });
-             pdfDK = (max['Url']);
-             namepdf = (max['Name']);
-           }
-         }
-         else{
-           pdfDK = (i['Url']);
-         }
-
-       }
 
     }
 

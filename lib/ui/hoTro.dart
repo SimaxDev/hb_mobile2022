@@ -97,6 +97,7 @@ class _hoTroState extends State<hoTro> {
   void dispose(){
 
     super.dispose();
+    EasyLoading.dismiss();
   }
 
 
@@ -238,8 +239,9 @@ class _hoTroState extends State<hoTro> {
                         FontWeight.bold, fontSize: 16,),textAlign:
                         TextAlign.center,),
                         onPressed: ()  {
-                        //  Get.to(themMoiHT(tendangnhap: widget.username,));
                           EasyLoading.show();
+                         Get.to(themMoiHT(tendangnhap: widget.username,));
+                          EasyLoading.dismiss();
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty

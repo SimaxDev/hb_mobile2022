@@ -124,6 +124,103 @@ class TabBarVBDuThao extends State<ThongTinDuThaoWidget> {
       ['FileTaiLieu'] != null ?json.decode(detailVBDT)['OData']['FileTaiLieu']:"";
         duThao = VanBanDuThaoJson.fromJson(duThaoDT);
         isLoading = true;
+      if(duThao != null){
+
+        isTrinhTiep =  duThao.isTrinhTiep;
+        isTrinhKy =  duThao.isTrinhKy;
+        vbdiCurrentUserReceived = duThao.vbdiCurrentUserReceivedDT;
+        trinhDaCoNgDuyet =  duThao.trinhDaCoNgDuyetDT;
+        trinhLan2 = duThao == null ? false : duThao.trinhLan2DT ?? false;
+        checkThuHoi = duThao.checkThuHoi1 ;
+        TrichYeuDT = duThao.trichYeu;
+        OldID2010 =  duThao.OldID2010;
+        ngayTrinhDT = duThao.ngaytrinhky;
+        vbdiNguoiSoanID =  duThao.vbdiNguoiSoanIDDT;
+        chukyso =  duThao.chukysoDT;
+        vbdiNguoiSoan = duThao.nguoiSoanThao;
+        vbdiNguoiTrinhTiep =  duThao.lanhDao2;
+        vbdiDSNguoiTrinhTiep =
+            duThao.vbdiDSNguoiTrinhTiepDT;
+        isDuyetVaPhatHanh =
+            duThao.isDuyetVaPhatHanhDT;
+        isDuyet =
+            duThao.isDuyetDT;
+        kyVaPhatHanh =
+            duThao.kyVaPhatHanhDT;
+        isnguoiduyet =
+            duThao.isnguoiduyetDT;
+        isDuyetTruongPhong =
+            duThao.isDuyetTruongPhongDT;
+
+        vbdiNguoiKyID =  duThao.vbdiNguoiKyIDDT;
+        vbdiCurrentNguoiTrinhID = duThao.vbdiCurrentNguoiTrinhIDDT;
+        vbdiNguoiKy = duThao.vbdiNguoiKyIDDT;
+        vbdiTrangThaiVB = duThao.trangThaiLD;
+        isThuHoi = duThao.isThuHoi;
+        loaivbDT =  duThao.loaiVanban;
+
+
+        for (var item in vbdiDSNguoiTrinhTiep) {
+          if ((item['LookupId'] == currentUserID ) ) {
+            setState(() {
+              vbdiDSNguoiTrinhTiepKy = true;
+            });
+
+          } else {
+          }
+        }
+        List pdf1 =[];
+        List chuaPDFDK =[];
+        pdf1 =  duThao.pdfDT;
+        Listpdf = pdf1;
+        ListpdfDK = duThao.pdfDK;
+
+        for (var i in duThao.pdfDT) {
+          if (i['ExtenFile'].contains("pdf")&&i['Name'].contains("signed")) {
+
+            chuaPDF.add(i);
+            // pdf2 = i['Url'];
+            if(chuaPDF != null && chuaPDF !=[]&& chuaPDF.length >0){
+              dynamic max = chuaPDF.first;
+              // print(max);
+              chuaPDF.forEach((e) {
+                if (e['Name'].length > max['Name'].length) max = e;
+              });
+              pdf = max['Url'];
+              namepdf=max['Name'];
+              tenPDFTruyen=max['Name'];
+
+            }
+          }
+          else{
+
+          } pdf = i['Url'];
+          tenPDFTruyen=i['Name'];
+          // tenPDFTruyen=i['Name'];
+
+        }
+        for (var i in duThao.pdfDK) {
+          if (i['ExtenFile'].contains("pdf") ) {
+
+            chuaPDFDK.add(i);
+            // pdf2 = i['Url'];
+            if(chuaPDFDK != null && chuaPDFDK !=[]&& chuaPDFDK.length >0){
+              dynamic max = chuaPDFDK.first;
+              // print(max);
+              chuaPDFDK.forEach((e) {
+                if (e['Name'].length > max['Name'].length) max = e;
+              });
+              pdfDK = (max['Url']);
+              namepdf = (max['Name']);
+            }
+          }
+          else{
+            pdfDK = (i['Url']);
+          }
+
+        }
+
+      }
       });
     }
 

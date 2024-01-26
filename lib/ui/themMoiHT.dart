@@ -33,7 +33,7 @@ class _themMoiHTState extends State<themMoiHT> {
   @override
   void dispose(){
     super.dispose();
-
+    EasyLoading.dismiss();
     NoiDung.text = "";
   }
 
@@ -222,7 +222,7 @@ class _themMoiHTState extends State<themMoiHT> {
                         label: Text('Đóng lại',style: TextStyle(fontWeight: FontWeight.bold)),
                         onPressed: () {
                           Navigator.of(context).pop();
-
+                          EasyLoading.dismiss();
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all<Color>(Colors.orangeAccent),
